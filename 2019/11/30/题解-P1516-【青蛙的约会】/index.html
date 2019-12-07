@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题 但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。  ·············································································· 其实这道题可以换一个思路来做。如果不用exgcd的话，模拟也是一个不错的选择 但两只青蛙的情况不好模拟，而且时间复杂">
+  <meta name="description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。··············································································其实这道题可以换一个思路来做。">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P1516 【青蛙的约会】">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P1516-%E3%80%90%E9%9D%92%E8%9B%99%E7%9A%84%E7%BA%A6%E4%BC%9A%E3%80%91&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题 但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。  ·············································································· 其实这道题可以换一个思路来做。如果不用exgcd的话，模拟也是一个不错的选择 但两只青蛙的情况不好模拟，而且时间复杂">
+<meta property="og:description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。··············································································其实这道题可以换一个思路来做。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https:&#x2F;&#x2F;c-ssl.duitang.com&#x2F;uploads&#x2F;item&#x2F;201607&#x2F;24&#x2F;20160724155346_QU3FC.jpeg">
 <meta property="og:updated_time" content="2019-11-30T13:57:42.586Z">
@@ -191,8 +191,8 @@
     <link itemprop="mainEntityOfPage" href="https://boringhacker.github.io/2019/11/30/%E9%A2%98%E8%A7%A3-P1516-%E3%80%90%E9%9D%92%E8%9B%99%E7%9A%84%E7%BA%A6%E4%BC%9A%E3%80%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="BoringHacker">
       <meta itemprop="description" content="">
     </span>
 
@@ -226,11 +226,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="首先声明，这道题我并没有AC"><a href="#首先声明，这道题我并没有AC" class="headerlink" title="首先声明，这道题我并没有AC"></a>首先声明，这道题我并没有AC</h2><p>这是一道<code>Ex_gcd</code>的模版题</p>
-<p>但我这个数学已经差的一定地步的人来说，不可能用<code>ex_gcd</code>来做。</p>
-<p><img src="https://c-ssl.duitang.com/uploads/item/201607/24/20160724155346_QU3FC.jpeg" alt=""></p>
-<p>··············································································</p>
-<h2 id="其实这道题可以换一个思路来做。"><a href="#其实这道题可以换一个思路来做。" class="headerlink" title="其实这道题可以换一个思路来做。"></a>其实这道题可以换一个思路来做。</h2><p>如果不用<code>exgcd</code>的话，模拟也是一个不错的选择</p>
+        <h2 id="首先声明，这道题我并没有AC"><a href="#首先声明，这道题我并没有AC" class="headerlink" title="首先声明，这道题我并没有AC"></a>首先声明，这道题我并没有AC</h2><p>这是一道<code>Ex_gcd</code>的模版题</p><p>但我这个数学已经差的一定地步的人来说，不可能用<code>ex_gcd</code>来做。</p><p><img src="https://c-ssl.duitang.com/uploads/item/201607/24/20160724155346_QU3FC.jpeg" alt></p><p>··············································································</p><h2 id="其实这道题可以换一个思路来做。"><a href="#其实这道题可以换一个思路来做。" class="headerlink" title="其实这道题可以换一个思路来做。"></a>其实这道题可以换一个思路来做。</h2><a id="more"></a>
+
+
+
+<p>如果不用<code>exgcd</code>的话，模拟也是一个不错的选择</p>
 <p>但两只青蛙的情况不好模拟，而且时间复杂度肯定会到达一个十分恐怖的地步</p>
 <p>那么我们就来思考一下如何将两只青蛙变为一只青蛙(同桌:<del>连体婴儿</del>)</p>
 <p>不难想到把青蛙的速度定为<code>x - y</code>，起点定为<code>m - n</code>，这样就可以愉快的模拟啦(其实蒟蒻的我还是想了半天)</p>
@@ -309,7 +309,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
+    <img class="site-author-image" itemprop="image" alt="BoringHacker"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">BoringHacker</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -331,6 +333,33 @@
     <a href="/atom.xml" rel="alternate">
       <i class="fa fa-rss"></i>RSS
     </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BoringHacker" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mailto:BoringHacker@outlook.com" title="E-Mail &amp;rarr; mailto:BoringHacker@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/BoringHacker" title="Google &amp;rarr; https:&#x2F;&#x2F;plus.google.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BoringHacker" title="Twitter &amp;rarr; https:&#x2F;&#x2F;twitter.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/BoringHacker" title="FB Page &amp;rarr; https:&#x2F;&#x2F;www.facebook.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>FB Page</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://youtube.com/BoringHacker" title="YouTube &amp;rarr; https:&#x2F;&#x2F;youtube.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/BoringHacker" title="Instagram &amp;rarr; https:&#x2F;&#x2F;instagram.com&#x2F;BoringHacker" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
   </div>
 
 
@@ -365,9 +394,9 @@
   &copy; 
   <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
