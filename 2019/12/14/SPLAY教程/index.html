@@ -65,7 +65,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;13&#x2F;Dr5IfBWVl7b6PTH.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;13&#x2F;6hBzE2UsC8oJXfu.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;14&#x2F;X5FNPW4wCqzgkQ9.png">
-<meta property="og:updated_time" content="2019-12-14T13:51:06.913Z">
+<meta property="og:updated_time" content="2019-12-14T13:52:26.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;13&#x2F;V2N6AQUynRGvzYI.png">
 
@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-14 21:50:50 / Modified: 21:51:06" itemprop="dateCreated datePublished" datetime="2019-12-14T21:50:50+08:00">2019-12-14</time>
+              <time title="Created: 2019-12-14 21:50:50 / Modified: 21:52:26" itemprop="dateCreated datePublished" datetime="2019-12-14T21:50:50+08:00">2019-12-14</time>
             </span>
 
           
@@ -248,13 +248,13 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x7fffffff</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BSTNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> l, r; <span class="comment">// 左右儿子的编号</span></span><br><span class="line">   <span class="keyword">int</span> val; <span class="comment">// 关键码</span></span><br><span class="line">&#125; T[SIZE];</span><br><span class="line"><span class="keyword">int</span> tot, root;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clone</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; <span class="comment">// 新建节点</span></span><br><span class="line">	T[++tot].val = val;</span><br><span class="line">   <span class="keyword">return</span> tot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	clone(-INF), clone(INF);</span><br><span class="line">   root = <span class="number">1</span>, T[<span class="number">1</span>].r = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上是建树的代码</p>
 <p>那么，BST就讲到这里</p>
-<h2 id="平衡树的诞生"><a href="#平衡树的诞生" class="headerlink" title="平衡树的诞生"></a>平衡树的诞生</h2><p>当BST形成一条链的时候，每次查询会变成$O(n^2)$</p>
-<p>这种深度过深的BST是不平衡的。所以我们需要一种能保持树的深度在$\log(n)$的数据结构，于是便诞生了平衡树</p>
-<h2 id="SPLAY"><a href="#SPLAY" class="headerlink" title="SPLAY"></a>SPLAY</h2><p>splay，又称<del>cosplay</del>伸展树，有“序列之王”的美称，<del>常数巨大</del>，跑的没有$fhq-treap$快，但这不在我们的讨论范围以内</p>
+<h2 id="平衡树的诞生"><a href="#平衡树的诞生" class="headerlink" title="平衡树的诞生"></a>平衡树的诞生</h2><p>当BST形成一条链的时候，每次查询会变成O(n^2)</p>
+<p>这种深度过深的BST是不平衡的。所以我们需要一种能保持树的深度在\log(n)的数据结构，于是便诞生了平衡树</p>
+<h2 id="SPLAY"><a href="#SPLAY" class="headerlink" title="SPLAY"></a>SPLAY</h2><p>splay，又称<del>cosplay</del>伸展树，有“序列之王”的美称，<del>常数巨大</del>，跑的没有fhq-treap快，但这不在我们的讨论范围以内</p>
 <p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
 <p>想象一下这样一颗BST，我们先把它们的大小关系列出来。</p>
-<script type="math/tex; mode=display">
-Y<Z, C>Y, X<Y,A<X,B>X</script><p>对于这样一颗BST，我们可以通过一些特殊的方式来改变它的形态保持中序序列不变，这也是平衡树的精髓。</p>
+<p>Y<z, c>Y, X<y,a<x,b>X</y,a<x,b></z,></p>
+<p>对于这样一颗BST，我们可以通过一些特殊的方式来改变它的形态保持中序序列不变，这也是平衡树的精髓。</p>
 <p>怎么改变呢？</p>
 <h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>旋转<del>不转不是中国人</del>，这是splay的精髓所在。</p>
 <p>现在我们的目标是让X节点往上爬到它父亲节点Y处，让Y变成X的幺儿，也就是让Y节点下降。</p>
@@ -270,17 +270,17 @@ Y<Z, C>Y, X<Y,A<X,B>X</script><p>对于这样一颗BST，我们可以通过一�
 <p>别高兴得太早！</p>
 <p>这只是一种情况，我们需要的是<code>通用</code></p>
 <p>这里有一个小技巧，即：</p>
-<script type="math/tex; mode=display">
-odd\bigoplus1=odd-1</script><script type="math/tex; mode=display">
-even\bigoplus1=even+1</script><p>这个性质的证明很简单：</p>
+<p>odd\bigoplus1=odd-1</p>
+<p>even\bigoplus1=even+1</p>
+<p>这个性质的证明很简单：</p>
 <p><code>即得易见平凡，仿照上例显然。</code></p>
 <p><code>留作习题答案略，读者自证不难。</code></p>
 <p><code>反之亦然同理，推论自然成立，略去过程QED，由上可知证毕。</code></p>
-<p>$Just$ $a$ $joke$</p>
+<p>Just a joke</p>
 <p>设节点Y为X的父亲，Y的w(0代表左儿子，1代表右儿子)儿子</p>
 <ul>
-<li>$step1$:将Y节点放到X节点的w$\bigoplus$1的位置</li>
-<li>$step2$:如果X的w$\bigoplus$1位置上有一颗子树，放在Y的w位置上</li>
+<li>step1:将Y节点放到X节点的w\bigoplus1的位置</li>
+<li>step2:如果X的w\bigoplus1位置上有一颗子树，放在Y的w位置上</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">// 更新节点信息</span></span><br><span class="line">	T[x].siz = T[T[x].ch[<span class="number">0</span>]].siz + T[T[x].ch[<span class="number">1</span>]].siz + T[x].cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">// 旋转</span></span><br><span class="line">	<span class="keyword">int</span> y = T[x].fa; <span class="comment">// X它爹</span></span><br><span class="line">	<span class="keyword">int</span> z = T[y].fa; <span class="comment">// X它爹它爹</span></span><br><span class="line">	<span class="keyword">int</span> w = T[y].ch[<span class="number">1</span>] == x; <span class="comment">// X是它爹的左幺儿还是右幺儿</span></span><br><span class="line">	T[z].ch[T[z].ch[<span class="number">1</span>] == y] = x;</span><br><span class="line">	T[x].fa = z;</span><br><span class="line">	T[y].ch[w] = T[x].ch[w ^ <span class="number">1</span>];</span><br><span class="line">	T[T[x].ch[w ^ <span class="number">1</span>]].fa = y;</span><br><span class="line">	T[x].ch[w ^ <span class="number">1</span>] = y;</span><br><span class="line">	T[y].fa = x;</span><br><span class="line">	update(y), update(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>仅仅有rotate操作还不够，splay到目前为止依然很容易被卡。</p>
@@ -290,8 +290,8 @@ even\bigoplus1=even+1</script><p>这个性质的证明很简单：</p>
 <p>怎么办呢？<del>可怜的splay被人溜了</del></p>
 <p>办法还是有滴</p>
 <ul>
-<li>$step1$:如果三点共线，我们可以先旋转X它爹，这样便可以使其更加“平衡”</li>
-<li>$step2$:如果不共线……不共线……那就旋转X就好了</li>
+<li>step1:如果三点共线，我们可以先旋转X它爹，这样便可以使其更加“平衡”</li>
+<li>step2:如果不共线……不共线……那就旋转X就好了</li>
 </ul>
 <p>这便是splay操作</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">splay</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> goal)</span> </span>&#123; <span class="comment">//splay</span></span><br><span class="line">	<span class="keyword">for</span> (; T[x].fa ^ goal; rotate(x)) &#123; <span class="comment">// 一直旋转到x成为goal的儿子</span></span><br><span class="line">		<span class="keyword">int</span> y = T[x].fa;</span><br><span class="line">		<span class="keyword">int</span> z = T[y].fa;</span><br><span class="line">		<span class="keyword">if</span> (z ^ goal)</span><br><span class="line">			T[y].ch[<span class="number">1</span>] ^ x ^ T[z].ch[<span class="number">1</span>] ^ y ? rotate(x) : rotate(y); <span class="comment">//判断三点是否共线，如果是，就旋转Y，否则旋转X</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!goal) root = x; <span class="comment">// 把根节点设为X</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
