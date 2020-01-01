@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="这是一道水题。那为什么我还要来发这一篇题解呢？故事要说到我刚学OI的时候。那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧">
+  <meta name="description" content="这是一道水题。那为什么我还要来发这一篇题解呢？故事要说到我刚学OI的时候。那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧code:123456789101112131415161718192021222324252627282930313233#include &amp;lt;cstdio&amp;gt;#include &amp;lt;i">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P1540 【机器翻译】">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P1540-%E3%80%90%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91%E3%80%91&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="这是一道水题。那为什么我还要来发这一篇题解呢？故事要说到我刚学OI的时候。那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧">
+<meta property="og:description" content="这是一道水题。那为什么我还要来发这一篇题解呢？故事要说到我刚学OI的时候。那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧code:123456789101112131415161718192021222324252627282930313233#include &amp;lt;cstdio&amp;gt;#include &amp;lt;i">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-30T13:58:30.675Z">
+<meta property="og:updated_time" content="2020-01-01T05:54:55.182Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://boringhacker.github.io/2019/11/30/%E9%A2%98%E8%A7%A3-P1540-%E3%80%90%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91%E3%80%91/">
@@ -238,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-30 21:58:12 / Modified: 21:58:30" itemprop="dateCreated datePublished" datetime="2019-11-30T21:58:12+08:00">2019-11-30</time>
+              <time title="Created: 2019-11-30 21:58:12" itemprop="dateCreated datePublished" datetime="2019-11-30T21:58:12+08:00">2019-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-01 13:54:55" itemprop="dateModified" datetime="2020-01-01T13:54:55+08:00">2020-01-01</time>
+              </span>
 
           
 
@@ -254,12 +260,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这是一道水题。</p><p>那为什么我还要来发这一篇题解呢？</p><p>故事要说到我刚学OI的时候。</p><p>那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧</p><a id="more"></a>
-
-
-
-<p>code:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; dic;</span><br><span class="line"><span class="keyword">int</span> n, m, x, ans;</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">50000</span> + <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">		<span class="keyword">if</span> (!vis[x])</span><br><span class="line">		&#123;</span><br><span class="line">			ans++;</span><br><span class="line">			vis[x] = <span class="literal">true</span>;</span><br><span class="line">			dic.push(x);</span><br><span class="line">			<span class="keyword">if</span> (dic.size() &gt; n)</span><br><span class="line">			&#123;</span><br><span class="line">				vis[dic.front()] = <span class="literal">false</span>;</span><br><span class="line">				dic.pop();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+        <a id="more"></a><p>这是一道水题。</p><p>那为什么我还要来发这一篇题解呢？</p><p>故事要说到我刚学OI的时候。</p><p>那时的我，看到这道题，觉得自己一辈子也做不出来。但现在来看看，不过就是队列模拟而已。但这却能让我怀念许久。或许这就是OI的魔力吧</p><p>code:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; dic;</span><br><span class="line"><span class="keyword">int</span> n, m, x, ans;</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">50000</span> + <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">		<span class="keyword">if</span> (!vis[x])</span><br><span class="line">		&#123;</span><br><span class="line">			ans++;</span><br><span class="line">			vis[x] = <span class="literal">true</span>;</span><br><span class="line">			dic.push(x);</span><br><span class="line">			<span class="keyword">if</span> (dic.size() &gt; n)</span><br><span class="line">			&#123;</span><br><span class="line">				vis[dic.front()] = <span class="literal">false</span>;</span><br><span class="line">				dic.pop();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
     </div>
 
     
@@ -339,7 +340,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

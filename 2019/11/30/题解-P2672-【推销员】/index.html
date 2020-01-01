@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了">
+  <meta name="description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了1??????????????????_______????????????????????不bb了，上思路吧这道题主要用到了瞪眼大法以及贪心大法我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。然后通过观察样例，可以发现ze每次都会参与输出，即每次都会向ze这个">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P2672 【推销员】">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P2672-%E3%80%90%E6%8E%A8%E9%94%80%E5%91%98%E3%80%91&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了">
+<meta property="og:description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了1??????????????????_______????????????????????不bb了，上思路吧这道题主要用到了瞪眼大法以及贪心大法我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。然后通过观察样例，可以发现ze每次都会参与输出，即每次都会向ze这个">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-30T14:05:55.282Z">
+<meta property="og:updated_time" content="2020-01-01T05:55:12.054Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://boringhacker.github.io/2019/11/30/%E9%A2%98%E8%A7%A3-P2672-%E3%80%90%E6%8E%A8%E9%94%80%E5%91%98%E3%80%91/">
@@ -238,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-30 22:05:42 / Modified: 22:05:55" itemprop="dateCreated datePublished" datetime="2019-11-30T22:05:42+08:00">2019-11-30</time>
+              <time title="Created: 2019-11-30 22:05:42" itemprop="dateCreated datePublished" datetime="2019-11-30T22:05:42+08:00">2019-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-01 13:55:12" itemprop="dateModified" datetime="2020-01-01T13:55:12+08:00">2020-01-01</time>
+              </span>
 
           
 
@@ -254,15 +260,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="首先，这是一道贪心的绝世好题"><a href="#首先，这是一道贪心的绝世好题" class="headerlink" title="首先，这是一道贪心的绝世好题"></a>首先，这是一道贪心的绝世好题</h3><h2 id="其次，这道题要用到结构体这门高深的知识"><a href="#其次，这道题要用到结构体这门高深的知识" class="headerlink" title="其次，这道题要用到结构体这门高深的知识"></a>其次，这道题要用到结构体这门高深的知识</h2><h1 id="最后，这道题我样例2没有过但是我交了4个OJ都AC了"><a href="#最后，这道题我样例2没有过但是我交了4个OJ都AC了" class="headerlink" title="最后，这道题我样例2没有过但是我交了4个OJ都AC了"></a>最后，这道题我样例2没有过但是我交了4个OJ都AC了</h1><a id="more"></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">??????????????????_______????????????????????</span><br></pre></td></tr></table></figure>
-<hr>
-<p>不bb了，上思路吧</p>
-<p>这道题主要用到了瞪眼大法以及贪心大法</p>
-<p>我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。</p>
-<p>然后通过观察样例，可以发现ze每次都会参与输出，即每次都会向ze这个点进行推销，但不一定每次都把ze这个点当作终点。因为我们的排序规则是往返距离加上自身疲劳值按降序进行排序，所以ze不一定就是最远的那一户人家。</p>
-<p>通过以上的<del>瞪眼</del>观察，我们发现，既然每一次都会有ze这个点，那么我们就可以划分子问题了，符合了贪心的定义。</p>
-<p>其实这个思路也不是我独立思考出来的，而是我们机房大佬写了一篇题解。<br>但是这篇题解简直不要太精简，我是完全没有看懂。而代码我也没有去看</p>
-<h2 id="给大家观摩一下"><a href="#给大家观摩一下" class="headerlink" title="给大家观摩一下:"></a>给大家观摩一下:</h2><h2 id><a href="#" class="headerlink" title></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">一道贪心的题</span><br><span class="line"></span><br><span class="line">其实找到距离较远但疲劳值(往返+当前位置的疲劳值）最大的那个位置</span><br><span class="line"></span><br><span class="line">让它C位出道</span><br><span class="line"></span><br><span class="line">再排序排出疲劳值高的</span><br><span class="line"></span><br><span class="line">前缀和+当前最远距离*<span class="number">2</span></span><br></pre></td></tr></table></figure></h2><p>不知道大家看懂没有，反正我这个人一向看不懂别人的思路。不过这也给了我一点启发</p>
+        <a id="more"></a><h3 id="首先，这是一道贪心的绝世好题"><a href="#首先，这是一道贪心的绝世好题" class="headerlink" title="首先，这是一道贪心的绝世好题"></a>首先，这是一道贪心的绝世好题</h3><h2 id="其次，这道题要用到结构体这门高深的知识"><a href="#其次，这道题要用到结构体这门高深的知识" class="headerlink" title="其次，这道题要用到结构体这门高深的知识"></a>其次，这道题要用到结构体这门高深的知识</h2><h1 id="最后，这道题我样例2没有过但是我交了4个OJ都AC了"><a href="#最后，这道题我样例2没有过但是我交了4个OJ都AC了" class="headerlink" title="最后，这道题我样例2没有过但是我交了4个OJ都AC了"></a>最后，这道题我样例2没有过但是我交了4个OJ都AC了</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">??????????????????_______????????????????????</span><br></pre></td></tr></table></figure><hr><p>不bb了，上思路吧</p><p>这道题主要用到了瞪眼大法以及贪心大法</p><p>我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。</p><p>然后通过观察样例，可以发现ze每次都会参与输出，即每次都会向ze这个点进行推销，但不一定每次都把ze这个点当作终点。因为我们的排序规则是往返距离加上自身疲劳值按降序进行排序，所以ze不一定就是最远的那一户人家。</p><p>通过以上的<del>瞪眼</del>观察，我们发现，既然每一次都会有ze这个点，那么我们就可以划分子问题了，符合了贪心的定义。</p><p>其实这个思路也不是我独立思考出来的，而是我们机房大佬写了一篇题解。<br>但是这篇题解简直不要太精简，我是完全没有看懂。而代码我也没有去看</p><h2 id="给大家观摩一下"><a href="#给大家观摩一下" class="headerlink" title="给大家观摩一下:"></a>给大家观摩一下:</h2><h2 id><a href="#" class="headerlink" title></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">一道贪心的题</span><br><span class="line"></span><br><span class="line">其实找到距离较远但疲劳值(往返+当前位置的疲劳值）最大的那个位置</span><br><span class="line"></span><br><span class="line">让它C位出道</span><br><span class="line"></span><br><span class="line">再排序排出疲劳值高的</span><br><span class="line"></span><br><span class="line">前缀和+当前最远距离*<span class="number">2</span></span><br></pre></td></tr></table></figure></h2><p>不知道大家看懂没有，反正我这个人一向看不懂别人的思路。不过这也给了我一点启发</p><a id="more"></a>
+
+
+
+
+
+
+
+
+
 <p>Q:为什么不用DP？</p>
 <p>A:因为DP会超时，而且看这道题目只是15年普及组的T3，用不着</p>
 <p><del>你们最爱的完整代码</del><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Inf 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">100000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> Far, Cost;</span><br><span class="line">&#125; a[MAXN];</span><br><span class="line"><span class="keyword">int</span> n, maxValue, <span class="built_in">list</span>[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">Rule</span><span class="params">(<span class="keyword">const</span> Node &amp;a, <span class="keyword">const</span> Node &amp;b)</span></span></span><br><span class="line"><span class="function">	</span>&#123; <span class="keyword">return</span> ((a.Cost == b.Cost) &amp;&amp; (a.Far &gt; b.Far)) || (a.Cost &gt; b.Cost); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i].Far);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i].Cost);</span><br><span class="line">		<span class="keyword">if</span> ((a[i].Far &lt;&lt; <span class="number">1</span>) + a[i].Cost &gt; (a[maxValue].Far &lt;&lt; <span class="number">1</span>) + a[i].Cost)</span><br><span class="line">			maxValue = i;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	a[<span class="number">0</span>] = a[maxValue];</span><br><span class="line">	a[maxValue] = Node&#123;-Inf, -Inf&#125;;</span><br><span class="line">	stable_sort(a + <span class="number">1</span>, a + <span class="number">1</span> + n, Rule);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">		<span class="built_in">list</span>[i] = max(<span class="built_in">list</span>[i - <span class="number">1</span>], a[i].Far);</span><br><span class="line">	<span class="keyword">int</span> and_ = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">		and_ += a[i].Cost;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, and_ + (<span class="built_in">list</span>[i] &lt;&lt; <span class="number">1</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -347,7 +354,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

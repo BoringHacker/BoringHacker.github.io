@@ -51,16 +51,16 @@
   };
 </script>
 
-  <meta name="description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。">
+  <meta name="description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。··············································································其实这道题可以换一个思路来做。如果不用exgcd的话，模拟也是一个不错的选择但两只青蛙的情况不好模拟，而且时间复杂度肯定会到">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P1516 【青蛙的约会】">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P1516-%E3%80%90%E9%9D%92%E8%9B%99%E7%9A%84%E7%BA%A6%E4%BC%9A%E3%80%91&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。">
+<meta property="og:description" content="首先声明，这道题我并没有AC这是一道Ex_gcd的模版题但我这个数学已经差的一定地步的人来说，不可能用ex_gcd来做。··············································································其实这道题可以换一个思路来做。如果不用exgcd的话，模拟也是一个不错的选择但两只青蛙的情况不好模拟，而且时间复杂度肯定会到">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https:&#x2F;&#x2F;c-ssl.duitang.com&#x2F;uploads&#x2F;item&#x2F;201607&#x2F;24&#x2F;20160724155346_QU3FC.jpeg">
-<meta property="og:updated_time" content="2019-11-30T13:57:42.586Z">
+<meta property="og:updated_time" content="2020-01-01T05:54:49.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;c-ssl.duitang.com&#x2F;uploads&#x2F;item&#x2F;201607&#x2F;24&#x2F;20160724155346_QU3FC.jpeg">
 
@@ -240,10 +240,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-30 21:57:15 / Modified: 21:57:42" itemprop="dateCreated datePublished" datetime="2019-11-30T21:57:15+08:00">2019-11-30</time>
+              <time title="Created: 2019-11-30 21:57:15" itemprop="dateCreated datePublished" datetime="2019-11-30T21:57:15+08:00">2019-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-01 13:54:49" itemprop="dateModified" datetime="2020-01-01T13:54:49+08:00">2020-01-01</time>
+              </span>
 
           
 
@@ -256,19 +262,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="首先声明，这道题我并没有AC"><a href="#首先声明，这道题我并没有AC" class="headerlink" title="首先声明，这道题我并没有AC"></a>首先声明，这道题我并没有AC</h2><p>这是一道<code>Ex_gcd</code>的模版题</p><p>但我这个数学已经差的一定地步的人来说，不可能用<code>ex_gcd</code>来做。</p><a id="more"></a>
-
-<p><img src="https://c-ssl.duitang.com/uploads/item/201607/24/20160724155346_QU3FC.jpeg" alt></p>
-<p>··············································································</p>
-<h2 id="其实这道题可以换一个思路来做。"><a href="#其实这道题可以换一个思路来做。" class="headerlink" title="其实这道题可以换一个思路来做。"></a>其实这道题可以换一个思路来做。</h2><p>如果不用<code>exgcd</code>的话，模拟也是一个不错的选择</p>
-<p>但两只青蛙的情况不好模拟，而且时间复杂度肯定会到达一个十分恐怖的地步</p>
-<p>那么我们就来思考一下如何将两只青蛙变为一只青蛙(同桌:<del>连体婴儿</del>)</p>
-<p>不难想到把青蛙的速度定为<code>x - y</code>，起点定为<code>m - n</code>，这样就可以愉快的模拟啦(其实蒟蒻的我还是想了半天)</p>
-<p>但这样只有50分，<del>我也算不来时间复杂度</del></p>
-<p>如果同学能算出时间复杂度或者知道如何优化我的代码评论区请</p>
-<p>下面是50分代码:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">int</span> m, n, l;</span><br><span class="line"><span class="keyword">int</span> sp, st, mod_, div_;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d%d"</span>, &amp;x, &amp;y, &amp;m, &amp;n, &amp;l);</span><br><span class="line">	<span class="keyword">if</span> (!(m ^ n))	<span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Impossible"</span>) &amp; <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (m &gt; n) sp = m - n, st = (y - x + l) % l; </span><br><span class="line">	<span class="keyword">else</span> sp = n - m, st = (x - y + l) % l;</span><br><span class="line">	mod_ = st % sp;</span><br><span class="line">	div_ = st / sp;</span><br><span class="line">	<span class="keyword">int</span> cxk = <span class="number">0x9C74FC</span>;</span><br><span class="line">	<span class="keyword">for</span> (; ; cxk &amp;= <span class="number">0x76FC44</span>, cxk ^= ((<span class="number">0xFD962C</span> | <span class="number">0x19AC5F</span>) &amp; <span class="number">0x79C74A</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!(st % sp)) <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, div_) &amp; <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">register</span> <span class="keyword">int</span> meta = (st % sp) + l;</span><br><span class="line">		div_ += meta / sp;</span><br><span class="line">		st = meta % sp;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (!(st ^ mod_)) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Impossible"</span>) &amp; <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        <a id="more"></a><h2 id="首先声明，这道题我并没有AC"><a href="#首先声明，这道题我并没有AC" class="headerlink" title="首先声明，这道题我并没有AC"></a>首先声明，这道题我并没有AC</h2><p>这是一道<code>Ex_gcd</code>的模版题</p><p>但我这个数学已经差的一定地步的人来说，不可能用<code>ex_gcd</code>来做。</p><p><img src="https://c-ssl.duitang.com/uploads/item/201607/24/20160724155346_QU3FC.jpeg" alt></p><p>··············································································</p><h2 id="其实这道题可以换一个思路来做。"><a href="#其实这道题可以换一个思路来做。" class="headerlink" title="其实这道题可以换一个思路来做。"></a>其实这道题可以换一个思路来做。</h2><p>如果不用<code>exgcd</code>的话，模拟也是一个不错的选择</p><p>但两只青蛙的情况不好模拟，而且时间复杂度肯定会到达一个十分恐怖的地步</p><p>那么我们就来思考一下如何将两只青蛙变为一只青蛙(同桌:<del>连体婴儿</del>)</p><p>不难想到把青蛙的速度定为<code>x - y</code>，起点定为<code>m - n</code>，这样就可以愉快的模拟啦(其实蒟蒻的我还是想了半天)</p><p>但这样只有50分，<del>我也算不来时间复杂度</del></p><p>如果同学能算出时间复杂度或者知道如何优化我的代码评论区请</p><p>下面是50分代码:</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line"><span class="keyword">int</span> m, n, l;</span><br><span class="line"><span class="keyword">int</span> sp, st, mod_, div_;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d%d"</span>, &amp;x, &amp;y, &amp;m, &amp;n, &amp;l);</span><br><span class="line">	<span class="keyword">if</span> (!(m ^ n))	<span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Impossible"</span>) &amp; <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (m &gt; n) sp = m - n, st = (y - x + l) % l; </span><br><span class="line">	<span class="keyword">else</span> sp = n - m, st = (x - y + l) % l;</span><br><span class="line">	mod_ = st % sp;</span><br><span class="line">	div_ = st / sp;</span><br><span class="line">	<span class="keyword">int</span> cxk = <span class="number">0x9C74FC</span>;</span><br><span class="line">	<span class="keyword">for</span> (; ; cxk &amp;= <span class="number">0x76FC44</span>, cxk ^= ((<span class="number">0xFD962C</span> | <span class="number">0x19AC5F</span>) &amp; <span class="number">0x79C74A</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!(st % sp)) <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, div_) &amp; <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">register</span> <span class="keyword">int</span> meta = (st % sp) + l;</span><br><span class="line">		div_ += meta / sp;</span><br><span class="line">		st = meta % sp;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (!(st ^ mod_)) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"Impossible"</span>) &amp; <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -349,7 +343,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

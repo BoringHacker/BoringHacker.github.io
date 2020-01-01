@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树">
+  <meta name="description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但">
 <meta name="keywords" content="Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OldDriveTree(ChthollyTree)学习笔记">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;OldDriveTree-ChthollyTree-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树">
+<meta property="og:description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-30T14:10:22.778Z">
+<meta property="og:updated_time" content="2020-01-01T05:55:52.896Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://boringhacker.github.io/2019/11/30/OldDriveTree-ChthollyTree-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -238,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-30 22:10:05 / Modified: 22:10:22" itemprop="dateCreated datePublished" datetime="2019-11-30T22:10:05+08:00">2019-11-30</time>
+              <time title="Created: 2019-11-30 22:10:05" itemprop="dateCreated datePublished" datetime="2019-11-30T22:10:05+08:00">2019-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-01 13:55:52" itemprop="dateModified" datetime="2020-01-01T13:55:52+08:00">2020-01-01</time>
+              </span>
 
           
 
@@ -254,11 +260,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="众所周知，数据结构-算法-程序，可见数据结构的重要性"><a href="#众所周知，数据结构-算法-程序，可见数据结构的重要性" class="headerlink" title="众所周知，数据结构+算法=程序，可见数据结构的重要性"></a>众所周知，数据结构+算法=程序，可见数据结构的重要性</h2><p>数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树</p><a id="more"></a>
-<p><code>珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。</code></p>
-<p>她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但一般不会有哪个出题人去卡这样一个并不出名的数据结构。并且要有区间推平操作，否则光是一个split时间复杂度会炸。</p>
-<p>珂朵莉树的构造长成这个亚子:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Chtholly</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LL L;</span><br><span class="line">    LL R;		<span class="comment">//区间</span></span><br><span class="line">    <span class="keyword">mutable</span> LL _val; <span class="comment">//值，注意，关键字mutable是必需的，否则会在add函数里CE</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    node(LL l, LL r = <span class="number">-1</span>, LL V = <span class="number">0</span>) : L(l), R(r), _val(V) &#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> node &amp;rhs) <span class="keyword">const</span> &#123; <span class="keyword">return</span> L &lt; rhs.L; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <a id="more"></a><h2 id="众所周知，数据结构-算法-程序，可见数据结构的重要性"><a href="#众所周知，数据结构-算法-程序，可见数据结构的重要性" class="headerlink" title="众所周知，数据结构+算法=程序，可见数据结构的重要性"></a>众所周知，数据结构+算法=程序，可见数据结构的重要性</h2><p>数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树</p><p><code>珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。</code></p><p>她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但一般不会有哪个出题人去卡这样一个并不出名的数据结构。并且要有区间推平操作，否则光是一个split时间复杂度会炸。</p><p>珂朵莉树的构造长成这个亚子:</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Chtholly</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LL L;</span><br><span class="line">    LL R;		<span class="comment">//区间</span></span><br><span class="line">    <span class="keyword">mutable</span> LL _val; <span class="comment">//值，注意，关键字mutable是必需的，否则会在add函数里CE</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    node(LL l, LL r = <span class="number">-1</span>, LL V = <span class="number">0</span>) : L(l), R(r), _val(V) &#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> node &amp;rhs) <span class="keyword">const</span> &#123; <span class="keyword">return</span> L &lt; rhs.L; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+
 <p>Split操作:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> IT <span class="title">split</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    IT it = st.lower_bound(node(k));</span><br><span class="line">    <span class="keyword">if</span> (it != st.end() &amp;&amp; it-&gt;L == k)</span><br><span class="line">        <span class="keyword">return</span> it;</span><br><span class="line">    --it;</span><br><span class="line">    LL l = it-&gt;L, r = it-&gt;R;</span><br><span class="line">    LL v = it-&gt;_val;</span><br><span class="line">    st.erase(it);</span><br><span class="line">    st.insert(node(l, k - <span class="number">1</span>, v));</span><br><span class="line">    <span class="keyword">return</span> st.insert(node(k, r, v)).first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>为了操作方便我们这里有一个define:</p>
@@ -351,7 +358,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
