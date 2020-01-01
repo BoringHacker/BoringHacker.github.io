@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。T1统计1的数量，字符串模拟即可12345678910111213#include &amp;lt;bits&#x2F;stdc++.h&amp;gt;using namespace std;char buf[233];signed main() &amp;#123;    fgets(buf, 233,">
+  <meta name="description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSP-J 2019 题解">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;12&#x2F;28&#x2F;CSP-J-2019-%E9%A2%98%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。T1统计1的数量，字符串模拟即可12345678910111213#include &amp;lt;bits&#x2F;stdc++.h&amp;gt;using namespace std;char buf[233];signed main() &amp;#123;    fgets(buf, 233,">
+<meta property="og:description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-12-28T13:56:04.628Z">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-havefun">
 
-    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>Havefun</a>
+    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-calendar"></i>Havefun</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -254,10 +254,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。</p><p>睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。</p><h2 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h2><p>统计1的数量，字符串模拟即可</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">233</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fgets(buf, <span class="number">233</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">        res += (buf[i] == <span class="string">'1'</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+        <p>这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。</p><p>睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。</p><a id="more"></a>
 
-
-
+<h2 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h2><p>统计1的数量，字符串模拟即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">233</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fgets(buf, <span class="number">233</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">        res += (buf[i] == <span class="string">'1'</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h2><p>这道题是最亏的，STL是个好东西，但容易遗忘一些细节。比如erase后没有减掉下标。</p>
 <p>模拟即可，用一个数组或vector存储优惠票，每次坐地铁的时候扫描一下。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span> &lt; pair &lt; <span class="keyword">int</span> , <span class="keyword">int</span> &gt; &gt; vec;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> ID;</span><br><span class="line">    <span class="keyword">int</span> Pri;</span><br><span class="line">    <span class="keyword">int</span> Tim;</span><br><span class="line">&#125; a[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y, z;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;x, &amp;y, &amp;z);</span><br><span class="line">        a[i] = NODE&#123;x, y, z&#125;;</span><br><span class="line">        <span class="keyword">if</span> (!a[i].ID) &#123;</span><br><span class="line">            ans += a[i].Pri;</span><br><span class="line">            vec.push_back(make_pair(a[i].Pri, a[i].Tim));</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> Flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; vec.size(); ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">abs</span>(a[i].Tim - vec[j].second) &lt;= <span class="number">45</span> &amp;&amp; vec[j].first &gt;= a[i].Pri) &#123;</span><br><span class="line">                vec.erase(vec.begin() + j);</span><br><span class="line">                --j;</span><br><span class="line">                Flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">abs</span>(a[i].Tim - vec[j].second) &gt; <span class="number">45</span>)</span><br><span class="line">                vec.erase(vec.begin() + j), --j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!Flag) ans += a[i].Pri;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -291,6 +291,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/31/%E5%A4%8D%E5%8D%95%E4%BD%8D%E6%A0%B9%E5%92%8C%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" rel="prev" title="复单位根和排列组合">
+                  复单位根和排列组合 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -345,7 +348,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -416,8 +419,8 @@
         
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -480,6 +483,11 @@
 
 
   
+
+  
+      
+<link rel="stylesheet" href="true">
+
 
   
 

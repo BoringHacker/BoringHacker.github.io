@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="这道题很明显的贪心+搜索但我不会……我认为不能放弃，于是继续分析。我们可以简单的通过搜索判断是否有解，然后对于第一行的每个点我们再次通过搜索遍历计算出它能够流到的最后一行所有的点，并且这些点一定是连续的。假设这些点中间如果有断开的话，设不能走到的那个点为x,那么x必定会大于左、右、上层的高度，即无解我们再次算出第一行每个点对应的最后一行的区间，然后记录左边边界和右边边界，然后……">
+  <meta name="description" content="这道题很明显的贪心+搜索但我不会……我认为不能放弃，于是继续分析。我们可以简单的通过搜索判断是否有解，">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 引水入城">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-%E5%BC%95%E6%B0%B4%E5%85%A5%E5%9F%8E&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="这道题很明显的贪心+搜索但我不会……我认为不能放弃，于是继续分析。我们可以简单的通过搜索判断是否有解，然后对于第一行的每个点我们再次通过搜索遍历计算出它能够流到的最后一行所有的点，并且这些点一定是连续的。假设这些点中间如果有断开的话，设不能走到的那个点为x,那么x必定会大于左、右、上层的高度，即无解我们再次算出第一行每个点对应的最后一行的区间，然后记录左边边界和右边边界，然后……">
+<meta property="og:description" content="这道题很明显的贪心+搜索但我不会……我认为不能放弃，于是继续分析。我们可以简单的通过搜索判断是否有解，">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-11-30T14:06:40.354Z">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-havefun">
 
-    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>Havefun</a>
+    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-calendar"></i>Havefun</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -254,13 +254,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这道题很明显的贪心+搜索</p><p>但我不会……</p><p>我认为不能放弃，于是继续分析。</p><p>我们可以简单的通过搜索判断是否有解，</p><p>然后对于第一行的每个点我们再次通过搜索遍历计算出它能够流到的最后一行所有的点，并且这些点一定是连续的。</p><p>假设这些点中间如果有断开的话，设不能走到的那个点为x,那么x必定会大于左、右、上层的高度，即无解</p><p>我们再次算出第一行每个点对应的最后一行的区间，然后记录左边边界和右边边界，然后……</p><a id="more"></a>
+        <p>这道题很明显的贪心+搜索</p><p>但我不会……</p><p>我认为不能放弃，于是继续分析。</p><p>我们可以简单的通过搜索判断是否有解，</p><a id="more"></a>
 
 
 
-
-
-
+<p>然后对于第一行的每个点我们再次通过搜索遍历计算出它能够流到的最后一行所有的点，并且这些点一定是连续的。</p>
+<p>假设这些点中间如果有断开的话，设不能走到的那个点为x,那么x必定会大于左、右、上层的高度，即无解</p>
+<p>我们再次算出第一行每个点对应的最后一行的区间，然后记录左边边界和右边边界，然后……</p>
 <p>然后就是明显的不要<del>bFace</del>的线段覆盖dp了。</p>
 <p>　　　　if (Lover[j] &lt;= i &amp;&amp; Fucker[j] &gt;= i)<br>        dp[i] = min(dp[i],dp[Lover[j] - 1] + 1);</p>
 <p>　　做后直接输出dp[m]就可以了!</p>
@@ -344,7 +344,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -415,8 +415,8 @@
         
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -479,6 +479,11 @@
 
 
   
+
+  
+      
+<link rel="stylesheet" href="true">
+
 
   
 

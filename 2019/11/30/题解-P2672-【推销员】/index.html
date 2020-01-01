@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了1??????????????????_______????????????????????不bb了，上思路吧这道题主要用到了瞪眼大法以及贪心大法我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。">
+  <meta name="description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P2672 【推销员】">
 <meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P2672-%E3%80%90%E6%8E%A8%E9%94%80%E5%91%98%E3%80%91&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了1??????????????????_______????????????????????不bb了，上思路吧这道题主要用到了瞪眼大法以及贪心大法我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。">
+<meta property="og:description" content="首先，这是一道贪心的绝世好题其次，这道题要用到结构体这门高深的知识最后，这道题我样例2没有过但是我交了4个OJ都AC了">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-11-30T14:05:55.282Z">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-havefun">
 
-    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>Havefun</a>
+    <a href="/Havefun/" rel="section"><i class="fa fa-fw fa-calendar"></i>Havefun</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -254,11 +254,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="首先，这是一道贪心的绝世好题"><a href="#首先，这是一道贪心的绝世好题" class="headerlink" title="首先，这是一道贪心的绝世好题"></a>首先，这是一道贪心的绝世好题</h3><h2 id="其次，这道题要用到结构体这门高深的知识"><a href="#其次，这道题要用到结构体这门高深的知识" class="headerlink" title="其次，这道题要用到结构体这门高深的知识"></a>其次，这道题要用到结构体这门高深的知识</h2><h1 id="最后，这道题我样例2没有过但是我交了4个OJ都AC了"><a href="#最后，这道题我样例2没有过但是我交了4个OJ都AC了" class="headerlink" title="最后，这道题我样例2没有过但是我交了4个OJ都AC了"></a>最后，这道题我样例2没有过但是我交了4个OJ都AC了</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">??????????????????_______????????????????????</span><br></pre></td></tr></table></figure><hr><p>不bb了，上思路吧</p><p>这道题主要用到了瞪眼大法以及贪心大法</p><p>我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。</p><a id="more"></a>
-
-
-
-
+        <h3 id="首先，这是一道贪心的绝世好题"><a href="#首先，这是一道贪心的绝世好题" class="headerlink" title="首先，这是一道贪心的绝世好题"></a>首先，这是一道贪心的绝世好题</h3><h2 id="其次，这道题要用到结构体这门高深的知识"><a href="#其次，这道题要用到结构体这门高深的知识" class="headerlink" title="其次，这道题要用到结构体这门高深的知识"></a>其次，这道题要用到结构体这门高深的知识</h2><h1 id="最后，这道题我样例2没有过但是我交了4个OJ都AC了"><a href="#最后，这道题我样例2没有过但是我交了4个OJ都AC了" class="headerlink" title="最后，这道题我样例2没有过但是我交了4个OJ都AC了"></a>最后，这道题我样例2没有过但是我交了4个OJ都AC了</h1><a id="more"></a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">??????????????????_______????????????????????</span><br></pre></td></tr></table></figure>
+<hr>
+<p>不bb了，上思路吧</p>
+<p>这道题主要用到了瞪眼大法以及贪心大法</p>
+<p>我们可以记录下往返距离加上自身疲劳值最高的一个崽儿，以下就简称ze。</p>
 <p>然后通过观察样例，可以发现ze每次都会参与输出，即每次都会向ze这个点进行推销，但不一定每次都把ze这个点当作终点。因为我们的排序规则是往返距离加上自身疲劳值按降序进行排序，所以ze不一定就是最远的那一户人家。</p>
 <p>通过以上的<del>瞪眼</del>观察，我们发现，既然每一次都会有ze这个点，那么我们就可以划分子问题了，符合了贪心的定义。</p>
 <p>其实这个思路也不是我独立思考出来的，而是我们机房大佬写了一篇题解。<br>但是这篇题解简直不要太精简，我是完全没有看懂。而代码我也没有去看</p>
@@ -347,7 +347,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -418,8 +418,8 @@
         
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -482,6 +482,11 @@
 
 
   
+
+  
+      
+<link rel="stylesheet" href="true">
+
 
   
 
