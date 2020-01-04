@@ -51,18 +51,18 @@
   };
 </script>
 
-  <meta name="description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性">
-<meta name="keywords" content="Learning">
+  <meta name="description" content="图论神器">
+<meta name="keywords" content="实用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OldDriveTree(ChthollyTree)学习笔记">
-<meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;OldDriveTree-ChthollyTree-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:title" content="实用网站收集">
+<meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2020&#x2F;01&#x2F;04&#x2F;%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="众所周知，数据结构+算法=程序，可见数据结构的重要性">
+<meta property="og:description" content="图论神器">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-01T05:55:52.896Z">
+<meta property="og:updated_time" content="2020-01-04T14:11:03.956Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://boringhacker.github.io/2019/11/30/OldDriveTree-ChthollyTree-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="https://boringhacker.github.io/2020/01/04/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/">
 
 
 <script id="page-configurations">
@@ -76,7 +76,7 @@
   };
 </script>
 
-  <title>OldDriveTree(ChthollyTree)学习笔记 | BoringHacker's Blog</title>
+  <title>实用网站收集 | BoringHacker's Blog</title>
   
 
 
@@ -216,7 +216,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
-    <link itemprop="mainEntityOfPage" href="https://boringhacker.github.io/2019/11/30/OldDriveTree-ChthollyTree-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://boringhacker.github.io/2020/01/04/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -229,7 +229,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OldDriveTree(ChthollyTree)学习笔记
+          实用网站收集
         </h1>
 
         <div class="post-meta">
@@ -238,16 +238,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-30 22:10:05" itemprop="dateCreated datePublished" datetime="2019-11-30T22:10:05+08:00">2019-11-30</time>
+              <time title="Created: 2020-01-04 21:52:16 / Modified: 22:11:03" itemprop="dateCreated datePublished" datetime="2020-01-04T21:52:16+08:00">2020-01-04</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-01 13:55:52" itemprop="dateModified" datetime="2020-01-01T13:55:52+08:00">2020-01-01</time>
-              </span>
 
           
 
@@ -260,23 +254,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a><h2 id="众所周知，数据结构-算法-程序，可见数据结构的重要性"><a href="#众所周知，数据结构-算法-程序，可见数据结构的重要性" class="headerlink" title="众所周知，数据结构+算法=程序，可见数据结构的重要性"></a>众所周知，数据结构+算法=程序，可见数据结构的重要性</h2><a id="more"></a>
-<p>数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树</p>
-<p><code>珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。</code></p>
-<p>她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但一般不会有哪个出题人去卡这样一个并不出名的数据结构。并且要有区间推平操作，否则光是一个split时间复杂度会炸。</p>
-<p>珂朵莉树的构造长成这个亚子:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Chtholly</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LL L;</span><br><span class="line">    LL R;		<span class="comment">//区间</span></span><br><span class="line">    <span class="keyword">mutable</span> LL _val; <span class="comment">//值，注意，关键字mutable是必需的，否则会在add函数里CE</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    node(LL l, LL r = <span class="number">-1</span>, LL V = <span class="number">0</span>) : L(l), R(r), _val(V) &#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> node &amp;rhs) <span class="keyword">const</span> &#123; <span class="keyword">return</span> L &lt; rhs.L; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Split操作:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> IT <span class="title">split</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    IT it = st.lower_bound(node(k));</span><br><span class="line">    <span class="keyword">if</span> (it != st.end() &amp;&amp; it-&gt;L == k)</span><br><span class="line">        <span class="keyword">return</span> it;</span><br><span class="line">    --it;</span><br><span class="line">    LL l = it-&gt;L, r = it-&gt;R;</span><br><span class="line">    LL v = it-&gt;_val;</span><br><span class="line">    st.erase(it);</span><br><span class="line">    st.insert(node(l, k - <span class="number">1</span>, v));</span><br><span class="line">    <span class="keyword">return</span> st.insert(node(k, r, v)).first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了操作方便我们这里有一个define:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IT set<span class="meta-string">&lt;Chtholly&gt;::iterator</span></span></span><br></pre></td></tr></table></figure>
-<p>assign区间推平操作，这也是珂朵莉树的时间复杂度保证</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">assign</span><span class="params">(LL ll, LL rr, LL val)</span> </span>&#123;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    st.erase(itl, itr);</span><br><span class="line">    st.insert(node(ll, rr, val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>举几个例子吧</p>
-<h3 id="区间求和"><a href="#区间求和" class="headerlink" title="区间求和:"></a>区间求和:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">Qsum</span><span class="params">(LL ll, LL rr)</span> </span>&#123;</span><br><span class="line">    LL res = <span class="number">0</span>;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    <span class="keyword">for</span> (; itl != itr; ++itl) res += (itl-&gt;R - itl-&gt;L + <span class="number">1</span>) * itl-&gt;_val;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="区间第K小"><a href="#区间第K小" class="headerlink" title="区间第K小:"></a>区间第K小:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">kth</span><span class="params">(LL ll, LL rr, LL k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;LL, LL&gt; &gt; vec;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (; itl != itr; ++itl) vec.push_back(pair&lt;LL, LL&gt;(itl-&gt;_val, itl-&gt;R - itl-&gt;L + <span class="number">1</span>));</span><br><span class="line">    sort(vec.begin(), vec.end());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = vec.begin(); it != vec.end(); ++it) &#123;</span><br><span class="line">        k -= it-&gt;second;</span><br><span class="line">        <span class="keyword">if</span> (k &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> it-&gt;first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="区间加"><a href="#区间加" class="headerlink" title="区间加"></a>区间加</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(LL ll, LL rr, LL ad)</span> </span>&#123;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    <span class="keyword">for</span> (; itr != itl; ++itl) itl-&gt;_val += ad;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>平时大家还是尽量少用······</p>
+        <p><a href="https://csacademy.com/app/graph_editor/" target="_blank" rel="noopener">图论神器</a></p><a id="more"></a>
+<p><a href="https://gcc.godbolt.org/" target="_blank" rel="noopener">在线转汇编</a></p>
+<p><a href="https://blog.csdn.net/garfielder007/article/details/51646604" target="_blank" rel="noopener">LaTex公式大全</a></p>
+<p><a href="https://oi-wiki.org/" target="_blank" rel="noopener">OI Wiki</a></p>
+<p><a href="https://yhx-12243.github.io/OI-transit/" target="_blank" rel="noopener">OI中转站</a></p>
+<p><a href="https://paintschainer.preferred.tech/index_zh.html" target="_blank" rel="noopener">线段上色</a></p>
+<p><a href="https://csacademy.com/app/geometry_widget/" target="_blank" rel="noopener">几何</a></p>
+<p><a href="http://oeis.org/" target="_blank" rel="noopener">数列规律</a></p>
+<p><a href="https://suulnnka.github.io/BullshitGenerator/index.html" target="_blank" rel="noopener">狗屁不通生成器</a></p>
+<p><a href="https://ruhu.app/" target="_blank" rel="noopener">算法竞赛</a></p>
+<p><a href="https://github.com/StableAgOH/Code-Warehouse-for-AgOH" target="_blank" rel="noopener">AgOH代码仓库</a></p>
+<p><a href="http://tool.uixsj.cn" target="_blank" rel="noopener">某奆佬博客</a></p>
+<p><a href="https://www.itdaan.com/" target="_blank" rel="noopener">开发者知识库</a></p>
 
     </div>
 
@@ -286,24 +276,21 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Learning/" rel="tag"># Learning</a>
+              <a href="/tags/%E5%AE%9E%E7%94%A8/" rel="tag"># 实用</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/30/%E5%9B%BE%E8%AE%BA%E6%9C%80%E7%9F%AD%E8%B7%AF-Dijkstra%E3%80%81SPFA-%E6%A8%A1%E6%9D%BF/" rel="next" title="图论最短路(Dijkstra、SPFA)模板">
-                  <i class="fa fa-chevron-left"></i> 图论最短路(Dijkstra、SPFA)模板
+                <a href="/2019/12/28/CSP-J-2019-%E9%A2%98%E8%A7%A3/" rel="next" title="CSP-J 2019 题解">
+                  <i class="fa fa-chevron-left"></i> CSP-J 2019 题解
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/12/14/SPLAY%E6%95%99%E7%A8%8B/" rel="prev" title="SPLAY教程">
-                  SPLAY教程 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -342,7 +329,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#众所周知，数据结构-算法-程序，可见数据结构的重要性"><span class="nav-number">1.</span> <span class="nav-text">众所周知，数据结构+算法=程序，可见数据结构的重要性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区间求和"><span class="nav-number">1.1.</span> <span class="nav-text">区间求和:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间第K小"><span class="nav-number">1.2.</span> <span class="nav-text">区间第K小:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间加"><span class="nav-number">1.3.</span> <span class="nav-text">区间加</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
