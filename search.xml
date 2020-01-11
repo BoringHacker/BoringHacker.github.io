@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>莫队教程</title>
+    <url>/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><a id="more"></a><p>考虑这样一个问题：</p>
+<p>对于一个序列A_1,A_2,…,A_n，有如下询问</p>
+<p>形如S l r的命令表示对区间[l,r]求和，并输出</p>
+<p>形如Q l r表示…</p>
+<p>本题不强制在线</p>
+<p>对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改<del>但我太弱不会</del></p>
+<p>现在你有区间[3,5]的和，可以求[3,6]的区间和吗？显然，将[3,5]的区间和加上A_6即可。类似的，求[2,4]的区间和，我们只需减去A_5即可。</p>
+<p>可以结合下图感知一下</p>
+<p><img src="https://i.loli.net/2020/01/05/b63tfzYDl7VwdXC.png" alt="spfa.png"></p>
+<p><img src="https://i.loli.net/2020/01/05/uAa95JElrb7kCxQ.png" alt="spfa.png"></p>
+<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>好，接下来我们想一下如何维护这种询问之间的关系。</p>
+<p>很容易想到排序，首先我们对询问的左端点进行排序。再把整个<code>询问</code>序列分为\sqrt{n}块，每块以内再按右端点排序。</p>
+<p>所以我们可以得出以下结论：</p>
+<ul>
+<li>莫队就是对于一系列的询问，通过排序减小询问的之间的差距，然后以计算贡献的方法离线的得出答案</li>
+</ul>
+<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>来一道简单的例题</p>
+<h3 id="小B的询问"><a href="#小B的询问" class="headerlink" title="小B的询问"></a>小B的询问</h3><p>小B 有一个长为 n 的整数序列 a，值域为 [1,k]。<br>他一共有 m 个询问，每个询问给定一个区间 [l,r]，求：  </p>
+<p>其中 c_i 表示数字 i 在 [l,r] 中的出现次数。<br>小B请你帮助他回答询问</p>
+<hr>
+<p>这道题让我们求</p>
+<p>\sum\limits_{i=1}^k c_i^2</p>
+<p>开一个桶，计算每个数出现的次数，所以我们可以由此计算答案的贡献，就可以写出以下的代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">5e4</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">QueryNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> l, r;</span><br><span class="line">	<span class="keyword">int</span> id; <span class="comment">// 储存询问的顺序，方便输出</span></span><br><span class="line">&#125; Q[SIZE];</span><br><span class="line"><span class="keyword">int</span> a[SIZE], n, m, k, pos[SIZE];</span><br><span class="line"><span class="keyword">int</span> cnt[SIZE], ans[SIZE], res;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a:原序列</span></span><br><span class="line"><span class="comment">// pos:每个位置所处的块</span></span><br><span class="line"><span class="comment">// cnt:桶</span></span><br><span class="line"><span class="comment">// ans:询问的答案</span></span><br><span class="line"><span class="comment">// res:每次调整所得到的贡献</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - <span class="number">1</span>) * (cnt[a[x]] - <span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]--, res -= (cnt[a[x]] + <span class="number">1</span>) * (cnt[a[x]] + <span class="number">1</span>) - cnt[a[x]] * cnt[a[x]]; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;n, &amp;m, &amp;k);</span><br><span class="line">	<span class="keyword">int</span> block = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]), pos[i] = i / block;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;</span><br><span class="line">	sort(Q + <span class="number">1</span>, Q + <span class="number">1</span> + m, [](QueryNode x, QueryNode y) &#123; <span class="keyword">return</span> pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; &#125;);</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">		<span class="keyword">while</span> (l &gt; Q[i].l) add(--l); <span class="comment">// 这四句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &lt; Q[i].r) add(++r); <span class="comment">// 这三句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (l &lt; Q[i].l) del(l++); <span class="comment">// 这二句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &gt; Q[i].r) del(r--); <span class="comment">// 这一句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		ans[Q[i].id] = res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h1><p>其实莫队是有套路的，基本上莫队的题都是这样的:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">	<span class="keyword">while</span> (l &gt; Q[i].l) add(--l);</span><br><span class="line">	<span class="keyword">while</span> (r &lt; Q[i].r) add(++r);</span><br><span class="line">	<span class="keyword">while</span> (l &lt; Q[i].l) del(l++);</span><br><span class="line">	<span class="keyword">while</span> (r &gt; Q[i].r) del(r--);</span><br><span class="line">	ans[Q[i].id] = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们只需考虑add函数以及del函数即可</p>
+<hr>
+
+<center><h1>The End</h1></center>]]></content>
+      <tags>
+        <tag>Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实用网站收集</title>
     <url>/2020/01/04/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/</url>
     <content><![CDATA[<p><a href="https://csacademy.com/app/graph_editor/" target="_blank" rel="noopener">图论神器</a></p><a id="more"></a>

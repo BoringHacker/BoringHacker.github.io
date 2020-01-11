@@ -51,18 +51,21 @@
   };
 </script>
 
-  <meta name="description" content="这是一道很好的背包练手题。">
-<meta name="keywords" content="Solution">
+  <meta name="description" content="0x01">
+<meta name="keywords" content="Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="题解 P2639 【[USACO09OCT]Bessie的体重问题Bessie&#39;s We…】">
-<meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2019&#x2F;11&#x2F;30&#x2F;%E9%A2%98%E8%A7%A3-P2639-%E3%80%90-USACO09OCT-Bessie%E7%9A%84%E4%BD%93%E9%87%8D%E9%97%AE%E9%A2%98Bessie-s-We%E2%80%A6%E3%80%91&#x2F;index.html">
+<meta property="og:title" content="莫队教程">
+<meta property="og:url" content="https:&#x2F;&#x2F;boringhacker.github.io&#x2F;2020&#x2F;01&#x2F;11&#x2F;%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="这是一道很好的背包练手题。">
+<meta property="og:description" content="0x01">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-01T05:55:04.814Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;05&#x2F;b63tfzYDl7VwdXC.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;05&#x2F;uAa95JElrb7kCxQ.png">
+<meta property="og:updated_time" content="2020-01-11T14:16:48.896Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;05&#x2F;b63tfzYDl7VwdXC.png">
 
-<link rel="canonical" href="https://boringhacker.github.io/2019/11/30/%E9%A2%98%E8%A7%A3-P2639-%E3%80%90-USACO09OCT-Bessie%E7%9A%84%E4%BD%93%E9%87%8D%E9%97%AE%E9%A2%98Bessie-s-We%E2%80%A6%E3%80%91/">
+<link rel="canonical" href="https://boringhacker.github.io/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/">
 
 
 <script id="page-configurations">
@@ -76,7 +79,7 @@
   };
 </script>
 
-  <title>题解 P2639 【[USACO09OCT]Bessie的体重问题Bessie's We…】 | BoringHacker's Blog</title>
+  <title>莫队教程 | BoringHacker's Blog</title>
   
 
 
@@ -216,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
-    <link itemprop="mainEntityOfPage" href="https://boringhacker.github.io/2019/11/30/%E9%A2%98%E8%A7%A3-P2639-%E3%80%90-USACO09OCT-Bessie%E7%9A%84%E4%BD%93%E9%87%8D%E9%97%AE%E9%A2%98Bessie-s-We%E2%80%A6%E3%80%91/">
+    <link itemprop="mainEntityOfPage" href="https://boringhacker.github.io/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -229,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          题解 P2639 【[USACO09OCT]Bessie的体重问题Bessie's We…】
+          莫队教程
         </h1>
 
         <div class="post-meta">
@@ -238,16 +241,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-30 22:02:25" itemprop="dateCreated datePublished" datetime="2019-11-30T22:02:25+08:00">2019-11-30</time>
+              <time title="Created: 2020-01-11 22:15:50 / Modified: 22:16:48" itemprop="dateCreated datePublished" datetime="2020-01-11T22:15:50+08:00">2020-01-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-01 13:55:04" itemprop="dateModified" datetime="2020-01-01T13:55:04+08:00">2020-01-01</time>
-              </span>
 
           
   
@@ -258,8 +255,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/11/30/%E9%A2%98%E8%A7%A3-P2639-%E3%80%90-USACO09OCT-Bessie%E7%9A%84%E4%BD%93%E9%87%8D%E9%97%AE%E9%A2%98Bessie-s-We%E2%80%A6%E3%80%91/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/30/%E9%A2%98%E8%A7%A3-P2639-%E3%80%90-USACO09OCT-Bessie%E7%9A%84%E4%BD%93%E9%87%8D%E9%97%AE%E9%A2%98Bessie-s-We%E2%80%A6%E3%80%91/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,11 +271,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a><p>这是一道很好的背包练手题。</p><a id="more"></a>
+        <h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><a id="more"></a><p>考虑这样一个问题：</p>
+<p>对于一个序列A_1,A_2,…,A_n，有如下询问</p>
+<p>形如S l r的命令表示对区间[l,r]求和，并输出</p>
+<p>形如Q l r表示…</p>
+<p>本题不强制在线</p>
+<p>对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改<del>但我太弱不会</del></p>
+<p>现在你有区间[3,5]的和，可以求[3,6]的区间和吗？显然，将[3,5]的区间和加上A_6即可。类似的，求[2,4]的区间和，我们只需减去A_5即可。</p>
+<p>可以结合下图感知一下</p>
+<p><img src="https://i.loli.net/2020/01/05/b63tfzYDl7VwdXC.png" alt="spfa.png"></p>
+<p><img src="https://i.loli.net/2020/01/05/uAa95JElrb7kCxQ.png" alt="spfa.png"></p>
+<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>好，接下来我们想一下如何维护这种询问之间的关系。</p>
+<p>很容易想到排序，首先我们对询问的左端点进行排序。再把整个<code>询问</code>序列分为\sqrt{n}块，每块以内再按右端点排序。</p>
+<p>所以我们可以得出以下结论：</p>
+<ul>
+<li>莫队就是对于一系列的询问，通过排序减小询问的之间的差距，然后以计算贡献的方法离线的得出答案</li>
+</ul>
+<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>来一道简单的例题</p>
+<h3 id="小B的询问"><a href="#小B的询问" class="headerlink" title="小B的询问"></a>小B的询问</h3><p>小B 有一个长为 n 的整数序列 a，值域为 [1,k]。<br>他一共有 m 个询问，每个询问给定一个区间 [l,r]，求：  </p>
+<p>其中 c_i 表示数字 i 在 [l,r] 中的出现次数。<br>小B请你帮助他回答询问</p>
+<hr>
+<p>这道题让我们求</p>
+<p>\sum\limits_{i=1}^k c_i^2</p>
+<p>开一个桶，计算每个数出现的次数，所以我们可以由此计算答案的贡献，就可以写出以下的代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">5e4</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">QueryNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> l, r;</span><br><span class="line">	<span class="keyword">int</span> id; <span class="comment">// 储存询问的顺序，方便输出</span></span><br><span class="line">&#125; Q[SIZE];</span><br><span class="line"><span class="keyword">int</span> a[SIZE], n, m, k, pos[SIZE];</span><br><span class="line"><span class="keyword">int</span> cnt[SIZE], ans[SIZE], res;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a:原序列</span></span><br><span class="line"><span class="comment">// pos:每个位置所处的块</span></span><br><span class="line"><span class="comment">// cnt:桶</span></span><br><span class="line"><span class="comment">// ans:询问的答案</span></span><br><span class="line"><span class="comment">// res:每次调整所得到的贡献</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - <span class="number">1</span>) * (cnt[a[x]] - <span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]--, res -= (cnt[a[x]] + <span class="number">1</span>) * (cnt[a[x]] + <span class="number">1</span>) - cnt[a[x]] * cnt[a[x]]; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;n, &amp;m, &amp;k);</span><br><span class="line">	<span class="keyword">int</span> block = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]), pos[i] = i / block;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;</span><br><span class="line">	sort(Q + <span class="number">1</span>, Q + <span class="number">1</span> + m, [](QueryNode x, QueryNode y) &#123; <span class="keyword">return</span> pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; &#125;);</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">		<span class="keyword">while</span> (l &gt; Q[i].l) add(--l); <span class="comment">// 这四句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &lt; Q[i].r) add(++r); <span class="comment">// 这三句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (l &lt; Q[i].l) del(l++); <span class="comment">// 这二句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &gt; Q[i].r) del(r--); <span class="comment">// 这一句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		ans[Q[i].id] = res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h1><p>其实莫队是有套路的，基本上莫队的题都是这样的:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">	<span class="keyword">while</span> (l &gt; Q[i].l) add(--l);</span><br><span class="line">	<span class="keyword">while</span> (r &lt; Q[i].r) add(++r);</span><br><span class="line">	<span class="keyword">while</span> (l &lt; Q[i].l) del(l++);</span><br><span class="line">	<span class="keyword">while</span> (r &gt; Q[i].r) del(r--);</span><br><span class="line">	ans[Q[i].id] = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们只需考虑add函数以及del函数即可</p>
+<hr>
 
-<p>细读题目，可以发现题目中并没有给定每捆干草的价值，只给出了每捆干草的重量。</p>
-<p>再读题目，我们发现题目求Bessie不超过节食的限制的前提下可以吃掉多少干草，所以，我们可以把每堆干草的重量看作它的的价值，这就成了一个01背包的模板了</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> solv</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> MAXN = <span class="number">50000</span> + <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> F[MAXN], w[MAXN];</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n, m, c[MAXN];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> T <span class="title">getMax</span><span class="params">(T x, T y)</span></span></span><br><span class="line"><span class="function">		</span>&#123; <span class="keyword">return</span> x &gt; y ? x : y; &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;m, &amp;n);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">long</span> <span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;w[i]);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">long</span> <span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">long</span> <span class="keyword">long</span> j = m; j &gt;= w[i]; --j)</span><br><span class="line">				F[j] = solv::getMax(F[j], F[j - w[i]] + w[i]);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, F[m]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	solv::Solve();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<center><h1>The End</h1></center>
     </div>
 
     
@@ -287,24 +309,21 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Solution/" rel="tag"># Solution</a>
+              <a href="/tags/Learning/" rel="tag"># Learning</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/30/A-B-Problem-Solution/" rel="next" title="A+B Problem Solution">
-                  <i class="fa fa-chevron-left"></i> A+B Problem Solution
+                <a href="/2020/01/04/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/" rel="next" title="实用网站收集">
+                  <i class="fa fa-chevron-left"></i> 实用网站收集
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/30/%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="prev" title="高斯消元学习">
-                  高斯消元学习 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -344,6 +363,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01"><span class="nav-number">1.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02"><span class="nav-number">2.</span> <span class="nav-text">0x02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03"><span class="nav-number">3.</span> <span class="nav-text">0x03</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小B的询问"><span class="nav-number">3.0.1.</span> <span class="nav-text">小B的询问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04"><span class="nav-number">4.</span> <span class="nav-text">0x04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">The End</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
