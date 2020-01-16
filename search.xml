@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>VSCode配置C++指北(硬盘便携版)</title>
+    <url>/2020/01/16/VSCode%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97/</url>
+    <content><![CDATA[<h1 id="0x00-序言"><a href="#0x00-序言" class="headerlink" title="0x00 序言"></a>0x00 序言</h1><a id="more"></a><p>天天看着Dev-Cpp的somebody界面想不想换一个新的环境呢？VS太大，sublime也是一个不错的选择，但sublime的Ctrl+D实在是有些堪忧。今天我们就来尝试一下VSCode</p>
+<h1 id="0x01-下载VSCode"><a href="#0x01-下载VSCode" class="headerlink" title="0x01 下载VSCode"></a>0x01 下载VSCode</h1><p>不要下官网的，下我给的VSCode Portable。链接：</p>
+<p><a href="https://pan.baidu.com/s/1TSlDZe84mlXqx58mrLCE-Q" target="_blank" rel="noopener">某盘</a></p>
+<p>提取码: m2p2</p>
+<p>链接挂了评论区请</p>
+<p>为什么不下载官网的呢？因为我们要制作的是随身携带的便携版。</p>
+<p>本来我打算自己绿化的，但有现成的就懒了</p>
+<h1 id="0x02-下载插件"><a href="#0x02-下载插件" class="headerlink" title="0x02 下载插件"></a>0x02 下载插件</h1><p>下载以后，先下载几个插件</p>
+<p>1.<img src="https://i.loli.net/2020/01/16/teHNPsOaKYBu8CJ.png" alt="blog.png"></p>
+<p>2.<img src="https://i.loli.net/2020/01/16/s5dnF8L6EXrlCOK.png" alt="blog.png"></p>
+<p>3.<img src="https://i.loli.net/2020/01/16/Az2gW9vkny1j35O.png" alt="blog.png"></p>
+<h1 id="0x03-配置文件"><a href="#0x03-配置文件" class="headerlink" title="0x03 配置文件"></a>0x03 配置文件</h1><p>在Code.exe所在的文件夹(也就是根目录)创建三个文件</p>
+<p><code>c_cpp_properties.json</code>:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"configurations"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Win32"</span>,</span><br><span class="line">      <span class="attr">"defines"</span>: [<span class="string">"_DEBUG"</span>, <span class="string">"UNICODE"</span>, <span class="string">"_UNICODE"</span>],</span><br><span class="line">      <span class="attr">"compilerPath"</span>: <span class="string">"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe"</span>,</span><br><span class="line">      <span class="attr">"windowsSdkVersion"</span>: <span class="string">"10.0.17763.0"</span>,</span><br><span class="line">      <span class="attr">"intelliSenseMode"</span>: <span class="string">"msvc-x64"</span>,</span><br><span class="line">      <span class="attr">"cStandard"</span>: <span class="string">"c11"</span>,</span><br><span class="line">      <span class="attr">"cppStandard"</span>: <span class="string">"c++17"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"version"</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>launch.json</code>:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"(msvc) Launch"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"cppvsdbg"</span>,</span><br><span class="line">        <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">        <span class="attr">"program"</span>: <span class="string">"$&#123;workspaceFolder&#125;/1.exe"</span>,</span><br><span class="line">        <span class="attr">"args"</span>: [],</span><br><span class="line">        <span class="attr">"stopAtEntry"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">        <span class="attr">"environment"</span>: [],</span><br><span class="line">        <span class="attr">"externalConsole"</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><code>tasks.json</code>:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"label"</span>: <span class="string">"msvc build"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"cl.exe"</span>,</span><br><span class="line">        <span class="attr">"args"</span>: [<span class="string">"/EHsc"</span>, <span class="string">"/Zi"</span>, <span class="string">"/Fe:"</span>, <span class="string">"1.exe"</span>, <span class="string">"1.cpp"</span>],</span><br><span class="line">        <span class="attr">"group"</span>: &#123;</span><br><span class="line">          <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">          <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"presentation"</span>: &#123;</span><br><span class="line">          <span class="attr">"reveal"</span>: <span class="string">"always"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"problemMatcher"</span>: <span class="string">"$msCompile"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>把你的MinGW的bin文件夹添加进环境变量，就可以按下F6编译运行你的C++文件了</p>
+<h1 id="0x04-完全绿化"><a href="#0x04-完全绿化" class="headerlink" title="0x04 完全绿化"></a>0x04 完全绿化</h1><p>每次换电脑都要添加环境变量挺烦的对不对？其实，我们可以把VSCode根目录里的东西</p>
+<p><img src="https://i.loli.net/2020/01/16/p3QmLVTfwy5God9.png" alt="blog.png"></p>
+<p>Copy到MinGW的bin文件夹里</p>
+<p><img src="https://i.loli.net/2020/01/16/yiH8KtpxRBYJhlq.png" alt="blog.png"></p>
+<p>这样，不用添加环境变量我们就可以直接编译啦！</p>
+<p>最后建议把VSCode和MinGW的文件隐藏一下，免得辣眼睛，最好创建一个Code.exe的快捷方式，方便打开</p>
+<p>VSCode还可以装很多插件，下面给出几种大家自己慢慢摸索吧！</p>
+]]></content>
+      <tags>
+        <tag>实用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mathjax test</title>
+    <url>/2020/01/15/mathjax-test/</url>
+    <content><![CDATA[<p>$\cdots$</p>]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>莫队教程</title>
     <url>/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><a id="more"></a><p>考虑这样一个问题：</p>
