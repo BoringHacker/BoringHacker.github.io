@@ -29,6 +29,26 @@
 <p>这样，不用添加环境变量我们就可以直接编译啦！</p>
 <p>最后建议把VSCode和MinGW的文件隐藏一下，免得辣眼睛，最好创建一个Code.exe的快捷方式，方便打开</p>
 <p>VSCode还可以装很多插件，下面给出几种大家自己慢慢摸索吧！</p>
+<h2 id="Extensions"><a href="#Extensions" class="headerlink" title="Extensions"></a>Extensions</h2><ul>
+<li>open the web page</li>
+<li>C/C++</li>
+<li>C/C++ Compile Run</li>
+<li>Chinese</li>
+<li>filesize</li>
+<li>Markdown All in One</li>
+<li>Markdown PDF</li>
+<li>Open In Default Browser</li>
+<li>vscode icons</li>
+<li>Better Comments</li>
+<li>Auto Close Tag</li>
+<li>Windows opacity</li>
+<li>Background</li>
+</ul>
+<h2 id="Themes"><a href="#Themes" class="headerlink" title="Themes"></a>Themes</h2><ul>
+<li>Bimbo</li>
+<li>One Dark Pro</li>
+<li>Dracula Official</li>
+</ul>
 ]]></content>
       <tags>
         <tag>实用</tag>
