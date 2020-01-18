@@ -55,14 +55,6 @@
       </tags>
   </entry>
   <entry>
-    <title>mathjax test</title>
-    <url>/2020/01/15/mathjax-test/</url>
-    <content><![CDATA[<p>$\cdots$</p>]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>莫队教程</title>
     <url>/2020/01/11/%E8%8E%AB%E9%98%9F%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><a id="more"></a><p>考虑这样一个问题：</p>
