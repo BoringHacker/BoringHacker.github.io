@@ -769,10 +769,6 @@ svg:not(:root) {
 figure {
     margin:1em 40px
 }
-hr {
-    box-sizing:content-box;
-    height:0
-}
 pre {
     overflow:auto
 }
@@ -853,28 +849,37 @@ dfn,cite,em,i {
     font-style:italic
 }
 blockquote {
+    width:fit-content;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+    width:-ms-fit-content;
+    width:-o-fit-content;
     margin:0;
-    padding:30px 60px;
-    position:relative
+    margin-bottom: 20px;
+    padding:12px 45px;
+    position:relative;
+    border-radius: 1.5rem;
+    background: rgba(225, 225, 225, .43);
 }
 blockquote:before {
     content:"\f10d" !important;
-    font-size:3rem;
+    font-size:2rem;
     position:absolute;
     top:-25px;
-    left:12px;
-    color:orange;
+    left:2px;
+    color:#50bdff;
     font-family:FontAwesome
 }
 blockquote:after {
     content:'\f10e' !important;
-    font-size:3rem;
+    font-size:2rem;
     position:absolute;
     bottom:-25px;
-    right:-5px;
-    color:orange;
+    right:0px;
+    color:#50bdff;
     font-family:FontAwesome
 }
+
 blockquote p {
     margin:5px 0
 }
@@ -940,12 +945,6 @@ blockquote:before,blockquote:after,q:before,q:after {
 }
 blockquote,q {
     quotes:"" ""
-}
-hr {
-    background-color:#ccc;
-    border:0;
-    height:1px;
-    margin-bottom:1.5em
 }
 ul,ol {
     margin:0 0 1.5em 3em
@@ -1643,6 +1642,7 @@ a:hover,a:active {
     transition:opacity .4s ease-out
 }
 .feature img {
+    object-fit: cover;
     width:100px;
     height:100px;
     border-radius:50%;
@@ -2180,7 +2180,6 @@ h1.entry-title {
     background:none
 }
 .entry-content hr:before {
-    content:'...';
     display:inline-block;
     margin-left:.6em;
     color:rgba(0,0,0,.8);
@@ -2188,6 +2187,12 @@ h1.entry-title {
     top:-30px;
     font-size:28px;
     letter-spacing:.6em
+    hr {
+    height: 3px !important;
+    border: none !important;
+    background-color: #bfbfbf !important;
+    background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px) !important;
+}
 }
 .entry-content .post-password-form {
     text-align:center
@@ -7465,7 +7470,7 @@ to {
     font-family:'Ubuntu',sans-serif
 }
 .serif {
-    font-family:'Source Han Serif SC','Source Han Serif','source-han-serif-sc','PT Serif','SongTi SC','MicroSoft Yahei',Georgia,serif
+    font-family:'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', source-han-serif-sc, 'PT Serif', 'SongTi SC', 'MicroSoft Yahei', Georgia, serif
 }
 @media(max-width:860px) {
     .serif {
@@ -7531,6 +7536,7 @@ to {
     padding:3px 12px 16px 12px
 }
 .font-family-controls button {
+    outline: none;
     display:inline-block;
     border-style:none;
     border-radius:5px;
@@ -7834,4 +7840,11 @@ td.hljs-ln-numbers {
 
 @media(max-width:1200px) {
     .toc {display: none;}
+}
+
+.hljs-ln-line:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+.hljs-ln-line.hljs-ln-n:hover{
+    background-color: rgba(0,0,0,0) !important;
 }
