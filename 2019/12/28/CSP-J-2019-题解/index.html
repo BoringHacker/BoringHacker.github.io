@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。 睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。 T1统计1的数量，字符串模拟即可 12345678910111213#include &amp;lt;bits&#x2F;stdc++.h&amp;gt;using namespace std;char buf[233];signed main() &amp;#123;    fgets(buf,">
+  <meta name="description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。">
 <meta name="keywords" content="Solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSP-J 2019 题解">
 <meta property="og:url" content="www.orchid-any.cf&#x2F;2019&#x2F;12&#x2F;28&#x2F;CSP-J-2019-%E9%A2%98%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。 睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。 T1统计1的数量，字符串模拟即可 12345678910111213#include &amp;lt;bits&#x2F;stdc++.h&amp;gt;using namespace std;char buf[233];signed main() &amp;#123;    fgets(buf,">
+<meta property="og:description" content="这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2020-01-01T05:55:42.575Z">
 <meta name="twitter:card" content="summary">
@@ -283,8 +283,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
-<p>这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。</p>
+        <a id="more"></a><p>这次的CSP是十分伤心的，考试的状态不好，导致分数不理想。</p><a id="more"></a>
+
 <p>睡了一觉后我重做了一下这四道题，觉得还是蛮简单的，于是便有了这篇题解。</p>
 <h2 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h2><p>统计1的数量，字符串模拟即可</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">233</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fgets(buf, <span class="number">233</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">        res += (buf[i] == <span class="string">'1'</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

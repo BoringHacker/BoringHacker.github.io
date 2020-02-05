@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文参考资料:From yyb:Link  正文：关于SPLAY其实我更偏向于把splay叫做cosplay 讲平衡树总逃不过BST(Binary Search Tree)，二叉搜索树，以下是BST的性质： 一棵合法的BST每个节点上都带有一个数值，我们将其称为节点的“关键码”。那么对于一棵BST上的任意节点，满足：  该节点的关键码不小于它左子树的任意结点的关键码  该结点的关键码不大于它右子">
+  <meta name="description" content="本文参考资料:">
 <meta name="keywords" content="Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SPLAY教程">
 <meta property="og:url" content="www.orchid-any.cf&#x2F;2019&#x2F;12&#x2F;14&#x2F;SPLAY%E6%95%99%E7%A8%8B&#x2F;index.html">
 <meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:description" content="本文参考资料:From yyb:Link  正文：关于SPLAY其实我更偏向于把splay叫做cosplay 讲平衡树总逃不过BST(Binary Search Tree)，二叉搜索树，以下是BST的性质： 一棵合法的BST每个节点上都带有一个数值，我们将其称为节点的“关键码”。那么对于一棵BST上的任意节点，满足：  该节点的关键码不小于它左子树的任意结点的关键码  该结点的关键码不大于它右子">
+<meta property="og:description" content="本文参考资料:">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;13&#x2F;V2N6AQUynRGvzYI.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2019&#x2F;12&#x2F;13&#x2F;jFfZRvedxLYJg2y.png">
@@ -290,8 +290,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料:"></a>本文参考资料:</h2><p>From yyb:<a href="https://www.cnblogs.com/cjyyb/p/7499020.html" target="_blank" rel="noopener">Link</a></p>
+        <a id="more"></a><h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料:"></a>本文参考资料:</h2><a id="more"></a>
+<p>From yyb:<a href="https://www.cnblogs.com/cjyyb/p/7499020.html" target="_blank" rel="noopener">Link</a></p>
 <hr>
 <h1 id="正文：关于SPLAY"><a href="#正文：关于SPLAY" class="headerlink" title="正文：关于SPLAY"></a>正文：关于SPLAY</h1><p>其实我更偏向于把splay叫做cosplay</p>
 <p>讲平衡树总逃不过BST(Binary Search Tree)，二叉搜索树，以下是BST的性质：</p>
@@ -313,7 +313,7 @@
 <h2 id="SPLAY"><a href="#SPLAY" class="headerlink" title="SPLAY"></a>SPLAY</h2><p>splay，又称<del>cosplay</del>伸展树，有“序列之王”的美称，<del>常数巨大</del>，跑的没有fhq-treap快，但这不在我们的讨论范围以内</p>
 <p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
 <p>想象一下这样一颗BST，我们先把它们的大小关系列出来。</p>
-<p>Y<Z, C>Y, X<Y,A<X,B>X</p>
+<p>Y<z, c>Y, X<y,a<x,b>X</y,a<x,b></z,></p>
 <p>对于这样一颗BST，我们可以通过一些特殊的方式来改变它的形态保持中序序列不变，这也是平衡树的精髓。</p>
 <p>怎么改变呢？</p>
 <h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>旋转<del>不转不是中国人</del>，这是splay的精髓所在。</p>
