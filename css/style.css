@@ -1,3 +1,14 @@
+span.spoiler:hover {text-shadow: grey 0px 0px 4px;}
+span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 8px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+    -moz-transition: text-shadow .5s ease;
+    transition: text-shadow .5s ease;
+}
+span.spoiler.revealed {text-shadow: grey 0px 0px 0px;}
 .aplayer-container {
     position: absolute;
     bottom: 0;
@@ -3828,9 +3839,10 @@ li.feature-2 {
     transform:translateY(0)
 }
 .notice {
-    padding:20px;
-    border:1px dashed #e6e6e6;
-    color:#969696;
+    padding:17px;
+    border:1px dashed #cacacaed;
+    color:#707070;
+    margin:-10px 0 -25px 0;
     position:relative;
     display:inline-block;
     width:100%;
@@ -3847,6 +3859,90 @@ li.feature-2 {
     display:initial;
     vertical-align:middle
 }
+.butterfly-tags{
+    display: inline-block;
+    margin: 0.4rem 1rem 0.4rem 0;
+    padding: 0rem 0.45rem;
+    border: 1px solid transparent;
+    border-radius: 1px 6px 6px 1px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    text-shadow: none;
+    position: relative;
+    transition: all 0.1s linear;
+}
+.butterfly-tags:hover{
+    transition: all 0.1s linear;
+    opacity: 0.85;
+    color: inherit;
+}
+.butterfly-tags:focus{color: #fff;}
+.butterfly-tags:before{
+    content: " ";
+    position: absolute;
+    border: 11px solid transparent;
+    left: -23px;
+    top: -1px;
+}
+.butterfly-tags:after{
+    content: " ";
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    position: absolute;
+    left: -2px;
+    top: 8px;
+}
+.spfk-ul{
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+.spfk-li{display: inline-block;}
+.spfk-color1{
+    background: #39b3d7;
+    border-color: #39b3d7;
+}
+.spfk-color1:before{border-right-color: #39b3d7;}
+.spfk-color2{
+    background: #4cae4c;
+    border-color: #4cae4c;
+}
+.spfk-color2:before{border-right-color: #4cae4c;}
+.spfk-color3{
+    background: #f4a83c;
+    border-color: #f4a83c;
+}
+.spfk-color3:before{border-right-color: #f4a83c;}
+.spfk-color4{
+    background: #ee6252;
+    border-color: #ee6252;
+}
+.spfk-color4:before{border-right-color: #ee6252;}
+.spfk-color5{
+    background: #e23794;
+    border-color: #e23794;
+}
+.spfk-color5:before{border-right-color: #e23794;}
+.spfk-color6{
+    background: #9537ff;
+    border-color: #9537ff;
+}
+.spfk-color6:before{border-right-color: #9537ff;}
+.spfk-color7{
+    background: #0a5dff;
+    border-color: #0a5dff;
+}
+.spfk-color7:before{border-right-color: #0a5dff;}
+.spfk-color8{
+    background: #cb3800;
+    border-color: #cb3800;
+}
+.spfk-color8:before{border-right-color: #cb3800;}
 .headertop {
     position:relative;
     overflow:hidden;
@@ -7215,30 +7311,36 @@ to {
     text-align:center;
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
-    background:#333;
-    background:rgba(0,0,0,.6);
-    visibility:hidden;
-    opacity:0;
+    background:transparent;
     -webkit-transition:all .35s ease-in-out;
     -moz-transition:all .35s ease-in-out;
     transition:all .35s ease-in-out
 }
 .the-feature.from_left_and_right .info h3 {
     text-transform:uppercase;
-    color:#fff;
+    color:rgba(255, 255, 255);
     text-align:center;
-    font-size:17px;
+    font-size:22px;
+    letter-spacing:1px;
+    text-shadow: 0 0 8px #000,0 0 8px #000;
+    font-weight:bold;
     padding:10px;
-    background:#111;
     margin:30px 0 0 0;
+    background:transparent;
     -webkit-transition:all .35s ease-in-out;
     -moz-transition:all .35s ease-in-out;
     transition:all .35s ease-in-out;
-    -webkit-transform:translateX(-100%);
-    -moz-transform:translateX(-100%);
-    -ms-transform:translateX(-100%);
-    -o-transform:translateX(-100%);
-    transform:translateX(-100%)
+    -webkit-transform:translateY(50%);
+    -moz-transform:translateY(50%);
+    -ms-transform:translateY(50%);
+    -o-transform:translateY(50%);
+    transform:translateY(50%)
+}
+.the-feature.from_left_and_right .info:hover h3{
+    background:rgba(22, 22, 22, 0.85);
+    letter-spacing: 0;
+    text-shadow: none;
+    font-size:17px;
 }
 .the-feature.from_left_and_right .info p {
     font-style:italic;
@@ -7264,6 +7366,7 @@ to {
     transform:scale(1.2)
 }
 .the-feature.from_left_and_right a:hover .info {
+    background: rgba(0,0,0,0.6);
     visibility:visible;
     opacity:1
 }
