@@ -232,12 +232,15 @@ mashiro_global.font_control = new function () {
     }
   }
   this.ini = function () {
+    var font = getCookie('font_family')
     if (document.body.clientWidth > 860) {
-      if (!getCookie('font_family') || getCookie('font_family') == 'serif') { $('body').addClass('serif') }
+      if (! font || font == 'serif') { 
+        $('body').addClass('serif') 
+        $('.control-btn-serif').addClass('selected')
+      }
     }
-    if (getCookie('font_family') == 'sans-serif') {
-      $('body').removeClass('sans-serif')
-      $('.control-btn-serif').removeClass('selected')
+    if (font == 'sans-serif') {
+      $('body').addClass('sans-serif').removeClass('serif')
       $('.control-btn-sans-serif').addClass('selected')
     }
   }
@@ -453,8 +456,60 @@ function checkBgImgCookie () {
     return false
   }
 }
+function checkEffectsCookie() {
+  var efurl = getCookie('sakuraEffectCookie')
+  if(efurl) {
+    var effect = document.createElement("script")
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/yremp/yremp-js@1.5/sakura.js")
+    effect.setAttribute("id","sakura-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+  efurl = getCookie('snowyEffectCookie')
+  if(efurl) {
+    var effect = document.createElement("script")        
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.3.3/js/snow.js")
+    effect.setAttribute("id","snow-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+  efurl = getCookie('linesEffectCookie')
+  if(efurl) {
+    var effect = document.createElement("script")        
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.3.3/js/line.js")
+    effect.setAttribute("id","line-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+  efurl = getCookie('beltsEffectCookie')
+  if(efurl){
+    var effect = document.createElement("script")        
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.0/js/piao.js")
+    effect.setAttribute("id","belt-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+  efurl = getCookie('wordsEffectCookie')
+  if(efurl){
+    var effect = document.createElement("script")        
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.0/js/coderain.js")
+    effect.setAttribute("id","words-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }  
+  efurl = getCookie('pointEffectCookie')
+  if(efurl){
+    var effect = document.createElement("script")        
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.3/js/pointrain.js")
+    effect.setAttribute("id","point-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+  efurl = getCookie('rainEffectCookie')
+  if(efurl){
+    var effect = document.createElement("script")
+    effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.5/js/raindrop.js")
+    effect.setAttribute("id","raindrop-effect")
+    document.getElementsByTagName("body").item(0).appendChild(effect)
+  }
+}
 if (document.body.clientWidth > 860) {
   checkBgImgCookie()
+  checkEffectsCookie()
 }
 
 function no_right_click () {
@@ -463,9 +518,9 @@ function no_right_click () {
   })
 }
 if (mashiro_global.variables.isNight) {
-  $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
+  $('.toc').css('background', 'rgba(255,255,255,0.8)')
 } else {
-  $('.changeSkin-gear, .toc').css('background', 'none')
+  $('.toc').css('background', 'none')
 }
 $(document).ready(function () {
   function changeBG (tagid, url) {
@@ -529,7 +584,169 @@ $(document).ready(function () {
     $('#banner_wave_1').addClass('banner_wave_hide_fit_skin')
     $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
     closeSkinMenu()
+    setCookie('bgImgSetting','https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/starry_sky.png',30)
   })
+  $('.skin-menu #empty-effect').click(function(){
+    sakuraEffectClear()
+    snowEffectClear()
+    lineEffectClear()    
+    beltEffectClear()
+    wordEffectClear()    
+    pointEffectClear()
+    rainEffectClear()
+    closeSkinMenu()
+  })
+ 
+  $('.skin-menu #sakura-rain-effect').click(function(){
+    var effect = sakuraEffectClear()
+    if(!effect) {
+        effect = document.createElement("script")
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/yremp/yremp-js@1.5/sakura.js")
+        effect.setAttribute("id","sakura-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('sakuraEffectCookie','use',30)
+    }
+    closeSkinMenu()
+  })
+  $('.skin-menu #snowy-effect').click(function(){
+    var effect = snowEffectClear()
+    if(!effect){
+        effect = document.createElement("script")        
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.3.3/js/snow.js")
+        effect.setAttribute("id","snow-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('snowyEffectCookie','use',30)
+    }
+    closeSkinMenu()
+  })
+  $('.skin-menu #lines-effect').click(function(){
+    var effect = lineEffectClear()
+    if(!effect){
+        effect = document.createElement("script")        
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.3.3/js/line.js")
+        effect.setAttribute("id","line-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('linesEffectCookie','use',30)
+    }    
+    closeSkinMenu()
+  })
+  $('.skin-menu #colorful-belts-effect').click(function(){
+    var effect = beltEffectClear()
+    if(!effect){
+        effect = document.createElement("script")        
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.0/js/piao.js")
+        effect.setAttribute("id","belt-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('beltsEffectCookie','use',30)
+    }
+    closeSkinMenu()
+  })
+  $('.skin-menu #words-rain-effect').click(function(){
+    var effect = wordEffectClear()
+    if(!effect){
+        effect = document.createElement("script")        
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.0/js/coderain.js")
+        effect.setAttribute("id","words-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('wordsEffectCookie','use',30)
+    }
+    closeSkinMenu()
+  })
+  $('.skin-menu #point-rain-effect').click(function(){
+      var effect = pointEffectClear()
+      if(!effect){        
+        effect = document.createElement("script")        
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.3/js/pointrain.js")
+        effect.setAttribute("id","point-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('pointEffectCookie','use',30)
+      }
+      closeSkinMenu()
+  })
+  $('.skin-menu #rain-drop-effect').click(function(){
+      var effect = rainEffectClear()
+      if(!effect){        
+        effect = document.createElement("script")
+        effect.setAttribute("src","https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.4.5/js/raindrop.js")
+        effect.setAttribute("id","raindrop-effect")
+        document.getElementsByTagName("body").item(0).appendChild(effect)
+        setCookie('rainEffectCookie','use',30)
+      }
+      closeSkinMenu()
+  })
+  function sakuraEffectClear(){
+    var effect = document.getElementById("sakura-effect")
+    if(effect){
+        effect.parentNode.removeChild(effect)
+        effect = document.getElementById("canvas_sakura")
+        effect.parentNode.removeChild(effect)
+        setCookie('sakuraEffectCookie','',30)
+    }
+    return effect;
+  }
+  function snowEffectClear(){
+      var effect = document.getElementById("snow-effect")
+      if(effect){
+        effect.parentNode.removeChild(effect)
+        clearInterval(CIYANG)
+        var snow = document.getElementById("snowbox")
+        while(snow){
+            snow.parentNode.removeChild(snow)
+            snow = document.getElementById("snowbox")
+        }
+        setCookie('snowyEffectCookie','',30)
+      }
+      return effect
+  }
+  function lineEffectClear(){
+      var effect = document.getElementById("line-effect")
+      if(effect){
+          effect.parentNode.removeChild(effect)
+          var lines = document.getElementById("lines")
+          lines.parentNode.removeChild(lines)
+          setCookie('linesEffectCookie','',30)
+      }
+      return effect
+  }
+  function beltEffectClear(){
+      var effect = document.getElementById("belt-effect")
+      if(effect){
+          effect.parentNode.removeChild(effect)
+          effect = document.getElementById("belts1")
+          effect.parentNode.removeChild(effect)
+          setCookie('beltsEffectCookie','',30)
+      }
+      return effect
+  }
+  function wordEffectClear(){
+      var effect = document.getElementById("words-effect")
+      if(effect){
+          effect.parentNode.removeChild(effect)
+          effect = document.getElementById("coderain")
+          effect.parentNode.removeChild(effect)
+          setCookie('wordsEffectCookie','',30)
+      }
+      return effect
+  }
+  function pointEffectClear(){
+      var effect = document.getElementById("point-effect")
+      if(effect){
+          effect.parentNode.removeChild(effect)
+          effect = document.getElementById("point")
+          effect.parentNode.removeChild(effect)
+          setCookie('pointEffectCookie','',30)
+      }
+      return effect
+  }
+  function rainEffectClear(){
+      var effect = document.getElementById("raindrop-effect")
+      if(effect){
+          effect.parentNode.removeChild(effect)
+          document.body.removeChild(document.getElementById('rain'))
+          setCookie('rainEffectCookie','',30)
+      }
+      return effect
+  }
 
   function closeSkinMenu () {
     $('.skin-menu').removeClass('show')
@@ -537,9 +754,9 @@ $(document).ready(function () {
       $('.changeSkin-gear').css('visibility', 'visible')
     }, 300)
     if (mashiro_global.variables.isNight) {
-      $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
+      $('.toc').css('background', 'rgba(255,255,255,0.8)')
     } else {
-      $('.changeSkin-gear, .toc').css('background', 'none')
+      $('.toc').css('background', 'none')
     }
   }
   $('.changeSkin-gear').click(function () {
@@ -1111,7 +1328,7 @@ var home = location.href,
     },
     MJ: function () {
       if (mashiro_option.mathjax == '1') {
-        $.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML', function () {
+        $.getScript('https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML', function () {
           MathJax.Hub.Config({tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}})
           var math = document.getElementsByClassName('entry-content')[0]
           MathJax.Hub.Queue(['Typeset', MathJax.Hub, math])
