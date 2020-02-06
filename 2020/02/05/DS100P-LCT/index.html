@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---Link-Cut Tree | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -387,497 +387,436 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  
-    <h1 class="main-title" style="font-family:'Ubuntu',sans-serif;margin-top:60px"> <i class="fa fa-commenting" aria-hidden="true"></i> Notice</h1>
-    <div class="notice">
-      <i class="iconfont icon-notification"></i>
-      <div class="notice-content">博客换主题了喵~！欢迎来踩！</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
     </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      数据结构100题 ---Link-Cut Tree</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-2-5<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
-  <div class="top-feature-row">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf/2020/02/05/DS100P/" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/JfF1qSZnweutRvp.jpg">
-        </div>
-        <div class="info">
-          <h3>DS100P</h3>
-          <p>数据结构100题系列</p>
-        </div>
-      </a>
-    </div>
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/DS100P/" class="butterfly-tags">DS100P</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
   </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/q48tuyTl1JAxmP6.jpg">
-        </div>
-        <div class="info">
-          <h3></h3>
-          <p></p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/aBwtLMs5yEjq9UT.jpg">
-        </div>
-        <div class="info">
-          <h3></h3>
-          <p></p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true"></i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Link-Cut-Tree"><a href="#Link-Cut-Tree" class="headerlink" title="Link-Cut Tree"></a>Link-Cut Tree</h1><h1 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h1><p>本文的图来自<a href="https://www.luogu.com.cn/blog/Qiu/qian-tan-link-cut-tree" target="_blank" rel="noopener">Qiuly的博客浅谈link-cut Tree</a></p>
+<p>本文照搬<a href="https://www.luogu.com.cn/blog/Qiu/qian-tan-link-cut-tree" target="_blank" rel="noopener">Qiuly的博客浅谈link-cut Tree</a></p>
+<p>lct这东西不好写，我这种蒟蒻写不好所以只能照搬Qiuly，跟Qiuly唯一的区别就是我字是自己打的……</p>
+<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><p>LCT其实可以看做加强版的重链剖分，可以说重链剖分能做的LCT都能做。不仅如此，LCT代码比重链剖分短，常数<del>有时</del>比重链剖分小。</p>
+<p>LCT由很多棵Splay组成，其中将Splay森林中的所有Splay连接起来的叫做 <strong>虚边</strong> 。Splay中边叫做实边。</p>
+<p>原来的森林我们叫做原森林，用实边连起来的一棵树叫原树。Splay的关键字是节点在书中的深度。</p>
+<p>Splay是LCT的辅助树。fhq-treap其实也可以，但均摊时间复杂度会多出一个\log</p>
+<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>以下是一些LCT常用的基础操作</p>
+<ol>
+<li><code>access(x)</code>:将x到root的路径上的边全部变成实边，并断开与自己儿子的联系</li>
+<li><code>findroot(x)</code>:找出x所在原树的root</li>
+<li><code>makeroot(x)</code>:让x变为所在原树的root</li>
+<li><code>connect(x,y)</code>:连接x和y所在的原树</li>
+<li><code>erase(x,y)</code>:拆开x和y所在的原树</li>
+<li><code>split(x,y)</code>:将x,y搞在一棵辅助树</li>
+</ol>
+<p><ul></ul></p>
+<p><li></li></p>
+<p></p><h1>Access(x):</h1><p></p>
+<p></p><p>换句话来说就是将点x到原树中root之间的链丢到一个splay里</p><p></p>
+<p></p><p>举个例子，现在有一个森林长成这样：</p><br>&lt;/li&gt;<br>&lt;/ul&gt;<p></p>
+<p></p><p><img src="https://i.loli.net/2019/02/23/5c70a02e87a40.png" alt="LCT"></p><p></p>
+<p></p><p>现在x为6。我们access(x)。</p><p></p>
+<p></p><p>那么{1-3，3-6}会变为实边，1-2会变成<em>虚边</em>，假设6有一儿子n，之间用<strong>实边</strong>连着，那么这条边也将变成<strong>虚边</strong>。</p><p></p>
+<p></p><p>每次将 x 点 <em>splay</em> 到当前所在辅助树的根节点，将它的右儿子更新为上一个 x ，然后令 x 跳到它的父节点，第一个 x 的右儿子设为0。</p><p></p>
+<pre>为什么是右儿子而不是左儿子呢？
+
+   因为fa[x]的深度小于x，而在Splay里面fa[x]是x的爸爸，所以x在Splay中是fa[x]的右儿子。</pre>
+<p><img src="https://i.loli.net/2019/02/23/5c70a02e89ed1.png" alt="LCT"></p>
+<p>我们将 x 旋转到辅助树的根节点，也就是将当前原树这条链上深度小于 x (在 x 上面的点)丢到了 x 的左子树上，将 x 的右子树设为上一个 x 点相当于将 x 原来的右子树丢到了新的 <em>splay</em> 里面(而它们之间用<strong>虚边</strong>相连)，并且将上一段链连接起来。</p>
+<p>现在就可以了。这棵新 <em>Splay</em> 中只有这条链上的结点，没有其他任何的结点。如果我们指定要这三个结点同时进行操作，可以直接下传lazy_tag到这三个结点组成的 <em>Splay</em> 的根结点哦!到后面Splay的时候就可以直接下传跟新结点信息了。</p>
+<p><strong>总体过程：</strong></p>
+<p><img src="https://i.loli.net/2019/02/23/5c70a02e9f825.png" alt="LCT"></p>
+<blockquote>
+<p><strong>虚边：儿子认父，父不认子</strong></p>
+<p><strong>实边：儿子认父，父也认子</strong></p>
+</blockquote>
+<p>用FlashHu的话来说：</p>
+<blockquote>
+<p>1.转到根。</p>
+<p>2.换儿子。</p>
+<p>3.更新信息。</p>
+<p>4.当前操作点切换为轻边所指的父亲，转1。</p>
+</blockquote>
+<pre><code class="language-cpp">inline void Access(int x){
+    for(register int y=0;x;y=x,x=fa[x]){
+        Splay(x);//转    ch[x][1]=y;//认儿子了
+        pushup(x);//儿子有变化，更新
+    }
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>findroot(x):</h1>
+</li>
+<li>
+<p>首先要明白：</p>
+<ul>
+<li>根节点是的深度最小的</li>
+</ul>
+</li>
+</ul>
+<p>我们可以通过x向上找，用 <em>Access</em> 操作可以将x和x的根结点搞到一个 <em>Splay</em> 里。</p>
+<p>又因为有BST的性质：x的左子树所有结点的权值 &lt; x &lt; x右子树所有结点的权值。</p>
+<p>而我们又知道，在执行完 <em>Access</em> 操作后，这课 <em>Splay</em> 里面的结点权值最大的(深度最大的)就是x。</p>
+<p>于是我们可以将x <em>Splay</em> 到这棵 <em>Splay</em> 的根结点，那么现在最左边的节点便是这课树的根结点了。</p>
+<pre><code class="language-cpp">inline int findroot(int x){
+    Access(x);//Access将x和根结点搞到同一个Splay中
+    Splay(x);//转到Splay的根结点
+    while(ch[x][0])pushdown(x),x=ch[x][0];//不断的找左儿子&amp;更新节点信息
+    return x;//最左边的就是根结点了。
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>makeroot(x):</h1>
+<blockquote>
+<p>将x到根结点的路径上的点全部翻转(即x变成了根节点)</p>
+</blockquote>
+</li>
+</ul>
+<p>具体操作是我们先将x点与原树中的根打通一条链，那么现在它们就在同一棵辅助树里面了，我们发现x一定是在它所在的辅助树的中序遍历的最后一个的(因为它是这条链上最深的点)，我们把x点 <em>splay</em> 到辅助树的根上，那么x显然是没有右子树的，我们要实现将x移到原树的根上，也就是将x到根的这条链的深度全部翻转一遍，在辅助树上的体现就是将整棵树翻转一遍，我们可以写个翻转标记来减少复杂度。</p>
+<pre><code class="language-cpp">inline void filp(int x){//Splay普通区间翻转
+    swap(ch[x][0],ch[x][1]);r[x]^=1;
+} 
+inline void makeroot(int x){
+    Access(x);
+    Splay(x);
+    filp(x);//lazy_tag&amp;翻转区间
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>split(x,y)</h1>
+</li>
+</ul>
+<p>这个操作是将x到y之间的那条路径丢到一棵辅助树里，并且这棵辅助树以y节点为根。</p>
+<p><em>Splay</em> 维护的是原树中的一条链，我们不能保证x,y会在同一条链里。</p>
+<p>所以我们可以先把x变成原树的根节点(这下子Access(y)就会将x到y之间的所有节点丢到一个 <em>Splay</em> 中了)。</p>
+<pre><code class="language-cpp">inline void split(int x,int y){
+    makeroot(x);Access(y);Splay(y);
+} </code></pre>
+<hr>
+<ul>
+<li>
+<h1>connect(x,y):</h1>
+<blockquote>
+<p>将x和y所在原树合并起来</p>
+</blockquote>
+</li>
+</ul>
+<p>首先将x点丢到原树的根，然后去找找y的根是不是x，如果不是说明x,y不在一个原树内，我们将x的父节点设为y，也就相当于从y到x连了一条虚边。</p>
+<pre><code class="language-cpp">inline void connect(int x,int y){
+    makeroot(x);//转到根
+    if(findroot(y)!=x)fa[x]=y;//连接一条虚边
+    /</code></pre>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/49569.png" alt></p>
+<hr>
+<ul>
+<li>
+<h1>erase(x,y):</h1>
+<p>首先我们先把x,y之间的那条边用split(x,y)拎出来，因为x,y是相邻的，所以y的左儿子一定是x，将它们的父子关系消灭掉即可。</p>
+<p>消灭父子关系时一定满足以下条件：</p>
+<p>1.x和y在一个原树里(不在一个树里面往哪儿切啊)</p>
+<p>2.split之后x是y的左儿子</p>
+<p>3.x的右儿子是空的(保证了中序遍历中y紧跟在x的后面，即深度相邻)(x的权值(深度)只比y小1，而x又正好是直接连着y的，所以我们无法再找到 &gt;x 而又 &lt;y 的整数了)</p>
+</li>
+</ul>
+<pre><code class="language-cpp">inline void erase(int x,int y){
+    split(x,y);
+    if(findroot(y)==x&amp;&amp;fa[x]==y&amp;&amp;!ch[x][1]  fa[x]=ch[y][0]=0;
+    }return;
+}</code></pre>
+<p>但是如果我们在findroot中添加了Splay的话，erase中x和y的父子关系就变了，需要改为这样，否则会出现一些奇奇怪怪的错误：</p>
+<pre><code class="language-cpp">inline void erase(int x,int y){
+    split(x,y);
+    if(findroot(y)==x&amp;&amp;fa[y]==x&amp;&amp;!  fa[y]=ch[x][1]=0;pushup(x);
+ de></code></pre>
+<hr>
+<ul>
+<li>
+<h1>0X03 Splay的改动：</h1>
+</li>
+<li>
+<h1>旋转的改动：</h1>
+<p>这里需要注意一下，如果x的父亲节点的父亲节点y已经不在当前的这棵辅助树上，只需要连单向边(也就是虚边，认父不认子)，否则正常连就行，这里要和普通的rotate区分开来。</p>
+</li>
+</ul>
+<h2>做个对比：</h2>
+<p>现在的rotate(x):</p>
+<p>这里的x可以不更新，因为会在下一次rotate时更新。
+<pre><code class="language-cpp">inline void rotate(int x){
+    int y=fa[x],z=fa[y],k=chk(x),v=ch[x][!k]; 
+   x;ch[x][!k]=y,ch[y][k]=v;
+    if(v)fa[v]=y;fa[y]=x,fa[x]=z;pushup(y);
+}<rotate(x):< p>
+<pre><code class="language-cpp">inline void rotate(int x){
+    int y=fa[x],z=fa[y],k=chk(x),v=ch[x][!k]; 
+   ]=y,ch[y][k]=v;
+    fa[v]=y;fa[y]=x,fa[x]=z;pushup(y),pushup(xli>
+<h1>Splay的改动</h1>
+<p>同样要注意一下只能Splay到辅助树的根节点，Splay之前需先下传一下这一条链上需操作的所有的点，用栈来完成即可</p>
+
+
+<pre><code class="language-cpp">inline void Splay(int x){
+    int y=x,top=0;hep[++top]=y;
+    while(get(y))hep[++top]=y=fa[y];
+    while(top)pushdown( while(get(x)){//基本普通的Splay
+        y=fa[x],top=fa[y];
+        rotate((ch[y][0]==x)^(ch[top][0]==y)?x:y);
+        rotate(x);
+    }pushup(x);return; 
+}</code></pre>
+
+<p>最后放一下模板题代码</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+const int SIZE = 3e5 + 5;
+struct ReadNode {
+    template &lt; typename T&gt;
+    void operator &gt;&gt; (T &amp;a) {
+        a = 0; T f = 1; char ch;
+        while (!isdigit(ch = getchar())) if (ch == &#39;-&#39;) f = -1;
+        while (isdigit(ch)) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = getchar();
+        a *= f;
+    }
+
+    template &lt; typename T&gt;
+    void write(T x) {
+        if (x &lt; 0) x = -x, putchar(&#39;-&#39;);
+        if (x &gt; 9) write(x / 10);
+        putchar(x % 10 + &#39;0&#39;);
+    }
+
+    template &lt; typename T&gt;
+    void operator &lt;&lt; (T x) {
+        write(x);
+    }
+} win;
+int n, q, dis[SIZE];
+
+/******************LinkCutTree******************/
+
+class LinkCutTree {
+private:
+    struct TreeNode {
+        int ch[2];
+        int val;
+        int sum;
+        int rev;
+        int fa;
+    } T[SIZE + 5];
+    int st[SIZE + 5];
+
+    inline void exch(int &amp;x, int &amp;y) { x ^= y ^= x ^= y; }
+    inline void reverse(int x) { exch(T[x].ch[0], T[x].ch[1]); T[x].rev ^= 1; }
+    inline void link(int x, int y, int w) { T[T[x].fa = y].ch[w] = x; }
+    inline bool push_up(int x) { return (T[x].sum = T[x].val ^ T[T[x].ch[0]].sum ^ T[T[x].ch[1]].sum), 1; }
+    inline void push_down(int x) { T[x].rev &amp;&amp; (reverse(T[x].ch[0]), reverse(T[x].ch[1]), T[x].rev = 0); }
+    inline void makeroot(int x) { access(x); splay(x); reverse(x); }
+    inline void split(int x, int y) { makeroot(x); access(y); splay(y); }
+    inline bool isroot(int x) { return (T[T[x].fa].ch[0] ^ x &amp;&amp; T[T[x].fa].ch[1] ^ x); }
+    inline bool which(int x) { return T[T[x].fa].ch[1] == x; }
+    inline void rotate(int x) { int y = T[x].fa, z = T[y].fa, w = which(x); !isroot(y) &amp;&amp; (T[z].ch[which(y)] = x), T[x].fa = z, link(T[x].ch[w ^ 1], y, w), link(y, x, w ^ 1), push_up(y), push_up(x); }
+    inline void splay(int x) { int y = x, top = 0; while (st[++top] = y, !isroot(y)) y = T[y].fa; while (top) push_down(st[top]), --top; while (!isroot(x)) y = T[x].fa, !isroot(y) &amp;&amp; (rotate(which(x) ^ which(y) ? x : y), 0), rotate(x); }
+    inline void access(int x) { for (int son = 0; x; x = T[son = x].fa) splay(x), T[x].ch[1] = son, push_up(x); }
+    inline int getroot(int x) { access(x), splay(x); while (T[x].ch[0]) push_down(x), x = T[x].ch[0]; return splay(x), x; }
+
+public:
+    inline void init(int length, int *data) { for (int i = 1; i &lt;= length; ++i) T[i].val = data[i]; }
+    inline void connect(int x, int y) { makeroot(x), getroot(y) ^ x &amp;&amp; (T[x].fa = y); }
+    inline void erase(int x, int y) { makeroot(x), !(getroot(y) ^ x) &amp;&amp; !(T[y].fa ^ x) &amp;&amp; !(T[y].ch[0]) &amp;&amp; (T[y].fa = T[x].ch[1] = 0, push_up(x)); }
+    inline void insert(int x, int v) { splay(x), T[x].val = v; }
+    inline int find(int x, int y) { return split(x, y), T[y].sum; }
+} lct_mast;
+
+/*****************EndLinkCutTree*****************/
+
+signed main() {
+    win &gt;&gt; n; win &gt;&gt; q;
+    for (int i = 1; i &lt;= n; ++i) win &gt;&gt; dis[i];
+    lct_mast.init(n, dis);
+    for (int i = 1; i &lt;= q; ++i) {
+        int opt, x, y;
+        win &gt;&gt; opt; win &gt;&gt; x; win &gt;&gt; y;
+        switch(opt) {
+        case 0: win &lt;&lt; lct_mast.find(x, y), puts(&quot;&quot;); break;
+        case 1: lct_mast.connect(x, y); break;
+        case 2: lct_mast.erase(x, y); break;
+        case 3: lct_mast.insert(x, y); break;
+        }
+    }
+    return 0;
+}
+</code></pre>
+</code></pre></rotate(x):<></code></pre></p>
+                      
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/02/05/DS100P-BIT/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/XMV9LrSZDf8wuaO.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/XMV9LrSZDf8wuaO.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---树状数组</h3>
+                <br>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/02/05/DS100P-KMP/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---KMP</h3>
+                <br>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-FENKUAI/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-FENKUAI/" class="post-title">
-        <h3>数据结构100题 ---分块</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-FENKUAI/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-FHQ/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/5WUc3JIeTo8gwaL.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-FHQ/" class="post-title">
-        <h3>数据结构100题 ---fhq-treap</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-FHQ/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-BIT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/XMV9LrSZDf8wuaO.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-BIT/" class="post-title">
-        <h3>数据结构100题 ---树状数组</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-BIT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-LCT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-LCT/" class="post-title">
-        <h3>数据结构100题 ---Link-Cut Tree</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-LCT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-KMP/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-KMP/" class="post-title">
-        <h3>数据结构100题 ---KMP</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-KMP/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-SA/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/72TdBhSeL84REfN.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-SA/" class="post-title">
-        <h3>数据结构100题 ---后缀全家桶 之 后缀数组</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-SA/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-ODT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/KBlFIj8Rg7vkYQM.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-ODT/" class="post-title">
-        <h3>数据结构100题 ---Chtholly-Tree(Old-Driver Tree)</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-ODT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-M-A/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-M-A/" class="post-title">
-        <h3>数据结构100题 ---莫队</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-M-A/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-SPLAY/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-SPLAY/" class="post-title">
-        <h3>数据结构100题 ---splay</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-SPLAY/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-TCS/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-TCS/" class="post-title">
-        <h3>数据结构100题 ---树链剖分</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-TCS/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class="">Previous</a></div>
-  
+        <hr>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
 
     </div>    
     <div class="ins-search">

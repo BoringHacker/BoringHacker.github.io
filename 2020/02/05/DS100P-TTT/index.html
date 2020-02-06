@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---树套树 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -387,497 +387,313 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  
-    <h1 class="main-title" style="font-family:'Ubuntu',sans-serif;margin-top:60px"> <i class="fa fa-commenting" aria-hidden="true"></i> Notice</h1>
-    <div class="notice">
-      <i class="iconfont icon-notification"></i>
-      <div class="notice-content">博客换主题了喵~！欢迎来踩！</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/BJOkiQXyWrqdKfb.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/BJOkiQXyWrqdKfb.jpg">
     </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      数据结构100题 ---树套树</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-2-5<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
-  <div class="top-feature-row">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf/2020/02/05/DS100P/" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/JfF1qSZnweutRvp.jpg">
-        </div>
-        <div class="info">
-          <h3>DS100P</h3>
-          <p>数据结构100题系列</p>
-        </div>
-      </a>
-    </div>
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/DS100P/" class="butterfly-tags">DS100P</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
   </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/q48tuyTl1JAxmP6.jpg">
-        </div>
-        <div class="info">
-          <h3></h3>
-          <p></p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://www.orchid-any.cf" target="_blank">
-        <div class="img">
-          <img src="https://i.loli.net/2020/02/06/aBwtLMs5yEjq9UT.jpg">
-        </div>
-        <div class="info">
-          <h3></h3>
-          <p></p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true"></i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="树套树"><a href="#树套树" class="headerlink" title="树套树"></a>树套树</h1><p>($nlog^2n$)</p>
+<p>树套树也是一种<del>暴力</del>思想，它可以有很多实现：树状数组套平衡树，主席树套树状数组……</p>
+<p>但是最常见的还是线段数套平衡树。</p>
+<h4 id="1-思想-amp-amp-建树"><a href="#1-思想-amp-amp-建树" class="headerlink" title="1.思想&amp;&amp;建树"></a>1.思想&amp;&amp;建树</h4><p>标准说法：线段树的每个节点对应平衡树的一个节点。</p>
+<p>???</p>
+<p>其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。</p>
+<p>线段树有$logn$层，每层的节点对应的区间能够拼成一个完整的区间，即每层$n$个平衡树节点，平衡树每个节点插入是$logn$的，所以建树的时间复杂度是$nlog^2n$</p>
+<p>fhq-treap示例</p>
+<pre><code>void build(int l,int r,int x)
+{
+    for(int i=l;i&lt;=r;++i)
+    {
+        split(root[x],a[i],root1,root2);
+        root[x]=merge(merge(root1,newnode(a[i])),root2);
+    }
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        build(l,mid,x&lt;&lt;1);
+        build(mid+1,r,x&lt;&lt;1|1);
+    }
+}
+</code></pre><h4 id="2-查询区间排名"><a href="#2-查询区间排名" class="headerlink" title="2.查询区间排名"></a>2.查询区间排名</h4><p>给定一个区间和一个值，查询区间中比他小的元素个数加1。</p>
+<p>我们可以像线段树一样，先把这个区间拆分成一些能用我们之前建树建出的平衡树表示的小区间，再查询小区间中比这个值小的元素个数加起来的和。</p>
+<p>很明显</p>
+<script type="math/tex; mode=display">f[i,j]=f[i,k]+f[k+1,j]（i\leq k<j）</script><p>($f[l,r]$表示区间$[l,r]$中比某个值小的元素个数)</p>
+<p>因为$[i,k]$和$[k+1,j]$的元素合在一起就是$[i,j]$的所有元素。</p>
+<p>那$[i,k]$和$[k+1,j]$中比某个值小的元素合在一起就是$[i,j]$中比某个值小的元素。</p>
+<p>所以上式成立。</p>
+<p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
+<p>得出代码写法：</p>
+<pre><code>int _rank(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int res=nodes[root1].sum;
+    _root=merge(root1,root2);
+    return res;
+}
+int rank(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))    return 0;
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _rank(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return rank(l,mid,x&lt;&lt;1,fr,ba,val)+rank(mid+1,r,x&lt;&lt;1|1,fr,ba,val);
+    }
+}
+</code></pre><h4 id="3-动态区间第k小"><a href="#3-动态区间第k小" class="headerlink" title="3.动态区间第k小"></a>3.动态区间第k小</h4><p>（模版题其实没说这个值要在这个区间内……）</p>
+<p>区间动态第k小并不能直接解决。所以我们通过二分寻找这个第k小值。</p>
+<p>对每一个二分到的值执行查询排名操作。如果它的排名小于等于k，那么让l等于这个值，否则r等于这个值。</p>
+<p>因为第k小值及以下的值的排名都是小于等于k的，从小到大排列的值的排名满足单调性。</p>
+<p>时间复杂度：线段树查询$<em> $平衡树查询$</em> $二分$=log^3n$</p>
+<p>代码：</p>
+<pre><code>int search(int fr,int ba,int k)
+{
+    int l=0,r=1e8+1;
+    while(l+1&lt;r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(rank(1,n,1,fr,ba,mid)&lt;k)    l=mid;
+        else    r=mid;
+    }
+    return l;
+}
+</code></pre><h4 id="4-区间前驱-后继"><a href="#4-区间前驱-后继" class="headerlink" title="4.区间前驱/后继"></a>4.区间前驱/后继</h4><p>与区间排名类似，只需查询各个分出的子区间中需查询值的前驱/后继，再求出它们的最大/最小值就行了。</p>
+<p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
+<p>代码：</p>
+<pre><code>const int AC=2147483647,WA=-2147483647;
+int _pre(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int now=root1;
+    int res=WA;
+    if(now)
+    {
+        while(nodes[now].r) now=nodes[now].r;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int pre(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return WA;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _pre(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return max(pre(l,mid,x&lt;&lt;1,fr,ba,val),pre(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+int _nxt(int &amp;_root,int val)
+{
+    split(_root,val,root1,root2);
+    int now=root2;
+    int res=AC;
+    if(now)
+    {
+        while(nodes[now].l) now=nodes[now].l;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int nxt(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return AC;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _nxt(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return min(nxt(l,mid,x&lt;&lt;1,fr,ba,val),nxt(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+</code></pre><h4 id="5-修改"><a href="#5-修改" class="headerlink" title="5.修改"></a>5.修改</h4><p>依旧是暴力，只需要把所有代表区间中包含需修改位置的节点都修改掉就好了。</p>
+<p>如替换值，就把代表区间中包含这个位置的节点代表的平衡树中的原值删除，插入新值就好了。</p>
+<p>时间复杂度：线段树寻找$* $平衡树修改$=log^2n$</p>
+<p>代码：</p>
+<pre><code>void modify(int l,int r,int x,int pos,int bef,int the)
+{
+    split(root[x],bef,root1,root2);
+    split(root1,bef-1,root1,root3);
+    root3=merge(nodes[root3].l,nodes[root3].r);
+    root[x]=merge(merge(root1,root3),root2);
+
+    split(root[x],the,root1,root2);
+    root[x]=merge(merge(root1,newnode(the)),root2);
+
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(pos&lt;=mid)    modify(l,mid,x&lt;&lt;1,pos,bef,the);
+        else    modify(mid+1,r,x&lt;&lt;1|1,pos,bef,the);
+    }
+}
+</code></pre><h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h4><p>关于第k小值的操作，据说可以用权值线段树套平衡树(线段树维护值域，平衡树维护在这个值域中的值的位置)在$log^2n$的时间解决。上面教的可能会被卡死。</p>
+<p>总而言之，树套树的思想就是暴力。各种数据结构再套一个数据结构（<del>线段树套pb_ds</del>）。<del>其实我也没写过其他的</del>。</p>
+<p>我这次写得像WGY一样是为什么……</p>
+
+                      
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/02/05/DS100P-TCS/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---树链剖分</h3>
+                <br>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/02/05/DS100P-SEGT/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---线段树</h3>
+                <br>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-FENKUAI/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-FENKUAI/" class="post-title">
-        <h3>数据结构100题 ---分块</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-FENKUAI/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-FHQ/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/5WUc3JIeTo8gwaL.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-FHQ/" class="post-title">
-        <h3>数据结构100题 ---fhq-treap</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-FHQ/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-BIT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/XMV9LrSZDf8wuaO.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-BIT/" class="post-title">
-        <h3>数据结构100题 ---树状数组</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-BIT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-LCT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-LCT/" class="post-title">
-        <h3>数据结构100题 ---Link-Cut Tree</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-LCT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-KMP/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-KMP/" class="post-title">
-        <h3>数据结构100题 ---KMP</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-KMP/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-SA/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/72TdBhSeL84REfN.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-SA/" class="post-title">
-        <h3>数据结构100题 ---后缀全家桶 之 后缀数组</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-SA/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-ODT/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/KBlFIj8Rg7vkYQM.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-ODT/" class="post-title">
-        <h3>数据结构100题 ---Chtholly-Tree(Old-Driver Tree)</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-ODT/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-M-A/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-M-A/" class="post-title">
-        <h3>数据结构100题 ---莫队</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-M-A/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-SPLAY/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-SPLAY/" class="post-title">
-        <h3>数据结构100题 ---splay</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-SPLAY/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/02/05/DS100P-TCS/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-2-5 14:02</div>
-      <a href="/2020/02/05/DS100P-TCS/" class="post-title">
-        <h3>数据结构100题 ---树链剖分</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/DS100P/">DS100P<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/Learning/">Learning</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2020/02/05/DS100P-TCS/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class="">Previous</a></div>
-  
+        <hr>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
 
     </div>    
     <div class="ins-search">
