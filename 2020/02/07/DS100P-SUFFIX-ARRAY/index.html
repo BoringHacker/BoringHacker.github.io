@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---线段树 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---后缀全家桶 之 后缀数组 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -307,41 +307,6 @@
                 
                   <ul class="sub-menu">
                     
-                      <li>
-                        <a href="/categories/技术/">
-                          <i class="fa fa-code" aria-hidden="true"></i>
-                          技术
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/生活/">
-                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                          生活
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/资源/">
-                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                          资源
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/随想/">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          随想
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/转载/">
-                          <i class="fa fa-book" aria-hidden="true"></i>
-                          转载
-                        </a>
-                      </li>
-                    
                   </ul>
                 
               </li>
@@ -414,7 +379,7 @@
                       <li>
                         <a href="/lab/">
                           <i class="fa fa-cogs" aria-hidden="true"></i>
-                          Lab
+                          Blog
                         </a>
                       </li>
                     
@@ -445,12 +410,12 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/72TdBhSeL84REfN.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/72TdBhSeL84REfN.jpg">
     </div>
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
 
       <h1 class="entry-title">
-      数据结构100题 ---线段树</h1>
+      数据结构100题 ---后缀全家桶 之 后缀数组</h1>
       <p class="entry-census">
         <span>
           <a href="/">
@@ -462,7 +427,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-2-5<span class="bull">
+        2020-2-7<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
@@ -498,105 +463,57 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="线段树-—LYC-ZBing"><a href="#线段树-—LYC-ZBing" class="headerlink" title="线段树 —LYC(ZBing)"></a>线段树 —LYC(ZBing)</h1><p>($nlogn$)</p>
-<p>线段树，顾名思义，就是每个树的节点记录一条线段上的一些信息，非常灵活，可以实现很多操作，但常数比树状数组大一点。</p>
-<p>就像这样：</p>
-<p><img src="https://i.loli.net/2019/12/28/qSIgzFlXGQ62xUi.png" alt></p>
-<p>线段树的经典应用就是统计区间和，我们这里也用这个来进行线段树的讲解。</p>
-<h4 id="1-建树"><a href="#1-建树" class="headerlink" title="1).建树"></a>1).建树</h4><p>我们先放代码吧，看代码理解。</p>
-<pre><code>void build(int l,int r,int x)
-{
-    if(l==r)
-    {
-        nodes[x]=a[l];
-        return; 
-    }
-    else
-    {
-        int mid=(l+r)&gt;&gt;1;
-        build(l,mid,x&lt;&lt;1);
-        build(mid+1,r,(x&lt;&lt;1)+1);
-        nodes[x]=nodes[x&lt;&lt;1]+nodes[(x&lt;&lt;1)+1];
-    }
-}
-</code></pre><p>首先，我们遍历到线段树的每一个叶子节点。线段树的每个节点都代表了一个区间，当这个区间的$l=r$时，说明我们到达了叶子节点。这个叶子节点代表的区间只包含了$a[l]$这一个数，所以我们只需要将这个节点的值置为$a[l]$。</p>
-<p>然后我们递归回去，每一个非叶子节点都可以把它代表的区间分成两半，对应它的两个子节点（可能没有两个）。它两个子节点的值就是这两个较小区间的元素和。由这两个子节点的值也就是这两个小区间的元素和相加就可以得到当前节点代表区间的元素和。</p>
-<p>时间复杂度($nlogn$)</p>
-<h4 id="2-单点修改"><a href="#2-单点修改" class="headerlink" title="2).单点修改"></a>2).单点修改</h4><p>像这种区间和问题的单点修改一般都是给一个点加上一个值。</p>
-<p>还是先放代码吧：</p>
-<pre><code>void update(int l,int r,int x,int pos,int val)
-{
-    nodes[x]-=val;
-    if(l==r)    return;
-    int mid=(l+r)&gt;&gt;1;
-    if(pos&lt;=mid)    update(l,mid,x&lt;&lt;1,pos,val);
-    else    update(mid+1,r,(x&lt;&lt;1)+1,pos,val);
-}
-</code></pre><p>还是先递归找到要修改的叶子节点。先将它的值加上val。</p>
-<p>然后再递归回去，因为往下找时找到的每一个节点代表的区间都包含这个叶子节点代表的区间，所以这些节点的值也要加上val。</p>
-<p>时间复杂度($logn$)</p>
-<h4 id="3-区间查询"><a href="#3-区间查询" class="headerlink" title="3).区间查询"></a>3).区间查询</h4><p>区间查询的本质就是把要查询的区间拆分成很多小区间，直接利用之前维护的节点的值进行查询。</p>
-<pre><code>int find(int l,int r,int x,int fr,int ba)
-{
-    if(l&gt;ba||r&lt;fr)    return 0;
-    if(l&gt;=fr||r&lt;=ba)    return nodes[x];
-    int mid=(l+r)&gt;&gt;1;
-    return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
-}
-</code></pre><p>我们对于当前递归查找到的节点所代表的区间与要查询的区间进行分类讨论：</p>
-<p>$1$&gt;.毫无关联</p>
-<p>即当前区间的左端点在查询区间右端点的右边或当前区间的右端点在查询区间左端点的左边。</p>
-<p>既然他们毫无关联，那么我们就返回一个值0，因为他们对这个区间的和没有任何贡献。</p>
-<p>$2$&gt;.被包含</p>
-<p>即当前区间的左端点在查询区间的左端点的右边且当前区间的右端点在查询区间的右端点的左边。</p>
-<p>既然这个节点代表的区间全部属于查询区间内，那么我们就没有必要再继续递归下去了，直接把这个节点的值加上去。</p>
-<p>$3$&gt;.有部分重叠但不被包含</p>
-<p>即上两种情况的剩余情况。</p>
-<p>对于这种情况，我们没有办法把节点的值直接加上去，因为这个节点代表的区间不全属于查询区间。也不能直接跳过，因为有部分节点属于查询区间。所以我们继续向它的子节点递归，相当于把这个区间分成两半，查询两个子区间中属于查询区间的值加起来。</p>
-<p>时间复杂度（$logn$）</p>
-<h4 id="4-区间修改"><a href="#4-区间修改" class="headerlink" title="4).区间修改"></a>4).区间修改</h4><p>面对区间修改，如果我们继续用单点修改，时间复杂度会退回到（$n^2logn$）</p>
-<p>所以我们引入<del>人类的本质</del>懒标记。</p>
-<p>当我们找到了一个完全是要修改的区间，我们就直接把它的懒标记加上$val$。</p>
-<p>对于中途遍历到的其他区间，我们直接计算修改这个区间的和。</p>
-<p>代码：</p>
-<pre><code>void update(int l,int r,int x,int fr,int ba,int val)
-{
-    if(l&gt;ba||r&lt;fr)    return;
-    if(l&gt;=fr&amp;&amp;r&lt;=ba)    lazy[x]+=val;
-    else
-    {
-        nodes[x]+=val*max(0,min(r,ba)-max(l,fr)+1);
-        int mid=(l+r)&gt;&gt;1;
-        update(l,mid,x&lt;&lt;1,fr,ba,val);
-        update(mid+1,r,(x&lt;&lt;1)+1,fr,ba,val);
-    }
-}
-</code></pre><p><del>长得和区间查询很像对吧</del></p>
-<p>改了修改之后，我们的查询也要进行修改。要把打上的懒标记进行下传，不然查询到下面的节点时，下面的节点没有被修改。</p>
-<p>下传时只需要让当前节点加上原来应加而拖延了的值，让它的左右儿子的懒标记加上它的懒标记。因为当初修改时，并没有修改到左右节点。最后再把懒标记清零。</p>
-<p>就像这样：</p>
-<pre><code>void pushdown(int l,int r,int x)
-{
-    nodes[x]+=(r-l+1)*lazy[x];
-    lazy[x&lt;&lt;1]+=lazy[x];
-    lazy[(x&lt;&lt;1)+1]+=lazy[x];
-    lazy[x]=0;
-}
-int find(int l,int r,int x,int fr,int ba)
-{
-    if(l&gt;ba||r&lt;fr)    return 0;
-    if(lazy[x])    pushdown(l,r,x);
-    if(l&gt;=fr&amp;&amp;r&lt;=ba)    return nodes[x];
-    else
-    {
-        int mid=(l+r)&gt;&gt;1;
-        return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
-    }
-}
-</code></pre><p>$\ $</p>
-<p>线段树的讲解到这里就这么完了，但线段树的运用十分广泛，灵活。要熟练掌握并运用线段树，还要多动脑，想好题。</p>
+          <h1 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h1><h1 id="0x01-什么是后缀数组-Suffix-Array"><a href="#0x01-什么是后缀数组-Suffix-Array" class="headerlink" title="0x01 什么是后缀数组(Suffix Array)"></a>0x01 什么是后缀数组(Suffix Array)</h1><p>我们知道，对于一个长度为 $n$ 的字符串有 $n$ 个后缀，譬如对于字符串 $DCBAE$ 来说，它的后缀便是:</p>
+<p><img src="https://i.loli.net/2020/01/30/uiheaoRLWdKEON6.png" alt="img spfaed"></p>
+<p>那么什么是后缀数组( $SA$ )呢？在我们对字符串的 $n$ 个后缀排序过后，我们定义后缀数组：</p>
+<blockquote>
+<p>$SA$ 数组：排在第i位的是第 $SA$ [i]个后缀</p>
+</blockquote>
+<p>即后缀数组。</p>
+<p>同时我们定义：</p>
+<blockquote>
+<p>RANK数组：排在第RANK[i]位的后缀是第i个后缀</p>
+</blockquote>
+<p>不难看出RANK和 $SA$ 互逆</p>
+<p><img src="https://i.loli.net/2020/01/30/4jfIt1iy8V9XRPl.png" alt="img spfaed"></p>
+<h1 id="0x02-如何求出-SA-数组-粗略的"><a href="#0x02-如何求出-SA-数组-粗略的" class="headerlink" title="0x02 如何求出 $SA$ 数组(粗略的)"></a>0x02 如何求出 $SA$ 数组(粗略的)</h1><p>朴素的做法是直接$sort$，$\Theta(n^2\log n)$ 爹妈恨铁不成钢。</p>
+<p>稍微有点脑子都会想到$hash$但是依然爆炸。</p>
+<p>如果深入思考的话很容易想到倍增，时间复杂度 $\Theta(n\log n)$ + 大常数碰上毒瘤题当场去世。</p>
+<p>$DC3$？常数大，板子难背。</p>
+<p>$LUOGU$ 日报曾经有过一片日报给出了一种诱导排序的解决方法，但是我不是很理解。</p>
+<p>我在这里给出一种中文互联网上几乎没有任何资料的 $SA$ 数组线性时间复杂度构造方法(我也不知道叫什么名字)。</p>
+<h1 id="0x03-如何求出-SA-数组-具体的"><a href="#0x03-如何求出-SA-数组-具体的" class="headerlink" title="0x03 如何求出 $SA$ 数组(具体的)"></a>0x03 如何求出 $SA$ 数组(具体的)</h1><p>首先定义文本串 $text$ 为我们的待求 $SA$ 的字符数组</p>
+<p>其次定义 $suffix_i$ 为以 $i$ 起头的 $text$ 的后缀</p>
+<p>然后定义 $type_i = \begin{cases}L, suffix_i &gt; suffix_{i+1} \\<br>\displaystyle S, suffix_i &lt; suffix_{i+1}\end{cases}$</p>
+<p>参考图片(手写字可能有些看不清楚)：</p>
+<p><img src="https://i.loli.net/2020/01/31/KYgnzM6IZJyoWtL.png" alt="img spfaed"></p>
+<p>字符串最后的是什么？你可以认为这是因为作者懒不想到处判边界而加上的<strong>比字符串中任意一个字符的ASCLL码都小的字符</strong></p>
+<p>再来定义 $dist_i$ 为 $text_i$ 距离上一个 $type_i$ 为 $S$ 的距离</p>
+<p>参考图片(手写字可能有些看不清楚)：</p>
+<p><img src="https://i.loli.net/2020/01/31/XE3QM7tsHuIPrhx.png" alt="img spfaed"></p>
+<p>再定义一个桶 $bucket$，以 $text$ 中的字符为区别桶之间的“键值”。依然参考图片</p>
+<p><img src="https://i.loli.net/2020/01/31/e5xzKhQsH39Ad17.png" alt="img spfaed"></p>
+<p>我们其实可以发现此时的 $bucket$ 已经和我们要求的 $SA$ 差的不远了。为什么呢？桶排啊！此时的桶外部其实已经是有序的了，只是我们内部还无法确定顺序。比如 $I$ 这个桶里，我们无法确定 $suffix_{2},suffix_{5},suffix_{8},suffix_{11}$ 的排序顺序，因为他们开头的首字母不同。那该怎么办呢？请继续往下看。</p>
+<p>我们再定义一个桶 $D_lists$ “键值” 为 $list_i$。参考图片(注意此时我们不考虑键值(即 $dist$ )为0的情况)</p>
+<p><img src="https://i.loli.net/2020/01/31/HpJhDyjxR8u6iNC.jpg" alt="img spfaed"></p>
+<p>以键值为1举一个例子。它的意思就是说 $dist$ 为1的情况有 $suffix_{9},suffix_{3,6}$ 这三种情况。与 $bucket$ 这个桶类似但不同的，我们能分清 $suffix_9$ 和 $sufiix_{3,6}$ 的顺序，但我们无法分清 $suffix_3$ 和 $suffix_6$ 的顺序。为什么呢？我们来看，下标为9的后缀是以 $P$ 开头的，然而下标为3和6的后缀却都是以 $S$ 开头的，所以 $suffix_9$ 一定排在 $suffix_{3,6}$ 的前面。$suffix_{3,6}$ 却因为首字母相同所以无法分清楚顺序。</p>
+<p>下一步我们尝试将所有 $type$ 为 $S$ 的 $suffix$ 找出来</p>
+<p>我们把 $bucket$ 扫一遍，即可得出：</p>
+<p><img src="https://i.loli.net/2020/02/01/krfWd9FHhPqgtL2.png" alt="img spfaed"></p>
+<p>图中的 $S-Substring$ 即为我们所求的所有 $type$ 为 $S$ 的 $suffix$。</p>
+<p>同样，我们不知道 $suffix_{2,5,8}$ 哪个在前哪个在后。一种 $naive$ 的做法就是把 $[2,5,8]$ 依次+1，相当于直接暴力比较下一个字母，然后通过 $D_lists$ 来分析它们的先后关系。</p>
+<p><img src="https://i.loli.net/2020/02/01/B6FUGwyXsdW4jkE.png" alt="img spfaed"></p>
+<p>我们发现了一个悲剧的事实：已经加到3了，我们却依然无法分清 $[2,5]$ 的顺序。如果继续加下去或许可以分清它们的顺序，但时间复杂度就难以保持在 $\Theta(n)$，换句话说，它很容易被卡。</p>
+<p><img src="https://i.loli.net/2020/02/01/nzZmpYLWh9gkwC8.jpg" alt="img spfaed"></p>
+<p>怎么办呢？我们分析一下这种情况出现的原因。</p>
+<p>显然此时两个后缀的部分前缀是相同的。即下图的情况：</p>
+<p><img src="https://i.loli.net/2020/02/01/6jyL2qsZ9NMQecE.png" alt="img spfaed"></p>
 
-                      
+          
+            <hr>
+            <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
+            <p style="font-size:32px;text-align:center;margin-top:-2px">施工中...</p>
+                        
         </div>
         <!-- .entry-content -->
         <!-- <div class="single-reward">
@@ -628,15 +545,15 @@ int find(int l,int r,int x,int fr,int ba)
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/05/DS100P-SPLAY/" rel="prev">
+            <a href="/2020/02/07/DS100P-MO-ALGORITHM/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---splay</h3>
+                数据结构100题 ---莫队</h3>
                 <br>
               </div>
             </a>
@@ -646,15 +563,15 @@ int find(int l,int r,int x,int fr,int ba)
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/05/DS100P-TRIE/" rel="next">
+            <a href="/2020/02/07/DS100P-LINK-CUT-TREE/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---trie树</h3>
+                数据结构100题 ---Link-Cut Tree</h3>
                 <br>
               </div>
             </a>
@@ -873,41 +790,6 @@ $(document).ready(function() {
         
           <ul class="sub-menu">
             
-              <li>
-                <a href="/categories/技术/">
-                  <i class="fa fa-code" aria-hidden="true"></i>
-                  技术
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/生活/">
-                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                  生活
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/资源/">
-                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                  资源
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/随想/">
-                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                  随想
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/转载/">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                  转载
-                </a>
-              </li>
-            
           </ul>
         
       </li>
@@ -980,7 +862,7 @@ $(document).ready(function() {
               <li>
                 <a href="/lab/">
                   <i class="fa fa-cogs" aria-hidden="true"></i>
-                  Lab
+                  Blog
                 </a>
               </li>
             

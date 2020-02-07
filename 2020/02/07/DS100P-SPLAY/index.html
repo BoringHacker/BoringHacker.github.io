@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---分块 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---splay | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -307,41 +307,6 @@
                 
                   <ul class="sub-menu">
                     
-                      <li>
-                        <a href="/categories/技术/">
-                          <i class="fa fa-code" aria-hidden="true"></i>
-                          技术
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/生活/">
-                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                          生活
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/资源/">
-                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                          资源
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/随想/">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          随想
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/转载/">
-                          <i class="fa fa-book" aria-hidden="true"></i>
-                          转载
-                        </a>
-                      </li>
-                    
                   </ul>
                 
               </li>
@@ -414,7 +379,7 @@
                       <li>
                         <a href="/lab/">
                           <i class="fa fa-cogs" aria-hidden="true"></i>
-                          Lab
+                          Blog
                         </a>
                       </li>
                     
@@ -445,12 +410,12 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg">
     </div>
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
 
       <h1 class="entry-title">
-      数据结构100题 ---分块</h1>
+      数据结构100题 ---splay</h1>
       <p class="entry-census">
         <span>
           <a href="/">
@@ -462,7 +427,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-2-5<span class="bull">
+        2020-2-7<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
@@ -498,120 +463,330 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h1><p>($n\sqrt n$)</p>
-<p>分块其实也是一种暴力，<del>但它是一种巧妙的暴力</del></p>
-<p>它用来处理区间的问题。</p>
-<p>把这个区间大概分成$\sqrt n$块</p>
-<p>然后再处理：对于一个整块，就整个处理掉；对于一个角块（不完整的块），就暴力处理。</p>
-<p>比如区间求和。(非主流写法勿喷)</p>
-<h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1.初始化"></a>1.初始化</h3><p>对于每个元素，我们要处理出它是哪个块的，以便之后快速地找到它所在的块。</p>
-<p>对于每个块，我们要统计出之后计算答案所需这个块内的结果（这里就是块内区间和），在区间中的左右端点，以及区间修改的懒标记。</p>
-<p>代码：</p>
-<pre><code>struct cude
-{
-    int l,r,sum,lazy;//左右端点，区间和，懒标记
-}cud[400];
-int n,a[100010],bel[100010],each,cnt;//原数组大小及元素，每个元素的块编号，块大小，块数
-void build()
-{
-    each=sqrt(n);
-    for(int i=0;i&lt;n;++i)//注意，我是从0开始存的原数组
-    {
-        bel[i]=i/each;//预处理元素属于块
-        cud[bel[i]].sum+=a[i];//区间和
-    }
-    for(int i=0;i*each&lt;n;++i)
-    {
-            ++cnt;//统计块数
-        cud[i].l=i*each;//块左端点
-        cud[i].r=min((i+1)*each-1,n-1);//块右端点，不可能达到n，所以取min，最多到n-1
-    }
-}
-</code></pre><h3 id="2-修改"><a href="#2-修改" class="headerlink" title="2.修改"></a>2.修改</h3><p>修改是很暴力的，我们对这个区间进行扫描。</p>
-<p>整块就区间修改，懒标记。</p>
-<p>角块就直接暴力扫过去修改。</p>
-<p>最多$\sqrt n$个整块，打懒标记$O(1)$，复杂度为$O(\sqrt n)$</p>
-<p>最多$2$个角块，一个角块最多$\sqrt n$个元素，暴力修改$O(\sqrt n)$</p>
-<p>区间修改总时间复杂度$O(\sqrt n)$</p>
-<p>代码：</p>
-<pre><code>void update(int l,int r,int val)
-{
-    for(int i=bel[l];cud[i].l&lt;=r&amp;&amp;i&lt;cnt;++i)//注意不要超过块数，我的块是从0开始编号的
-    {
-        if(cud[i].l&gt;=l&amp;&amp;cud[i].r&lt;=r)//整块打懒标记
-        {
-            cud[i].lazy+=val;
-            cud[i].sum+=(cud[i].r-cud[i].l+1)*val;
-        }
-        else//角块暴力扫
-        {
-            if(cud[i].l&lt;l)//属于整个区间的最左边的角块，但还可能是最右边的角块，需要判断不要超出修改区间的右端点
-            {
-                for(int j=l;j&lt;=cud[i].r&amp;&amp;j&lt;=r;++j)
-                {
-                    a[j]+=val;
-                    cud[i].sum+=val;
-                }
-            }
-            else//不是最左边的，那肯定是最右边的。
-            {
-                for(int j=cud[i].l;j&lt;=r;++j)
-                {
-                    a[j]+=val;
-                    cud[i].sum+=val;
-                }
-            }
-        }
-    }
-}
-</code></pre><h3 id="3-查询"><a href="#3-查询" class="headerlink" title="3.查询"></a>3.查询</h3><p>查询也是很暴力的。</p>
-<p>同样对这个区间进行扫描。</p>
-<p>如果是整块，就直接加上这个块的区间和。</p>
-<p>如果是角块，就要先下传懒标记，再暴力查询。</p>
-<p>因为我们之前并没有修改元素值，只是加上了懒标记，修改了区间和。</p>
-<p>所以我们现在要先修改这些元素的值再查询，否则查询到的值是修改之前的。</p>
-<p>时间复杂度与修改相同，都是$O(\sqrt n)$；</p>
-<p>代码：</p>
-<pre><code>//细节同2.修改
-int find(int l,int r)
-{
-    int res=0;
-    for(int i=bel[l];cud[i].l&lt;=r&amp;&amp;i&lt;cnt;++i)
+          <h1 id="update"><a href="#update" class="headerlink" title="update:"></a>update:</h1><p>增加几道好一点的例题吧</p>
+<p><a href="https://www.luogu.com.cn/problem/P1486" target="_blank" rel="noopener">[NOI2004]郁闷的出纳员</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3391" target="_blank" rel="noopener">[模板]文艺平衡树</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3988" target="_blank" rel="noopener">[SHOI2013]发牌</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3871" target="_blank" rel="noopener">[TJOI2010]中位数</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3850" target="_blank" rel="noopener">[TJOI2007]书架</a></p>
+<h1 id="正文：关于SPLAY"><a href="#正文：关于SPLAY" class="headerlink" title="正文：关于SPLAY"></a>正文：关于SPLAY</h1><p>其实我更偏向于把splay叫做<del>cosplay</del></p>
+<p>讲平衡树总逃不过BST(Binary Search Tree)，二叉搜索树，以下是BST的性质：</p>
+<p>一棵合法的BST每个节点上都带有一个数值，我们将其称为节点的“关键码”。那么对于一棵BST上的任意节点，满足：</p>
+<ul>
+<li><p>该节点的关键码不小于它左子树的任意结点的关键码</p>
+</li>
+<li><p>该结点的关键码不大于它右子树的任意结点的关键码</p>
+</li>
+</ul>
+<p><code>显然</code>，BST的中序遍历是一个递增的序列</p>
+<h2 id="建立一棵BST"><a href="#建立一棵BST" class="headerlink" title="建立一棵BST"></a>建立一棵BST</h2><p>因为笔者很懒，不想到处判边界，所以我们一般可以在一棵空的BST中预先插入两个结点，一个正无穷，一个负无穷，如图:</p>
+<p><img src="https://i.loli.net/2019/12/13/V2N6AQUynRGvzYI.png" alt="img spfaed"></p>
+<pre><code class="lang-cpp">const int SIZE = 1e5 + 5;
+const int INF = 0x7fffffff;
+struct BSTNode {
+    int l, r; // 左右儿子的编号
+   int val; // 关键码
+} T[SIZE];
+int tot, root;
 
-        if(cud[i].l&gt;=l&amp;&amp;cud[i].r&lt;=r)    res+=cud[i].sum;
-        else
-        {
-            if(cud[i].lazy)//下传懒标记
-            {
-                for(int j=cud[i].l;j&lt;=cud[i].r;++j)    a[j]+=cud[i].lazy;
-                cud[i].lazy=0;
-            }
-            if(cud[i].l&lt;l)
-            {
-                for(int j=l;j&lt;=cud[i].r&amp;&amp;j&lt;=r;++j)    res+=a[j];
-            }
-            else
-            {
-                for(int j=cud[i].l;j&lt;=r;++j)    res+=a[j];
-            }
-        }
-    }
-    return res;
+int clone(int val) { // 新建节点
+    T[++tot].val = val;
+   return tot;
 }
-</code></pre><h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><p>你看着这个东西好像很暴力，但它就是跑得过题。</p>
-<p>它的总时间复杂度是$O(n\sqrt n)$的，$500000$及以上就别想啦。</p>
-<p>分块的题目很灵活，但一般都很暴力，有时区间修改不能打懒标记，就必须暴力修改，但有时你又可以跳过这个修改，进行“剪枝”。</p>
-<p>就像<a href="http://222.180.160.110:1024/problem/133" target="_blank" rel="noopener">花神游历各国</a>，区间开方必须要在块里去暴力开</p>
-<p>但我们想，$1$和$0$开方后都是本身，其它数开方就会变得越来越小，最后到$1$，所以我们可以维护一个块内是否全是$1$或$0$。</p>
-<p>如果是，就可以跳过在这个区间里进行开方了，因为这个块里的元素开方之后都还是本身，每个元素和区间和都没有变。</p>
-<p>其他的就是普通分块。</p>
-<p>$\ $</p>
-<p><del>在分块，你甚至可以打表</del></p>
-<p>在区间中选取$\sqrt n$个特征点，处理出它们间的信息。</p>
-<p>对每个查询，选取最近的两个特征点的信息再从这两个特征点暴力跳过去。</p>
-<p>这样就可以代替莫队啦。</p>
-<p>而且分块没有任何离线操作，可以应对看起来像要用莫队（离线算法，同样$O(n\sqrt n)$）才能解决，但又强制在线的题目。</p>
-<p>以及，<strong>整除分块不是数据结构，是数论！！！</strong></p>
+
+void build() {
+    clone(-INF), clone(INF);
+   root = 1, T[1].r = 2;
+}
+</code></pre>
+<p>以上是建树的代码</p>
+<p>那么，BST就讲到这里</p>
+<h2 id="平衡树的诞生"><a href="#平衡树的诞生" class="headerlink" title="平衡树的诞生"></a>平衡树的诞生</h2><p>当BST形成一条链的时候，每次查询会变成$O(n^2)$</p>
+<p>这种深度过深的BST是不平衡的。所以我们需要一种能保持树的深度在$\log(n)$的数据结构，于是便诞生了平衡树</p>
+<h2 id="SPLAY"><a href="#SPLAY" class="headerlink" title="SPLAY"></a>SPLAY</h2><p>splay，又称<del>cosplay</del>伸展树，有“序列之王”的美称，<del>常数巨大</del>，跑的没有$fhq-treap$快，但这不在我们的讨论范围以内</p>
+<p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
+<p>想象一下这样一颗BST，我们先把它们的大小关系列出来。</p>
+<script type="math/tex; mode=display">
+Y<Z, C>Y, X<Y,A<X,B>X</script><p>对于这样一颗BST，我们可以通过一些特殊的方式来改变它的形态保持中序序列不变，这也是平衡树的精髓。</p>
+<p>怎么改变呢？</p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>旋转<del>不转不是中国人</del>，这是splay的精髓所在。</p>
+<p>现在我们的目标是让X节点往上爬到它父亲节点Y处，让Y变成X的幺儿，也就是让Y节点下降。</p>
+<p><code>这个过程首先要满足BST性质</code></p>
+<p>通过例图来思考，此时的X节点是Y节点的左儿子，小于Y节点，为了不改变中序序列，我们可以让Y节点成为X的右儿子。那么问题来了：变换后的Y的确大于X，但X还有一颗右子树呢！</p>
+<p>别急，再回想一下BST的性质，任意节点大于其左子树中的任意节点，也就是说我们可以把X的左子树B拿给Y当左子树。</p>
+<p>好了！世界核平了！<del>Tarjan放心了</del></p>
+<p>展示一下旋转的成果吧！</p>
+<p>旋转前：</p>
+<p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
+<p>旋转后</p>
+<p><img src="https://i.loli.net/2019/12/13/Dr5IfBWVl7b6PTH.png" alt="graph _1_.png"></p>
+<p>别高兴得太早！</p>
+<p>这只是一种情况，我们需要的是<code>通用</code></p>
+<p>这里有一个小技巧，即：</p>
+<script type="math/tex; mode=display">
+odd\bigoplus1=odd-1</script><script type="math/tex; mode=display">
+even\bigoplus1=even+1</script><p>这个性质的证明很简单：</p>
+<p><code>即得易见平凡，仿照上例显然。</code></p>
+<p><code>留作习题答案略，读者自证不难。</code></p>
+<p><code>反之亦然同理，推论自然成立，略去过程QED，由上可知证毕。</code></p>
+<p>$Just$ $a$ $joke$</p>
+<p>设节点Y为X的父亲，Y的w(0代表左儿子，1代表右儿子)儿子</p>
+<ul>
+<li>$step1$:将Y节点放到X节点的w$\bigoplus$1的位置</li>
+<li>$step2$:如果X的w$\bigoplus$1位置上有一颗子树，放在Y的w位置上</li>
+</ul>
+<pre><code class="lang-cpp">inline void update(int x) { // 更新节点信息
+    T[x].siz = T[T[x].ch[0]].siz + T[T[x].ch[1]].siz + T[x].cnt;
+}
+
+inline void rotate(int x) { // 旋转
+    int y = T[x].fa; // X它爹
+    int z = T[y].fa; // X它爹它爹
+    int w = T[y].ch[1] == x; // X是它爹的左幺儿还是右幺儿
+    T[z].ch[T[z].ch[1] == y] = x;
+    T[x].fa = z;
+    T[y].ch[w] = T[x].ch[w ^ 1];
+    T[T[x].ch[w ^ 1]].fa = y;
+    T[x].ch[w ^ 1] = y;
+    T[y].fa = x;
+    update(y), update(x);
+}
+</code></pre>
+<p>仅仅有rotate操作还不够，splay到目前为止依然很容易被卡。</p>
+<p>想象这样一棵树：</p>
+<p><img src="https://i.loli.net/2019/12/13/6hBzE2UsC8oJXfu.png" alt="img spfaed"></p>
+<p>发现无论怎么旋转X都不能使得这棵树最长的一条链变短。我们称这种X，X它爹，X它爹它爹在一条线上的情况称为三点共线。</p>
+<p>怎么办呢？<del>可怜的splay被人溜了</del></p>
+<p>办法还是有滴</p>
+<ul>
+<li>$step1$:如果三点共线，我们可以先旋转X它爹，这样便可以使其更加“平衡”</li>
+<li>$step2$:如果不共线……不共线……那就旋转X就好了</li>
+</ul>
+<p>这便是splay操作</p>
+<pre><code class="lang-cpp">inline void splay(int x, int goal) { //splay
+    for (; T[x].fa ^ goal; rotate(x)) { // 一直旋转到x成为goal的儿子
+        int y = T[x].fa;
+        int z = T[y].fa;
+        if (z ^ goal)
+            T[y].ch[1] ^ x ^ T[z].ch[1] ^ y ? rotate(x) : rotate(y); //判断三点是否共线，如果是，就旋转Y，否则旋转X
+    }
+    if (!goal) root = x; // 把根节点设为X
+}
+</code></pre>
+<p>至此，splay就差不多讲完了，那么再来一道例题吧</p>
+<p><a href="https://www.luogu.com.cn/problem/P3369" target="_blank" rel="noopener">【模板】普通平衡树</a></p>
+<ul>
+<li>题面：</li>
+</ul>
+<pre><code>您需要写一种数据结构（可参考题目标题），来维护一些数，其中需要提供以下操作：
+1.插入 x 数
+2.删除 x 数(若有多个相同的数，因只删除一个)
+3.查询 x 数的排名(排名定义为比当前数小的数的个数 +1 )
+4.查询排名为 x 的数
+5.求 x 的前驱(前驱定义为小于 x，且最大的数)
+6.求 x 的后继(后继定义为大于 x，且最小的数)
+</code></pre><h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><p>首先我们先查找BST当中有没有和需要插入的节点关键码相同的节点，如果有，就把当前节点的“副本”数+1</p>
+<p>如果没有，就遍历到叶子节点，再新增一个节点就好了</p>
+<pre><code class="lang-cpp">inline void insert(int x) {
+    int u = root, fa = 0; // 从根节点开始找
+    while (u &amp;&amp; x ^ T[u].val) // 找关键码相同的节点
+        fa = u, u = T[u].ch[x &gt; T[u].val];
+    if (u) T[u].cnt++; // 如果有，就增加一个副本
+    else { // 否则新建一个节点
+        u = ++tot;
+        if (fa) T[fa].ch[x &gt; T[fa].val] = u;
+        T[u].fa = fa;
+        T[u].siz = T[u].cnt = 1;
+        T[u].ch[0] = T[u].ch[1] = 0;
+        T[u].val = x;
+    }
+    splay(u, 0);
+}
+</code></pre>
+<h2 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h2><p>设查找节点的关键码为x，如果x大于当前节点的关键码，就往右子树跑，否则往左子树找。找到后把当前节点splay到根，保证BST的平衡</p>
+<pre><code class="lang-cpp">inline void find(int x) {
+    int u = root;
+    if (!u) return ; // BST空
+    while (T[u].ch[x &gt; T[u].val] &amp;&amp; x ^ T[u].val)
+        u = T[u].ch[x &gt; T[u].val];
+    splay(u, 0);
+}
+</code></pre>
+<h2 id="前驱-后继操作"><a href="#前驱-后继操作" class="headerlink" title="前驱/后继操作"></a>前驱/后继操作</h2><p>首先执行find操作。</p>
+<p>以前驱为例，当前的根节点就是x的父节点，所以如果root的关键码大于x，那么root就是x的前驱。否则就跳到左儿子找，再反着跳就好了</p>
+<pre><code class="lang-cpp">inline int next_bound(int x, int f) { // f=0前驱，f=1后继
+    find(x);
+    int u = root; // x的父节点
+    if (T[u].val &gt; x &amp;&amp; f) return u;
+    if (T[u].val &lt; x &amp;&amp; !f) return u;
+    u = T[u].ch[f]; // 跳到对应的子树
+    while (T[u].ch[f ^ 1]) u = T[u].ch[f ^ 1]; // 反着跳转
+    return u;
+}
+</code></pre>
+<h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><p>找到这个数的last，把他splay到根节点</p>
+<p>然后找到这个数next，把他splay到last的底下</p>
+<p>然后……然后就没有了呀……</p>
+<p>比last大是next</p>
+<p>比next小的且比last大的只有当前的节点</p>
+<p>在next的左幺儿上面，</p>
+<p>だから直接把root右幺儿的左幺儿删掉就可以了</p>
+<pre><code class="lang-cpp">inline void erase(int x) {
+    int last = next_bound(x, 0);
+    int next = next_bound(x, 1);
+    splay(last, 0), splay(next, last);
+    int del = T[next].ch[0];
+    if (T[del].cnt &gt; 1) {
+        T[del].cnt--;
+        splay(del, 0);
+    }
+    else T[next].ch[0] = 0;
+}
+</code></pre>
+<h2 id="第K大"><a href="#第K大" class="headerlink" title="第K大"></a>第K大</h2><p>现在再来看已经十分简单了</p>
+<p>首先如果左子树的大小加上本身的个数大于k，直接在左子树里找就行了</p>
+<p>否则就把k减去左子树大小再减去本身的个数，再在右子树里找就行了</p>
+<pre><code class="lang-cpp">inline int kth_element(int x) {
+    int u = root;
+    if (T[u].siz &lt; x) return 0; // 没有那么多，直接死亡
+    while (233) {
+        int y = T[u].ch[0];
+        if (x &gt; T[y].siz + T[u].cnt) {
+            x -= T[y].siz + T[u].cnt;
+            u = T[u].ch[1];
+        }
+        else if (T[y].siz &gt;= x) u = y;
+        else return T[u].val;
+    }
+}
+</code></pre>
+<p>完整代码：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+const int SIZE = 1e5 + 5;
+int n, root, tot;
+struct SPLAY {
+    int fa;
+    int siz;
+    int cnt;
+    int val;
+    int ch[2];
+} T[SIZE];
+
+inline void update(int x) {
+    T[x].siz = T[T[x].ch[0]].siz + T[T[x].ch[1]].siz + T[x].cnt;
+}
+
+inline void rotate(int x) {
+    int y = T[x].fa;
+    int z = T[y].fa;
+    int w = T[y].ch[1] == x;
+    T[z].ch[T[z].ch[1] == y] = x;
+    T[x].fa = z;
+    T[y].ch[w] = T[x].ch[w ^ 1];
+    T[T[x].ch[w ^ 1]].fa = y;
+    T[x].ch[w ^ 1] = y;
+    T[y].fa = x;
+    update(y), update(x);
+}
+
+inline void splay(int x, int goal) {
+    for (; T[x].fa ^ goal; rotate(x)) {
+        int y = T[x].fa;
+        int z = T[y].fa;
+        if (z ^ goal)
+            T[y].ch[1] ^ x ^ T[z].ch[1] ^ y ? rotate(x) : rotate(y);
+    }
+    if (!goal) root = x;
+}
+
+inline void find(int x) {
+    int u = root;
+    if (!u) return ;
+    while (T[u].ch[x &gt; T[u].val] &amp;&amp; x ^ T[u].val)
+        u = T[u].ch[x &gt; T[u].val];
+    splay(u, 0);
+}
+
+inline void insert(int x) {
+    int u = root, fa = 0;
+    while (u &amp;&amp; x ^ T[u].val)
+        fa = u, u = T[u].ch[x &gt; T[u].val];
+    if (u) T[u].cnt++;
+    else {
+        u = ++tot;
+        if (fa) T[fa].ch[x &gt; T[fa].val] = u;
+        T[u].fa = fa;
+        T[u].siz = T[u].cnt = 1;
+        T[u].ch[0] = T[u].ch[1] = 0;
+        T[u].val = x;
+    }
+    splay(u, 0);
+}
+
+inline int next_bound(int x, int f) {
+    find(x);
+    int u = root;
+    if (T[u].val &gt; x &amp;&amp; f) return u;
+    if (T[u].val &lt; x &amp;&amp; !f) return u;
+    u = T[u].ch[f];
+    while (T[u].ch[f ^ 1]) u = T[u].ch[f ^ 1];
+    return u;
+}
+
+inline void erase(int x) {
+    int last = next_bound(x, 0);
+    int next = next_bound(x, 1);
+    splay(last, 0), splay(next, last);
+    int del = T[next].ch[0];
+    if (T[del].cnt &gt; 1) {
+        T[del].cnt--;
+        splay(del, 0);
+    }
+    else T[next].ch[0] = 0;
+}
+
+inline int kth_element(int x) {
+    int u = root;
+    if (T[u].siz &lt; x) return 0;
+    while (233) {
+        int y = T[u].ch[0];
+        if (x &gt; T[y].siz + T[u].cnt) {
+            x -= T[y].siz + T[u].cnt;
+            u = T[u].ch[1];
+        }
+        else if (T[y].siz &gt;= x) u = y;
+        else return T[u].val;
+    }
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    insert(1e9);
+    insert(-1e9);
+    for (int i = 1; i &lt;= n; ++i) {
+        int opt, x;
+        scanf(&quot;%d %d&quot;, &amp;opt, &amp;x);
+        if (opt == 1) insert(x);
+        if (opt == 2) erase(x);
+        if (opt == 3) {
+            find(x);
+            printf(&quot;%d\n&quot;, T[T[root].ch[0]].siz);
+        }
+        if (opt == 4) printf(&quot;%d\n&quot;, kth_element(x + 1));
+        if (opt == 5) printf(&quot;%d\n&quot;, T[next_bound(x, 0)].val);
+        if (opt == 6) printf(&quot;%d\n&quot;, T[next_bound(x, 1)].val);
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="欢迎捉虫子"><a href="#欢迎捉虫子" class="headerlink" title="欢迎捉虫子"></a>欢迎捉虫子</h1><p><img src="https://i.loli.net/2019/12/14/X5FNPW4wCqzgkQ9.png" alt="wd and noip.png"></p>
 
                       
         </div>
@@ -645,15 +820,15 @@ int find(int l,int r)
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/" rel="prev">
+            <a href="/2020/02/07/DS100P-LINK-CUT-TREE/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/PiFbM8yOdXguRZT.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/PiFbM8yOdXguRZT.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题系列目录及前言</h3>
+                数据结构100题 ---Link-Cut Tree</h3>
                 <br>
               </div>
             </a>
@@ -663,15 +838,15 @@ int find(int l,int r)
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/05/DS100P-KMP-STRING/" rel="next">
+            <a href="/2020/02/07/DS100P-SEGMENT-TREE/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---KMP</h3>
+                数据结构100题 ---线段树</h3>
                 <br>
               </div>
             </a>
@@ -890,41 +1065,6 @@ $(document).ready(function() {
         
           <ul class="sub-menu">
             
-              <li>
-                <a href="/categories/技术/">
-                  <i class="fa fa-code" aria-hidden="true"></i>
-                  技术
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/生活/">
-                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                  生活
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/资源/">
-                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                  资源
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/随想/">
-                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                  随想
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/转载/">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                  转载
-                </a>
-              </li>
-            
           </ul>
         
       </li>
@@ -997,7 +1137,7 @@ $(document).ready(function() {
               <li>
                 <a href="/lab/">
                   <i class="fa fa-cogs" aria-hidden="true"></i>
-                  Lab
+                  Blog
                 </a>
               </li>
             

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---KMP | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---线段树 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -307,41 +307,6 @@
                 
                   <ul class="sub-menu">
                     
-                      <li>
-                        <a href="/categories/技术/">
-                          <i class="fa fa-code" aria-hidden="true"></i>
-                          技术
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/生活/">
-                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                          生活
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/资源/">
-                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                          资源
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/随想/">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          随想
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/转载/">
-                          <i class="fa fa-book" aria-hidden="true"></i>
-                          转载
-                        </a>
-                      </li>
-                    
                   </ul>
                 
               </li>
@@ -414,7 +379,7 @@
                       <li>
                         <a href="/lab/">
                           <i class="fa fa-cogs" aria-hidden="true"></i>
-                          Lab
+                          Blog
                         </a>
                       </li>
                     
@@ -445,12 +410,12 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg">
     </div>
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
 
       <h1 class="entry-title">
-      数据结构100题 ---KMP</h1>
+      数据结构100题 ---线段树</h1>
       <p class="entry-census">
         <span>
           <a href="/">
@@ -462,7 +427,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-2-5<span class="bull">
+        2020-2-7<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
@@ -498,109 +463,104 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h1><p>upd:代码锅已补</p>
-<h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>本文和某播放软件KMPlayer没有一毛钱关系，并且：</p>
-<p><img src="https://i.loli.net/2020/01/25/H7tNJjLzPlMeSun.png" alt="f.PNG"></p>
-<p>伦家是数据结构！</p>
-<h1 id="0x01-引入问题"><a href="#0x01-引入问题" class="headerlink" title="0x01 引入问题"></a>0x01 引入问题</h1><p>设想这样一个问题：</p>
-<p>给你两个字符串，让你查找在文本串中模式串的位置。</p>
-<p>暴力做法是显然的，举例来说：</p>
-<p>文本串(text)：$a\ b\ c\ b\ c\ g\ l\ x$</p>
-<p>模式串(pattern): $b\ c\ g\ l$</p>
-<p>我们直接暴力枚举text中的每一个字符，并且依次与pattern中的字符从头开始匹配。时间复杂度为 $\Theta(nm)$</p>
-<h1 id="0x02-发现问题"><a href="#0x02-发现问题" class="headerlink" title="0x02 发现问题"></a>0x02 发现问题</h1><p>这样做其实有很多冗余操作。比如说：$b\ c\ g\ l$ 与text中的 $b\ c\ b\ c$ 不匹配，又从第text的第五个字母 $c$ 开始匹配。这样做是显然不必要的。为什么呢？因为模式串是以  $b$ 开头的，对于text中第五个字母 $c$ 显然我们可以不去匹配。发现了什么吗？每次失配后我们只需要从两个字符串的最长公共部分开始匹配即可。这里看不懂没有什么关系，只要能理解后面的例子就可以了。</p>
-<h1 id="0x03-解决一部分问题"><a href="#0x03-解决一部分问题" class="headerlink" title="0x03 解决一部分问题"></a>0x03 解决一部分问题</h1><p>$\qquad\qquad\quad\ 0\ \ 1\ \ 2\ \ 3\ \ 4\ \ 5\ \ 6\ \ 7\ \ 8\ \ 9\ 10\ 11$</p>
-<p>文本串(text)： $a\ \ b\ \ x\ \ a\ \ b\ \ c\ \ a\ \ b\ \ c\ \ a\ \ b\ \ y$</p>
-<p>$\qquad\qquad\qquad\ \ \ 0\ \ 1\ \ 2\ \ 3\ \ 4\ \ 5$</p>
-<p>模式串(pattern)： $a\ \ b\ \ c\ \ a\ \ b\ \ y$</p>
-<p>我们有两个指针i和j，分别指向文本串和模式串。在i=0,j=0以及i=1,j=1的时候都匹配上了。但是在i=2,j=2时失配了。如果时朴素算法的话会令i=1,j=0重新开始匹配。然而我们发现我们完全可以令i=3,j=0来重新匹配。一直到i=8,j=5时，它们又失配了。我们令j等于模式串和文本串已经配对完成的部分(即pattern[0]~pattern[4])的最长公共前缀后缀(即pattern[0,1]和pattern[3,4])的前缀末尾部分+1(即1+1=2)的地方，此时的text[6,7]和pattern[0,1]都是ab也就是说我们可以直接从i=8,j=2开始匹配，就可以匹配到模式串了。这就是KMP玄妙的地方。</p>
-<h1 id="0x04-解决另一部分问题"><a href="#0x04-解决另一部分问题" class="headerlink" title="0x04 解决另一部分问题"></a>0x04 解决另一部分问题</h1><p>那么问题来了：我们如何确定模式串最长公共前后缀的前缀末尾+1的位置呢？我们还是通过一个例子来感受。</p>
-<p>$\qquad\qquad\qquad\ \ \ 0\ \ 1\ \ 2\ \ 3\ \ 4\ \ 5$</p>
-<p>模式串(pattern)： $a\ \ b\ \ c\ \ a\ \ b\ \ y$ (没错就是上面那个我太懒了)</p>
-<p>我们可以设数组$next_i$为以 $i$ 为结尾的模式串最长公共前后缀的前缀末尾+1的位置。</p>
-<p>$next_0$显然为0。</p>
-<p>我们依然设两个指针i和j，i初始化为0，即指向模式串的开头。j初始化1，即i后面一个。</p>
-<p>pattern[i]不等于pattern[j]，令next[i]=0，j+=1</p>
-<p>pattern[i]依然不等于pattern[j]，令next[i]=0，j+=1</p>
-<p>此时pattern[i]等于pattern[j]，令next[i]=j+1=1，i+=1，j+=1</p>
-<p>此时pattern[i]等于pettern[j]，令next[i]=j+1=2，i+=1,j+=1</p>
-<p>此时pattern[i]不等于patter[j]，并且j不在模式串的开头，令j=next[j-1]=2</p>
-<p>此时pattern[i]依然不等于pattern[j]，并且j不在模式串的开头，令j=next[j-1]=0</p>
-<p>此时pattern[i]依然不等于pattern[j]，但是j已经跑到开头去了，令i+=1</p>
-<p>此时pattern[i]依然不等于pattern[j]，并且i已经跑到了尽头，求解结束。</p>
-<p>%出来next数组是这样的:$[0,0,0,1,2,0]$</p>
-<h1 id="0x05-解决所有问题"><a href="#0x05-解决所有问题" class="headerlink" title="0x05 解决所有问题"></a>0x05 解决所有问题</h1><p><del>其实就是放一下代码</del></p>
-<p>我自认为讲的还是比较清楚，<del>至少比蓝书好</del>。</p>
-<p>代码虽然和网上其他人的不太一样，不太标准，但还算简洁，<del>至少比蓝书好</del>。</p>
-<p>总之一句话，学KMP不要看书，不要看书，不要看书！！！会死人的！！！</p>
-<p>对了还有一个坑点，我这份代码用std::string会RE，<del>鬼知道我调了一下午发现是这个原因时心里有多傻逼</del></p>
-<pre><code class="lang-cpp">/*
- * P3375【模板】KMP字符串匹配.cpp
- * Created by boringhacker(c20220233wgy)
-*/
-#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-namespace MAIN {
-    const int SIZE = 1000000 + 5;
-    int next[SIZE], n, m;
-    char Text[SIZE], Pattern[SIZE];
-    // string Text, Pattern; 去你的std::string
-
-    void GetNextVal() {
-        int i = 1, j = 0;
-        *next = 0;
-        while (i &lt; n) {
-            if (Pattern[i] == Pattern[j])
-                next[i] = j + 1, ++i, ++j;
-            else if (j) j = next[j - 1];
-            else ++i;
-        }
+          <h1 id="线段树-—LYC-ZBing"><a href="#线段树-—LYC-ZBing" class="headerlink" title="线段树 —LYC(ZBing)"></a>线段树 —LYC(ZBing)</h1><p>($nlogn$)</p>
+<p>线段树，顾名思义，就是每个树的节点记录一条线段上的一些信息，非常灵活，可以实现很多操作，但常数比树状数组大一点。</p>
+<p>就像这样：</p>
+<p><img src="https://i.loli.net/2019/12/28/qSIgzFlXGQ62xUi.png" alt></p>
+<p>线段树的经典应用就是统计区间和，我们这里也用这个来进行线段树的讲解。</p>
+<h4 id="1-建树"><a href="#1-建树" class="headerlink" title="1).建树"></a>1).建树</h4><p>我们先放代码吧，看代码理解。</p>
+<pre><code>void build(int l,int r,int x)
+{
+    if(l==r)
+    {
+        nodes[x]=a[l];
+        return; 
     }
-
-    void GetAnswers() {
-        int st = 0, res = -1;
-        int i = 0, j = 0, flag = 0;
-        while (true) {
-            j = st;
-            if (Text[i] == Pattern[j]) {
-                if (!flag) res = i + 1 - st, flag = 1;
-                // if (j == n - 1) cout &lt;&lt; res &lt;&lt; endl, j = 0, flag = 0; 这里出锅了，j应该赋为next[j-1]
-                if (j == n - 1) cout &lt;&lt; res &lt;&lt; endl, j = next[j - 1], flag = 0;
-                else ++i, ++j;
-                st = j;
-                if (i &gt;= m) return ;
-            }
-            else {
-                if (j) st = next[j - 1];
-                else ++i;
-                flag = 0;
-            }
-        }
-    }
-
-    void MAIN() {
-        cin &gt;&gt; Text;
-        cin &gt;&gt; Pattern;
-        m = strlen(Text);
-        n = strlen(Pattern);
-        GetNextVal();
-        GetAnswers();
-        for (int i = 0; i &lt; n; ++i) cout &lt;&lt; next[i] &lt;&lt; &#39; &#39;;
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        build(l,mid,x&lt;&lt;1);
+        build(mid+1,r,(x&lt;&lt;1)+1);
+        nodes[x]=nodes[x&lt;&lt;1]+nodes[(x&lt;&lt;1)+1];
     }
 }
-
-signed main() {
-    MAIN::MAIN();
-    return 0;
+</code></pre><p>首先，我们遍历到线段树的每一个叶子节点。线段树的每个节点都代表了一个区间，当这个区间的$l=r$时，说明我们到达了叶子节点。这个叶子节点代表的区间只包含了$a[l]$这一个数，所以我们只需要将这个节点的值置为$a[l]$。</p>
+<p>然后我们递归回去，每一个非叶子节点都可以把它代表的区间分成两半，对应它的两个子节点（可能没有两个）。它两个子节点的值就是这两个较小区间的元素和。由这两个子节点的值也就是这两个小区间的元素和相加就可以得到当前节点代表区间的元素和。</p>
+<p>时间复杂度($nlogn$)</p>
+<h4 id="2-单点修改"><a href="#2-单点修改" class="headerlink" title="2).单点修改"></a>2).单点修改</h4><p>像这种区间和问题的单点修改一般都是给一个点加上一个值。</p>
+<p>还是先放代码吧：</p>
+<pre><code>void update(int l,int r,int x,int pos,int val)
+{
+    nodes[x]-=val;
+    if(l==r)    return;
+    int mid=(l+r)&gt;&gt;1;
+    if(pos&lt;=mid)    update(l,mid,x&lt;&lt;1,pos,val);
+    else    update(mid+1,r,(x&lt;&lt;1)+1,pos,val);
 }
-</code></pre>
-<h1 id="欢迎捉虫子"><a href="#欢迎捉虫子" class="headerlink" title="欢迎捉虫子"></a>欢迎捉虫子</h1>
+</code></pre><p>还是先递归找到要修改的叶子节点。先将它的值加上val。</p>
+<p>然后再递归回去，因为往下找时找到的每一个节点代表的区间都包含这个叶子节点代表的区间，所以这些节点的值也要加上val。</p>
+<p>时间复杂度($logn$)</p>
+<h4 id="3-区间查询"><a href="#3-区间查询" class="headerlink" title="3).区间查询"></a>3).区间查询</h4><p>区间查询的本质就是把要查询的区间拆分成很多小区间，直接利用之前维护的节点的值进行查询。</p>
+<pre><code>int find(int l,int r,int x,int fr,int ba)
+{
+    if(l&gt;ba||r&lt;fr)    return 0;
+    if(l&gt;=fr||r&lt;=ba)    return nodes[x];
+    int mid=(l+r)&gt;&gt;1;
+    return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
+}
+</code></pre><p>我们对于当前递归查找到的节点所代表的区间与要查询的区间进行分类讨论：</p>
+<p>$1$&gt;.毫无关联</p>
+<p>即当前区间的左端点在查询区间右端点的右边或当前区间的右端点在查询区间左端点的左边。</p>
+<p>既然他们毫无关联，那么我们就返回一个值0，因为他们对这个区间的和没有任何贡献。</p>
+<p>$2$&gt;.被包含</p>
+<p>即当前区间的左端点在查询区间的左端点的右边且当前区间的右端点在查询区间的右端点的左边。</p>
+<p>既然这个节点代表的区间全部属于查询区间内，那么我们就没有必要再继续递归下去了，直接把这个节点的值加上去。</p>
+<p>$3$&gt;.有部分重叠但不被包含</p>
+<p>即上两种情况的剩余情况。</p>
+<p>对于这种情况，我们没有办法把节点的值直接加上去，因为这个节点代表的区间不全属于查询区间。也不能直接跳过，因为有部分节点属于查询区间。所以我们继续向它的子节点递归，相当于把这个区间分成两半，查询两个子区间中属于查询区间的值加起来。</p>
+<p>时间复杂度（$logn$）</p>
+<h4 id="4-区间修改"><a href="#4-区间修改" class="headerlink" title="4).区间修改"></a>4).区间修改</h4><p>面对区间修改，如果我们继续用单点修改，时间复杂度会退回到（$n^2logn$）</p>
+<p>所以我们引入<del>人类的本质</del>懒标记。</p>
+<p>当我们找到了一个完全是要修改的区间，我们就直接把它的懒标记加上$val$。</p>
+<p>对于中途遍历到的其他区间，我们直接计算修改这个区间的和。</p>
+<p>代码：</p>
+<pre><code>void update(int l,int r,int x,int fr,int ba,int val)
+{
+    if(l&gt;ba||r&lt;fr)    return;
+    if(l&gt;=fr&amp;&amp;r&lt;=ba)    lazy[x]+=val;
+    else
+    {
+        nodes[x]+=val*max(0,min(r,ba)-max(l,fr)+1);
+        int mid=(l+r)&gt;&gt;1;
+        update(l,mid,x&lt;&lt;1,fr,ba,val);
+        update(mid+1,r,(x&lt;&lt;1)+1,fr,ba,val);
+    }
+}
+</code></pre><p><del>长得和区间查询很像对吧</del></p>
+<p>改了修改之后，我们的查询也要进行修改。要把打上的懒标记进行下传，不然查询到下面的节点时，下面的节点没有被修改。</p>
+<p>下传时只需要让当前节点加上原来应加而拖延了的值，让它的左右儿子的懒标记加上它的懒标记。因为当初修改时，并没有修改到左右节点。最后再把懒标记清零。</p>
+<p>就像这样：</p>
+<pre><code>void pushdown(int l,int r,int x)
+{
+    nodes[x]+=(r-l+1)*lazy[x];
+    lazy[x&lt;&lt;1]+=lazy[x];
+    lazy[(x&lt;&lt;1)+1]+=lazy[x];
+    lazy[x]=0;
+}
+int find(int l,int r,int x,int fr,int ba)
+{
+    if(l&gt;ba||r&lt;fr)    return 0;
+    if(lazy[x])    pushdown(l,r,x);
+    if(l&gt;=fr&amp;&amp;r&lt;=ba)    return nodes[x];
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
+    }
+}
+</code></pre><p>$\ $</p>
+<p>线段树的讲解到这里就这么完了，但线段树的运用十分广泛，灵活。要熟练掌握并运用线段树，还要多动脑，想好题。</p>
+
                       
         </div>
         <!-- .entry-content -->
@@ -633,15 +593,15 @@ signed main() {
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/05/DS100P-FENKUAI/" rel="prev">
+            <a href="/2020/02/07/DS100P-SPLAY/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/k7Qo6EnqHMmD8FX.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---分块</h3>
+                数据结构100题 ---splay</h3>
                 <br>
               </div>
             </a>
@@ -651,15 +611,15 @@ signed main() {
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/05/DS100P-MO-ALGORITHM/" rel="next">
+            <a href="/2020/02/07/DS100P-TRIE/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---莫队</h3>
+                数据结构100题 ---trie树</h3>
                 <br>
               </div>
             </a>
@@ -878,41 +838,6 @@ $(document).ready(function() {
         
           <ul class="sub-menu">
             
-              <li>
-                <a href="/categories/技术/">
-                  <i class="fa fa-code" aria-hidden="true"></i>
-                  技术
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/生活/">
-                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                  生活
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/资源/">
-                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                  资源
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/随想/">
-                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                  随想
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/转载/">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                  转载
-                </a>
-              </li>
-            
           </ul>
         
       </li>
@@ -985,7 +910,7 @@ $(document).ready(function() {
               <li>
                 <a href="/lab/">
                   <i class="fa fa-cogs" aria-hidden="true"></i>
-                  Lab
+                  Blog
                 </a>
               </li>
             

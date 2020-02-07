@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---树链剖分 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---trie树 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -307,41 +307,6 @@
                 
                   <ul class="sub-menu">
                     
-                      <li>
-                        <a href="/categories/技术/">
-                          <i class="fa fa-code" aria-hidden="true"></i>
-                          技术
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/生活/">
-                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                          生活
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/资源/">
-                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                          资源
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/随想/">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          随想
-                        </a>
-                      </li>
-                    
-                      <li>
-                        <a href="/categories/转载/">
-                          <i class="fa fa-book" aria-hidden="true"></i>
-                          转载
-                        </a>
-                      </li>
-                    
                   </ul>
                 
               </li>
@@ -414,7 +379,7 @@
                       <li>
                         <a href="/lab/">
                           <i class="fa fa-cogs" aria-hidden="true"></i>
-                          Lab
+                          Blog
                         </a>
                       </li>
                     
@@ -445,12 +410,12 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg">
     </div>
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
 
       <h1 class="entry-title">
-      数据结构100题 ---树链剖分</h1>
+      数据结构100题 ---trie树</h1>
       <p class="entry-census">
         <span>
           <a href="/">
@@ -462,7 +427,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-2-5<span class="bull">
+        2020-2-7<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
@@ -498,179 +463,51 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h1><p>($nlogn$)</p>
-<p>树链剖分准确地说并不是数据结构，它只是数据结构的一种应用。</p>
-<p>它用于将一棵树上的节点转换到一个序列中，然后用各种数据结构维护。</p>
-<p>所以我只讲如何转换和使用，而维护就因题而异了。</p>
-<p>树链剖分有好几种方法：重链剖分，长链剖分…</p>
-<p>但我就讲最常用的重链剖分。</p>
-<p>重链剖分，顾名思义，就是按照节点的子树大小来剖分这棵树。</p>
-<p>一个节点子节点中子树大小最大的子节点叫做这个节点的重儿子。</p>
-<p>以一个轻儿子为起点，其余全是重儿子的链叫做重链。</p>
-<p>重链上的边叫做重边。</p>
-<p>就像这样（红色的边为重边）</p>
-<p><img src="https://i.loli.net/2020/01/01/Rgk2A5clbX96JQr.png" alt="树剖.png"></p>
-<p>可以发现，每个节点都在且仅在一条重链上，我们就可以把这一条链转换到一个连续的区间来进行维护。</p>
-<h4 id="dfs1"><a href="#dfs1" class="headerlink" title="dfs1"></a>dfs1</h4><p>我们采用dfs的形式来进行剖分，记录信息。</p>
-<p>第一次dfs我们需要记录每个节点的父亲，子树大小，重儿子和深度。</p>
-<p>很简单对吧，就是暴力$dfs$，但要注意不要搜回到父亲节点和一些其他的坑。</p>
-<p>代码：</p>
-<pre><code>void dfs1(int x,int last)
+          <h1 id="trie树"><a href="#trie树" class="headerlink" title="trie树"></a>trie树</h1><p>($\sum{len}$)</p>
+<p>$trie$树，不是一种二叉树，它是一种多叉树（其实也可以是二叉树）</p>
+<p>可以用来求一堆数中两个（或三个）异或起来的最大值。</p>
+<p>可以查找单词。</p>
+<p>对于一些有前缀的单词，比如<em>WGY_2333</em>和<em>WGY_AND_LYC_WRITE_BLOG</em>。</p>
+<p>它们就可以共用树上的一些节点（即<em>WGY_</em>），查询时就可以从$\ $<em>2</em>$\ $和$\ $<em>L</em>$\ $来对他们进行区分</p>
+<p>所以我们还是看看它是怎么实现的吧。</p>
+<h4 id="1-gt-插入"><a href="#1-gt-插入" class="headerlink" title="1&gt;.插入"></a>1&gt;.插入</h4><p>对于$trie$树，树上的每一条边都代表了一个字母或者一个数字。</p>
+<p>所以一个节点会有很多儿子，我们就要开一个儿子数组$ch$。</p>
+<p>要统计这个节点被经过了多少次，也就是多少单词有这个前缀，就要加一个$sum$。</p>
+<p>要统计有多少个单词在这里结束，也就是要查询的单词有多少个已插入的单词作前缀，就要加一个$end$。</p>
+<p>插入时，先看这个节点有没有你要走的那个儿子，如果没有，就新建一个，走下去。否则就直接走到这个儿子（共用节点嘛）。</p>
+<p>代码：（以小写字母单词为例）</p>
+<pre><code>struct node
 {
-    fa[x]=last;//记录父亲节点。
-    sum[x]=1;//初始化子树大小：该节点本身。
-    depth[x]=depth[last]+1;//深度：父亲节点深度+1。
-    int big=0,bi=0;//寻找重儿子
-    for(int i=0;i&lt;e[x].size();++i)
+    int ch[26],sum,end;
+}nodes[MAXN];
+int root=1,cnt=1;
+void ins(int len)
+{
+    int x=root;
+    for(int i=0;i&lt;len;++i)
     {
-        if(e[x][i]^last)//避免重新回到父亲节点
-        {
-            dfs1(e[x][i],x);
-            sum[x]+=sum[e[x][i]];
-            if(sum[e[x][i]]&gt;big)
-            {
-                big=sum[e[x][i]];
-                bi=e[x][i];
-            }
-        }
+        if(!nodes[x].ch[str[i]-&#39;a&#39;])    nodes[x].ch[str[i]-&#39;a&#39;]=++cnt;
+        x=nodes[x].ch[str[i]-&#39;a&#39;];
+        ++nodes[x].sum;
     }
-    son[x]=bi;//记录重儿子。
+    ++nodes[x].end;
 }
-//调用:dfs(root,root)
-</code></pre><h4 id="dfs2"><a href="#dfs2" class="headerlink" title="dfs2"></a>dfs2</h4><p>经过刚刚$dfs1$的准备，我们可以进行剖分了，这次记录$dfs$序，转换出的序列上的每一个值，以及每个节点所在重链的起点。</p>
-<p>我们在这次$dfs$时应该优先走重儿子，这样才能使一条重链上的值都在序列上连在一起，方便我们操作。</p>
+</code></pre><h4 id="2-gt-查询"><a href="#2-gt-查询" class="headerlink" title="2&gt;.查询"></a>2&gt;.查询</h4><p>$trie$树的查询有很多种，一般依照题目要求来自己定义。</p>
+<p>我们这里又以小写字母单词查询存在性为例。</p>
+<p>同样是从最上面的根节点开始。如果当前节点有这个单词现在位置字母的儿子，就走下去。否则就直接返回false，因为之前没有过单词走过这条路径,如果有过这个前缀的单词走过，肯定会创建这个节点。</p>
+<p>最后再判断有没有单词在这个地方结束。</p>
 <p>代码:</p>
-<pre><code>void dfs2(int x,int last,bool heavier)
+<pre><code>bool find(int len)
 {
-    dfn[x]=++tot;//记录dfs序
-    turn[tot]=val[x];//记录序列
-    if(heavier)    hb[x]=hb[fa[x]];//
-    else    hb[x]=x;//记录所在重链起点
-    if(b[x].son)    build2(b[x].son,1);//优先遍历重儿子
-    for(int i=0;i&lt;e[x].size();++i)
+    int x=root;
+    for(int i=0;i&lt;len;++i)
     {
-        if(e[x][i]^son[x]&amp;&amp;e[x][i]^fa[x])    build2(e[x][i],0);//避免重复遍历
+        if(!nodes[x].str[str[i]-&#39;a&#39;])    return false;
+        x=nodes[x].str[str[i]-&#39;a&#39;];
     }
+    return nodes[x].end;
 }
-</code></pre><p>一个节点的$dfs$序就是它在序列中的位置。<del>对吧</del></p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>对于一些子树上的操作，$dfs$序已经能够搞定了，我们只需要用剖出的重链对那些结点间路径的操作进行应对就好了。</p>
-<p>对于两个节点间的路径，我们很容易想到$LCA$。而我们记录了重链的起点，可以处理这条重链，然后直接跳到上面一条重链的末端。</p>
-<p>注意当两个节点在同一条重链时跳出循环，在最后处理他们之间的路径。</p>
-<p>由于他们已经在同一条重链上了，他们及他们之间的节点$dfs$序是连续的，所以再处理这个连续区间就好了。</p>
-<p>代码：</p>
-<pre><code>//设solve(x,y)是对x到y区间的操作(因题而异) 
-___ LCA(int x,int y)
-{
-    int fx=hb[x],fy=hb[y];//得到重链起点
-    while(fx^fy)
-    {
-        if(depth[fx]&lt;depth[fy])//从深度大的往上跳
-        {
-            swap(fx,fy);
-            swap(x,y);
-        }
-        solve(dfn[fx],dfn[x]);//处理这条重链的区间
-        x=fa[fx];//跳到上面一条重链
-        fx=hb[x];//更新重链起点
-    }
-    solve(min(dfn[x],dfn[y]),max(dfn[x],dfn[y]));//最后处理同一条重链上的剩余未处理部分。
-    //return ans;
-}
-</code></pre><hr>
-<h1 id="5-主席树"><a href="#5-主席树" class="headerlink" title="5.主席树"></a>5.主席树</h1><p>($nlogn$)</p>
-<p>“你是主席树吗？有那么多爷爷！”——$LJS$。</p>
-<p>这句话运用打比方的说明方法，生动形象地说明了主席树每个节点可能有很多父亲的特点，<del>体现说明语言的生动性</del>。</p>
-<p>也就是说，主席树的几个节点可能共用一个子节点。</p>
-<p>就像这样：</p>
-<p><img src="https://i.loli.net/2020/01/11/RV3yh9uzBgWx2EZ.png" alt="主席树.png"></p>
-<p>主席树可以用来查询静态区间第k小，静态区间前k大的和等等。（用法十分灵活）</p>
-<p>我们会创建很多版本的树，一些版本会共用一些节点，以节省空间和时间。</p>
-<p>主席树也叫可持久化线段树。但可持久化还有很多东西。我就讲可持久化线段树吧。</p>
-<h3 id="1-如何共用节点"><a href="#1-如何共用节点" class="headerlink" title="1.如何共用节点"></a>1.如何共用节点</h3><p>我们考虑单点修改的线段树。</p>
-<p>如果要得到这个序列某个元素$x$加上一个值$val$之后的新版本，我们发现，改变的只有对应元素$x$的节点和他的祖先会加上$val$。那么其他节点我们可以与上一个版本共用。</p>
-<p>所以我们每次新建一个节点，继承之前该位置的值和左右儿子，然后更新值，再继续向下寻找元素$x$的位置，最后递归回来更新这个儿子。</p>
-<p>我们使用$root$数组来记录每个版本的根节点编号。</p>
-<p>代码：</p>
-<pre><code>void ins(int l,int r,int pre,int &amp;now,int pos,int val)//区间左右端点，上一个版本中对应这个区间的点，当前版本中对应这个区间的点，修改位置，增加的值。
-{
-    nodes[++tot]=nodes[pre];//先整个复制
-    now=tot;//更新上一个节点的儿子。
-    nodes[now].sum+=val;//更新当前节点的值
-    if(l==r)    return;
-   //向下继续寻找
-    int mid=(l+r)&gt;&gt;1;
-    if(pos&lt;=mid)    ins(l,mid,nodes[pre].l,nodes[now].l,pos,val);
-    else    ins(mid+1,r,nodes[pre].r,nodes[now].r,pos,val);
-}
-//调用：ins(1,n,root[i-1],root[i],p,v);
-</code></pre><p>最后$root[i]$的引用就相当于记录了这个版本的根节点。</p>
-<p>查询其实就和普通的线段树一样，但主席树的用途不止这个。</p>
-<h3 id="2-例题"><a href="#2-例题" class="headerlink" title="2.例题"></a>2.例题</h3><p><a href="https://www.luogu.com.cn/problem/P3834" target="_blank" rel="noopener">【模板】可持久化线段树 1（主席树）</a></p>
-<p>如题，给定 $n$ 个整数构成的序列，将对于指定的闭区间查询其区间内的第 $k$ 小值。</p>
-<p><strong>权值线段树</strong>：</p>
-<p>(线段树的另一种应用，只是每个节点维护整个序列值在$[l,r]$区间内的数的个数)</p>
-<p>这道题要求查询静态区间第$k$小。那么对于第$k$小这种问题，我们要使用权值线段树</p>
-<p><strong>离散化</strong>：$-1e9\leq a_i \leq1e9$ 的数据线段树肯定开不下，但这道题只需要求第k小，没有必要开那么大，可以对数据进行离散化。</p>
-<p>我们按照序列的顺序插入$a_i$。得到每个$root[i]$代表的权值线段树代表从$a_1$到$a_i$的每个数值的出现次数。</p>
-<p>那么根据前缀和的思想，区间$[l,r]$中每个数值的出现个数就是$[1,r]$的减去$[1,l-1]$的。那么数值的区间也具有这个性质。</p>
-<p>所有对于每个询问，我们只需要查询一次，用$root[r]$和$root[l-1]$的权值线段树处理出区间$[l,r]$应有的权值线段树，就可以像正常的权值线段树一样查询第k小了。</p>
-<p>代码：</p>
-<pre><code>#include&lt;vector&gt;
-#include&lt;cstdio&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-int n,m,a[200010],x,y,z,cnt,root[200010];
-struct node
-{
-    int l,r,sum;
-}nodes[8000010];//40*n
-vector&lt;int&gt; v;
-void ins(int l,int r,int pre,int &amp;now,int p)//插入，创建新版本
-{
-    nodes[++cnt]=nodes[pre];
-    now=cnt;
-    ++nodes[cnt].sum;
-    if(l==r)    return;
-    int m=(l+r)&gt;&gt;1;
-    if(p&lt;=m)    ins(l,m,nodes[pre].l,nodes[cnt].l,p);
-    else    ins(m+1,r,nodes[pre].r,nodes[cnt].r,p);
-}
-int find(int l,int r,int p1,int p2,int k)
-{
-    if(l==r)    return l;
-    int m=(l+r)&gt;&gt;1;
-    int X=nodes[nodes[p2].l].sum-nodes[nodes[p1].l].sum;//现场处理，得到[x,y]区间内，值在[l,mid]内的数的个数
-    if(k&lt;=X)    return find(l,m,nodes[p1].l,nodes[p2].l,k);//如果k&lt;=X.说明第k小的数在左边。
-    else    return find(m+1,r,nodes[p1].r,nodes[p2].r,k-X);//否则在右边。
-}
-int getid(int X)//得到离散化后的数值
-{
-    return lower_bound(v.begin(),v.end(),X)-v.begin()+1;
-}
-int main()
-{
-    scanf(&quot;%d %d&quot;,&amp;n,&amp;m);
-    for(int i=1;i&lt;=n;++i)
-    {
-        scanf(&quot;%d&quot;,&amp;a[i]);
-        v.push_back(a[i]);
-    }
-    sort(v.begin(),v.end());
-    v.erase(unique(v.begin(),v.end()),v.end());//离散化
-    for(int i=1;i&lt;=n;++i)    ins(1,n,root[i-1],root[i],getid(a[i]));//按顺序插入每个值，得到root[i]对应的权值线段树。
-    for(int i=1;i&lt;=m;++i)
-    {
-        scanf(&quot;%d %d %d&quot;,&amp;x,&amp;y,&amp;z);
-        printf(&quot;%d\n&quot;,v[find(1,n,root[x-1],root[y],z)-1]);//查询区间[x,y]；输出原值
-    }
-    return 0;
-}
-</code></pre><h3 id="3-缺点及注意事项"><a href="#3-缺点及注意事项" class="headerlink" title="3.缺点及注意事项"></a>3.缺点及注意事项</h3><p><strong>内存池一般从1开始用</strong>，$nodes[0]$作为空白，值为$0$，儿子节点指向自己，值还是为$0$。</p>
-<p>当你这个版本的树还没有改过某个节点的某个儿子时，这个节点的这个儿子会指向$nodes[0]$，也就相当于下面都是$0$，正好符合。</p>
-<p><strong>数组一定要开大</strong>，如果开得不够大可能会出现$MLE$,$TLE$,$RE$,$WA$.</p>
-<p><strong>但也不要开太大</strong>，不然会$MLE$,$CE$.</p>
-<p><strong>主席树是静态的</strong>，遇到要动态修改而不是生成一个新版本的问题，就可能要用树套树了。</p>
-<p><strong>可持久化可以用在很多数据结构上</strong>，平衡树，线段树，$trie$树……<del>可够得写</del>，但它们的思想都是相似的，都是每个版本与之前的版本共用节点以节省时间，空间。</p>
+</code></pre><p><del>trie树就只有这么点，惊不惊喜，意不意外</del></p>
 
                       
         </div>
@@ -704,15 +541,15 @@ int main()
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/05/DS100P-TRIE/" rel="prev">
+            <a href="/2020/02/07/DS100P-SEGMENT-TREE/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/FNESexpUAbiCBX4.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/vrYTuf9J1n7ykUN.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---trie树</h3>
+                数据结构100题 ---线段树</h3>
                 <br>
               </div>
             </a>
@@ -722,15 +559,15 @@ int main()
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/05/DS100P-TREE-COVER-TREE/" rel="next">
+            <a href="/2020/02/07/DS100P-TREE-CHAIN-SPLITTING/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/BJOkiQXyWrqdKfb.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/BJOkiQXyWrqdKfb.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/8N5B7EhgCAlcjSL.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---树套树</h3>
+                数据结构100题 ---树链剖分</h3>
                 <br>
               </div>
             </a>
@@ -949,41 +786,6 @@ $(document).ready(function() {
         
           <ul class="sub-menu">
             
-              <li>
-                <a href="/categories/技术/">
-                  <i class="fa fa-code" aria-hidden="true"></i>
-                  技术
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/生活/">
-                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                  生活
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/资源/">
-                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                  资源
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/随想/">
-                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                  随想
-                </a>
-              </li>
-            
-              <li>
-                <a href="/categories/转载/">
-                  <i class="fa fa-book" aria-hidden="true"></i>
-                  转载
-                </a>
-              </li>
-            
           </ul>
         
       </li>
@@ -1056,7 +858,7 @@ $(document).ready(function() {
               <li>
                 <a href="/lab/">
                   <i class="fa fa-cogs" aria-hidden="true"></i>
-                  Lab
+                  Blog
                 </a>
               </li>
             
