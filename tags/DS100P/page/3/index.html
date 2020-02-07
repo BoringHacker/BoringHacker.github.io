@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---莫队 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">Tag: DS100P | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -404,253 +404,69 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
-<div class="pattern-center-blank"></div>
-
-  <div class="pattern-center single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/Yh1dG85NQjOPpBi.jpg">
-    </div>
-    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
-
-      <h1 class="entry-title">
-      数据结构100题 ---莫队</h1>
-      <p class="entry-census">
-        <span>
-          <a href="/">
-            <img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg">
-          </a>
-        </span>
-        <span>
-          <a href="/">BoringHacker</a>
-        </span>
-        <span class="bull">
-        ·</span>
-        2020-2-7<span class="bull">
-        ·</span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
-        
-          <div>
-            <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
-              <li class="spfk-li"><a href="/tags/DS100P/" class="butterfly-tags">DS100P</a></li>
-            </ul>
-          </div>
-          <script>
-              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
-              function paintTags(){
-                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
-                  for(var i = 0 ; i < tags.length ; ++i){
-                      if(!tagColors.length)colorInit(tagColors,colorNumber);
-                      var j=Math.floor(Math.random()*tagColors.length);
-                      tags[i].classList.add("spfk-color"+tagColors[j]);
-                      tagColors.splice(j,1);
-                  }
-              }
-              paintTags()
-          </script>
-        
-    </header>
+<div class="pattern-center-blank"></div>
+<div class="pattern-center ">
+  <div class="pattern-attachment-img">
+    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="DS100P.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
   </div>
-
+  <header class="pattern-header ">
+    <h1 class="cat-title">DS100P</h1>
+  </header>
+</div>
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-        <div class="toc"></div>
-        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-        <div class="entry-content">
-          <h1 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h1><p>($n\sqrt{n}$)</p>
-<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><p>考虑这样一个问题：</p>
-<p>对于一个序列$A_1,A_2,\cdots,A_n$，有如下询问</p>
-<p>形如$S\ \ l\ \ r$的命令表示对区间$[l,r]$求和，并输出</p>
-<p>形如$Q\ \ l\ \ r$表示$\cdots$</p>
-<p>本题不强制在线</p>
-<p>对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改<del>但我太弱不会</del></p>
-<p>现在你有区间$[3,5]$的和，可以求$[3,6]$的区间和吗？显然，将$[3,5]$的区间和加上$A_6$即可。类似的，求$[2,4]$的区间和，我们只需减去$A_5$即可。</p>
-<p>可以结合下图感知一下</p>
-<p><img src="https://i.loli.net/2020/01/05/b63tfzYDl7VwdXC.png" alt="spfa.png"></p>
-<p><img src="https://i.loli.net/2020/01/05/uAa95JElrb7kCxQ.png" alt="spfa.png"></p>
-<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>好，接下来我们想一下如何维护这种询问之间的关系。</p>
-<p>很容易想到排序，首先我们对询问的左端点进行排序。再把整个<code>询问</code>序列分为$\sqrt{n}$块，每块以内再按右端点排序。</p>
-<p>所以我们可以得出以下结论：</p>
-<ul>
-<li>莫队就是对于一系列的询问，通过排序减小询问的之间的差距，然后以计算贡献的方法离线的得出答案</li>
-</ul>
-<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>来一道简单的例题</p>
-<h3 id="小B的询问"><a href="#小B的询问" class="headerlink" title="小B的询问"></a>小B的询问</h3><p>小B 有一个长为 $n$ 的整数序列 $a$，值域为 $[1,k]$。<br>他一共有 $m$ 个询问，每个询问给定一个区间 $[l,r]$，求：  </p>
-<p>其中 $c_i$ 表示数字 $i$ 在 $[l,r]$ 中的出现次数。<br>小B请你帮助他回答询问</p>
-<hr>
-<p>这道题让我们求</p>
-<script type="math/tex; mode=display">\sum\limits_{i=1}^k c_i^2</script><p>开一个桶，计算每个数出现的次数，所以我们可以由此计算答案的贡献，就可以写出以下的代码</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-#include &lt;cmath&gt;
-
-using namespace std;
-
-const int SIZE = 5e4 + 5;
-struct QueryNode {
-    int l, r;
-    int id; // 储存询问的顺序，方便输出
-} Q[SIZE];
-int a[SIZE], n, m, k, pos[SIZE];
-int cnt[SIZE], ans[SIZE], res;
-
-// a:原序列
-// pos:每个位置所处的块
-// cnt:桶
-// ans:询问的答案
-// res:每次调整所得到的贡献
-
-inline void add(int x) { cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - 1) * (cnt[a[x]] - 1); }
-
-inline void del(int x) { cnt[a[x]]--, res -= (cnt[a[x]] + 1) * (cnt[a[x]] + 1) - cnt[a[x]] * cnt[a[x]]; }
-
-signed main() {
-    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k);
-    int block = sqrt(n);
-    for (int i = 1; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;a[i]), pos[i] = i / block;
-    for (int i = 1; i &lt;= m; ++i) scanf(&quot;%d %d&quot;, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;
-    sort(Q + 1, Q + 1 + m, [](QueryNode x, QueryNode y) { return pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; });
-    int l = 1, r = 0;
-    for (int i = 1; i &lt;= m; ++i) {
-        while (l &gt; Q[i].l) add(--l); // 这四句都是在对当前的区间对于询问的区间进行调整
-        while (r &lt; Q[i].r) add(++r); // 这三句都是在对当前的区间对于询问的区间进行调整
-        while (l &lt; Q[i].l) del(l++); // 这二句都是在对当前的区间对于询问的区间进行调整
-        while (r &gt; Q[i].r) del(r--); // 这一句都是在对当前的区间对于询问的区间进行调整
-        ans[Q[i].id] = res;
-    }
-    for (int i = 1; i &lt;= m; ++i) printf(&quot;%d\n&quot;, ans[i]);
-    return 0;
-}
-</code></pre>
-<h1 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h1><p>其实莫队是有套路的，基本上莫队的题都是这样的:</p>
-<pre><code class="lang-cpp">    for (int i = 1; i &lt;= m; ++i) {
-        while (l &gt; Q[i].l) add(--l);
-        while (r &lt; Q[i].r) add(++r);
-        while (l &lt; Q[i].l) del(l++);
-        while (r &gt; Q[i].r) del(r--);
-        ans[Q[i].id] = res;
-    }
-</code></pre>
-<p>我们只需考虑$add$函数以及$del$函数即可</p>
-
-                      
-        </div>
-        <!-- .entry-content -->
-        <!-- <div class="single-reward">
-          <div class="reward-open">赏
-            <div class="reward-main">
-              <ul class="reward-row">
-                <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
-                <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-        <footer class="post-footer">
-          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-          <div class="post-tags">
-          </div>
-          <div class="post-share">
-            <div class="social-share sharehidden share-component"></div>
-            <i class="iconfont show-share icon-forward"></i>
-          </div>
-        </footer>. -->
-        <!-- entry-footer -->
-      </article>
-      <!-- #post-## -->
-      <div class="toc" style="background: none;"></div>
-      <section class="post-squares nextprev">
-        
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2020/02/07/DS100P-KMP-STRING/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/aqo61erOPkQDYK4.jpg">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                数据结构100题 ---KMP</h3>
-                <br>
-              </div>
-            </a>
-          </div>
-        
-        
-          
-            <div class="post-nepre half next">
-          
-            <a href="/2020/02/07/DS100P-LINK-CUT-TREE/" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/ys3SUAT89qrRVZe.jpg">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                数据结构100题 ---Link-Cut Tree</h3>
-                <br>
-              </div>
-            </a>
-          </div>
-        
-      </section>
       
-<div id="vcomments"></div>
-<script>
-  window.onload = function(){
-      var valine = new Valine();
-      valine.init({
-        el: '#vcomments',
-        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
-        appKey: "gU70zYoblzxCmc6iL697pp69",
-        path: window.location.pathname,
-        placeholder: "Come And Get Your Love~"
-      })
-  }
-</script>
-
-      <section class="author-profile">
-        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-          <a href="/" class="profile gravatar"><img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
-          <div class="meta">
-            <span class="title">Author</span>
-            <h3 itemprop="name">
-            <a href="/" itemprop="url" rel="author">BoringHacker</a>
-            </h3>
-          </div>
+  <!-- 首页默认取最最新文章集 -->
+  
+    <article class="post post-list" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
         </div>
-        <hr>
-        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
-      </section>
-    </main><!-- #main -->
-  </div><!-- #primary -->
+        <img width="150" height="150" src="https://i.loli.net/2020/02/06/PiFbM8yOdXguRZT.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+    数据结构100题系列目录及前言</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-2-5</div>
+    <p>
+    </p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <br>
+</article>
+  
+
+
+      <div class="clearer">
+      </div>
+    </main>
+    <!-- 
+      <nav class="navigator">
+        
+        <a class="extend prev" rel="prev" href="/tags/DS100P/page/2/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/tags/DS100P/">1</a><a class="page-number" href="/tags/DS100P/page/2/">2</a><span class="page-number current">3</span>
+      </nav>
+     -->
+    
+  </div>
 </div>
-
-<script>
-  var spoiler=document.getElementsByClassName('spoiler');
-  for(var i=0;i<spoiler.length;++i)
-  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
-  </script>  
-
-
-  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
