@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="www.orchid-any.cf/"/>
-  <updated>2020-02-06T02:37:14.283Z</updated>
+  <updated>2020-02-07T10:49:19.126Z</updated>
   <id>www.orchid-any.cf/</id>
   
   <author>
@@ -15,6 +15,194 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SQRT-TREE</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-SQRT-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-SQRT-TREE/</id>
+    <published>2020-02-07T10:49:19.000Z</published>
+    <updated>2020-02-07T10:49:19.126Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BLOCK-ARRAY</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-BLOCK-ARRAY/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-BLOCK-ARRAY/</id>
+    <published>2020-02-07T10:48:41.000Z</published>
+    <updated>2020-02-07T10:48:41.197Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BLOCK-LIST</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-BLOCK-LIST/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-BLOCK-LIST/</id>
+    <published>2020-02-07T10:48:26.000Z</published>
+    <updated>2020-02-07T10:48:26.214Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DS100P-TREE-FENKUAI</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-TREE-FENKUAI/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-TREE-FENKUAI/</id>
+    <published>2020-02-07T10:43:01.000Z</published>
+    <updated>2020-02-07T10:47:33.462Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---后缀全家桶 之 后缀自动机</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-AUTOMATON/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-AUTOMATON/</id>
+    <published>2020-02-07T10:14:33.000Z</published>
+    <updated>2020-02-07T10:46:58.918Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---后缀全家桶 之 后缀树</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-TREE/</id>
+    <published>2020-02-07T10:14:14.000Z</published>
+    <updated>2020-02-07T10:47:20.870Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---树状数组</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-BINARY-INDEXED-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-BINARY-INDEXED-TREE/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-06T02:34:14.511Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;树状数组&quot;&gt;&lt;a href=&quot;#树状数组&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---Chtholly-Tree(Old-Driver Tree)</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-CHTHOLLY-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-CHTHOLLY-TREE/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-06T03:21:46.486Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Chtholly-Tree&quot;&gt;&lt;a href=&quot;#Chtholly-Tree&quot; class=&quot;headerlink&quot; title=&quot;Chtholly-Tree&quot;&gt;&lt;/a&gt;Chtholly-Tree&lt;/h1&gt;&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---fhq-treap</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-FHQ-TREAP/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-FHQ-TREAP/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-06T02:38:48.433Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;fhq-treap&quot;&gt;&lt;a href=&quot;#fhq-treap&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题系列目录及前言</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-INDEX-AND-PREWORDS/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-INDEX-AND-PREWORDS/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-07T10:50:19.916Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;$\qquad \qquad
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
   
   <entry>
     <title>数据结构100题 ---分块</title>
@@ -43,87 +231,9 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---fhq-treap</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-FHQ/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-FHQ/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T02:38:48.433Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;fhq-treap&quot;&gt;&lt;a href=&quot;#fhq-treap&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---树状数组</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-BIT/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-BIT/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T02:34:14.511Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;树状数组&quot;&gt;&lt;a href=&quot;#树状数组&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---Link-Cut Tree</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-LCT/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-LCT/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T02:48:17.341Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;Link-Cut-Tree&quot;&gt;&lt;a href=&quot;#Link-Cut-Tree&quot; class=&quot;headerlink&quot; title=&quot;Link-Cut Tree&quot;&gt;&lt;/a&gt;Link-Cut Tree&lt;/h1&gt;&lt;h1 id=&quot;0x00&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构100题 ---KMP</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-KMP/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-KMP/</id>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-KMP-STRING/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-KMP-STRING/</id>
     <published>2020-02-05T06:51:04.000Z</published>
     <updated>2020-02-06T03:11:48.061Z</updated>
     
@@ -148,9 +258,36 @@
   </entry>
   
   <entry>
+    <title>数据结构100题 ---莫队</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-MO-ALGORITHM/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-MO-ALGORITHM/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-06T03:13:41.479Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;莫队&quot;&gt;&lt;a href=&quot;#莫队&quot; class=&quot;headerlink&quot; title=&quot;莫队&quot;&gt;&lt;/a&gt;莫队&lt;/h1&gt;&lt;p&gt;($n\sqrt{n}$)&lt;/p&gt;
+&lt;h1 id=&quot;0x01&quot;&gt;&lt;a href=&quot;#0x01&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数据结构100题 ---后缀全家桶 之 后缀数组</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-SA/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-SA/</id>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-SUFFIX-ARRAY/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-SUFFIX-ARRAY/</id>
     <published>2020-02-05T06:51:04.000Z</published>
     <updated>2020-02-06T03:19:50.589Z</updated>
     
@@ -174,11 +311,11 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---Chtholly-Tree(Old-Driver Tree)</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-ODT/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-ODT/</id>
+    <title>数据结构100题 ---Link-Cut Tree</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-LINK-CUT-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-LINK-CUT-TREE/</id>
     <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T03:21:46.486Z</updated>
+    <updated>2020-02-06T02:48:17.341Z</updated>
     
     <summary type="html">
     
@@ -186,34 +323,7 @@
       
         
         
-          &lt;h1 id=&quot;Chtholly-Tree&quot;&gt;&lt;a href=&quot;#Chtholly-Tree&quot; class=&quot;headerlink&quot; title=&quot;Chtholly-Tree&quot;&gt;&lt;/a&gt;Chtholly-Tree&lt;/h1&gt;&lt;h2
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---莫队</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-M-A/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-M-A/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T03:13:41.479Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;莫队&quot;&gt;&lt;a href=&quot;#莫队&quot; class=&quot;headerlink&quot; title=&quot;莫队&quot;&gt;&lt;/a&gt;莫队&lt;/h1&gt;&lt;p&gt;($n\sqrt{n}$)&lt;/p&gt;
-&lt;h1 id=&quot;0x01&quot;&gt;&lt;a href=&quot;#0x01&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Link-Cut-Tree&quot;&gt;&lt;a href=&quot;#Link-Cut-Tree&quot; class=&quot;headerlink&quot; title=&quot;Link-Cut Tree&quot;&gt;&lt;/a&gt;Link-Cut Tree&lt;/h1&gt;&lt;h1 id=&quot;0x00&quot;&gt;&lt;a
         
       
     
@@ -254,61 +364,9 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---树链剖分</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-TCS/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-TCS/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T02:43:12.769Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;树链剖分&quot;&gt;&lt;a href=&quot;#树链剖分&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---树套树</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-TTT/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-TTT/</id>
-    <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T02:42:02.735Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;树套树&quot;&gt;&lt;a href=&quot;#树套树&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构100题 ---线段树</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P-SEGT/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P-SEGT/</id>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-SEGMENT-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-SEGMENT-TREE/</id>
     <published>2020-02-05T06:51:04.000Z</published>
     <updated>2020-02-06T02:35:24.434Z</updated>
     
@@ -358,11 +416,11 @@
   </entry>
   
   <entry>
-    <title>数据结构100题系列目录及前言</title>
-    <link href="www.orchid-any.cf/2020/02/05/DS100P/"/>
-    <id>www.orchid-any.cf/2020/02/05/DS100P/</id>
+    <title>数据结构100题 ---树链剖分</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-TREE-CHAIN-SPLITTING/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-TREE-CHAIN-SPLITTING/</id>
     <published>2020-02-05T06:51:04.000Z</published>
-    <updated>2020-02-06T04:01:38.938Z</updated>
+    <updated>2020-02-06T02:43:12.769Z</updated>
     
     <summary type="html">
     
@@ -370,7 +428,33 @@
       
         
         
-          &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;$\qquad \qquad
+          &lt;h1 id=&quot;树链剖分&quot;&gt;&lt;a href=&quot;#树链剖分&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="www.orchid-any.cf/categories/Learning/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 ---树套树</title>
+    <link href="www.orchid-any.cf/2020/02/05/DS100P-TREE-COVER-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/05/DS100P-TREE-COVER-TREE/</id>
+    <published>2020-02-05T06:51:04.000Z</published>
+    <updated>2020-02-06T02:42:02.735Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;树套树&quot;&gt;&lt;a href=&quot;#树套树&quot; class=&quot;headerlink&quot;
         
       
     
