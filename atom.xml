@@ -313,11 +313,11 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---莫队</title>
-    <link href="www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/"/>
-    <id>www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/</id>
+    <title>数据结构100题 ---KMP</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-KMP-STRING/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-KMP-STRING/</id>
     <published>2020-02-07T06:51:04.000Z</published>
-    <updated>2020-02-07T12:19:16.318Z</updated>
+    <updated>2020-02-07T12:19:18.726Z</updated>
     
     <summary type="html">
     
@@ -325,8 +325,8 @@
       
         
         
-          &lt;h1 id=&quot;莫队&quot;&gt;&lt;a href=&quot;#莫队&quot; class=&quot;headerlink&quot; title=&quot;莫队&quot;&gt;&lt;/a&gt;莫队&lt;/h1&gt;&lt;p&gt;($n\sqrt{n}$)&lt;/p&gt;
-&lt;h1 id=&quot;0x01&quot;&gt;&lt;a href=&quot;#0x01&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;KMP&quot;&gt;&lt;a href=&quot;#KMP&quot; class=&quot;headerlink&quot; title=&quot;KMP&quot;&gt;&lt;/a&gt;KMP&lt;/h1&gt;&lt;p&gt;upd:代码锅已补&lt;/p&gt;
+&lt;h1 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot;
         
       
     
@@ -366,11 +366,11 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---KMP</title>
-    <link href="www.orchid-any.cf/2020/02/07/DS100P-KMP-STRING/"/>
-    <id>www.orchid-any.cf/2020/02/07/DS100P-KMP-STRING/</id>
+    <title>数据结构100题 ---莫队</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/</id>
     <published>2020-02-07T06:51:04.000Z</published>
-    <updated>2020-02-07T12:19:18.726Z</updated>
+    <updated>2020-02-07T12:19:16.318Z</updated>
     
     <summary type="html">
     
@@ -378,8 +378,8 @@
       
         
         
-          &lt;h1 id=&quot;KMP&quot;&gt;&lt;a href=&quot;#KMP&quot; class=&quot;headerlink&quot; title=&quot;KMP&quot;&gt;&lt;/a&gt;KMP&lt;/h1&gt;&lt;p&gt;upd:代码锅已补&lt;/p&gt;
-&lt;h1 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot;
+          &lt;h1 id=&quot;莫队&quot;&gt;&lt;a href=&quot;#莫队&quot; class=&quot;headerlink&quot; title=&quot;莫队&quot;&gt;&lt;/a&gt;莫队&lt;/h1&gt;&lt;p&gt;($n\sqrt{n}$)&lt;/p&gt;
+&lt;h1 id=&quot;0x01&quot;&gt;&lt;a href=&quot;#0x01&quot; class=&quot;headerlink&quot;
         
       
     
@@ -393,11 +393,11 @@
   </entry>
   
   <entry>
-    <title>数据结构100题 ---splay</title>
-    <link href="www.orchid-any.cf/2020/02/07/DS100P-SPLAY/"/>
-    <id>www.orchid-any.cf/2020/02/07/DS100P-SPLAY/</id>
+    <title>数据结构100题 ---线段树</title>
+    <link href="www.orchid-any.cf/2020/02/07/DS100P-SEGMENT-TREE/"/>
+    <id>www.orchid-any.cf/2020/02/07/DS100P-SEGMENT-TREE/</id>
     <published>2020-02-07T06:51:04.000Z</published>
-    <updated>2020-02-07T12:19:12.269Z</updated>
+    <updated>2020-02-07T12:19:10.957Z</updated>
     
     <summary type="html">
     
@@ -405,8 +405,7 @@
       
         
         
-          &lt;h1 id=&quot;update&quot;&gt;&lt;a href=&quot;#update&quot; class=&quot;headerlink&quot; title=&quot;update:&quot;&gt;&lt;/a&gt;update:&lt;/h1&gt;&lt;p&gt;增加几道好一点的例题吧&lt;/p&gt;
-&lt;p&gt;&lt;a
+          &lt;h1 id=&quot;线段树-—LYC-ZBing&quot;&gt;&lt;a href=&quot;#线段树-—LYC-ZBing&quot; class=&quot;headerlink&quot; title=&quot;线段树 —LYC(ZBing)&quot;&gt;&lt;/a&gt;线段树
         
       
     
