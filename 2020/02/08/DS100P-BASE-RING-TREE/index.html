@@ -421,6 +421,11 @@
       <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
+<script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script>
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
