@@ -482,7 +482,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="0x01-引子"><a href="#0x01-引子" class="headerlink" title="0x01 引子"></a>0x01 引子</h1><p>首先引入这样一种问题：给定 $n$ 的范围，再给出一个长度为 $n$ 的序列，然后给出各种询问，询问的数量大于 $n$。比如说 $n=10^{6},q=1^{7}$。</p>
+          <h1 id="0x01-引子"><a href="#0x01-引子" class="headerlink" title="0x01 引子"></a>0x01 引子</h1><p>首先引入这样一种问题：给定 $n$ 的范围，再给出一个长度为 $n$ 的序列，然后给出各种询问，询问的数量大于 $n$。比如说 $n=10^{6},q=10^{7}$。</p>
 <p>考虑线段树，$\log n$ 的查询当场死亡。</p>
 <p>那么怎么办呢？猫锟大大就给出了一种 <strong>不支持修改但是可以做到 $\Theta(n\log n)$ 预处理 $\Theta(1)$ 查询的数据结构——猫树</strong> ，给大家分享一下原文章<a href="[http://immortalco.blog.uoj.ac/blog/2102](http://immortalco.blog.uoj.ac/blog/2102">Link</a>)。</p>
 <h1 id="0x02-预处理部分"><a href="#0x02-预处理部分" class="headerlink" title="0x02 预处理部分"></a>0x02 预处理部分</h1><h3 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h3><p>按我的理解，猫树其实可以看做像 $DP$ 一样 <strong>把分治的过程记录下来</strong> 的东西。</p>
