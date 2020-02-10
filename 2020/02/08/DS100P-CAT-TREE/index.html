@@ -497,7 +497,8 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <h1 id="0x03-处理询问部分"><a href="#0x03-处理询问部分" class="headerlink" title="0x03 处理询问部分"></a>0x03 处理询问部分</h1><h3 id="具体过程-1"><a href="#具体过程-1" class="headerlink" title="具体过程"></a>具体过程</h3><p>对于一个 <strong>询问</strong> 区间，我们可以把它放在某个 <strong>已经经过预处理的</strong> 并且 <strong>询问</strong> 区间经过 <strong>已经经过预处理的</strong> 的区间的 <strong>中点</strong> 的区间里。简而言之，我们设询问区间为 $q$，我们把 $q$ 放在一个区间 $t$ 里面，$t$ 的定义是已经经过预处理，并且询问区间 $q$ 跨过区间 $t$ 的中点。</p>
 <p>为什么呢？其实很简单，既然 $t$ 已经经过了预处理，那么 $t$ 的中点把 $q$ 分成的两部分也一定经过了预处理，我们就可以 $\Theta(1)$ 的合并了。</p>
 <p>没有图始终没有感觉对吧？那么上图来理解吧。</p>
-<p>这是一棵牛逼的树，我们给他取名叫牛逼树<br><img src="https://i.loli.net/2020/02/10/7oxLBf8EYRApqDj.png" alt="img spfaed"></p>
+<p>这是一棵牛逼的树，我们给他取名叫牛逼树</p>
+<p><img src="https://i.loli.net/2020/02/10/7oxLBf8EYRApqDj.png" alt="img spfaed"></p>
 <p>哦！现在牛逼树上有了一个询问！</p>
 <p><img src="https://i.loli.net/2020/02/10/7xiCUN2daeBmWHZ.png" alt="img spfaed"></p>
 <p>哈！牛逼树上的询问成功的被第三层的某个区间分割啦！耶！</p>
