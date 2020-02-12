@@ -1958,6 +1958,188 @@ signed main() {
     write(io_l, ans);
 }
 </code></pre>
+<h1 id="27-【中午的题目】分糖果"><a href="#27-【中午的题目】分糖果" class="headerlink" title="27.【中午的题目】分糖果"></a>27.【中午的题目】分糖果</h1><p>小 Z 带着新买的糖果来拜访舅舅家，舅舅家的 $K$ 个孩子看见小 Z 带着糖果来拜访变得欣喜若狂，他们都希望吃到好吃的糖果。正当小 Z 准备给 $K$ 个孩子分糖果时，舅舅却让小 Z 尽量少分点，免得孩子们蛀牙。</p>
+<p>小 Z 带来的糖果比较特别，一共有 $N$ 个糖果连成一串，编号为 $1\ldots N$，第 $i$ 个糖果有一个数值 $a[i]$ 表示蛀牙的可能性，数值越大的糖果越容易导致蛀牙，多个糖果的蛀牙值认为是各个糖果的蛀牙值之和。</p>
+<p>现在小 Z 打算取 $N$ 个糖果的前若干个，分成 $K$ 段分给 $K$ 个孩子。小 Z 好奇，他该怎么分糖果，才能使得分到糖果蛀牙值最大的孩子尽可能不蛀牙</p>
+<hr>
+<p>首先暴力做法显然。</p>
+<p>首先前缀和然后对前缀和离散化</p>
+<p>二分答案然后check里面dp，$dp_i$ 为区间 $[1,i]$ 最多能分成的块数。</p>
+<p>dp方程显然为 $dp_i=max{dp_j}+1$。</p>
+<p>这样转移是 $\Theta(n^2)$ 的，显然T飞。</p>
+<p>考虑树状数组优化，需要区间最大值和单点修改操作。</p>
+<p>时间复杂度 $\Theta(n\log^2n)$</p>
+<pre><code class="lang-cpp">#pragma GCC diagnostic error &quot;-std=c++11&quot;
+#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#define ls (k &lt;&lt; 1)
+#define rs (k &lt;&lt; 1 | 1)
+#define SIZE_CHECKER(x, y) ((size[son[x]] &lt; size[y]) &amp;&amp; (son[x] = y))
+#define PII pair &lt; __int64 , __int64 &gt;
+#define PLL pair &lt; LL, LL &gt;
+#define mid ((l + r) &gt;&gt; 1)
+#define mp make_pair
+#define fir first
+#define sec second
+#define pb push_back
+#define R register
+
+using namespace std;
+#ifndef __int8
+    typedef char __int8;
+#endif
+#ifndef __uint8
+    typedef unsigned char __uint8;
+#endif
+#ifndef __int16
+    typedef short __int16;
+#endif
+#ifndef __uint16
+    typedef unsigned short __uint16;
+#endif
+#ifndef __int32
+    typedef int __int32;
+#endif
+#ifndef __int64
+    typedef long long __int64;
+#endif
+#ifndef __uint32
+    typedef unsigned int __uint32;
+#endif
+#ifndef __uint64
+    typedef unsigned long long __uint64;
+#endif
+
+#define io_e &#39;\0&#39;
+#define io_s &#39; &#39;
+#define io_l &#39;\n&#39;
+ #define _DEBUG_ 1 // debug toggle
+namespace Fast_IO {
+    #ifndef _DEBUG_
+        #define gc() (iS == iT ? (iT = (iS = ibuff) + fread(ibuff, 1, SIZ, stdin), (iS == iT ? EOF : *iS++)) : *iS++)
+    #else
+        #define gc() getchar()
+    #endif
+    const __int64 SIZ = 1 &lt;&lt; 21 | 1;
+    char *iS, *iT, ibuff[SIZ], obuff[SIZ], *oS = obuff, *oT = oS + SIZ - 1, fu[110], c;
+    __int64 fr;
+    inline void ioout() {
+        fwrite(obuff, 1, oS - obuff, stdout);
+        oS = obuff;
+    }
+    template &lt;class Type&gt;
+    inline void read(Type&amp; x) {
+        x = 0;
+        Type y = 1;
+        for (c = gc(); (c &gt; &#39;9&#39; || c &lt; &#39;0&#39;) &amp;&amp; c ^ &#39;-&#39;; c = gc())
+            ;
+        c == &#39;-&#39; ? y = -1 : x = (c &amp; 15);
+        for (c = gc(); c &gt;= &#39;0&#39; &amp;&amp; c &lt;= &#39;9&#39;; c = gc()) x = x * 10 + (c &amp; 15);
+        x *= y;
+    }
+    inline bool blank(char ch) { return ch == &#39; &#39; || ch == &#39;\n&#39; || ch == &#39;\r&#39; || ch == &#39;\t&#39;; }
+    inline void read(char* s) {
+        register char ch = gc();
+        for (; blank(ch); ch = gc())
+            ;
+        for (; !blank(ch); ch = gc()) *s++ = ch;
+        *s = 0;
+    }
+    inline void read(char&amp; c) {
+        for (c = gc(); blank(c); c = gc())
+            ;
+    }
+    template &lt;typename Type, typename... Args&gt;
+    inline void read(Type&amp; t, Args&amp;... args) {
+        read(t), read(args...);
+    }
+    template &lt;typename... Args&gt;
+    inline void read(char* t, Args&amp;... args) {
+        read(t), read(args...);
+    }
+    template &lt;typename... Args&gt;
+    inline void read(char&amp; t, Args&amp;... args) {
+        read(t), read(args...);
+    }
+    template &lt;class Type&gt;
+    inline void write(char lastChar, Type x) {
+        if (x &lt; 0)
+            *oS++ = &#39;-&#39;, x = -x;
+        if (x == 0)
+            *oS++ = &#39;0&#39;;
+        while (x) fu[++fr] = x % 10 + &#39;0&#39;, x /= 10;
+        while (fr) *oS++ = fu[fr--];
+        *oS++ = lastChar;
+        ioout();
+    }
+    inline void write(char lastChar, char x[]) {
+        for (register __int64 i = 0; x[i]; ++i) *oS++ = x[i];
+        *oS++ = lastChar;
+        ioout();
+    }
+    inline void write(char lastChar, char x) {
+        *oS++ = x;
+        *oS++ = lastChar;
+        ioout();
+    }
+    template &lt;typename Type, typename... Args&gt;
+    inline void write(char midChar, Type t, Args... args) {
+        write(midChar, t), write(midChar, args...);
+    }
+}  // namespace Fast_IO
+
+using Fast_IO::read;
+using Fast_IO::write;
+
+const __int64 SIZE = 1e6 + 5;
+const __int64 INF = 0x7fffffff;
+__int64 a[SIZE], bit[SIZE];
+__int64 dp[SIZE], n, k, T;
+vector &lt; __int64 &gt; disc;
+
+void add(__int64 x, __int64 y) { for (; x &gt; 0; x -= x &amp; -x) bit[x] = max(bit[x], y); }
+__int64 ask(__int64 x, __int64 lim, __int64 res = -INF) { for (; x &lt; lim; x += x &amp; -x) res = max(res, bit[x]); return res; }
+
+void Discretization(__int64 x) {
+    disc.clear();
+    disc.pb(0);
+    for (__int64 i = 1; i &lt;= n; ++i) disc.pb(a[i]);
+    sort(disc.begin(), disc.end());
+    disc.erase(unique(disc.begin(), disc.end()), disc.end());
+} 
+
+bool Check(__int64 x) {
+    Discretization(x);
+    for (__int64 i = 1; i &lt;= (__int64)disc.size(); ++i) {
+        for (__int64 j = i; j &lt; (__int64)disc.size(); j += j &amp; -j) bit[i] = -INF;
+        for (__int64 j = i; j &gt; 0; j -= j &amp; -j) bit[i] = -INF;
+    }
+    *dp = 0;
+    add(lower_bound(disc.begin(), disc.end(), 0) - disc.begin() + 1, *dp);
+    for (__int64 i = 1; i &lt;= n; ++i) {
+        dp[i] = ask(lower_bound(disc.begin(), disc.end(), a[i] - x) - disc.begin() + 1, disc.size() + 1) + 1;
+        add(lower_bound(disc.begin(), disc.end(), a[i]) - disc.begin() + 1, dp[i]);
+        if (k &lt;= dp[i]) return 1;
+    }
+    return 0;
+}
+
+signed main() {
+    for (read(T); T; --T) {
+        read(n, k);
+        for (__int64 i = 1; i &lt;= n; ++i) read(a[i]), a[i] += a[i - 1];
+        __int64 l = -INF * SIZE, r = SIZE * INF;
+        while (l &lt; r - 1)
+            if (Check(mid)) r = mid;
+            else l = mid;
+        write(io_l, r);
+    }
+    return 0;
+}
+</code></pre>
 
           
             <hr>
