@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---后缀全家桶 之 后缀树 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---主席树 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -429,12 +429,12 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg">
     </div>
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
 
       <h1 class="entry-title">
-      数据结构100题 ---后缀全家桶 之 后缀树</h1>
+      数据结构100题 ---主席树</h1>
       <p class="entry-census">
         <span>
           <a href="/">
@@ -482,12 +482,102 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          
-          
-            <hr>
-            <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
-            <p style="font-size:32px;text-align:center;margin-top:-2px">施工中...</p>
-                        
+          <h1 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h1><p>($nlogn$)</p>
+<p>“你是主席树吗？有那么多爷爷！”——$LJS$。</p>
+<p>这句话运用打比方的说明方法，生动形象地说明了主席树每个节点可能有很多父亲的特点，<del>体现说明语言的生动性</del>。</p>
+<p>也就是说，主席树的几个节点可能共用一个子节点。</p>
+<p>就像这样：</p>
+<p><img src="https://i.loli.net/2020/01/11/RV3yh9uzBgWx2EZ.png" alt="主席树.png"></p>
+<p>主席树可以用来查询静态区间第k小，静态区间前k大的和等等。（用法十分灵活）</p>
+<p>我们会创建很多版本的树，一些版本会共用一些节点，以节省空间和时间。</p>
+<p>主席树也叫可持久化线段树。但可持久化还有很多东西。我就讲可持久化线段树吧。</p>
+<h4 id="1-如何共用节点"><a href="#1-如何共用节点" class="headerlink" title="1.如何共用节点"></a>1.如何共用节点</h4><p>我们考虑单点修改的线段树。</p>
+<p>如果要得到这个序列某个元素$x$加上一个值$val$之后的新版本，我们发现，改变的只有对应元素$x$的节点和他的祖先会加上$val$。那么其他节点我们可以与上一个版本共用。</p>
+<p>所以我们每次新建一个节点，继承之前该位置的值和左右儿子，然后更新值，再继续向下寻找元素$x$的位置，最后递归回来更新这个儿子。</p>
+<p>我们使用$root$数组来记录每个版本的根节点编号。</p>
+<p>代码：</p>
+<pre><code>void ins(int l,int r,int pre,int &amp;now,int pos,int val)//区间左右端点，上一个版本中对应这个区间的点，当前版本中对应这个区间的点，修改位置，增加的值。
+{
+    nodes[++tot]=nodes[pre];//先整个复制
+    now=tot;//更新上一个节点的儿子。
+    nodes[now].sum+=val;//更新当前节点的值
+    if(l==r)    return;
+   //向下继续寻找
+    int mid=(l+r)&gt;&gt;1;
+    if(pos&lt;=mid)    ins(l,mid,nodes[pre].l,nodes[now].l,pos,val);
+    else    ins(mid+1,r,nodes[pre].r,nodes[now].r,pos,val);
+}
+//调用：ins(1,n,root[i-1],root[i],p,v);
+</code></pre><p>最后$root[i]$的引用就相当于记录了这个版本的根节点。</p>
+<p>查询其实就和普通的线段树一样，但主席树的用途不止这个。</p>
+<h4 id="2-例题"><a href="#2-例题" class="headerlink" title="2.例题"></a>2.例题</h4><p><a href="https://www.luogu.com.cn/problem/P3834" target="_blank" rel="noopener">【模板】可持久化线段树 1（主席树）</a></p>
+<p>如题，给定 $n$ 个整数构成的序列，将对于指定的闭区间查询其区间内的第 $k$ 小值。</p>
+<p><strong>权值线段树</strong>：</p>
+<p>(线段树的另一种应用，只是每个节点维护整个序列值在$[l,r]$区间内的数的个数)</p>
+<p>这道题要求查询静态区间第$k$小。那么对于第$k$小这种问题，我们要使用权值线段树</p>
+<p><strong>离散化</strong>：$-1e9\leq a_i \leq1e9$ 的数据线段树肯定开不下，但这道题只需要求第k小，没有必要开那么大，可以对数据进行离散化。</p>
+<p>我们按照序列的顺序插入$a_i$。得到每个$root[i]$代表的权值线段树代表从$a_1$到$a_i$的每个数值的出现次数。</p>
+<p>那么根据前缀和的思想，区间$[l,r]$中每个数值的出现个数就是$[1,r]$的减去$[1,l-1]$的。那么数值的区间也具有这个性质。</p>
+<p>所有对于每个询问，我们只需要查询一次，用$root[r]$和$root[l-1]$的权值线段树处理出区间$[l,r]$应有的权值线段树，就可以像正常的权值线段树一样查询第k小了。</p>
+<p>代码：</p>
+<pre><code>#include&lt;vector&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int n,m,a[200010],x,y,z,cnt,root[200010];
+struct node
+{
+    int l,r,sum;
+}nodes[8000010];//40*n
+vector&lt;int&gt; v;
+void ins(int l,int r,int pre,int &amp;now,int p)//插入，创建新版本
+{
+    nodes[++cnt]=nodes[pre];
+    now=cnt;
+    ++nodes[cnt].sum;
+    if(l==r)    return;
+    int m=(l+r)&gt;&gt;1;
+    if(p&lt;=m)    ins(l,m,nodes[pre].l,nodes[cnt].l,p);
+    else    ins(m+1,r,nodes[pre].r,nodes[cnt].r,p);
+}
+int find(int l,int r,int p1,int p2,int k)
+{
+    if(l==r)    return l;
+    int m=(l+r)&gt;&gt;1;
+    int X=nodes[nodes[p2].l].sum-nodes[nodes[p1].l].sum;//现场处理，得到[x,y]区间内，值在[l,mid]内的数的个数
+    if(k&lt;=X)    return find(l,m,nodes[p1].l,nodes[p2].l,k);//如果k&lt;=X.说明第k小的数在左边。
+    else    return find(m+1,r,nodes[p1].r,nodes[p2].r,k-X);//否则在右边。
+}
+int getid(int X)//得到离散化后的数值
+{
+    return lower_bound(v.begin(),v.end(),X)-v.begin()+1;
+}
+int main()
+{
+    scanf(&quot;%d %d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i)
+    {
+        scanf(&quot;%d&quot;,&amp;a[i]);
+        v.push_back(a[i]);
+    }
+    sort(v.begin(),v.end());
+    v.erase(unique(v.begin(),v.end()),v.end());//离散化
+    for(int i=1;i&lt;=n;++i)    ins(1,n,root[i-1],root[i],getid(a[i]));//按顺序插入每个值，得到root[i]对应的权值线段树。
+    for(int i=1;i&lt;=m;++i)
+    {
+        scanf(&quot;%d %d %d&quot;,&amp;x,&amp;y,&amp;z);
+        printf(&quot;%d\n&quot;,v[find(1,n,root[x-1],root[y],z)-1]);//查询区间[x,y]；输出原值
+    }
+    return 0;
+}
+</code></pre><h4 id="3-缺点及注意事项"><a href="#3-缺点及注意事项" class="headerlink" title="3.缺点及注意事项"></a>3.缺点及注意事项</h4><p><strong>内存池一般从1开始用</strong>，$nodes[0]$作为空白，值为$0$，儿子节点指向自己，值还是为$0$。</p>
+<p>当你这个版本的树还没有改过某个节点的某个儿子时，这个节点的这个儿子会指向$nodes[0]$，也就相当于下面都是$0$，正好符合。</p>
+<p><strong>数组一定要开大</strong>，如果开得不够大可能会出现$MLE$,$TLE$,$RE$,$WA$.</p>
+<p><strong>但也不要开太大</strong>，不然会$MLE$,$CE$.</p>
+<p><strong>主席树是静态的</strong>，遇到要动态修改而不是生成一个新版本的问题，就可能要用树套树了。</p>
+<p><strong>可持久化可以用在很多数据结构上</strong>，平衡树，线段树，$trie$树……<del>可够得写</del>，但它们的思想都是相似的，都是每个版本与之前的版本共用节点以节省时间，空间。</p>
+
+                      
         </div>
         <!-- .entry-content -->
         <!-- <div class="single-reward">
@@ -519,15 +609,15 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/07/DS100P-SUFFIX-AUTOMATON/" rel="prev">
+            <a href="/2020/02/07/DS100P-SUFFIX-TREE/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/07/eF2MsdbnGtNm3l8.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/07/eF2MsdbnGtNm3l8.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---后缀全家桶 之 后缀自动机</h3>
+                数据结构100题 ---后缀全家桶 之 后缀树</h3>
               </div>
             </a>
           </div>
@@ -536,15 +626,15 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/" rel="next">
+            <a href="/2020/02/07/DS100P-FENKUAI/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---主席树</h3>
+                数据结构100题 ---分块</h3>
               </div>
             </a>
           </div>
