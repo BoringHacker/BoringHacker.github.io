@@ -441,7 +441,7 @@ function checkBgImgCookie () {
       $('#night-mode-cover').css('visibility', 'hidden')
       $('body').css('background-image', 'url(' + bgurl + ')')
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
-      $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+      // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
     } else if (bgurl == 'https://api.shino.cc/bing/') {
       mashiro_global.variables.skinSecter = true
@@ -449,7 +449,7 @@ function checkBgImgCookie () {
       $('#night-mode-cover').css('visibility', 'hidden')
       $('body').css('background-image', 'url(' + bgurl + ')')
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
-      $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+      // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
     } else {}
   } else {
@@ -530,7 +530,7 @@ $(document).ready(function () {
       $('#night-mode-cover').css('visibility', 'hidden')
       $('body').css('background-image', 'url(' + url + ')')
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
-      $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+      // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
       $('#banner_wave_1').addClass('banner_wave_hide_fit_skin')
       $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
@@ -546,7 +546,7 @@ $(document).ready(function () {
       $('#night-mode-cover').css('visibility', 'hidden')
       $('body').css('background-image', 'url(' + url + ')')
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
-      $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+      // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
       $('#banner_wave_1').addClass('banner_wave_hide_fit_skin')
       $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
@@ -566,7 +566,7 @@ $(document).ready(function () {
     $('#night-mode-cover').css('visibility', 'hidden')
     $('body').css('background-image', 'none')
     $('.blank').css('background-color', 'rgba(255,255,255,.0)')
-    $('.pattern-center-sakura').removeClass('pattern-center-sakura').addClass('pattern-center')
+    // $('.pattern-center-sakura').removeClass('pattern-center-sakura').addClass('pattern-center')
     $('.headertop-bar-sakura').removeClass('headertop-bar-sakura').addClass('headertop-bar')
     $('#banner_wave_1').removeClass('banner_wave_hide_fit_skin')
     $('#banner_wave_2').removeClass('banner_wave_hide_fit_skin')
@@ -579,7 +579,7 @@ $(document).ready(function () {
     $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/starry_sky.png)')
     $('.blank').css('background-color', 'rgba(255,255,255,.8)')
     $('#night-mode-cover').css('visibility', 'visible')
-    $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+    // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
     $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
     $('#banner_wave_1').addClass('banner_wave_hide_fit_skin')
     $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
@@ -897,7 +897,7 @@ var pjaxInit = function () {
     reload_show_date_time()
   } catch (e) {}
   if (mashiro_global.variables.skinSecter === true) {
-    $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
+    // $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
     $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
     if (mashiro_global.variables.isNight) {
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
