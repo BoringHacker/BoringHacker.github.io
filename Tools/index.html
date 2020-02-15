@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">donate | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">Tools | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://i.loli.net/2020/02/06/fvXuYw6p9PDCOR3.png">
   
@@ -428,108 +428,365 @@
   </div>
 </header>
 
-      <link rel="stylesheet" href="/css/donate.css">
-<div class="pattern-center-blank">
-</div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.4/img/banner/donate.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-  </div>
-  <header class="pattern-header ">
-    <h1 class="entry-title">谢谢饲主了喵~</h1>
-  </header>
-</div>
-<div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-  如果喜欢我的博客，可以考虑资助一下哦~非常感激！
-    <div id="root">
-      <div class="root">
-        <a href="https://github.com/Kaiyuan/donate-page" target="_blank" class="pos-f tr3" title="Github"><span id="github"></span></a>
-        <ul id="donateBox" class="list pos-f tr3">
-          <!-- <li id="BTC" data-footnote="Copy addres and show QRCod"><button id="BTCBn"  data-clipboard-target="#btc-key" alt="Copy to clipboard">Bitcoin</button></li> -->
-          <li id="PayPal"><a href="https://www.paypal.me/hojuncn" target="_blank">PayPal</a></li>
-          <li id="AliPay">AliPay</li>
-          <li id="WeChat">WeChat</li>
-        </ul>
-        <div id="DonateText" class="tr3">Donate</div>
-        <div id="QRBox" class="pos-f left-100">
-          <div id="MainBox"></div>
+        <div class="pattern-center-blank"></div>
+  
+    <div class="pattern-center ">
+      <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/15/C6OydXeIrNtGl5k.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+      <header class="pattern-header ">
+        <h1 class="entry-title">
+        </h1>
+      </header>
+    </div>
+  
+  
+    
+  <div id="content" class="site-content">
+    <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
+      <h1 id="For-ljes-滑稽"><a href="#For-ljes-滑稽" class="headerlink" title="For ljes(滑稽)"></a>For ljes(滑稽)</h1><p><b>函数求导工具</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/derivativecalculator.php" method="post">
+函数输入框:<br>
+<input name="function" size="80" maxlength="300" type="text"><br>
+自变量: <input name="var" size="3" maxlength="3" value="x" type="text">    
+阶数: <select name="order">
+<option value="0">0</option>
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>不定积分计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/integralcalculator.php" method="post">
+请输入你需要积分的函数表达式:<br>
+<input name="function" size="80" maxlength="160" value type="text"><br>
+自变量:<input name="var" size="3" maxlength="3" value="x" type="text">    
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>定积分计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/definiteintegralcalculator.php" method="post">
+请输入你需要积分的函数表达式:<br>
+<input name="function" size="80" maxlength="160" value type="text"><br>
+自变量: <input name="var" size="3" maxlength="3" value="x" type="text">
+从: <input name="a" size="12" maxlength="12" value="0" type="text">
+到: <input name="b" size="12" maxlength="12" value="1" type="text">
+<input size="40" name="answers" value type="hidden">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>极限计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/limitcalculator.php" method="post">
+请输入一个函数并计算极限:
+<input name="function" size="80" maxlength="160" value type="text"><br>
+极限变量: <input name="var" size="3" maxlength="3" value="x" type="text">    
+x趋向于: <input name="val" size="12" maxlength="12" value="0" type="text">    
+<input size="40" name="answers" value type="hidden">
+极限类型 <select name="limit_type">
+<option value="two-sided">双侧极限</option>
+<option value="plus">右侧极限</option>
+<option value="minus">左侧极限</option>
+</select>
+<input name="return" value="1" type="hidden">
+<input value="计算" type="submit">
+</form>
+
+<hr>
+<p><b>函数图像绘制工具</b><br><br>函数输入框:<br></p>
+<form name="form1" action="http://zh.numberempire.com/graphingcalculator.php" method="get">
+<input id="functions" name="functions" value="log(x),sqrt(x),x,x^2" class="full_width" type="text"><br>
+X 坐标, 从: <input id="xmin" name="xmin" value="0" size="10" type="text">
+到: <input id="xmax" name="xmax" value="3" size="10" type="text"><br>
+
+Y 坐标, 从: <input id="ymin" name="ymin" value="-1" size="10" type="text">
+到: <input id="ymax" name="ymax" value="1" size="10" type="text"><br>
+<input value="绘制图像" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>分数计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/fractionscalculator.php" method="post">
+输入一个分数表达式:<br>
+<input name="function" size="80" maxlength="160" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>方程求解</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/equationsolver.php" method="post">
+输入逗号以分隔多个方程:<br>
+<input name="function" size="80" maxlength="160" value type="text"><br>
+<input name="var" size="10" maxlength="10" value="x" type="text">
+<input size="40" name="answers" value type="hidden">
+<input value="求解" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>表达式化简</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/simplifyexpression.php" method="post">
+输入一个表达式来简化:<br>
+<input name="function" size="80" maxlength="300" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>因式分解工具</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/factoringcalculator.php" method="post">
+请输入您需要分解因式的表达式：:<br>
+<input name="function" size="80" maxlength="300" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>阶乘计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/factorialcalculator.php" method="post">
+请输入一个非负整数:<br>
+<input name="number" size="40" maxlength="10" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>组合数计算器</b><br></p>
+<form action="http://zh.numberempire.com/combinatorialcalculator.php" method="post">
+组合数计算方法，从N项中选出M项.
+<table><tbody><tr><td align="right">
+是否具有顺序?
+</td><td>
+<select name="ordered">
+<option value="true">是</option>
+<option value="false" selected="selected">否</option>
+</select>
+</td></tr>
+<tr><td align="right">
+元素是否可以选择一次以上?
+</td><td>
+<select name="repeated">
+<option value="ture">是</option>
+<option value="false" selected="selected">否</option>
+</select>
+</td></tr><tr><td align="right">N = </td><td><input name="n" size="8" type="text"></td></tr>
+<tr><td align="right">M =</td><td><input name="m" size="8" type="text"></td></tr>
+</tbody></table>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>反函数计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/inversefunctioncalculator.php" method="post">
+输入函数来计算其反函数:<br>
+<input name="function" size="80" maxlength="160" value type="text"><br>
+<input name="var" size="10" maxlength="10" value="x" type="text">
+<input size="40" name="answers" value type="hidden">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>表达式计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/expressioncalculator.php" method="post">
+输入要计算的表达式:<br>
+<input name="function" size="80" maxlength="300" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>质数发生器和校验器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/primenumbers.php" method="post">
+输入一个自然数，并选择相应的功能:<br>
+<input name="number" size="80" maxlength="128" value type="text"><br>
+<select name="action">
+<option value="check" selected="selected">检验是否为质数
+</option><option value="next">下一个质数
+</option><option value="prev">上一个质数
+</option></select>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>整数分解工具</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/numberfactorizer.php" method="post">
+请输入您需要分解的整数:<br>
+<input name="number" size="80" maxlength="60" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>斐波那契数计算工具</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/fibonaccinumbers.php" method="post">
+请输入一个非负整数:<br>
+<input name="number" size="40" maxlength="10" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>伯努利数发生器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/bernoullinumbers.php" method="post">
+请输入一个非负整数:<br>
+<input name="number" size="40" maxlength="10" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>欧拉数计算工具</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/eulernumbers.php" method="post">
+请输入一个非负整数:<br>
+<input name="number" size="40" maxlength="10" value type="text">
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>统计计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/statisticscalculator.php" method="post">
+输入一个空格，逗号或新行分隔的数字:<br>
+<textarea type="text" name="series" cols="60" rows="20"></textarea>
+<br><table>
+<tbody><tr><td><input name="mean" checked="checked" type="checkbox">平均数</td>
+<td><input name="median" type="checkbox">中位数</td>
+<td><input name="harmonic_mean" type="checkbox">调和平均数</td></tr>
+<tr><td><input name="geometric_mean" type="checkbox">几何平均数</td>
+<td><input name="min" type="checkbox">最小</td>
+<td><input name="max" type="checkbox">最大</td></tr>
+<tr><td><input name="range" type="checkbox">范围</td>
+<td><input name="var" checked="checked" type="checkbox">方差</td>
+<td><input name="var1" type="checkbox">更正方差</td></tr>
+<tr><td><input name="std" type="checkbox">标准偏差</td>
+<td><input name="std1" type="checkbox">更正的标准偏差</td>
+<td><input name="relstd" type="checkbox">变异系数</td></tr>
+<tr><td><input name="mean_dev" type="checkbox">平均偏差</td>
+<td><input name="median_dev" type="checkbox">中位数偏差</td>
+<td><input name="skewness" checked="checked" type="checkbox">偏度</td></tr>
+</tbody></table>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>矩阵计算器</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/matrixcalculator.php" method="post">
+输入矩阵 A:<br>
+<textarea type="text" name="matrix1" cols="60" rows="20"></textarea>
+<table>
+<tbody><tr><td>
+<input name="determinant" checked="checked" type="checkbox"> 矩阵的行列式
+</td><td>
+<input name="transpose" checked="checked" type="checkbox"> 转置矩阵
+</td></tr><tr><td>
+
+<input name="trace" checked="checked" type="checkbox"> 矩阵迹
+</td><td>
+<input name="rank" checked="checked" type="checkbox"> 矩阵的秩
+</td></tr><tr><td>
+<input name="inverse" type="checkbox"> 逆矩阵
+</td><td>
+<input name="eigenvalues" type="checkbox"> 特征值
+</td></tr><tr><td>
+<input name="triangularize" type="checkbox"> 下三角矩阵
+</td><td>
+<input name="square" type="checkbox"> A<sup>2</sup>
+</td></tr></tbody></table>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+
+<hr>
+<p><b>矩阵运算</b><br></p>
+<form name="form1" action="http://zh.numberempire.com/matrixbinarycalculator.php" method="post">
+<table><tbody><tr align="center"><td>输入矩阵 A:</td><td>输入矩阵 B:</td></tr>
+<tr><td><textarea type="text" name="matrix1" cols="60" rows="20"></textarea></td>
+<td><textarea type="text" name="matrix2" cols="60" rows="20"></textarea></td></tr></tbody></table>
+<br>
+<table><tbody><tr><td>
+<input name="add" checked="checked" type="checkbox">加法
+</td><td>
+<input name="sub" checked="checked" type="checkbox">减法
+</td><td>
+<input name="mult" checked="checked" type="checkbox">乘法
+</td></tr>
+</tbody></table>
+<input value="计算" type="submit">
+<input name="return" value="1" type="hidden">
+</form>
+      <!-- .entry-content -->
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
+
+      <div class="single-reward">
+        <div class="reward-open">赏
+          <div class="reward-main">
+            <ul class="reward-row">
+              <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
+              <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
+            </ul>
+          </div>
         </div>
-        <!-- Bitcoin 账号 -->
-        <!-- <input id="btc-key" type="text" value="14JkMR68n4PBASB3TgvpjtaPTbfffSwFbW" readonly="readonly"> -->
       </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer><!-- .entry-footer -->
-  </article>
-  <section class="author-profile">
-    <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <a href="/about/" class="profile gravatar"><img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg" itemprop="image" alt="hojun" height="70" width="70"></a>
-      <div class="meta">
-        <span class="title">Author</span>
-        <h3 itemprop="name">
-        <a href="https://www.orchid-any.cf/" itemprop="url" rel="author">hojun</a>
-        </h3>
-      </div>
-    </div>
-    <hr>
-    <p><i class="iconfont icon-write"></i>Stay Hungry, Stay Foolish</p>
-  </section>
+      <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+      <footer class="post-footer">
+        <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+        <div class="post-tags">
+        </div>
+        <div class="post-share">
+          <div class="social-share sharehidden share-component"></div>
+          <i class="iconfont show-share icon-forward"></i>
+        </div>
+      </footer><!-- .entry-footer -->
+    </article>
+      <!-- #post-## -->
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/about/" class="profile gravatar"><img src="https://i.loli.net/2020/02/06/fuc7zI8iylU5ANt.jpg" itemprop="image" alt="Blog" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://www.orchid-any.cf/" itemprop="url" rel="author">Blog</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Stay Hungry, Stay Foolish</p>
+      </section>
+  </div><!-- #primary -->
 </div>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script> -->
-  <script>
-    jQuery(document).ready(function() {
-    var QRBox = $('#QRBox');
-    var MainBox = $('#MainBox');
-    var BTCQR = '/images/donate/BTCQR.png'; // 二维码路径
-    var AliPayQR  = '/img/custom/donate/AliPayQR.jpg';
-    var WeChanQR  = '/img/custom/donate/WeChanSQ.jpg';
-
-    function showQR(QR) {
-      if (QR) {
-        MainBox.css('background-image','url('+QR+')');
-      }
-      $('#DonateText,#donateBox,#github').addClass('blur');
-      QRBox.fadeIn(300,function(argument) {
-        MainBox.addClass('showQR');
-      });
-    }
-
-    $('#donateBox>li').click(function(event) {
-      var thisID  = $(this).attr('id');
-      if (thisID === 'BTC') {
-        new ClipboardJS('#BTCBn');
-        new ClipboardJS('.btnsss');
-        showQR(BTCQR);
-      } else if (thisID === 'AliPay') {
-        showQR(AliPayQR);
-      } else if (thisID === 'WeChat') {
-        showQR(WeChanQR);
-      }
-    });
-
-    MainBox.click(function(event) {
-      MainBox.removeClass('showQR').addClass('hideQR');
-      setTimeout (function(a) {
-        QRBox.fadeOut(300,function(argument) {
-          MainBox.removeClass('hideQR');
-        });
-        $('#DonateText,#donateBox,#github').removeClass('blur');
-      },600);
-
-    });
-  });
-  </script>
-
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
