@@ -2332,7 +2332,154 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="29-P5220-特工的信息流"><a href="#29-P5220-特工的信息流" class="headerlink" title="29.P5220 特工的信息流"></a>29.P5220 特工的信息流</h1><p>$\text{TYM}$ 所在的国家有 $n$ 个城市，编号为 $1,\dots,n$，由 $n - 1$ 条双向道路连接。保证任意两个城市间都有唯一的简单路径。<br>以及，每个城市都有一个信息流的流量 $a_i$。</p>
+<p>$\text{TYM}$ 一共要执行 $m_0$ 个任务，每个任务给定两个城市 $s,t$，其执行过程如下：<br>第一个时刻，他从城市 $s$ 出发，以每个时刻移动到下一个城市的速度，走 $s,t$ 之间的简单路径到 $t$。<br>每到达一个城市，他都会把这个城市的信息流 $a_i$ 发送到经过的每个城市。<br>我们约定，他到达一个城市的同一时刻也会把这个城市的信息流发送给这个城市。我们定义一个城市的价值为这个城市所接受到的信息流的乘积。</p>
+<p>请你求出每个任务中，$s$ 到 $t$ 的简单路径上经过的城市的价值的总和对 $20924$ 取模的结果。</p>
+<p>此外，不幸地，由于侵略者同时也在行动，所以在他执行多个任务之间，可能会有某个 $a_i$ 发生改变。</p>
+<p>他的任务总数与改变某个 $a_i$ 的次数之和为 $m$。</p>
+<hr>
+<h3 id="WGY：LCT"><a href="#WGY：LCT" class="headerlink" title="WGY：LCT"></a>WGY：LCT</h3><p>这道题的题意是真的绕，我前前后后读了不下五遍才大概意会。。。</p>
+<p>做数据结构的题一般都要先浓缩题意。这道题是让我们求后缀积之和，再加上修改操作就基本上确定用LCT了</p>
+<p>需要维护的信息有前缀积之和,后缀积之和，区间乘法三个信息。</p>
+<p>对于修改操作，直接上LCT的套路makeroot和access。</p>
+<p>对于询问操作，我们直接按照LCT的套路用makeroot和access把链给搞出来。</p>
+<p>其实这就相当于一道LCT的板题吧。。。全部都是基础操作。。。</p>
+<p>完整代码在这里<a href="https://paste.ubuntu.com/p/tsQ43Pvvg6/" target="_blank" rel="noopener">Link</a></p>
+<p>如果链接失效了就这个<a href="https://www.luogu.com.cn/paste/gtishzfw" target="_blank" rel="noopener">Link</a></p>
+<pre><code class="lang-cpp">const int SIZE = 1e5 + 5;
+const int M_SIZE = 2e5 + 5;
+const int MOD = 20924;
+int head[M_SIZE], nxt[M_SIZE];
+int to[M_SIZE], ints[SIZE];
+int waste[SIZE], n, m, top, tot;
+struct SPLAY {
+    int fa;
+    int ch[2];
+    int prod;
+    int preprod;
+    int sufprod;
+    int lztg;
+} data[SIZE];
 
+void AddEdge(int x, int y) {
+    to[++tot] = y;
+    nxt[tot] = head[x];
+    head[x] = tot;
+}
+
+bool IsRoot(int x) {
+    return ((data[data[x].fa].ch[1] ^ x) &amp;&amp; (data[data[x].fa].ch[0] ^ x));
+}
+
+bool WhichSon(int x) {
+    return (data[data[x].fa].ch[1] == x);
+}
+
+void UpdateMessages(int x) {
+    data[x].prod = data[data[x].ch[0]].prod * data[data[x].ch[1]].prod % MOD * ints[x] % MOD;
+    data[x].preprod = (data[data[x].ch[0]].preprod + data[data[x].ch[0]].prod * ints[x] + data[data[x].ch[0]].prod * ints[x] % MOD * data[data[x].ch[1]].preprod) % MOD;
+    data[x].sufprod = (data[data[x].ch[1]].sufprod + data[data[x].ch[1]].prod * ints[x] + data[data[x].ch[1]].prod * ints[x] % MOD * data[data[x].ch[0]].sufprod) % MOD;
+}
+
+void UpdateSons(int x) {
+    if (data[x].lztg) {
+        swap(data[data[x].ch[0]].ch[0], data[data[x].ch[0]].ch[1]);
+        swap(data[data[x].ch[1]].ch[0], data[data[x].ch[1]].ch[1]);
+        swap(data[data[x].ch[0]].preprod, data[data[x].ch[0]].sufprod);
+        swap(data[data[x].ch[1]].preprod, data[data[x].ch[1]].sufprod);
+        data[data[x].ch[0]].lztg ^= 1;
+        data[data[x].ch[1]].lztg ^= 1;
+        data[x].lztg = 0;
+    }
+}
+
+void RotateNode(int x) {
+    int y = data[x].fa;
+    int z = data[y].fa;
+    int k = WhichSon(x);
+    if (!IsRoot(y)) data[z].ch[WhichSon(y)] = x;
+    data[y].fa = x;
+    data[data[y].fa].fa = z;
+    if (data[x].ch[k ^ 1]) data[data[x].ch[k ^ 1]].fa = y;
+    data[y].ch[k] = data[x].ch[k ^ 1];
+    data[x].ch[k ^ 1] = y;
+    UpdateMessages(y);
+}
+
+void SplayToRoot(int x) {
+    int y = waste[top = 1] = x;
+    while (!IsRoot(y)) waste[++top] = y = data[y].fa;
+    while (top) UpdateSons(waste[top--]);
+    for (; !IsRoot(x); RotateNode(x))
+        if (!IsRoot((y = data[x].fa)))
+            RotateNode((data[data[y].fa].ch[1] ^ y ^ data[y].ch[1] ^ x) ? x : y);
+    UpdateMessages(x);
+}
+
+void AccessEdge(int x) {
+    for (int y = 0; x; x = data[y = x].fa) {
+        SplayToRoot(x);
+        data[x].ch[1] = y;
+        UpdateMessages(x);
+    }
+}
+
+void MakeRoot(int x) {
+    AccessEdge(x);
+    SplayToRoot(x);
+    swap(data[x].ch[0], data[x].ch[1]);
+    swap(data[x].preprod, data[x].sufprod);
+    data[x].lztg ^= 1;
+    UpdateMessages(x);
+}
+
+void SplitTree(int x, int y) {
+    MakeRoot(x);
+    AccessEdge(y);
+    SplayToRoot(y);
+}
+
+void Prepare(int x) {
+    data[x].prod = ints[x];
+    data[x].preprod = ints[x];
+    data[x].sufprod = ints[x];
+    for (int i = head[x]; i; i = nxt[i])
+        if (to[i] ^ data[x].fa)
+            data[to[i]].fa = x, Prepare(to[i]);
+}
+
+int GetAnswers(int x, int y) {
+    SplitTree(x, y);
+    UpdateSons(y);
+    return data[y].sufprod;
+}
+
+void Behavior(int x, int y) {
+    SplitTree(x, x);
+    ints[x] += y;
+    ints[x] %= MOD;
+    data[x].prod = ints[x];
+    data[x].preprod = ints[x];
+    data[x].sufprod = ints[x];
+}
+
+signed main() {
+    read(n, m);
+    for (int i = 1; i &lt;= n; ++i) read(ints[i]);
+    for (int i = 1, x, y; i &lt; n; ++i) read(x, y), AddEdge(x, y), AddEdge(y, x);
+    (*data).prod = 1;
+    Prepare(1);
+    for (int i = 0, x, y; i &lt; m; ++i) {
+        char opt[5];
+        read(opt);
+        read(x, y);
+        if (*opt ^ &#39;C&#39;) write(io_l, GetAnswers(x, y));
+        else Behavior(x, y);
+    }
+    return 0;
+}
+</code></pre>
+<h3 id="LYC-TCS"><a href="#LYC-TCS" class="headerlink" title="LYC:TCS"></a>LYC:TCS</h3>
           
             <hr>
             <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
