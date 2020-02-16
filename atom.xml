@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="www.orchid-any.cf/"/>
-  <updated>2020-02-08T10:59:39.026Z</updated>
+  <updated>2020-02-16T01:47:44.438Z</updated>
   <id>www.orchid-any.cf/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SOL-P2000</title>
+    <link href="www.orchid-any.cf/2020/02/16/SOL-P2000/"/>
+    <id>www.orchid-any.cf/2020/02/16/SOL-P2000/</id>
+    <published>2020-02-16T01:46:20.000Z</published>
+    <updated>2020-02-16T01:47:44.438Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;生成函数裸题。&lt;/p&gt;
+&lt;p&gt;把所有情况罗列出来: &lt;/p&gt;
+&lt;p&gt;kkk:&lt;/p&gt;
+&lt;p&gt;金: $1+x^6+x^{12}+\dots=\frac{1}{1-x^6}$&lt;/p&gt;
+&lt;p&gt;木:
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="生成函数" scheme="www.orchid-any.cf/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/"/>
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>数据结构100题 91~100题</title>
@@ -378,24 +410,6 @@
     <id>www.orchid-any.cf/2020/02/07/DS100P-K-D-TREE/</id>
     <published>2020-02-07T12:03:42.000Z</published>
     <updated>2020-02-07T12:20:51.385Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---Sqrt-Tree</title>
-    <link href="www.orchid-any.cf/2020/02/07/DS100P-SQRT-TREE/"/>
-    <id>www.orchid-any.cf/2020/02/07/DS100P-SQRT-TREE/</id>
-    <published>2020-02-07T10:49:19.000Z</published>
-    <updated>2020-02-07T12:20:07.415Z</updated>
     
     <summary type="html">
     
