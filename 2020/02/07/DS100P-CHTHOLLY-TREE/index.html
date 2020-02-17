@@ -384,6 +384,16 @@
               </li>
             
               <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
                 <a href="/">
                   <span class="faa-parent animated-hover">
                     <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
@@ -496,68 +506,17 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p><code>珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。</code></p>
 <p>她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但一般不会有哪个出题人去卡这样一个并不出名的数据结构。并且要有区间推平操作，否则光是一个split时间复杂度会炸。</p>
 <p>珂朵莉树的构造长成这个亚子:</p>
-<pre><code class="lang-cpp">struct Chtholly
-{
-    LL L;
-    LL R;        //区间
-    mutable LL _val; //值，注意，关键字mutable是必需的，否则会在add函数里CE
-
-
-    node(LL l, LL r = -1, LL V = 0) : L(l), R(r), _val(V) {}
-    bool operator&lt;(const node &amp;rhs) const { return L &lt; rhs.L; }
-}
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Chtholly</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LL L;</span><br><span class="line">    LL R;		<span class="comment">//区间</span></span><br><span class="line">    <span class="keyword">mutable</span> LL _val; <span class="comment">//值，注意，关键字mutable是必需的，否则会在add函数里CE</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    node(LL l, LL r = <span class="number">-1</span>, LL V = <span class="number">0</span>) : L(l), R(r), _val(V) &#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> node &amp;rhs) <span class="keyword">const</span> &#123; <span class="keyword">return</span> L &lt; rhs.L; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Split操作:</p>
-<pre><code class="lang-cpp">inline IT split(int k) {
-    IT it = st.lower_bound(node(k));
-    if (it != st.end() &amp;&amp; it-&gt;L == k)
-        return it;
-    --it;
-    LL l = it-&gt;L, r = it-&gt;R;
-    LL v = it-&gt;_val;
-    st.erase(it);
-    st.insert(node(l, k - 1, v));
-    return st.insert(node(k, r, v)).first;
-}
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> IT <span class="title">split</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    IT it = st.lower_bound(node(k));</span><br><span class="line">    <span class="keyword">if</span> (it != st.end() &amp;&amp; it-&gt;L == k)</span><br><span class="line">        <span class="keyword">return</span> it;</span><br><span class="line">    --it;</span><br><span class="line">    LL l = it-&gt;L, r = it-&gt;R;</span><br><span class="line">    LL v = it-&gt;_val;</span><br><span class="line">    st.erase(it);</span><br><span class="line">    st.insert(node(l, k - <span class="number">1</span>, v));</span><br><span class="line">    <span class="keyword">return</span> st.insert(node(k, r, v)).first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>为了操作方便我们这里有一个define:</p>
-<pre><code class="lang-cpp">#define IT set&lt;Chtholly&gt;::iterator
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IT set<span class="meta-string">&lt;Chtholly&gt;::iterator</span></span></span><br></pre></td></tr></table></figure>
 <p>assign区间推平操作，这也是珂朵莉树的时间复杂度保证</p>
-<pre><code class="lang-cpp">inline void assign(LL ll, LL rr, LL val) {
-    IT itr = split(rr + 1), itl = split(ll);
-    st.erase(itl, itr);
-    st.insert(node(ll, rr, val));
-}
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">assign</span><span class="params">(LL ll, LL rr, LL val)</span> </span>&#123;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    st.erase(itl, itr);</span><br><span class="line">    st.insert(node(ll, rr, val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>举几个例子吧</p>
-<h3 id="区间求和"><a href="#区间求和" class="headerlink" title="区间求和:"></a>区间求和:</h3><pre><code class="lang-cpp">inline LL Qsum(LL ll, LL rr) {
-    LL res = 0;
-    IT itr = split(rr + 1), itl = split(ll);
-    for (; itl != itr; ++itl) res += (itl-&gt;R - itl-&gt;L + 1) * itl-&gt;_val;
-    return res;
-}
-</code></pre>
-<h3 id="区间第K小"><a href="#区间第K小" class="headerlink" title="区间第K小:"></a>区间第K小:</h3><pre><code class="lang-cpp">inline LL kth(LL ll, LL rr, LL k) {
-    vector&lt;pair&lt;LL, LL&gt; &gt; vec;
-    IT itr = split(rr + 1), itl = split(ll);
-
-    for (; itl != itr; ++itl) vec.push_back(pair&lt;LL, LL&gt;(itl-&gt;_val, itl-&gt;R - itl-&gt;L + 1));
-    sort(vec.begin(), vec.end());
-
-    for (auto it = vec.begin(); it != vec.end(); ++it) {
-        k -= it-&gt;second;
-        if (k &lt;= 0)
-            return it-&gt;first;
-    }
-    return -1;
-}
-</code></pre>
-<h3 id="区间加"><a href="#区间加" class="headerlink" title="区间加"></a>区间加</h3><pre><code class="lang-cpp">inline void add(LL ll, LL rr, LL ad) {
-    IT itr = split(rr + 1), itl = split(ll);
-    for (; itr != itl; ++itl) itl-&gt;_val += ad;
-}
-</code></pre>
+<h3 id="区间求和"><a href="#区间求和" class="headerlink" title="区间求和:"></a>区间求和:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">Qsum</span><span class="params">(LL ll, LL rr)</span> </span>&#123;</span><br><span class="line">    LL res = <span class="number">0</span>;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    <span class="keyword">for</span> (; itl != itr; ++itl) res += (itl-&gt;R - itl-&gt;L + <span class="number">1</span>) * itl-&gt;_val;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="区间第K小"><a href="#区间第K小" class="headerlink" title="区间第K小:"></a>区间第K小:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">kth</span><span class="params">(LL ll, LL rr, LL k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;LL, LL&gt; &gt; vec;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (; itl != itr; ++itl) vec.push_back(pair&lt;LL, LL&gt;(itl-&gt;_val, itl-&gt;R - itl-&gt;L + <span class="number">1</span>));</span><br><span class="line">    sort(vec.begin(), vec.end());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = vec.begin(); it != vec.end(); ++it) &#123;</span><br><span class="line">        k -= it-&gt;second;</span><br><span class="line">        <span class="keyword">if</span> (k &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> it-&gt;first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="区间加"><a href="#区间加" class="headerlink" title="区间加"></a>区间加</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(LL ll, LL rr, LL ad)</span> </span>&#123;</span><br><span class="line">    IT itr = split(rr + <span class="number">1</span>), itl = split(ll);</span><br><span class="line">    <span class="keyword">for</span> (; itr != itl; ++itl) itl-&gt;_val += ad;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>平时大家还是尽量少用······</p>
 
                       
@@ -592,15 +551,15 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/" rel="prev">
+            <a href="/2020/02/07/DS100P-SUFFIX-TREE/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/07/HzvDcJg7xSjriel.jpg">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---主席树</h3>
+                数据结构100题 ---后缀全家桶 之 后缀树</h3>
               </div>
             </a>
           </div>
@@ -609,15 +568,15 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
           
             <div class="post-nepre half next">
           
-            <a href="/2020/02/07/DS100P-FENKUAI/" rel="next">
+            <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/06/mkuzM6eWnc9wQx4.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2020/02/13/zyhDRn7p2QVmtrK.jpg">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构100题 ---分块</h3>
+                数据结构100题 ---主席树</h3>
               </div>
             </a>
           </div>
@@ -906,6 +865,16 @@ $(document).ready(function() {
           <span class="faa-parent animated-hover">
             <i class="fa  fa-cog" aria-hidden="true"></i>
             Tools
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
           </span>
         </a>
         

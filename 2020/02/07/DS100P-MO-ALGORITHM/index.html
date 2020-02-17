@@ -384,6 +384,16 @@
               </li>
             
               <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
                 <a href="/">
                   <span class="faa-parent animated-hover">
                     <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
@@ -515,60 +525,9 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <hr>
 <p>这道题让我们求</p>
 <script type="math/tex; mode=display">\sum\limits_{i=1}^k c_i^2</script><p>开一个桶，计算每个数出现的次数，所以我们可以由此计算答案的贡献，就可以写出以下的代码</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-#include &lt;cmath&gt;
-
-using namespace std;
-
-const int SIZE = 5e4 + 5;
-struct QueryNode {
-    int l, r;
-    int id; // 储存询问的顺序，方便输出
-} Q[SIZE];
-int a[SIZE], n, m, k, pos[SIZE];
-int cnt[SIZE], ans[SIZE], res;
-
-// a:原序列
-// pos:每个位置所处的块
-// cnt:桶
-// ans:询问的答案
-// res:每次调整所得到的贡献
-
-inline void add(int x) { cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - 1) * (cnt[a[x]] - 1); }
-
-inline void del(int x) { cnt[a[x]]--, res -= (cnt[a[x]] + 1) * (cnt[a[x]] + 1) - cnt[a[x]] * cnt[a[x]]; }
-
-signed main() {
-    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k);
-    int block = sqrt(n);
-    for (int i = 1; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;a[i]), pos[i] = i / block;
-    for (int i = 1; i &lt;= m; ++i) scanf(&quot;%d %d&quot;, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;
-    sort(Q + 1, Q + 1 + m, [](QueryNode x, QueryNode y) { return pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; });
-    int l = 1, r = 0;
-    for (int i = 1; i &lt;= m; ++i) {
-        while (l &gt; Q[i].l) add(--l); // 这四句都是在对当前的区间对于询问的区间进行调整
-        while (r &lt; Q[i].r) add(++r); // 这三句都是在对当前的区间对于询问的区间进行调整
-        while (l &lt; Q[i].l) del(l++); // 这二句都是在对当前的区间对于询问的区间进行调整
-        while (r &gt; Q[i].r) del(r--); // 这一句都是在对当前的区间对于询问的区间进行调整
-        ans[Q[i].id] = res;
-    }
-    for (int i = 1; i &lt;= m; ++i) printf(&quot;%d\n&quot;, ans[i]);
-    return 0;
-}
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">5e4</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">QueryNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> l, r;</span><br><span class="line">	<span class="keyword">int</span> id; <span class="comment">// 储存询问的顺序，方便输出</span></span><br><span class="line">&#125; Q[SIZE];</span><br><span class="line"><span class="keyword">int</span> a[SIZE], n, m, k, pos[SIZE];</span><br><span class="line"><span class="keyword">int</span> cnt[SIZE], ans[SIZE], res;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a:原序列</span></span><br><span class="line"><span class="comment">// pos:每个位置所处的块</span></span><br><span class="line"><span class="comment">// cnt:桶</span></span><br><span class="line"><span class="comment">// ans:询问的答案</span></span><br><span class="line"><span class="comment">// res:每次调整所得到的贡献</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - <span class="number">1</span>) * (cnt[a[x]] - <span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; cnt[a[x]]--, res -= (cnt[a[x]] + <span class="number">1</span>) * (cnt[a[x]] + <span class="number">1</span>) - cnt[a[x]] * cnt[a[x]]; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;n, &amp;m, &amp;k);</span><br><span class="line">	<span class="keyword">int</span> block = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]), pos[i] = i / block;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;</span><br><span class="line">	sort(Q + <span class="number">1</span>, Q + <span class="number">1</span> + m, [](QueryNode x, QueryNode y) &#123; <span class="keyword">return</span> pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; &#125;);</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">		<span class="keyword">while</span> (l &gt; Q[i].l) add(--l); <span class="comment">// 这四句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &lt; Q[i].r) add(++r); <span class="comment">// 这三句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (l &lt; Q[i].l) del(l++); <span class="comment">// 这二句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		<span class="keyword">while</span> (r &gt; Q[i].r) del(r--); <span class="comment">// 这一句都是在对当前的区间对于询问的区间进行调整</span></span><br><span class="line">		ans[Q[i].id] = res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h1><p>其实莫队是有套路的，基本上莫队的题都是这样的:</p>
-<pre><code class="lang-cpp">    for (int i = 1; i &lt;= m; ++i) {
-        while (l &gt; Q[i].l) add(--l);
-        while (r &lt; Q[i].r) add(++r);
-        while (l &lt; Q[i].l) del(l++);
-        while (r &gt; Q[i].r) del(r--);
-        ans[Q[i].id] = res;
-    }
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">	<span class="keyword">while</span> (l &gt; Q[i].l) add(--l);</span><br><span class="line">	<span class="keyword">while</span> (r &lt; Q[i].r) add(++r);</span><br><span class="line">	<span class="keyword">while</span> (l &lt; Q[i].l) del(l++);</span><br><span class="line">	<span class="keyword">while</span> (r &gt; Q[i].r) del(r--);</span><br><span class="line">	ans[Q[i].id] = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们只需考虑$add$函数以及$del$函数即可</p>
 
                       
@@ -917,6 +876,16 @@ $(document).ready(function() {
           <span class="faa-parent animated-hover">
             <i class="fa  fa-cog" aria-hidden="true"></i>
             Tools
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
           </span>
         </a>
         

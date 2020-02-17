@@ -384,6 +384,16 @@
               </li>
             
               <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
                 <a href="/">
                   <span class="faa-parent animated-hover">
                     <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
@@ -498,46 +508,19 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p><img src="https://i.loli.net/2019/12/28/qSIgzFlXGQ62xUi.png" alt></p>
 <p>线段树的经典应用就是统计区间和，我们这里也用这个来进行线段树的讲解。</p>
 <h4 id="1-建树"><a href="#1-建树" class="headerlink" title="1).建树"></a>1).建树</h4><p>我们先放代码吧，看代码理解。</p>
-<pre><code>void build(int l,int r,int x)
-{
-    if(l==r)
-    {
-        nodes[x]=a[l];
-        return; 
-    }
-    else
-    {
-        int mid=(l+r)&gt;&gt;1;
-        build(l,mid,x&lt;&lt;1);
-        build(mid+1,r,(x&lt;&lt;1)+1);
-        nodes[x]=nodes[x&lt;&lt;1]+nodes[(x&lt;&lt;1)+1];
-    }
-}
-</code></pre><p>首先，我们遍历到线段树的每一个叶子节点。线段树的每个节点都代表了一个区间，当这个区间的$l=r$时，说明我们到达了叶子节点。这个叶子节点代表的区间只包含了$a[l]$这一个数，所以我们只需要将这个节点的值置为$a[l]$。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void build(int l,int r,int x)</span><br><span class="line">&#123;</span><br><span class="line">    if(l==r)</span><br><span class="line">    &#123;</span><br><span class="line">        nodes[x]=a[l];</span><br><span class="line">        return; </span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">    	int mid=(l+r)&gt;&gt;1;</span><br><span class="line">    	build(l,mid,x&lt;&lt;1);</span><br><span class="line">    	build(mid+1,r,(x&lt;&lt;1)+1);</span><br><span class="line">    	nodes[x]=nodes[x&lt;&lt;1]+nodes[(x&lt;&lt;1)+1];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，我们遍历到线段树的每一个叶子节点。线段树的每个节点都代表了一个区间，当这个区间的$l=r$时，说明我们到达了叶子节点。这个叶子节点代表的区间只包含了$a[l]$这一个数，所以我们只需要将这个节点的值置为$a[l]$。</p>
 <p>然后我们递归回去，每一个非叶子节点都可以把它代表的区间分成两半，对应它的两个子节点（可能没有两个）。它两个子节点的值就是这两个较小区间的元素和。由这两个子节点的值也就是这两个小区间的元素和相加就可以得到当前节点代表区间的元素和。</p>
 <p>时间复杂度($nlogn$)</p>
 <h4 id="2-单点修改"><a href="#2-单点修改" class="headerlink" title="2).单点修改"></a>2).单点修改</h4><p>像这种区间和问题的单点修改一般都是给一个点加上一个值。</p>
 <p>还是先放代码吧：</p>
-<pre><code>void update(int l,int r,int x,int pos,int val)
-{
-    nodes[x]-=val;
-    if(l==r)    return;
-    int mid=(l+r)&gt;&gt;1;
-    if(pos&lt;=mid)    update(l,mid,x&lt;&lt;1,pos,val);
-    else    update(mid+1,r,(x&lt;&lt;1)+1,pos,val);
-}
-</code></pre><p>还是先递归找到要修改的叶子节点。先将它的值加上val。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void update(int l,int r,int x,int pos,int val)</span><br><span class="line">&#123;</span><br><span class="line">	nodes[x]-=val;</span><br><span class="line">	if(l==r)	return;</span><br><span class="line">	int mid=(l+r)&gt;&gt;1;</span><br><span class="line">	if(pos&lt;=mid)	update(l,mid,x&lt;&lt;1,pos,val);</span><br><span class="line">	else	update(mid+1,r,(x&lt;&lt;1)+1,pos,val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还是先递归找到要修改的叶子节点。先将它的值加上val。</p>
 <p>然后再递归回去，因为往下找时找到的每一个节点代表的区间都包含这个叶子节点代表的区间，所以这些节点的值也要加上val。</p>
 <p>时间复杂度($logn$)</p>
 <h4 id="3-区间查询"><a href="#3-区间查询" class="headerlink" title="3).区间查询"></a>3).区间查询</h4><p>区间查询的本质就是把要查询的区间拆分成很多小区间，直接利用之前维护的节点的值进行查询。</p>
-<pre><code>int find(int l,int r,int x,int fr,int ba)
-{
-    if(l&gt;ba||r&lt;fr)    return 0;
-    if(l&gt;=fr||r&lt;=ba)    return nodes[x];
-    int mid=(l+r)&gt;&gt;1;
-    return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
-}
-</code></pre><p>我们对于当前递归查找到的节点所代表的区间与要查询的区间进行分类讨论：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int find(int l,int r,int x,int fr,int ba)</span><br><span class="line">&#123;</span><br><span class="line">	if(l&gt;ba||r&lt;fr)	return 0;</span><br><span class="line">	if(l&gt;=fr||r&lt;=ba)	return nodes[x];</span><br><span class="line">	int mid=(l+r)&gt;&gt;1;</span><br><span class="line">	return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们对于当前递归查找到的节点所代表的区间与要查询的区间进行分类讨论：</p>
 <p>$1$&gt;.毫无关联</p>
 <p>即当前区间的左端点在查询区间右端点的右边或当前区间的右端点在查询区间左端点的左边。</p>
 <p>既然他们毫无关联，那么我们就返回一个值0，因为他们对这个区间的和没有任何贡献。</p>
@@ -553,41 +536,13 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>当我们找到了一个完全是要修改的区间，我们就直接把它的懒标记加上$val$。</p>
 <p>对于中途遍历到的其他区间，我们直接计算修改这个区间的和。</p>
 <p>代码：</p>
-<pre><code>void update(int l,int r,int x,int fr,int ba,int val)
-{
-    if(l&gt;ba||r&lt;fr)    return;
-    if(l&gt;=fr&amp;&amp;r&lt;=ba)    lazy[x]+=val;
-    else
-    {
-        nodes[x]+=val*max(0,min(r,ba)-max(l,fr)+1);
-        int mid=(l+r)&gt;&gt;1;
-        update(l,mid,x&lt;&lt;1,fr,ba,val);
-        update(mid+1,r,(x&lt;&lt;1)+1,fr,ba,val);
-    }
-}
-</code></pre><p><del>长得和区间查询很像对吧</del></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void update(int l,int r,int x,int fr,int ba,int val)</span><br><span class="line">&#123;</span><br><span class="line">	if(l&gt;ba||r&lt;fr)	return;</span><br><span class="line">	if(l&gt;=fr&amp;&amp;r&lt;=ba)	lazy[x]+=val;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		nodes[x]+=val*max(0,min(r,ba)-max(l,fr)+1);</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		update(l,mid,x&lt;&lt;1,fr,ba,val);</span><br><span class="line">		update(mid+1,r,(x&lt;&lt;1)+1,fr,ba,val);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><del>长得和区间查询很像对吧</del></p>
 <p>改了修改之后，我们的查询也要进行修改。要把打上的懒标记进行下传，不然查询到下面的节点时，下面的节点没有被修改。</p>
 <p>下传时只需要让当前节点加上原来应加而拖延了的值，让它的左右儿子的懒标记加上它的懒标记。因为当初修改时，并没有修改到左右节点。最后再把懒标记清零。</p>
 <p>就像这样：</p>
-<pre><code>void pushdown(int l,int r,int x)
-{
-    nodes[x]+=(r-l+1)*lazy[x];
-    lazy[x&lt;&lt;1]+=lazy[x];
-    lazy[(x&lt;&lt;1)+1]+=lazy[x];
-    lazy[x]=0;
-}
-int find(int l,int r,int x,int fr,int ba)
-{
-    if(l&gt;ba||r&lt;fr)    return 0;
-    if(lazy[x])    pushdown(l,r,x);
-    if(l&gt;=fr&amp;&amp;r&lt;=ba)    return nodes[x];
-    else
-    {
-        int mid=(l+r)&gt;&gt;1;
-        return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);
-    }
-}
-</code></pre><p>$\ $</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void pushdown(int l,int r,int x)</span><br><span class="line">&#123;</span><br><span class="line">	nodes[x]+=(r-l+1)*lazy[x];</span><br><span class="line">	lazy[x&lt;&lt;1]+=lazy[x];</span><br><span class="line">	lazy[(x&lt;&lt;1)+1]+=lazy[x];</span><br><span class="line">	lazy[x]=0;</span><br><span class="line">&#125;</span><br><span class="line">int find(int l,int r,int x,int fr,int ba)</span><br><span class="line">&#123;</span><br><span class="line">	if(l&gt;ba||r&lt;fr)	return 0;</span><br><span class="line">	if(lazy[x])	pushdown(l,r,x);</span><br><span class="line">	if(l&gt;=fr&amp;&amp;r&lt;=ba)	return nodes[x];</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		return find(l,mid,x&lt;&lt;1,fr,ba)+find(mid+1,r,(x&lt;&lt;1)+1,fr,ba);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>$\ $</p>
 <p>线段树的讲解到这里就这么完了，但线段树的运用十分广泛，灵活。要熟练掌握并运用线段树，还要多动脑，想好题。</p>
 
                       
@@ -936,6 +891,16 @@ $(document).ready(function() {
           <span class="faa-parent animated-hover">
             <i class="fa  fa-cog" aria-hidden="true"></i>
             Tools
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
           </span>
         </a>
         

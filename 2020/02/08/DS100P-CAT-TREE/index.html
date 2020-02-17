@@ -384,6 +384,16 @@
               </li>
             
               <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
                 <a href="/">
                   <span class="faa-parent animated-hover">
                     <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
@@ -526,82 +536,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>题目让我们查询最大子段和，并且没有修改操作，我们可以通过猫树来玩这道题。</p>
 <p>具体步骤上文已经写了，对于这道 <strong>板</strong> 题，我们可以直接记录最大子段和以及最大前缀和即可。</p>
 <p>代码：</p>
-<pre><code class="lang-cpp">// 省略了一些头文件、快读、预处理命令等东西，完整代码请移步至https://vjudge.net/solution/24123955
-
-const int SIZE = 2e5 + 5;
-const int LOG_SIZE = 20;
-
-int n, m, real = 2, ints[SIZE];
-// real:把n映射为2的幂形式
-// ints:原序列
-namespace CatsTree {
-    int log2[SIZE]; // 预处理log2
-    int nodes[SIZE]; // 结点
-    int ans[LOG_SIZE][SIZE]; // 最大子段和
-    int preans[LOG_SIZE][SIZE]; // 最大前缀和
-
-    void MakeLog() {
-        for (int i = 2, lim = real &lt;&lt; 1; i &lt;= lim; ++i) log2[i] = log2[i &gt;&gt; 1] + 1;
-    }
-
-    void BuildTree(int k, int l, int r, int s) {
-        if (l ^ r) {
-            ans[s][mid] = preans[s][mid] = ints[mid];
-            int pre, sum;
-            pre = sum = ints[mid];
-            sum = sum &gt; 0 ? sum : 0;
-            for (int i = mid - 1; i &gt;= l; --i) {
-                pre += ints[i];
-                sum += ints[i];
-                ans[s][i] = max(pre, ans[s][i + 1]);
-                preans[s][i] = max(sum, preans[s][i + 1]);
-                sum = sum &gt; 0 ? sum : 0;
-            }
-            ans[s][mid + 1] = preans[s][mid + 1] = ints[mid + 1];
-            pre = sum = ints[mid + 1];
-            sum = sum &gt; 0 ? sum : 0;
-            for (int i = mid + 2; i &lt;= r; ++i) {
-                pre += ints[i];
-                sum += ints[i];
-                ans[s][i] = max(pre, ans[s][i - 1]);
-                preans[s][i] = max(sum, preans[s][i - 1]);
-                sum = sum &gt; 0 ? sum : 0;
-            }
-            BuildTree(ls, l, mid, s + 1);
-            BuildTree(rs, mid + 1, r, s + 1);
-        }
-        else nodes[l] = k;
-    }
-
-    int GetAnswers(int l, int r) {
-        if (l ^ r) {
-            int s = log2[nodes[l]] - log2[nodes[l] ^ nodes[r]];
-            return max(ans[s][l] + ans[s][r], max(preans[s][l], preans[s][r]));
-        }
-        else return ints[l];
-    }
-}
-#define CT CatsTree
-
-void init() {
-    read(n);
-    while (real &lt; n) real &lt;&lt;= 1;
-    for (int i = 1; i &lt;= n; ++i) read(ints[i]);
-    CT::BuildTree(1, 1, real, 1);
-    CT::MakeLog();
-}
-
-void solving() {
-    read(m);
-    for (int i = 0, l, r; i &lt; m; ++i) read(l, r), write(io_l, CT::GetAnswers(l, r));
-}
-
-signed main() {
-    init();
-    solving();
-}
-</code></pre>
-
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略了一些头文件、快读、预处理命令等东西，完整代码请移步至https://vjudge.net/solution/24123955</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LOG_SIZE = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, real = <span class="number">2</span>, ints[SIZE];</span><br><span class="line"><span class="comment">// real:把n映射为2的幂形式</span></span><br><span class="line"><span class="comment">// ints:原序列</span></span><br><span class="line"><span class="keyword">namespace</span> CatsTree &#123;</span><br><span class="line">	<span class="keyword">int</span> log2[SIZE]; <span class="comment">// 预处理log2</span></span><br><span class="line">	<span class="keyword">int</span> nodes[SIZE]; <span class="comment">// 结点</span></span><br><span class="line">	<span class="keyword">int</span> ans[LOG_SIZE][SIZE]; <span class="comment">// 最大子段和</span></span><br><span class="line">	<span class="keyword">int</span> preans[LOG_SIZE][SIZE]; <span class="comment">// 最大前缀和</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">MakeLog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>, lim = real &lt;&lt; <span class="number">1</span>; i &lt;= lim; ++i) log2[i] = log2[i &gt;&gt; <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">BuildTree</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (l ^ r) &#123;</span><br><span class="line">			ans[s][mid] = preans[s][mid] = ints[mid];</span><br><span class="line">			<span class="keyword">int</span> pre, sum;</span><br><span class="line">			pre = sum = ints[mid];</span><br><span class="line">			sum = sum &gt; <span class="number">0</span> ? sum : <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = mid - <span class="number">1</span>; i &gt;= l; --i) &#123;</span><br><span class="line">				pre += ints[i];</span><br><span class="line">				sum += ints[i];</span><br><span class="line">				ans[s][i] = max(pre, ans[s][i + <span class="number">1</span>]);</span><br><span class="line">				preans[s][i] = max(sum, preans[s][i + <span class="number">1</span>]);</span><br><span class="line">				sum = sum &gt; <span class="number">0</span> ? sum : <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			ans[s][mid + <span class="number">1</span>] = preans[s][mid + <span class="number">1</span>] = ints[mid + <span class="number">1</span>];</span><br><span class="line">			pre = sum = ints[mid + <span class="number">1</span>];</span><br><span class="line">			sum = sum &gt; <span class="number">0</span> ? sum : <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = mid + <span class="number">2</span>; i &lt;= r; ++i) &#123;</span><br><span class="line">				pre += ints[i];</span><br><span class="line">				sum += ints[i];</span><br><span class="line">				ans[s][i] = max(pre, ans[s][i - <span class="number">1</span>]);</span><br><span class="line">				preans[s][i] = max(sum, preans[s][i - <span class="number">1</span>]);</span><br><span class="line">				sum = sum &gt; <span class="number">0</span> ? sum : <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			BuildTree(ls, l, mid, s + <span class="number">1</span>);</span><br><span class="line">			BuildTree(rs, mid + <span class="number">1</span>, r, s + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> nodes[l] = k;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetAnswers</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (l ^ r) &#123;</span><br><span class="line">			<span class="keyword">int</span> s = log2[nodes[l]] - log2[nodes[l] ^ nodes[r]];</span><br><span class="line">			<span class="keyword">return</span> max(ans[s][l] + ans[s][r], max(preans[s][l], preans[s][r]));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> ints[l];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CT CatsTree</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	read(n);</span><br><span class="line">	<span class="keyword">while</span> (real &lt; n) real &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) read(ints[i]);</span><br><span class="line">	CT::BuildTree(<span class="number">1</span>, <span class="number">1</span>, real, <span class="number">1</span>);</span><br><span class="line">	CT::MakeLog();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solving</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	read(m);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, l, r; i &lt; m; ++i) read(l, r), write(io_l, CT::GetAnswers(l, r));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	init();</span><br><span class="line">	solving();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                       
         </div>
         <!-- .entry-content -->
@@ -948,6 +883,16 @@ $(document).ready(function() {
           <span class="faa-parent animated-hover">
             <i class="fa  fa-cog" aria-hidden="true"></i>
             Tools
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
           </span>
         </a>
         
