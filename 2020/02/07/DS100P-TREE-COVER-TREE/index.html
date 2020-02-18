@@ -509,8 +509,22 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>???</p>
 <p>其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。</p>
 <p>线段树有$logn$层，每层的节点对应的区间能够拼成一个完整的区间，即每层$n$个平衡树节点，平衡树每个节点插入是$logn$的，所以建树的时间复杂度是$nlog^2n$</p>
-<p>fhq-treap示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void build(int l,int r,int x)</span><br><span class="line">&#123;</span><br><span class="line">	for(int i=l;i&lt;=r;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		split(root[x],a[i],root1,root2);</span><br><span class="line">		root[x]=merge(merge(root1,newnode(a[i])),root2);</span><br><span class="line">	&#125;</span><br><span class="line">	if(l^r)</span><br><span class="line">	&#123;</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		build(l,mid,x&lt;&lt;1);</span><br><span class="line">		build(mid+1,r,x&lt;&lt;1|1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-查询区间排名"><a href="#2-查询区间排名" class="headerlink" title="2.查询区间排名"></a>2.查询区间排名</h4><p>给定一个区间和一个值，查询区间中比他小的元素个数加1。</p>
+<p>fhq-treap示例</p>
+<pre><code>void build(int l,int r,int x)
+{
+    for(int i=l;i&lt;=r;++i)
+    {
+        split(root[x],a[i],root1,root2);
+        root[x]=merge(merge(root1,newnode(a[i])),root2);
+    }
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        build(l,mid,x&lt;&lt;1);
+        build(mid+1,r,x&lt;&lt;1|1);
+    }
+}
+</code></pre><h4 id="2-查询区间排名"><a href="#2-查询区间排名" class="headerlink" title="2.查询区间排名"></a>2.查询区间排名</h4><p>给定一个区间和一个值，查询区间中比他小的元素个数加1。</p>
 <p>我们可以像线段树一样，先把这个区间拆分成一些能用我们之前建树建出的平衡树表示的小区间，再查询小区间中比这个值小的元素个数加起来的和。</p>
 <p>很明显</p>
 <script type="math/tex; mode=display">f[i,j]=f[i,k]+f[k+1,j]（i\leq k<j）</script><p>($f[l,r]$表示区间$[l,r]$中比某个值小的元素个数)</p>
@@ -518,21 +532,113 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>那$[i,k]$和$[k+1,j]$中比某个值小的元素合在一起就是$[i,j]$中比某个值小的元素。</p>
 <p>所以上式成立。</p>
 <p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
-<p>得出代码写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int _rank(int &amp;_root,int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(_root,val-1,root1,root2);</span><br><span class="line">	int res=nodes[root1].sum;</span><br><span class="line">	_root=merge(root1,root2);</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line">int rank(int l,int r,int x,int fr,int ba,int val)</span><br><span class="line">&#123;</span><br><span class="line">	if((l&gt;ba)|(r&lt;fr))	return 0;</span><br><span class="line">	if((l&gt;=fr)&amp;(r&lt;=ba))	return _rank(root[x],val);</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		return rank(l,mid,x&lt;&lt;1,fr,ba,val)+rank(mid+1,r,x&lt;&lt;1|1,fr,ba,val);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="3-动态区间第k小"><a href="#3-动态区间第k小" class="headerlink" title="3.动态区间第k小"></a>3.动态区间第k小</h4><p>（模版题其实没说这个值要在这个区间内……）</p>
+<p>得出代码写法：</p>
+<pre><code>int _rank(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int res=nodes[root1].sum;
+    _root=merge(root1,root2);
+    return res;
+}
+int rank(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))    return 0;
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _rank(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return rank(l,mid,x&lt;&lt;1,fr,ba,val)+rank(mid+1,r,x&lt;&lt;1|1,fr,ba,val);
+    }
+}
+</code></pre><h4 id="3-动态区间第k小"><a href="#3-动态区间第k小" class="headerlink" title="3.动态区间第k小"></a>3.动态区间第k小</h4><p>（模版题其实没说这个值要在这个区间内……）</p>
 <p>区间动态第k小并不能直接解决。所以我们通过二分寻找这个第k小值。</p>
 <p>对每一个二分到的值执行查询排名操作。如果它的排名小于等于k，那么让l等于这个值，否则r等于这个值。</p>
 <p>因为第k小值及以下的值的排名都是小于等于k的，从小到大排列的值的排名满足单调性。</p>
 <p>时间复杂度：线段树查询$<em> $平衡树查询$</em> $二分$=log^3n$</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int search(int fr,int ba,int k)</span><br><span class="line">&#123;</span><br><span class="line">    int l=0,r=1e8+1;</span><br><span class="line">	while(l+1&lt;r)</span><br><span class="line">	&#123;</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		if(rank(1,n,1,fr,ba,mid)&lt;k)	l=mid;</span><br><span class="line">		else	r=mid;</span><br><span class="line">	&#125;</span><br><span class="line">	return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-区间前驱-后继"><a href="#4-区间前驱-后继" class="headerlink" title="4.区间前驱/后继"></a>4.区间前驱/后继</h4><p>与区间排名类似，只需查询各个分出的子区间中需查询值的前驱/后继，再求出它们的最大/最小值就行了。</p>
+<p>代码：</p>
+<pre><code>int search(int fr,int ba,int k)
+{
+    int l=0,r=1e8+1;
+    while(l+1&lt;r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(rank(1,n,1,fr,ba,mid)&lt;k)    l=mid;
+        else    r=mid;
+    }
+    return l;
+}
+</code></pre><h4 id="4-区间前驱-后继"><a href="#4-区间前驱-后继" class="headerlink" title="4.区间前驱/后继"></a>4.区间前驱/后继</h4><p>与区间排名类似，只需查询各个分出的子区间中需查询值的前驱/后继，再求出它们的最大/最小值就行了。</p>
 <p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">const int AC=2147483647,WA=-2147483647;</span><br><span class="line">int _pre(int &amp;_root,int val)</span><br><span class="line">&#123;</span><br><span class="line">    split(_root,val-1,root1,root2);</span><br><span class="line">    int now=root1;</span><br><span class="line">    int res=WA;</span><br><span class="line">    if(now)</span><br><span class="line">    &#123;</span><br><span class="line">        while(nodes[now].r) now=nodes[now].r;</span><br><span class="line">        res=nodes[now].num;</span><br><span class="line">    &#125;</span><br><span class="line">    _root=merge(root1,root2);</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">int pre(int l,int r,int x,int fr,int ba,int val)</span><br><span class="line">&#123;</span><br><span class="line">	if((l&gt;ba)|(r&lt;fr))  return WA;    </span><br><span class="line">	if((l&gt;=fr)&amp;(r&lt;=ba))	return _pre(root[x],val);</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">        int mid=(l+r)&gt;&gt;1;</span><br><span class="line">		return max(pre(l,mid,x&lt;&lt;1,fr,ba,val),pre(mid+1,r,x&lt;&lt;1|1,fr,ba,val));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int _nxt(int &amp;_root,int val)</span><br><span class="line">&#123;</span><br><span class="line">    split(_root,val,root1,root2);</span><br><span class="line">    int now=root2;</span><br><span class="line">    int res=AC;</span><br><span class="line">    if(now)</span><br><span class="line">    &#123;</span><br><span class="line">        while(nodes[now].l) now=nodes[now].l;</span><br><span class="line">        res=nodes[now].num;</span><br><span class="line">    &#125;</span><br><span class="line">    _root=merge(root1,root2);</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">int nxt(int l,int r,int x,int fr,int ba,int val)</span><br><span class="line">&#123;</span><br><span class="line">	if((l&gt;ba)|(r&lt;fr))  return AC;	</span><br><span class="line">	if((l&gt;=fr)&amp;(r&lt;=ba))    return _nxt(root[x],val);</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		int mid=(l+r)&gt;&gt;1;</span><br><span class="line">        return min(nxt(l,mid,x&lt;&lt;1,fr,ba,val),nxt(mid+1,r,x&lt;&lt;1|1,fr,ba,val));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-修改"><a href="#5-修改" class="headerlink" title="5.修改"></a>5.修改</h4><p>依旧是暴力，只需要把所有代表区间中包含需修改位置的节点都修改掉就好了。</p>
+<p>代码：</p>
+<pre><code>const int AC=2147483647,WA=-2147483647;
+int _pre(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int now=root1;
+    int res=WA;
+    if(now)
+    {
+        while(nodes[now].r) now=nodes[now].r;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int pre(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return WA;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _pre(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return max(pre(l,mid,x&lt;&lt;1,fr,ba,val),pre(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+int _nxt(int &amp;_root,int val)
+{
+    split(_root,val,root1,root2);
+    int now=root2;
+    int res=AC;
+    if(now)
+    {
+        while(nodes[now].l) now=nodes[now].l;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int nxt(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return AC;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _nxt(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return min(nxt(l,mid,x&lt;&lt;1,fr,ba,val),nxt(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+</code></pre><h4 id="5-修改"><a href="#5-修改" class="headerlink" title="5.修改"></a>5.修改</h4><p>依旧是暴力，只需要把所有代表区间中包含需修改位置的节点都修改掉就好了。</p>
 <p>如替换值，就把代表区间中包含这个位置的节点代表的平衡树中的原值删除，插入新值就好了。</p>
 <p>时间复杂度：线段树寻找$* $平衡树修改$=log^2n$</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void modify(int l,int r,int x,int pos,int bef,int the)</span><br><span class="line">&#123;</span><br><span class="line">    split(root[x],bef,root1,root2);</span><br><span class="line">    split(root1,bef-1,root1,root3);</span><br><span class="line">    root3=merge(nodes[root3].l,nodes[root3].r);</span><br><span class="line">    root[x]=merge(merge(root1,root3),root2);</span><br><span class="line"></span><br><span class="line">    split(root[x],the,root1,root2);</span><br><span class="line">    root[x]=merge(merge(root1,newnode(the)),root2);</span><br><span class="line"></span><br><span class="line">    if(l^r)</span><br><span class="line">    &#123;</span><br><span class="line">        int mid=(l+r)&gt;&gt;1;</span><br><span class="line">        if(pos&lt;=mid)    modify(l,mid,x&lt;&lt;1,pos,bef,the);</span><br><span class="line">        else    modify(mid+1,r,x&lt;&lt;1|1,pos,bef,the);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h4><p>关于第k小值的操作，据说可以用权值线段树套平衡树(线段树维护值域，平衡树维护在这个值域中的值的位置)在$log^2n$的时间解决。上面教的可能会被卡死。</p>
+<p>代码：</p>
+<pre><code>void modify(int l,int r,int x,int pos,int bef,int the)
+{
+    split(root[x],bef,root1,root2);
+    split(root1,bef-1,root1,root3);
+    root3=merge(nodes[root3].l,nodes[root3].r);
+    root[x]=merge(merge(root1,root3),root2);
+
+    split(root[x],the,root1,root2);
+    root[x]=merge(merge(root1,newnode(the)),root2);
+
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(pos&lt;=mid)    modify(l,mid,x&lt;&lt;1,pos,bef,the);
+        else    modify(mid+1,r,x&lt;&lt;1|1,pos,bef,the);
+    }
+}
+</code></pre><h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h4><p>关于第k小值的操作，据说可以用权值线段树套平衡树(线段树维护值域，平衡树维护在这个值域中的值的位置)在$log^2n$的时间解决。上面教的可能会被卡死。</p>
 <p>总而言之，树套树的思想就是暴力。各种数据结构再套一个数据结构（<del>线段树套pb_ds</del>）。<del>其实我也没写过其他的</del>。</p>
 <p>我这次写得像WGY一样是为什么……</p>
 
@@ -698,8 +804,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -709,6 +813,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

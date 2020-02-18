@@ -677,7 +677,94 @@ inline void makeroot(int x){
 }</code></pre>
 
 <p>最后放一下模板题代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">3e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ReadNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">template</span> &lt; <span class="keyword">typename</span> T&gt;</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span> &gt;&gt; (T &amp;a) &#123;</span><br><span class="line">		a = <span class="number">0</span>; T f = <span class="number">1</span>; <span class="keyword">char</span> ch;</span><br><span class="line">		<span class="keyword">while</span> (!<span class="built_in">isdigit</span>(ch = getchar())) <span class="keyword">if</span> (ch == <span class="string">'-'</span>) f = <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">while</span> (<span class="built_in">isdigit</span>(ch)) a = (a &lt;&lt; <span class="number">3</span>) + (a &lt;&lt; <span class="number">1</span>) + (ch ^ <span class="string">'0'</span>), ch = getchar();</span><br><span class="line">		a *= f;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">template</span> &lt; <span class="keyword">typename</span> T&gt;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (x &lt; <span class="number">0</span>) x = -x, <span class="built_in">putchar</span>(<span class="string">'-'</span>);</span><br><span class="line">		<span class="keyword">if</span> (x &gt; <span class="number">9</span>) write(x / <span class="number">10</span>);</span><br><span class="line">		<span class="built_in">putchar</span>(x % <span class="number">10</span> + <span class="string">'0'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">template</span> &lt; <span class="keyword">typename</span> T&gt;</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span> &lt;&lt; (T x) &#123;</span><br><span class="line">		write(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; win;</span><br><span class="line"><span class="keyword">int</span> n, q, dis[SIZE];</span><br><span class="line"></span><br><span class="line"><span class="comment">/******************LinkCutTree******************/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkCutTree</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">		<span class="keyword">int</span> ch[<span class="number">2</span>];</span><br><span class="line">		<span class="keyword">int</span> val;</span><br><span class="line">		<span class="keyword">int</span> sum;</span><br><span class="line">		<span class="keyword">int</span> rev;</span><br><span class="line">		<span class="keyword">int</span> fa;</span><br><span class="line">	&#125; T[SIZE + <span class="number">5</span>];</span><br><span class="line">	<span class="keyword">int</span> st[SIZE + <span class="number">5</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> &amp;y)</span> </span>&#123; x ^= y ^= x ^= y; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; exch(T[x].ch[<span class="number">0</span>], T[x].ch[<span class="number">1</span>]); T[x].rev ^= <span class="number">1</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> w)</span> </span>&#123; T[T[x].fa = y].ch[w] = x; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">push_up</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (T[x].sum = T[x].val ^ T[T[x].ch[<span class="number">0</span>]].sum ^ T[T[x].ch[<span class="number">1</span>]].sum), <span class="number">1</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">push_down</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; T[x].rev &amp;&amp; (reverse(T[x].ch[<span class="number">0</span>]), reverse(T[x].ch[<span class="number">1</span>]), T[x].rev = <span class="number">0</span>); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">makeroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; access(x); splay(x); reverse(x); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">split</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; makeroot(x); access(y); splay(y); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">isroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (T[T[x].fa].ch[<span class="number">0</span>] ^ x &amp;&amp; T[T[x].fa].ch[<span class="number">1</span>] ^ x); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">which</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> T[T[x].fa].ch[<span class="number">1</span>] == x; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">int</span> y = T[x].fa, z = T[y].fa, w = which(x); !isroot(y) &amp;&amp; (T[z].ch[which(y)] = x), T[x].fa = z, link(T[x].ch[w ^ <span class="number">1</span>], y, w), link(y, x, w ^ <span class="number">1</span>), push_up(y), push_up(x); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">splay</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">int</span> y = x, top = <span class="number">0</span>; <span class="keyword">while</span> (st[++top] = y, !isroot(y)) y = T[y].fa; <span class="keyword">while</span> (top) push_down(st[top]), --top; <span class="keyword">while</span> (!isroot(x)) y = T[x].fa, !isroot(y) &amp;&amp; (rotate(which(x) ^ which(y) ? x : y), <span class="number">0</span>), rotate(x); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">access</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> son = <span class="number">0</span>; x; x = T[son = x].fa) splay(x), T[x].ch[<span class="number">1</span>] = son, push_up(x); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">getroot</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; access(x), splay(x); <span class="keyword">while</span> (T[x].ch[<span class="number">0</span>]) push_down(x), x = T[x].ch[<span class="number">0</span>]; <span class="keyword">return</span> splay(x), x; &#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> length, <span class="keyword">int</span> *data)</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= length; ++i) T[i].val = data[i]; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; makeroot(x), getroot(y) ^ x &amp;&amp; (T[x].fa = y); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">erase</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; makeroot(x), !(getroot(y) ^ x) &amp;&amp; !(T[y].fa ^ x) &amp;&amp; !(T[y].ch[<span class="number">0</span>]) &amp;&amp; (T[y].fa = T[x].ch[<span class="number">1</span>] = <span class="number">0</span>, push_up(x)); &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> v)</span> </span>&#123; splay(x), T[x].val = v; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> split(x, y), T[y].sum; &#125;</span><br><span class="line">&#125; lct_mast;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*****************EndLinkCutTree*****************/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	win &gt;&gt; n; win &gt;&gt; q;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) win &gt;&gt; dis[i];</span><br><span class="line">	lct_mast.init(n, dis);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= q; ++i) &#123;</span><br><span class="line">		<span class="keyword">int</span> opt, x, y;</span><br><span class="line">		win &gt;&gt; opt; win &gt;&gt; x; win &gt;&gt; y;</span><br><span class="line">		<span class="keyword">switch</span>(opt) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">0</span>: win &lt;&lt; lct_mast.find(x, y), <span class="built_in">puts</span>(<span class="string">""</span>); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>: lct_mast.connect(x, y); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">2</span>: lct_mast.erase(x, y); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">3</span>: lct_mast.insert(x, y); <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre></rotate(x):<></code></pre></p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+const int SIZE = 3e5 + 5;
+struct ReadNode {
+    template &lt; typename T&gt;
+    void operator &gt;&gt; (T &amp;a) {
+        a = 0; T f = 1; char ch;
+        while (!isdigit(ch = getchar())) if (ch == &#39;-&#39;) f = -1;
+        while (isdigit(ch)) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = getchar();
+        a *= f;
+    }
+
+    template &lt; typename T&gt;
+    void write(T x) {
+        if (x &lt; 0) x = -x, putchar(&#39;-&#39;);
+        if (x &gt; 9) write(x / 10);
+        putchar(x % 10 + &#39;0&#39;);
+    }
+
+    template &lt; typename T&gt;
+    void operator &lt;&lt; (T x) {
+        write(x);
+    }
+} win;
+int n, q, dis[SIZE];
+
+/******************LinkCutTree******************/
+
+class LinkCutTree {
+private:
+    struct TreeNode {
+        int ch[2];
+        int val;
+        int sum;
+        int rev;
+        int fa;
+    } T[SIZE + 5];
+    int st[SIZE + 5];
+
+    inline void exch(int &amp;x, int &amp;y) { x ^= y ^= x ^= y; }
+    inline void reverse(int x) { exch(T[x].ch[0], T[x].ch[1]); T[x].rev ^= 1; }
+    inline void link(int x, int y, int w) { T[T[x].fa = y].ch[w] = x; }
+    inline bool push_up(int x) { return (T[x].sum = T[x].val ^ T[T[x].ch[0]].sum ^ T[T[x].ch[1]].sum), 1; }
+    inline void push_down(int x) { T[x].rev &amp;&amp; (reverse(T[x].ch[0]), reverse(T[x].ch[1]), T[x].rev = 0); }
+    inline void makeroot(int x) { access(x); splay(x); reverse(x); }
+    inline void split(int x, int y) { makeroot(x); access(y); splay(y); }
+    inline bool isroot(int x) { return (T[T[x].fa].ch[0] ^ x &amp;&amp; T[T[x].fa].ch[1] ^ x); }
+    inline bool which(int x) { return T[T[x].fa].ch[1] == x; }
+    inline void rotate(int x) { int y = T[x].fa, z = T[y].fa, w = which(x); !isroot(y) &amp;&amp; (T[z].ch[which(y)] = x), T[x].fa = z, link(T[x].ch[w ^ 1], y, w), link(y, x, w ^ 1), push_up(y), push_up(x); }
+    inline void splay(int x) { int y = x, top = 0; while (st[++top] = y, !isroot(y)) y = T[y].fa; while (top) push_down(st[top]), --top; while (!isroot(x)) y = T[x].fa, !isroot(y) &amp;&amp; (rotate(which(x) ^ which(y) ? x : y), 0), rotate(x); }
+    inline void access(int x) { for (int son = 0; x; x = T[son = x].fa) splay(x), T[x].ch[1] = son, push_up(x); }
+    inline int getroot(int x) { access(x), splay(x); while (T[x].ch[0]) push_down(x), x = T[x].ch[0]; return splay(x), x; }
+
+public:
+    inline void init(int length, int *data) { for (int i = 1; i &lt;= length; ++i) T[i].val = data[i]; }
+    inline void connect(int x, int y) { makeroot(x), getroot(y) ^ x &amp;&amp; (T[x].fa = y); }
+    inline void erase(int x, int y) { makeroot(x), !(getroot(y) ^ x) &amp;&amp; !(T[y].fa ^ x) &amp;&amp; !(T[y].ch[0]) &amp;&amp; (T[y].fa = T[x].ch[1] = 0, push_up(x)); }
+    inline void insert(int x, int v) { splay(x), T[x].val = v; }
+    inline int find(int x, int y) { return split(x, y), T[y].sum; }
+} lct_mast;
+
+/*****************EndLinkCutTree*****************/
+
+signed main() {
+    win &gt;&gt; n; win &gt;&gt; q;
+    for (int i = 1; i &lt;= n; ++i) win &gt;&gt; dis[i];
+    lct_mast.init(n, dis);
+    for (int i = 1; i &lt;= q; ++i) {
+        int opt, x, y;
+        win &gt;&gt; opt; win &gt;&gt; x; win &gt;&gt; y;
+        switch(opt) {
+        case 0: win &lt;&lt; lct_mast.find(x, y), puts(&quot;&quot;); break;
+        case 1: lct_mast.connect(x, y); break;
+        case 2: lct_mast.erase(x, y); break;
+        case 3: lct_mast.insert(x, y); break;
+        }
+    }
+    return 0;
+}
+</code></pre>
+</code></pre></rotate(x):<></code></pre></p>
                       
         </div>
         <!-- .entry-content -->
@@ -840,8 +927,6 @@ inline void makeroot(int x){
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -851,6 +936,7 @@ inline void makeroot(int x){
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

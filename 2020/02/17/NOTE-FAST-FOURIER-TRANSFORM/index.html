@@ -554,7 +554,28 @@ C_k=\sum^k_{i=0}A_i\times B_{k-i}</script><h3 id="卷积？！"><a href="#卷积
 <p><strong>形象理解</strong>：</p>
 <p>“卷积”，“积”自然指乘积，而“卷”的含义如图：</p>
 <p><img src="https://i.loli.net/2019/11/30/MgOqDJBLWd1mo7p.png" alt="卷积1.PNG"></p>
-<h2 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000005</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> A[N], B[N], C[N];</span><br><span class="line"><span class="keyword">int</span> a, b;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mutiply</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; a + b - <span class="number">1</span>; ++k)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= k; ++i)</span><br><span class="line">			C[k] += (A[i]*B[k-i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">	++a,++b;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a;++i)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,A+i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;b;++i)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,B+i);</span><br><span class="line">	mutiply();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a+b<span class="number">-1</span>;++i)<span class="built_in">printf</span>(<span class="string">"%d "</span>,C[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h2><pre><code class="lang-cpp">#include&lt;cmath&gt;
+#include&lt;cstdio&gt;
+const int N = 1000005, mod = 998244353;
+int A[N], B[N], C[N];
+int a, b;
+void mutiply()
+{
+    for(int k = 0; k &lt; a + b - 1; ++k)
+        for(int i = 0; i &lt;= k; ++i)
+            C[k] += (A[i]*B[k-i]);
+}
+int main()
+{
+    scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+    ++a,++b;
+    for(int i=0;i&lt;a;++i)scanf(&quot;%d&quot;,A+i);
+    for(int i=0;i&lt;b;++i)scanf(&quot;%d&quot;,B+i);
+    mutiply();
+    for(int i=0;i&lt;a+b-1;++i)printf(&quot;%d &quot;,C[i]);
+    return 0;
+}
+</code></pre>
 <p>干得漂亮！我们收获了$44\mathsf{pts}$的佳绩！</p>
 <h2 id="另一种方法"><a href="#另一种方法" class="headerlink" title="另一种方法"></a>另一种方法</h2><p>之前有用到这样一个思路，对于任意多项式$F$，我们可以采用将其升幂排列，再存储其系数的办法来表示出$F$.</p>
 <p>这里谈谈另外一种办法.</p>
@@ -655,7 +676,25 @@ F(\omega^k_n)=L(\omega^{2k}_n)+\omega^{k+\frac n2}_nR(\omega^{2k}_n)</script><p>
 <p>递归地求解即可.</p>
 <p>一个小细节：为了避免出现$2\nmid n$的情况，我们<del>强行</del>向高位补零，补成一个具有$2^k$项的多项式.</p>
 <h2 id="综合运用"><a href="#综合运用" class="headerlink" title="综合运用"></a>综合运用</h2><p>这就是$\mathsf{DFT}$：离散傅里叶变换！</p>
-<p>代码实现：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dft</span><span class="params">(comp *f,<span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(len==<span class="number">1</span>)<span class="keyword">return</span> ;</span><br><span class="line">	comp *fL=f,*fR=f+len/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len;k++)G[k]=f[k];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len/<span class="number">2</span>;k++)L[k]=G[k&lt;&lt;<span class="number">1</span>],R[k]=G[k&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">	dft(L,len/<span class="number">2</span>);</span><br><span class="line">	dft(R,len/<span class="number">2</span>);</span><br><span class="line">	comp W(cos(2*pi/len),sin(2*pi/len)),b(1,0);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len/<span class="number">2</span>;k++)</span><br><span class="line">	&#123;</span><br><span class="line">		G[k]=L[k]+b*R[k];</span><br><span class="line">		G[k+len/<span class="number">2</span>]=L[k]-b*R[k];</span><br><span class="line">		b*=W;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len;k++)f[k]=G[k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码实现：</p>
+<pre><code class="lang-cpp">void dft(comp *f,int len)
+{
+    if(len==1)return ;
+    comp *fL=f,*fR=f+len/2;
+    for(int k=0;k&lt;len;k++)G[k]=f[k];
+    for(int k=0;k&lt;len/2;k++)L[k]=G[k&lt;&lt;1],R[k]=G[k&lt;&lt;1|1];
+    dft(L,len/2);
+    dft(R,len/2);
+    comp W(cos(2*pi/len),sin(2*pi/len)),b(1,0);
+    for(int k=0;k&lt;len/2;k++)
+    {
+        G[k]=L[k]+b*R[k];
+        G[k+len/2]=L[k]-b*R[k];
+        b*=W;
+    }
+    for(int k=0;k&lt;len;k++)f[k]=G[k];
+}
+</code></pre>
 <h2 id="反过来"><a href="#反过来" class="headerlink" title="反过来"></a>反过来</h2><p>设$G(z)=\mathcal{F}[F(x)]$，则$F(x)=\mathcal F^{-1}[G(z)]$.</p>
 <p>其中$\mathcal F$称作（离散）傅里叶变换，$\mathcal F^{-1}$称作（离散）逆傅里叶变换，又称$\mathsf{IDFT}$.</p>
 <p>$\mathsf{I}:\mathsf{Inversed}$</p>
@@ -667,7 +706,62 @@ nf_k=\sum^{n-1}_{i=0}\omega^{-ki}_ng_i</script><p>负数次单位根？</p>
 <p>由定义知$\omega^{-k}_n=(\omega^{-1}_n)^k$</p>
 <p>那么$\omega^{-1}_n=\cos-\dfrac{2\pi}{n}+i\sin-\dfrac{2\pi}{n}=\cos\dfrac{2\pi}{n}-i\sin\dfrac{2\pi}{n}$</p>
 <p>证明？诱导公式！</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>将递归转换为循环，避免数组的拷贝，我们可以写出以下代码，这就是经典的快速傅里叶变换！<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5100000</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">comp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    comp (<span class="keyword">double</span> _a=<span class="number">0</span>,<span class="keyword">double</span> _b=<span class="number">0</span>)&#123;a=_a,b=_b;&#125;</span><br><span class="line">    <span class="keyword">double</span> a,b;</span><br><span class="line">    comp <span class="keyword">operator</span> + (comp <span class="keyword">const</span> &amp;B) <span class="keyword">const</span></span><br><span class="line">	&#123;<span class="keyword">return</span> comp(a+B.a,b+B.b);&#125;</span><br><span class="line">    comp <span class="keyword">operator</span> - (comp <span class="keyword">const</span> &amp;B) <span class="keyword">const</span></span><br><span class="line">	&#123;<span class="keyword">return</span> comp(a-B.a,b-B.b);&#125;</span><br><span class="line">    comp <span class="keyword">operator</span> * (comp <span class="keyword">const</span> &amp;B) <span class="keyword">const</span></span><br><span class="line">	&#123;<span class="keyword">return</span> comp(a*B.a-b*B.b,a*B.b+b*B.a);&#125;</span><br><span class="line">&#125;F[N],G[N];</span><br><span class="line"><span class="keyword">int</span> t[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fft</span><span class="params">(comp *f,<span class="keyword">bool</span> flag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	<span class="keyword">if</span> (i&lt;t[i])swap(f[i],f[t[i]]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> p=<span class="number">2</span>;p&lt;=n;p&lt;&lt;=<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">	<span class="keyword">int</span> len=p&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="function">comp <span class="title">W</span><span class="params">(<span class="built_in">cos</span>(<span class="number">2</span>*pi/p),<span class="built_in">sin</span>(<span class="number">2</span>*pi/p))</span></span>;</span><br><span class="line">	<span class="keyword">if</span>(!flag)W.b*=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k+=p)</span><br><span class="line">     	&#123;</span><br><span class="line">	    <span class="function">comp <span class="title">b</span><span class="params">(<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> l=k;l&lt;k+len;l++)</span><br><span class="line">	    &#123;</span><br><span class="line">	        comp temp=b*f[len+l];</span><br><span class="line">			f[len+l]=f[l]-temp;</span><br><span class="line">			f[l]=f[l]+temp;</span><br><span class="line">			b=b*W;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;F[i].a);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++)<span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;F[i].b);</span><br><span class="line">    <span class="keyword">for</span>(m+=n,n=<span class="number">1</span>;n&lt;=m;n&lt;&lt;=<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)t[i]=(t[i&gt;&gt;<span class="number">1</span>]&gt;&gt;<span class="number">1</span>)|((i&amp;<span class="number">1</span>)?n&gt;&gt;<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">    fft(F,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)F[i]=F[i]*F[i];</span><br><span class="line">    fft(F,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;++i)<span class="built_in">printf</span>(<span class="string">"%d "</span>,(<span class="keyword">int</span>)(F[i].b/n/<span class="number">2</span>+<span class="number">0.49</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>将递归转换为循环，避免数组的拷贝，我们可以写出以下代码，这就是经典的快速傅里叶变换！</p>
+<pre><code class="lang-cpp">#include&lt;algorithm&gt;
+#include&lt;cstdio&gt;
+#include&lt;cmath&gt;
+using namespace std;
+const int N = 5100000, mod = 998244353;
+const double pi=acos(-1);
+int n,m;
+struct comp
+{
+    comp (double _a=0,double _b=0){a=_a,b=_b;}
+    double a,b;
+    comp operator + (comp const &amp;B) const
+    {return comp(a+B.a,b+B.b);}
+    comp operator - (comp const &amp;B) const
+    {return comp(a-B.a,b-B.b);}
+    comp operator * (comp const &amp;B) const
+    {return comp(a*B.a-b*B.b,a*B.b+b*B.a);}
+}F[N],G[N];
+int t[N];
+void fft(comp *f,bool flag)
+{
+    for (int i=0;i&lt;n;i++)
+    if (i&lt;t[i])swap(f[i],f[t[i]]);
+    for(int p=2;p&lt;=n;p&lt;&lt;=1)
+    {
+    int len=p&gt;&gt;1;
+    comp W(cos(2*pi/p),sin(2*pi/p));
+    if(!flag)W.b*=-1;
+    for(int k=0;k&lt;n;k+=p)
+         {
+        comp b(1,0);
+        for(int l=k;l&lt;k+len;l++)
+        {
+            comp temp=b*f[len+l];
+            f[len+l]=f[l]-temp;
+            f[l]=f[l]+temp;
+            b=b*W;
+        }
+    }
+    }
+}
+int main()
+{
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for (int i=0;i&lt;=n;i++)scanf(&quot;%lf&quot;,&amp;F[i].a);
+    for (int i=0;i&lt;=m;i++)scanf(&quot;%lf&quot;,&amp;F[i].b);
+    for(m+=n,n=1;n&lt;=m;n&lt;&lt;=1);
+    for(int i=0;i&lt;n;i++)t[i]=(t[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+    fft(F,1);
+    for(int i=0;i&lt;n;++i)F[i]=F[i]*F[i];
+    fft(F,0);
+    for(int i=0;i&lt;=m;++i)printf(&quot;%d &quot;,(int)(F[i].b/n/2+0.49));
+    return 0;
+}
+</code></pre>
 <h3 id="三次变两次优化"><a href="#三次变两次优化" class="headerlink" title="三次变两次优化"></a>三次变两次优化</h3><p>上面的代码中有体现</p>
 <p>设<br>$P=F+iG$</p>
 <p>则<br>$P^2=F^2-G^2+2iFG$</p>
@@ -824,8 +918,6 @@ nf_k=\sum^{n-1}_{i=0}\omega^{-ki}_ng_i</script><p>负数次单位根？</p>
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -835,6 +927,7 @@ nf_k=\sum^{n-1}_{i=0}\omega^{-ki}_ng_i</script><p>负数次单位根？</p>
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

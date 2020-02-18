@@ -474,7 +474,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
           <div>
             <ul class="spfk-ul">
               &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
-              <li class="spfk-li"><a href="/tags/数学/" class="butterfly-tags">数学</a></li><li class="spfk-li"><a href="/tags/生成函数/" class="butterfly-tags">生成函数</a></li>
+              <li class="spfk-li"><a href="/tags/生成函数/" class="butterfly-tags">生成函数</a></li><li class="spfk-li"><a href="/tags/数学/" class="butterfly-tags">数学</a></li>
             </ul>
           </div>
           <script>
@@ -517,7 +517,10 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>火: $1+x^{10}+x^{20}+\dots=\frac{1}{1-x^{10}}$</p>
 <p>土: $1+x+x^2+x^3=\frac{1-x^4}{1-x}$</p>
 <p>凉心出题人友好的卡了精度并且顺便卡了pypy。所以，人生苦短，Ruby用我</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = gets.to_i</span><br><span class="line">print (n + <span class="number">1</span>) * (n + <span class="number">2</span>) * (n + <span class="number">3</span>) * (n + <span class="number">4</span>) / <span class="number">24</span></span><br></pre></td></tr></table></figure>
+<pre><code class="lang-ruby">n = gets.to_i
+print (n + 1) * (n + 2) * (n + 3) * (n + 4) / 24
+</code></pre>
+
                       
         </div>
         <!-- .entry-content -->
@@ -680,8 +683,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -691,6 +692,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

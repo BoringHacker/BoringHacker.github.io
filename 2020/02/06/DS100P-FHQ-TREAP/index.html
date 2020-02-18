@@ -507,16 +507,31 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>但它和$treap$一样，都满足堆的性质：任意父节点的键值大于(等于)或小于(等于)子节点的键值。</p>
 <p>它可以做普通平衡树（基本操作），文艺平衡树（区间操作），还可以可持久化。</p>
 <p>但常数略大。</p>
-<p>定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct node</span><br><span class="line">&#123;</span><br><span class="line">	int l,r,num,key,cum;</span><br><span class="line">   	//左儿子，右儿子，本节点的值，键值，子树大小</span><br><span class="line">&#125;nodes[MAXN];</span><br></pre></td></tr></table></figure></p>
-<h3 id="1-权值fhq-treap"><a href="#1-权值fhq-treap" class="headerlink" title="1.权值fhq-treap"></a>1.权值fhq-treap</h3><p>权值$fhq-treap$的意思是，它这时候既满足二叉搜索树的性质，又满足堆的性质。</p>
+<p>定义：</p>
+<pre><code>struct node
+{
+    int l,r,num,key,cum;
+       //左儿子，右儿子，本节点的值，键值，子树大小
+}nodes[MAXN];
+</code></pre><h3 id="1-权值fhq-treap"><a href="#1-权值fhq-treap" class="headerlink" title="1.权值fhq-treap"></a>1.权值fhq-treap</h3><p>权值$fhq-treap$的意思是，它这时候既满足二叉搜索树的性质，又满足堆的性质。</p>
 <p>先讲讲辅助操作吧：</p>
 <p><strong>update</strong>:用来更新当前节点的子树大小。</p>
 <p>代码实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void update(int x)</span><br><span class="line">&#123;</span><br><span class="line">	nodes[x].cum=nodes[nodes[x].l].cum+nodes[nodes[x].r].cum+1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为一个节点的子树大小等于它左右儿子的子树大小加上它本身嘛。</p>
+<pre><code>void update(int x)
+{
+    nodes[x].cum=nodes[nodes[x].l].cum+nodes[nodes[x].r].cum+1;
+}
+</code></pre><p>因为一个节点的子树大小等于它左右儿子的子树大小加上它本身嘛。</p>
 <p><strong>newnode</strong>:新建一个值为指定值的节点并返回它的编号。</p>
-<p>代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int newnode(int val)</span><br><span class="line">&#123;</span><br><span class="line">	nodes[++tot].cum=1;</span><br><span class="line">    	nodes[tot].num=val;</span><br><span class="line">        nodes[tot].key=rand();</span><br><span class="line">        return tot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>主要操作有两个：</p>
+<p>代码实现：</p>
+<pre><code>int newnode(int val)
+{
+    nodes[++tot].cum=1;
+        nodes[tot].num=val;
+        nodes[tot].key=rand();
+        return tot;
+}
+</code></pre><p>主要操作有两个：</p>
 <h4 id="1-gt-分裂split"><a href="#1-gt-分裂split" class="headerlink" title="1&gt;.分裂split"></a>1&gt;.分裂split</h4><p>这里的分裂按照权值分裂，即把原树按照权值$val$分成两棵树，一棵$X$中的权值全部小于等于$val$，另一棵y的权值全部大于$val$。而这两棵树都要满足两个性质。</p>
 <p>要实现这个操作，我们要从根节点开始遍历，把整棵树分成两半。</p>
 <p>我们进行分类讨论：现在遍历到的节点编号为$now$。</p>
@@ -532,8 +547,29 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>所以我们需要继续分裂左子树。道理同上。</p>
 <p>上面操作已经保证了分出的二叉树满足二叉树性质。而堆性质也得到了满足，因为从原树上往下分，分到节点的键值也是有序的。</p>
 <p>递归返回前还要记得$update$一下，更新分裂后的子树大小。</p>
-<p>是不是还是不懂？还是看代码和代码注释吧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//x,y代表从now这个节点分裂出的两棵树的根节点，使用引用返回值。</span><br><span class="line">void split(int now,int val,int &amp;x,int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">	if(!now)	x=y=0;//情况1).无法继续分裂，所以两棵树都是空。</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		if(nodes[now].num&lt;=val)//情况2).</span><br><span class="line">		&#123;</span><br><span class="line">			x=now;//左子树和这个节点都属于X树，接到之前分裂到的地方。右子树在下面会受到修改，所以右子树并没有被直接包括。</span><br><span class="line">			split(nodes[now].r,val,nodes[x].r,y);//继续分裂右子树。接下来分裂出属于X树的根节点位置应该是nodes[x].r，y的位置没有变动。</span><br><span class="line">		&#125;</span><br><span class="line">		else//情况3).</span><br><span class="line">		&#123;</span><br><span class="line">			y=now;</span><br><span class="line">			split(nodes[now].l,val,x,nodes[y].l);//同上</span><br><span class="line">		&#125;</span><br><span class="line">		update(now);</span><br><span class="line">        //由于无论进入哪个判断，作了改变的节点都等于now,所以可以直接更新now。</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//调用：split(root,v,root1,root2)</span><br></pre></td></tr></table></figure></p>
-<p>最后传回的值就相当于给$root1$,$root2$赋值。</p>
+<p>是不是还是不懂？还是看代码和代码注释吧：</p>
+<pre><code>//x,y代表从now这个节点分裂出的两棵树的根节点，使用引用返回值。
+void split(int now,int val,int &amp;x,int &amp;y)
+{
+    if(!now)    x=y=0;//情况1).无法继续分裂，所以两棵树都是空。
+    else
+    {
+        if(nodes[now].num&lt;=val)//情况2).
+        {
+            x=now;//左子树和这个节点都属于X树，接到之前分裂到的地方。右子树在下面会受到修改，所以右子树并没有被直接包括。
+            split(nodes[now].r,val,nodes[x].r,y);//继续分裂右子树。接下来分裂出属于X树的根节点位置应该是nodes[x].r，y的位置没有变动。
+        }
+        else//情况3).
+        {
+            y=now;
+            split(nodes[now].l,val,x,nodes[y].l);//同上
+        }
+        update(now);
+        //由于无论进入哪个判断，作了改变的节点都等于now,所以可以直接更新now。
+    }
+}
+//调用：split(root,v,root1,root2)
+</code></pre><p>最后传回的值就相当于给$root1$,$root2$赋值。</p>
 <p>$root1$,$root2$就是分裂出的$X$树和$Y$树的根节点。</p>
 <h4 id="2-gt-合并merge"><a href="#2-gt-合并merge" class="headerlink" title="2&gt;.合并merge"></a>2&gt;.合并merge</h4><p>即把两颗像刚刚上面分裂出来的两颗树合并成一棵满足两个性质的树。</p>
 <p>我们又要分类讨论：现在需要合并的节点是$x$,$y$。（示例小根堆）</p>
@@ -546,21 +582,72 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>$y$应该在$x$的上面。</p>
 <p>$x$的值一定小于$y$，所以把$y$的左儿子和$x$进行合并。</p>
 <p>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int merge(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">	if(!x||!y)	return x+y;</span><br><span class="line">	if(nodes[x].key&lt;nodes[y].key)</span><br><span class="line">	&#123;</span><br><span class="line">		nodes[x].r=merge(nodes[x].r,y);</span><br><span class="line">		update(x);</span><br><span class="line">		return x;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		nodes[y].l=merge(x,nodes[y].l);</span><br><span class="line">		update(y);</span><br><span class="line">		return y;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>学会了这两个操作之后，就可以实现普通平衡树的所有操作了。</p>
+<pre><code>int merge(int x,int y)
+{
+    if(!x||!y)    return x+y;
+    if(nodes[x].key&lt;nodes[y].key)
+    {
+        nodes[x].r=merge(nodes[x].r,y);
+        update(x);
+        return x;
+    }
+    else
+    {
+        nodes[y].l=merge(x,nodes[y].l);
+        update(y);
+        return y;
+    }
+}
+</code></pre><p>学会了这两个操作之后，就可以实现普通平衡树的所有操作了。</p>
 <h4 id="3-插入"><a href="#3-插入" class="headerlink" title="3.插入"></a>3.插入</h4><p>插入的代码只有两行，非常简单。</p>
 <p>只需要把原数按要插入的值$val$大小分裂，一边$x$小于等于$val$，另一边$y$大于$val$。</p>
 <p>再把$x$与这个值节点合并（得到$z$），最后与$y$合并。</p>
 <p>因为$x$的节点全部小于等于$val$,$z$的节点全部小于$y$。满足我们之前合并两棵树的条件。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void ins(int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(root,val,root1,root2);</span><br><span class="line">   	root=merge(merge(root1,newnode(val)),root2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-删除"><a href="#4-删除" class="headerlink" title="4.删除"></a>4.删除</h4><p>先把要删除的值$val$从原树中分裂出来，删掉一个再合并回去。</p>
+<p>代码：</p>
+<pre><code>void ins(int val)
+{
+    split(root,val,root1,root2);
+       root=merge(merge(root1,newnode(val)),root2);
+}
+</code></pre><h4 id="4-删除"><a href="#4-删除" class="headerlink" title="4.删除"></a>4.删除</h4><p>先把要删除的值$val$从原树中分裂出来，删掉一个再合并回去。</p>
 <p>怎么在很多的$val$中删掉一个呢。</p>
 <p>我们把$val$子树根节点的左右节点合并起来，就相当于抛弃了这个根节点。</p>
 <p>这样保证了如果有这个值，一定会被删掉，因为如果有，那么根节点肯定有。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void del(int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(root,val,root1,root2);</span><br><span class="line">	split(root1,val-1,root1,root3);</span><br><span class="line">	root3=merge(nodes[root3].l,nodes[root3].r);</span><br><span class="line">	root=merge(merge(root1,root3),root2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-前驱-后继"><a href="#5-前驱-后继" class="headerlink" title="5.前驱/后继"></a>5.前驱/后继</h4><p>我们把小于/大于查询值$val$的子树分裂出来，由于分裂出的子树依然满足二叉树性质，所以我们可以直接查询这个子树中的最大值/最小值，查询出的值就是答案。最后记得合并回去。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int pre(int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(root,val-1,root1,root2);</span><br><span class="line">	int now=root1,res=-INF;</span><br><span class="line">	if(now)</span><br><span class="line">	&#123;</span><br><span class="line">		while(nodes[now].r)	now=nodes[now].r;</span><br><span class="line">		res=nodes[now].num;</span><br><span class="line">	&#125;</span><br><span class="line">	root=merge(root1,root2);</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line">int nxt(int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(root,val,root1,root2);</span><br><span class="line">	int now=root2,res=INF;</span><br><span class="line">	if(now)</span><br><span class="line">	&#123;</span><br><span class="line">		while(nodes[now].l)	now=nodes[now].l;</span><br><span class="line">		res=nodes[now].num;</span><br><span class="line">	&#125;</span><br><span class="line">	root=merge(root1,root2);</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-第k小"><a href="#6-第k小" class="headerlink" title="6.第k小"></a>6.第k小</h4><p>对于这个问题，$fhq-treap$没有特殊的解决方法。所以和$treap$一样。</p>
+<p>代码：</p>
+<pre><code>void del(int val)
+{
+    split(root,val,root1,root2);
+    split(root1,val-1,root1,root3);
+    root3=merge(nodes[root3].l,nodes[root3].r);
+    root=merge(merge(root1,root3),root2);
+}
+</code></pre><h4 id="5-前驱-后继"><a href="#5-前驱-后继" class="headerlink" title="5.前驱/后继"></a>5.前驱/后继</h4><p>我们把小于/大于查询值$val$的子树分裂出来，由于分裂出的子树依然满足二叉树性质，所以我们可以直接查询这个子树中的最大值/最小值，查询出的值就是答案。最后记得合并回去。</p>
+<p>代码：</p>
+<pre><code>int pre(int val)
+{
+    split(root,val-1,root1,root2);
+    int now=root1,res=-INF;
+    if(now)
+    {
+        while(nodes[now].r)    now=nodes[now].r;
+        res=nodes[now].num;
+    }
+    root=merge(root1,root2);
+    return res;
+}
+int nxt(int val)
+{
+    split(root,val,root1,root2);
+    int now=root2,res=INF;
+    if(now)
+    {
+        while(nodes[now].l)    now=nodes[now].l;
+        res=nodes[now].num;
+    }
+    root=merge(root1,root2);
+    return res;
+}
+</code></pre><h4 id="6-第k小"><a href="#6-第k小" class="headerlink" title="6.第k小"></a>6.第k小</h4><p>对于这个问题，$fhq-treap$没有特殊的解决方法。所以和$treap$一样。</p>
 <p>由于二叉搜索树中序遍历为不降序列，我们分情况讨论：</p>
 <p>1&gt;.左子树大小$+1$等于$k$。</p>
 <p>说明当前节点就是第$k$小。</p>
@@ -568,12 +655,34 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>说明第$k$大在左边，那么向左边继续寻找第k小。</p>
 <p>3&gt;.否则</p>
 <p>第$k$小在右边，但左边和当前结点都比第$k$小。所以第k小是在右边的第$k-nodes[nodes[x].l].sum-1$小。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int top(int val)</span><br><span class="line">&#123;</span><br><span class="line">	int x=root;</span><br><span class="line">	while(x)</span><br><span class="line">	&#123;</span><br><span class="line">		if(nodes[nodes[x].l].sum+1==val)	break;</span><br><span class="line">		if(nodes[nodes[x].l].sum&gt;=val)	x=nodes[x].l;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			val-=(1+nodes[nodes[x].l].sum);</span><br><span class="line">			x=nodes[x].r;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return nodes[x].num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="7-排名"><a href="#7-排名" class="headerlink" title="7.排名"></a>7.排名</h4><p>排名的定义是比一个数小的数的个数加$1$。</p>
+<p>代码：</p>
+<pre><code>int top(int val)
+{
+    int x=root;
+    while(x)
+    {
+        if(nodes[nodes[x].l].sum+1==val)    break;
+        if(nodes[nodes[x].l].sum&gt;=val)    x=nodes[x].l;
+        else
+        {
+            val-=(1+nodes[nodes[x].l].sum);
+            x=nodes[x].r;
+        }
+    }
+    return nodes[x].num;
+}
+</code></pre><h4 id="7-排名"><a href="#7-排名" class="headerlink" title="7.排名"></a>7.排名</h4><p>排名的定义是比一个数小的数的个数加$1$。</p>
 <p>通过定义就能得出做法：</p>
 <p>把比查询值小的子树分离出来，这棵子树的大小就是比这个数小的数的个数。再加$1$就能得到答案了。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int rank(int val)</span><br><span class="line">&#123;</span><br><span class="line">	split(root,val-1,root1,root2);</span><br><span class="line">	int res=nodes[root1].sum+1;</span><br><span class="line">	root=merge(root1,root2);</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-区间fhq-treap"><a href="#2-区间fhq-treap" class="headerlink" title="2.区间fhq-treap"></a>2.区间fhq-treap</h3><p>区间$fhq-treap$维护了一个区间，中序遍历整个$fhq-treap$就可以得到这个序列。当然，这时候它肯定就不能满足二叉搜索树的性质了。但它还可以满足堆的性质。</p>
+<p>代码：</p>
+<pre><code>int rank(int val)
+{
+    split(root,val-1,root1,root2);
+    int res=nodes[root1].sum+1;
+    root=merge(root1,root2);
+    return res;
+}
+</code></pre><h3 id="2-区间fhq-treap"><a href="#2-区间fhq-treap" class="headerlink" title="2.区间fhq-treap"></a>2.区间fhq-treap</h3><p>区间$fhq-treap$维护了一个区间，中序遍历整个$fhq-treap$就可以得到这个序列。当然，这时候它肯定就不能满足二叉搜索树的性质了。但它还可以满足堆的性质。</p>
 <p>为了维护区间，我们的$split$操作需要更改：</p>
 <p>每次分裂一个区间出来：把这个序列的前$siz$项分出来为一个子树$X$,剩余另一个子树$Y$。</p>
 <p>又分类讨论：</p>
@@ -581,8 +690,26 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>这说明当前结点的左子树和自身都属于 $X$，我们再把右子树的前$k-nodes[nodes[x].l].sum-1$项分给$X$就好了。</p>
 <p>2&gt;.否则</p>
 <p>前$k$项在当前结点的左子树中，那么当前节点和它的右子树属于$Y$。</p>
-<p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  void split(int now,int siz,int &amp;x,int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">	if(!now)	x=y=0;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		if(nodes[nodes[now].l].sum&lt;k)</span><br><span class="line">		&#123;</span><br><span class="line">			x=now;</span><br><span class="line">			split(nodes[now].r,siz-nodes[nodes[now].l].sum-1,nodes[x].r,y);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			y=now;</span><br><span class="line">			split(nodes[now].l,siz,x,nodes[y].l);</span><br><span class="line">		&#125;</span><br><span class="line">		update(now);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但$merge$操作不需要太大变动，只需要加上懒标记下传就行了（如果有的话）</p>
+<p>代码：</p>
+<pre><code>  void split(int now,int siz,int &amp;x,int &amp;y)
+{
+    if(!now)    x=y=0;
+    else
+    {
+        if(nodes[nodes[now].l].sum&lt;k)
+        {
+            x=now;
+            split(nodes[now].r,siz-nodes[nodes[now].l].sum-1,nodes[x].r,y);
+        }
+        else
+        {
+            y=now;
+            split(nodes[now].l,siz,x,nodes[y].l);
+        }
+        update(now);
+    }
+}
+</code></pre><p>但$merge$操作不需要太大变动，只需要加上懒标记下传就行了（如果有的话）</p>
 <p>其实区间操作的分裂除了标记下传之外与权值版没有什么差别，只是这里分裂的权值是第k小。</p>
 <p>标记下传是个大坑，有标记时，每当你要对一个节点的子节点进行操作（无论是修改还是查询）时，要先下传标记，否则之后能会传错位置，因为你可能更改了它的子节点。</p>
 <h4 id="1-区间和"><a href="#1-区间和" class="headerlink" title="1.区间和"></a>1.区间和</h4><p>我们在每个节点中再加上一个变量记录它和它子树的和。</p>
@@ -603,8 +730,10 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <h4 id="4-如何剖出区间-l-r"><a href="#4-如何剖出区间-l-r" class="headerlink" title="4.如何剖出区间[l,r]"></a>4.如何剖出区间[l,r]</h4><p>我们把序列$[1,n]$分成3段$[1,l-1]$,$[l,r]$,$[r+1,n]$</p>
 <p>第一段的长度是$l-1$,第二段的长度是$r-l+1$</p>
 <p>我们就挨个把它们$split$出来就好了。</p>
-<p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">split(root,l-1,root1,root2);</span><br><span class="line">split(root2,r-l+1,root2,root3);</span><br></pre></td></tr></table></figure></p>
-<p>$root2$即为$[l,r]$区间的根结点。</p>
+<p>代码:</p>
+<pre><code>split(root,l-1,root1,root2);
+split(root2,r-l+1,root2,root3);
+</code></pre><p>$root2$即为$[l,r]$区间的根结点。</p>
 <p>$\ $</p>
 <p>由此判断，平衡树比线段树还要万能，但常数巨大。</p>
 
@@ -770,8 +899,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -781,6 +908,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

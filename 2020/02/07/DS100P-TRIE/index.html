@@ -514,13 +514,39 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>要统计这个节点被经过了多少次，也就是多少单词有这个前缀，就要加一个$sum$。</p>
 <p>要统计有多少个单词在这里结束，也就是要查询的单词有多少个已插入的单词作前缀，就要加一个$end$。</p>
 <p>插入时，先看这个节点有没有你要走的那个儿子，如果没有，就新建一个，走下去。否则就直接走到这个儿子（共用节点嘛）。</p>
-<p>代码：（以小写字母单词为例）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">struct node</span><br><span class="line">&#123;</span><br><span class="line">	int ch[26],sum,end;</span><br><span class="line">&#125;nodes[MAXN];</span><br><span class="line">int root=1,cnt=1;</span><br><span class="line">void ins(int len)</span><br><span class="line">&#123;</span><br><span class="line">	int x=root;</span><br><span class="line">	for(int i=0;i&lt;len;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		if(!nodes[x].ch[str[i]-&apos;a&apos;])	nodes[x].ch[str[i]-&apos;a&apos;]=++cnt;</span><br><span class="line">		x=nodes[x].ch[str[i]-&apos;a&apos;];</span><br><span class="line">		++nodes[x].sum;</span><br><span class="line">	&#125;</span><br><span class="line">	++nodes[x].end;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-gt-查询"><a href="#2-gt-查询" class="headerlink" title="2&gt;.查询"></a>2&gt;.查询</h4><p>$trie$树的查询有很多种，一般依照题目要求来自己定义。</p>
+<p>代码：（以小写字母单词为例）</p>
+<pre><code>struct node
+{
+    int ch[26],sum,end;
+}nodes[MAXN];
+int root=1,cnt=1;
+void ins(int len)
+{
+    int x=root;
+    for(int i=0;i&lt;len;++i)
+    {
+        if(!nodes[x].ch[str[i]-&#39;a&#39;])    nodes[x].ch[str[i]-&#39;a&#39;]=++cnt;
+        x=nodes[x].ch[str[i]-&#39;a&#39;];
+        ++nodes[x].sum;
+    }
+    ++nodes[x].end;
+}
+</code></pre><h4 id="2-gt-查询"><a href="#2-gt-查询" class="headerlink" title="2&gt;.查询"></a>2&gt;.查询</h4><p>$trie$树的查询有很多种，一般依照题目要求来自己定义。</p>
 <p>我们这里又以小写字母单词查询存在性为例。</p>
 <p>同样是从最上面的根节点开始。如果当前节点有这个单词现在位置字母的儿子，就走下去。否则就直接返回false，因为之前没有过单词走过这条路径,如果有过这个前缀的单词走过，肯定会创建这个节点。</p>
 <p>最后再判断有没有单词在这个地方结束。</p>
-<p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bool find(int len)</span><br><span class="line">&#123;</span><br><span class="line">	int x=root;</span><br><span class="line">	for(int i=0;i&lt;len;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		if(!nodes[x].str[str[i]-&apos;a&apos;])	return false;</span><br><span class="line">		x=nodes[x].str[str[i]-&apos;a&apos;];</span><br><span class="line">	&#125;</span><br><span class="line">	return nodes[x].end;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><del>trie树就只有这么点，惊不惊喜，意不意外</del></p>
+<p>代码:</p>
+<pre><code>bool find(int len)
+{
+    int x=root;
+    for(int i=0;i&lt;len;++i)
+    {
+        if(!nodes[x].str[str[i]-&#39;a&#39;])    return false;
+        x=nodes[x].str[str[i]-&#39;a&#39;];
+    }
+    return nodes[x].end;
+}
+</code></pre><p><del>trie树就只有这么点，惊不惊喜，意不意外</del></p>
 
                       
         </div>
@@ -684,8 +710,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -695,6 +719,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

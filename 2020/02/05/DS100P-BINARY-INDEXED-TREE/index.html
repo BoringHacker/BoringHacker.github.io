@@ -522,12 +522,34 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>我们按照$lowbit(i)$把$nodes[MAXN]$分为$log(MAXN)$层，那么不可能有同层及下层节点包含$nodes[i]$，除了它自己。</p>
 <p>所以我们向上层节点寻找，就要把$lowbit(i)$这一位消掉且数字要增大，直接加上$lowbit(i)$就可以做到这一点，因为$lowbit(i)$这一位往右都是0，要把这一位消掉，需要加上的数中没有比$lowbit(i)$更小的。</p>
 <p>所以$nodes[i+lowbit(i)]$就是第一个包含$nodes[i]$的数。</p>
-<p>代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void update(int x,int val)</span><br><span class="line">&#123;</span><br><span class="line">	while(x&lt;=MAXN)</span><br><span class="line">	&#123;</span><br><span class="line">		nodes[x]+=val;</span><br><span class="line">		x+=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="3-区间查询（单点修改）"><a href="#3-区间查询（单点修改）" class="headerlink" title="3).区间查询（单点修改）"></a>3).区间查询（单点修改）</h4><p>如果我们要查询区间$[l,r]$的和，我们可以运用前缀和思想，把它转换成求$[1,r]-[1,l-1]$的值。</p>
+<p>代码</p>
+<pre><code>void update(int x,int val)
+{
+    while(x&lt;=MAXN)
+    {
+        nodes[x]+=val;
+        x+=lowbit(x);
+    }
+}
+</code></pre><h4 id="3-区间查询（单点修改）"><a href="#3-区间查询（单点修改）" class="headerlink" title="3).区间查询（单点修改）"></a>3).区间查询（单点修改）</h4><p>如果我们要查询区间$[l,r]$的和，我们可以运用前缀和思想，把它转换成求$[1,r]-[1,l-1]$的值。</p>
 <p>那么问题转化成了求区间$[1,x]$的和。</p>
 <p>由于定义，$nodes[x]$储存的是$a[x-lowbit(x)+1]$到$a[x]$的和，那么我们可以进一步缩小问题规模：$query[1,x]=query[1,x-lowbit(x)]+nodes[x]$,一直到0为止。</p>
-<p>代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int ask(int x)</span><br><span class="line">&#123;</span><br><span class="line">	int res=0;</span><br><span class="line">	while(x)</span><br><span class="line">	&#123;</span><br><span class="line">		res+=nodes[x];</span><br><span class="line">		x-=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line">int query(int l,int r)</span><br><span class="line">&#123;</span><br><span class="line">	return ask(r)-ask(l-1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-区间修改及查询"><a href="#4-区间修改及查询" class="headerlink" title="4).区间修改及查询"></a>4).区间修改及查询</h4><p>上面的操作只支持单点修改，那么如何区间修改呢，一个一个地改肯定会炸。我们采用差分的思想，将区间修改转化为单点修改。</p>
+<p>代码</p>
+<pre><code>int ask(int x)
+{
+    int res=0;
+    while(x)
+    {
+        res+=nodes[x];
+        x-=lowbit(x);
+    }
+    return res;
+}
+int query(int l,int r)
+{
+    return ask(r)-ask(l-1);
+}
+</code></pre><h4 id="4-区间修改及查询"><a href="#4-区间修改及查询" class="headerlink" title="4).区间修改及查询"></a>4).区间修改及查询</h4><p>上面的操作只支持单点修改，那么如何区间修改呢，一个一个地改肯定会炸。我们采用差分的思想，将区间修改转化为单点修改。</p>
 <p>我们先思考如何用差分数组$c[n]$求$a[1]+a[2]+\cdots+a[n-1]+a[n]$。</p>
 <p>$c[1]<em>n+c[2]</em>(n-1)+\cdots+c[n-1]*2+c[n]$</p>
 <p>这个式子里的c[i]和i没有什么关系，不太好操作，于是我们把它变个形：</p>
@@ -540,8 +562,59 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>等价于$[1,r]-[1,l-1]$</p>
 <p>对于$[1,x]$</p>
 <p>由上面的式子得出做法:以$nodes$查询$(c[1]+c[2]+\cdots+c[x-1]+c[x])<em>(x+1)$，以$exnodes$查询$(c[1]+c[2]</em>2+\cdots+c[x-1]<em>(x-1)+c[x]</em>x)$,再将它们相减。</p>
-<p>代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">void update(int x,int val)</span><br><span class="line">&#123;</span><br><span class="line">	while(x&lt;=MAXN)</span><br><span class="line">	&#123;</span><br><span class="line">		nodes[x]+=val;</span><br><span class="line">		x+=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void exupdate(int x,int val)</span><br><span class="line">&#123;</span><br><span class="line">	while(x&lt;=MAXN)</span><br><span class="line">	&#123;</span><br><span class="line">		exnodes[x]+=val;</span><br><span class="line">		x+=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int find(int x)</span><br><span class="line">&#123;</span><br><span class="line">	int res=0;</span><br><span class="line">	while(x)</span><br><span class="line">	&#123;</span><br><span class="line">		res+=nodes[x];</span><br><span class="line">		x-=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line">int exfind(int x)</span><br><span class="line">&#123;</span><br><span class="line">	int res=0;</span><br><span class="line">	while(x)</span><br><span class="line">	&#123;</span><br><span class="line">		res+=exnodes[x];</span><br><span class="line">		x-=lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br><span class="line">void modify(int l,int r,int x)</span><br><span class="line">&#123;</span><br><span class="line">	update(l,x);</span><br><span class="line">	exupdate(l,l*x);</span><br><span class="line">	update(r+1,-x);</span><br><span class="line">	exupdate(r+1,-(r+1)*x);</span><br><span class="line">&#125;</span><br><span class="line">int ask(int x)</span><br><span class="line">&#123;</span><br><span class="line">	return find(x)*(x+1)-exfind(x);</span><br><span class="line">&#125;</span><br><span class="line">int query(int l,int r)</span><br><span class="line">&#123;</span><br><span class="line">	return ask(r)-ask(l-1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>//(下面两个先咕了，我没看到哪道题要用……)</p>
+<p>代码</p>
+<pre><code>void update(int x,int val)
+{
+    while(x&lt;=MAXN)
+    {
+        nodes[x]+=val;
+        x+=lowbit(x);
+    }
+}
+void exupdate(int x,int val)
+{
+    while(x&lt;=MAXN)
+    {
+        exnodes[x]+=val;
+        x+=lowbit(x);
+    }
+}
+int find(int x)
+{
+    int res=0;
+    while(x)
+    {
+        res+=nodes[x];
+        x-=lowbit(x);
+    }
+    return res;
+}
+int exfind(int x)
+{
+    int res=0;
+    while(x)
+    {
+        res+=exnodes[x];
+        x-=lowbit(x);
+    }
+    return res;
+}
+void modify(int l,int r,int x)
+{
+    update(l,x);
+    exupdate(l,l*x);
+    update(r+1,-x);
+    exupdate(r+1,-(r+1)*x);
+}
+int ask(int x)
+{
+    return find(x)*(x+1)-exfind(x);
+}
+int query(int l,int r)
+{
+    return ask(r)-ask(l-1);
+}
+</code></pre><p>//(下面两个先咕了，我没看到哪道题要用……)</p>
 <h4 id="5-二维单点修改，区间查询"><a href="#5-二维单点修改，区间查询" class="headerlink" title="5).二维单点修改，区间查询"></a>5).二维单点修改，区间查询</h4><h4 id="6-二维区间修改，区间查询"><a href="#6-二维区间修改，区间查询" class="headerlink" title="6).二维区间修改，区间查询"></a>6).二维区间修改，区间查询</h4>
                       
         </div>
@@ -705,8 +778,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   </div><!-- .site-info -->
 </footer>
 
-
-
 <!-- <script src="/js/tocbot.js"></script> -->
 <script type="text/javascript" src="/js/lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -716,6 +787,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script> -->
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

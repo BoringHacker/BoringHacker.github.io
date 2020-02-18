@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="www.orchid-any.cf/"/>
-  <updated>2020-02-16T01:49:25.915Z</updated>
+  <updated>2020-02-17T01:32:15.997Z</updated>
   <id>www.orchid-any.cf/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>「题解」 洛谷P2000拯救世界</title>
+    <title>「笔记」快速傅里叶变换</title>
+    <link href="www.orchid-any.cf/2020/02/17/NOTE-FAST-FOURIER-TRANSFORM/"/>
+    <id>www.orchid-any.cf/2020/02/17/NOTE-FAST-FOURIER-TRANSFORM/</id>
+    <published>2020-02-17T01:27:53.000Z</published>
+    <updated>2020-02-17T01:32:15.997Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;本文搬运自C20211013李琰&quot;&gt;&lt;a href=&quot;#本文搬运自C20211013李琰&quot; class=&quot;headerlink&quot; title=&quot;本文搬运自C20211013李琰&quot;&gt;&lt;/a&gt;本文搬运自C20211013李琰&lt;/h1&gt;&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
+    
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="FFT" scheme="www.orchid-any.cf/tags/FFT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P2000拯救世界</title>
     <link href="www.orchid-any.cf/2020/02/16/SOL-P2000/"/>
     <id>www.orchid-any.cf/2020/02/16/SOL-P2000/</id>
     <published>2020-02-16T01:46:20.000Z</published>
-    <updated>2020-02-16T01:49:25.915Z</updated>
+    <updated>2020-02-17T04:06:02.760Z</updated>
     
     <summary type="html">
     
@@ -394,24 +422,6 @@
           &lt;h1 id=&quot;0x01-引子&quot;&gt;&lt;a href=&quot;#0x01-引子&quot; class=&quot;headerlink&quot; title=&quot;0x01 引子&quot;&gt;&lt;/a&gt;0x01 引子&lt;/h1&gt;&lt;p&gt;首先引入这样一种问题：给定 $n$ 的范围，再给出一个长度为 $n$
         
       
-    
-    </summary>
-    
-      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---K-D Tree</title>
-    <link href="www.orchid-any.cf/2020/02/07/DS100P-K-D-TREE/"/>
-    <id>www.orchid-any.cf/2020/02/07/DS100P-K-D-TREE/</id>
-    <published>2020-02-07T12:03:42.000Z</published>
-    <updated>2020-02-07T12:20:51.385Z</updated>
-    
-    <summary type="html">
     
     </summary>
     
