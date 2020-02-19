@@ -41,6 +41,9 @@ span.spoiler.revealed {text-shadow: grey 0px 0px 0px;}
     line-height:normal;
     position:relative
 }
+#v-qq{height:30px;}
+#v-menhera:not(.v-avoid){max-width: 6.5%;}
+#v-chino:not(.v-avoid){max-width: 8%;}
 .aplayer * {
     box-sizing:content-box
 }
