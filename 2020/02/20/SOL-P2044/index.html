@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">archive_a: 2020/2 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">SOL-P2044 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
   
@@ -427,646 +427,234 @@
   </div>
 </header>
 
-      <div class="pattern-center-blank" style="padding-top: 75px;">
-</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+<script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script>
 
-    <div class="pattern-center-sakura">
-      <div class="pattern-attachment-img">
-        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/pages/archives.png" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-      </div>
-      <header class="pattern-header ">
-        <h1 class="entry-title">
-        归档</h1>
-      </header>
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-44.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-44.png">
     </div>
-  
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      SOL-P2044</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-2-20<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/分治/" class="butterfly-tags">分治</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
+  </div>
 
 <div id="content" class="site-content">
-  <div id="main">
-    <div id="main-part">
-      <article class="art">
-        <div class="art-main">
-          <div class="art-content">
-            <div id="archives">
-              <p style="text-align:left;">
-                <button id="al_expand_collapse">
-                  <style>
-                  button#al_expand_collapse {
-                      color: white;
-                      border-radius: 16px;
-                      font-weight: bold;
-                      font-size: 15px;
-                      background-color: #ff9100;
-                      transition-duration: 0.3s;
-                      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.11), 0 3px 8px 0 rgba(0,0,0,0.11);
-                      outline: none;
-                  }
-                  button#al_expand_collapse:hover {
-                      transition: all 0.2s linear 0s;
-                      background-color: #ff5900; 
-                  }
-                  </style>
-                  <i class="fa fa-bars" aria-hidden="true"></i> 全部展开/收缩
-              </button>
-              </p>
-              
-              
-              
-              
-              
-              
-                
-                <h3 class="al_year">2020年</h3>
-              
-              
-                
-                <ul class="al_mon_list">
-                  <li class="al_li">
-                    <span class="al_mon" style="cursor: s-resize;">
-                      02月(<span id="post-num">
-                      3</span>
-                    篇文章)</span>
-                    <ul class="al_post_list" style="">
-              
-                      <li>
-                        <a href="/2020/02/20/SOL-P2044/">
-                          <span style="color:#0bf;">
-                          20日15:51:05</span>
-                          SOL-P2044
-                        </a>
-                      </li>
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一个递推式，让你求某一项的值模上 $g$。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>这道题正解是矩阵。我这里给出一种分治的做法。</p>
+<p>题目中说</p>
+<script type="math/tex; mode=display">X_{i}=(a\times X_{i-1}+c)\ \mathrm{mod}\ m</script><p>我们先往下推一步</p>
+<script type="math/tex; mode=display">X_{i-1}=(a\times X_{i-2}+c)\ \mathrm{mod}\ m</script><p>我们把这个式子代入到原式，得到</p>
+<script type="math/tex; mode=display">X_{i}</script><p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a\times X_{i-1}+c)\ \mathrm{mod}\ m$</p>
+<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a\times(a\times X_{i-2}+c)+c)\ \mathrm{mod}\ m$</p>
+<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=a^{2}\times X_{i-2}+c\times(a+1)\ \mathrm{mod}\ m$</p>
+<p>按照这个套路推下去，最后得到：</p>
+<script type="math/tex; mode=display">X_{i}=a^{i}\times X_{0}+c\times(a^{i-1}+a^{i-2}+\cdots+a+1)</script><p>$a^{i}\times X_{0}$ 很好得到，直接大力快速幂，再乘上 $X_{0}$ 即可。</p>
+<p>我们接着来看后面的</p>
+<script type="math/tex; mode=display">c\times(a^{i-1}+a^{i-2}+\cdots+a+1)</script><p>先不要看 $c$，即。</p>
+<script type="math/tex; mode=display">a^{i-1}+a^{i-2}+\cdots+a+1</script><p>相信大家都学过因式分解，对于这样的式子进行因式分解简直再容易不过了。如果最高次为奇数次，那么我们可以直接两两分组，就可以提出来，即：</p>
+<script type="math/tex; mode=display">a^{i-1}+a^{i-2}+\cdots+a+1</script><p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a^{i-1}+a^{i-2})+(a^{i-3}+a^{i-4})+\cdots+(a+1)$</p>
+<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=a^{i-2}\times(a+1)+a^{i-4}\times(a+1)+\cdots+(a+1)$</p>
+<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a+1)\times(a^{i-2}+a^{i-4}+\cdots+a^{2}+1)$</p>
+<p>这样我们就可以一直递归分治下去解决问题了，最后再乘上一个 $C$ 即可。</p>
+<p>至于最高次为偶次就直接单独提出来大力快速幂即可。</p>
+<p>还有一个细节，这道题的乘法常数过大，需要用“快速乘”。其实跟快速幂差不多。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+
+char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
+#ifndef ONLINE_JUDGE
+#define gc() getchar()
+#else
+#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
+#endif
+#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
+
+template &lt; typename Type &gt;
+void read(Type&amp; a) {
+    a = 0; bool f = 0; char ch;
+    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
+    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
+    a = (f ? -a : a);
+}
+
+template &lt; typename Type, typename... Args &gt;
+void read(Type&amp; t, Args&amp;... args) {
+    read(t), read(args...);
+}
+
+typedef long long LL;
+LL MOD, a, c, X0, n, g;
+
+LL fast_mul(LL x, LL y) {
+    LL res = 0;
+    for (; y; y &gt;&gt;= 1, x = (x + x) % MOD)
+        if (y &amp; 1) res = (res + x) % MOD;
+    return res % MOD;
+}
+
+LL fast_pow(LL x, LL y) {
+    LL res = 1;
+    for (; y; y &gt;&gt;= 1, x = fast_mul(x, x))
+        if (y &amp; 1) res = fast_mul(res, x);
+    return res % MOD;
+}
+
+LL get_sum(LL x, LL y) {
+    if (y == 0) return 1;
+    else if (y == 1) return (x + 1) % MOD;
+    else if (y &amp; 1) return fast_mul((fast_pow(x, (y &gt;&gt; 1) + 1) % MOD + 1) % MOD, get_sum(x, y &gt;&gt; 1) % MOD) % MOD;
+    else return fast_mul((fast_pow(x, y &gt;&gt; 1) + 1) % MOD, get_sum(x, (y &gt;&gt; 1) - 1) % MOD) % MOD + fast_pow(x, y) % MOD;
+}
+
+signed main() {
+    read(MOD, a, c, X0, n, g);
+    X0 %= MOD;
+    printf(&quot;%lld\n&quot;, (fast_mul(fast_pow(a, n) % MOD, X0) % MOD + fast_mul(get_sum(a, n - 1) % MOD, c % MOD) % MOD) % MOD % g);
+    return 0;
+}
+</code></pre>
+
                       
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/18/SOL-P3267/">
-                          <span style="color:#0bf;">
-                          18日20:02:53</span>
-                          「题解」洛谷P3267侦察守卫
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/17/NOTE-FAST-FOURIER-TRANSFORM/">
-                          <span style="color:#0bf;">
-                          17日09:27:53</span>
-                          「笔记」快速傅里叶变换
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/16/SOL-P2000/">
-                          <span style="color:#0bf;">
-                          16日09:46:20</span>
-                          「题解」洛谷P2000拯救世界
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-91-100-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:45</span>
-                          数据结构100题 91~100题
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-81-90-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:43</span>
-                          数据结构100题 81~90题
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-71-80-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:41</span>
-                          数据结构100题 71~80题
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-61-70-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:39</span>
-                          数据结构100题 61~70题
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-51-60-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:37</span>
-                          数据结构100题 51~60题
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-41-50-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:35</span>
-                          ?????100?? 41~50??
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-31-40-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:33</span>
-                          ?????100?? 31~40??
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-21-30-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:31</span>
-                          ?????100?? 21~30??
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-11-20-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:29</span>
-                          ?????100?? 11~20??
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-1-10-P/">
-                          <span style="color:#0bf;">
-                          08日14:03:27</span>
-                          ?????100?? 1~10??
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-ROUND-SQUARE-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:44:40</span>
-                          数据结构100题 ---圆方树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-GAME-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:41:27</span>
-                          数据结构100题 ---博弈树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-VIRTUAL-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:40:33</span>
-                          数据结构100题 ---虚树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-RING-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:39:43</span>
-                          数据结构100题 ---环套树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-LEFT-SIDE-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:39:04</span>
-                          数据结构100题 ---左偏树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-DOMINATION-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:38:18</span>
-                          数据结构100题 ---支配树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-BASE-RING-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:37:33</span>
-                          数据结构100题 ---基环树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/08/DS100P-CAT-TREE/">
-                          <span style="color:#0bf;">
-                          08日13:37:14</span>
-                          数据结构100题 ---猫树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-K-D-TREE/">
-                          <span style="color:#0bf;">
-                          07日20:03:42</span>
-                          数据结构100题 ---K-D Tree
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SQRT-TREE/">
-                          <span style="color:#0bf;">
-                          07日18:49:19</span>
-                          数据结构100题 ---Sqrt-Tree
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-BLOCK-ARRAY/">
-                          <span style="color:#0bf;">
-                          07日18:48:41</span>
-                          数据结构100题 ---块状数组
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-BLOCK-LIST/">
-                          <span style="color:#0bf;">
-                          07日18:48:26</span>
-                          数据结构100题 ---块状链表
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-TREE-FENKUAI/">
-                          <span style="color:#0bf;">
-                          07日18:43:01</span>
-                          数据结构100题 ---树上分块
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SUFFIX-AUTOMATON/">
-                          <span style="color:#0bf;">
-                          07日18:14:33</span>
-                          数据结构100题 ---后缀全家桶 之 后缀自动机
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SUFFIX-TREE/">
-                          <span style="color:#0bf;">
-                          07日18:14:14</span>
-                          数据结构100题 ---后缀全家桶 之 后缀树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---主席树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-CHTHOLLY-TREE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---Chtholly-Tree(Old-Driver Tree)
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-FENKUAI/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---分块
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-KMP-STRING/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---KMP
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-LINK-CUT-TREE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---Link-Cut Tree
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-MO-ALGORITHM/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---莫队
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SEGMENT-TREE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---线段树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SPLAY/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---splay
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-SUFFIX-ARRAY/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---后缀全家桶 之 后缀数组
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-TREE-COVER-TREE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---树套树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-TREE-CHAIN-SPLITTING/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---树链剖分
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/07/DS100P-TRIE/">
-                          <span style="color:#0bf;">
-                          07日14:51:04</span>
-                          数据结构100题 ---trie树
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/05/DS100P-FHQ-TREAP/">
-                          <span style="color:#0bf;">
-                          05日14:51:05</span>
-                          数据结构100题 ---fhq-treap
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/05/DS100P-BINARY-INDEXED-TREE/">
-                          <span style="color:#0bf;">
-                          05日14:51:04</span>
-                          数据结构100题 ---树状数组
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
-                          <span style="color:#0bf;">
-                          05日14:51:04</span>
-                          数据结构100题系列目录及前言
-                        </a>
-                      </li>
-                      
-                    </ul>
-                  </li>
-                </ul>
-              
-              
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
             </div>
           </div>
         </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
       </article>
-    </div>
-  </div>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/02/18/SOL-P3267/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                「题解」洛谷P3267侦察守卫</h3>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
 
     </div>    
     <div class="ins-search">
