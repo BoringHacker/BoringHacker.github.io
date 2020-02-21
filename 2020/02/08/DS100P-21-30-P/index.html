@@ -2488,7 +2488,160 @@ signed main() {
     return 0;
 }
 </code></pre>
-<h3 id="LYC-TCS"><a href="#LYC-TCS" class="headerlink" title="LYC:TCS"></a>LYC:TCS</h3>
+<h3 id="LYC-TCS"><a href="#LYC-TCS" class="headerlink" title="LYC:TCS"></a>LYC:TCS</h3><pre><code class="lang-cpp">// 无情的LYC咕掉了这篇题解，快去打他！！！
+</code></pre>
+<h1 id="30-P5350-序列"><a href="#30-P5350-序列" class="headerlink" title="30.P5350 序列"></a>30.P5350 序列</h1><p>有一个序列$a_n$和若干操作。</p>
+<ul>
+<li>$\mathrm{1\  l \  r \ }$ 求$a_l$到$a_r$的和 </li>
+<li>$\mathrm{2\  l \  r \ val \ }$ 将$a_l$到$a_r$赋值为$\mathrm{val}$ </li>
+<li>$\mathrm{3\  l \  r \ val\ }$将$a_l$到$a_r$加上$\mathrm{val}$ </li>
+<li>$\mathrm{4\  l_1 \  r_1 \  l_2 \  r_2 }$将$a_{l_1}$到$a_{r_1}$复制到$a_{l_2}$到$a_{r_2}$处 </li>
+<li>$\mathrm{5\  l_1 \  r_1 \  l_2 \  r_2 }$将$a_{l_1}$到$a_{r_1}$与$a_{l_2}$到$a_{r_2}$交换 </li>
+<li>$\mathrm{6\  l \  r \ }$将$a_l$到$a_r$翻转 </li>
+</ul>
+<hr>
+<p>这道题有了区间推平基本就没什么悬念了。ODT，上！（雾</p>
+<p>具体讲一下吧</p>
+<p>求和操作、区间赋值操作、区间加法没什么技术含量，数据结构100题里有ODT，请自行翻阅。</p>
+<p>区间反转也很显然，不再赘述。</p>
+<p>复制区间操作，我们直接split出l1,r1,l2,l2，然后把复制看作删除l2,r2，把l1,r1放在上面。即l1,r1,val —&gt; l2-l1+l,l2-l1+r,val。</p>
+<p>交换区间操作，本质就是复制区间操作做两次。</p>
+<p>Code:</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+
+using namespace std;
+typedef long long LL;
+
+const int SIZE = 5e5 + 5;
+const int MOD = 1e9 + 7;
+
+char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
+#ifndef ONLINE_JUDGE
+#define gc() getchar()
+#else
+#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
+#endif
+#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
+
+template &lt; typename Type &gt;
+void read(Type&amp; a) {
+    a = 0; bool f = 0; char ch;
+    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
+    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
+    a = (f ? -a : a);
+}
+
+template &lt; typename Type, typename... Args &gt;
+void read(Type&amp; t, Args&amp;... args) {
+    read(t), read(args...);
+}
+
+struct CHTHOLLY {
+    int l, r;
+    mutable LL val;
+    friend bool operator &lt; (const CHTHOLLY&amp; x, const CHTHOLLY&amp; y) {
+        return x.l &lt; y.l;
+    }
+} a[SIZE], b[SIZE];
+int n, q;
+set &lt; CHTHOLLY &gt; st;
+#define IT set &lt; CHTHOLLY &gt;::iterator
+
+void split(int l, int r) {
+    IT it = --st.upper_bound({l, l, 0});
+    CHTHOLLY t = *it;
+    if ((*it).l != l) st.erase(it), st.insert({t.l, l - 1, t.val}), st.insert({l, t.r, t.val});
+    it = --st.upper_bound({r, r, 0});
+    t = *it;
+    if ((*it).r != r) st.erase(it), st.insert({t.l, r, t.val}), st.insert({r + 1, t.r, t.val});
+}
+
+void assign(int l, int r, int key) {
+    split(l, r);
+    st.erase(st.lower_bound({l, l, 0}), st.upper_bound({r, r, 0}));
+    st.insert({l, r, key});
+}
+
+int queryf(int l, int r) {
+    LL res = 0;
+    split(l, r);
+    IT it = st.lower_bound({l, l, 0});
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r; ++it) res = (res + (*it).val * ((*it).r - (*it).l + 1)) % MOD;
+    return res;
+}
+
+void update(int l, int r, int key) {
+    split(l, r);
+    IT it = st.lower_bound({l, l, 0});
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r; ++it) (*it).val = ((*it).val + key) % MOD;
+}
+
+void copy(int l1, int r1, int l2, int r2) {
+    split(l1, r1);
+    split(l2, r2);
+    st.erase(st.lower_bound({l2, l2, 0}), st.upper_bound({r2, r2, 0}));
+    IT it = st.lower_bound({l1, l1, 0});
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r1; ++it) st.insert({l2 + (*it).l - l1, l2 + (*it).r - l1, (*it).val});
+}
+
+void exchange(int l1, int r1, int l2, int r2) {
+    split(l1, r1);
+    split(l2, r2);
+    IT it = st.lower_bound({l1, l1, 0});
+    int lenx = 0, leny = 0;
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r1; ++it) a[++lenx] = *it;
+    it = st.lower_bound({l2, l2, 0});
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r2; ++it) b[++leny] = *it;
+    st.erase(st.lower_bound({l1, l1, 0}), st.upper_bound({r1, r1, 0}));
+    st.erase(st.lower_bound({l2, l2, 0}), st.upper_bound({r2, r2, 0}));
+    for (int i = 1; i &lt;= lenx; ++i) st.insert({l2 - l1 + a[i].l, l2 - l1 + a[i].r, a[i].val});
+    for (int i = 1; i &lt;= leny; ++i) st.insert({l1 - l2 + b[i].l, l1 - l2 + b[i].r, b[i].val});
+}
+
+void reverse(int l, int r) {
+    split(l, r);
+    IT it = st.lower_bound({l, l, 0});
+    int lim = 0;
+    for (; it != st.end() &amp;&amp; (*it).r &lt;= r; ++it) a[++lim] = *it;
+    st.erase(st.lower_bound({l, l, 0}), st.upper_bound({r, r, 0}));
+    for (int i = lim; i; --i) st.insert({l + r - a[i].r, l + r - a[i].l, a[i].val});
+}
+
+void Imomonalse() {
+    int opt, l, r, l0, r0, key;
+    read(opt, l, r);
+    if (opt == 1) printf(&quot;%d\n&quot;, queryf(l, r));
+    else if (opt == 2) read(key), assign(l, r, key);
+    else if (opt == 3) read(key), update(l, r, key);
+    else if (opt == 4) read(l0, r0), copy(l, r, l0, r0);
+    else if (opt == 5) read(l0, r0), exchange(l, r, l0, r0);
+    else if (opt == 6) reverse(l, r);
+}
+
+void init() {
+    read(n, q);
+    for (int i = 1, x; i &lt;= n; ++i) read(x), st.insert({i, i, x});
+    for (int i = 0; i &lt; q; ++i) Imomonalse();
+}
+
+void write() {
+    IT it = st.begin();
+    for (; it != st.end(); ++it)
+        for (int i = (*it).l; i &lt;= (*it).r; ++i)
+            printf(&quot;%lld &quot;, (*it).val);
+}
+
+signed main() {
+    init();
+    write();
+}
+</code></pre>
+
           
             <hr>
             <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
