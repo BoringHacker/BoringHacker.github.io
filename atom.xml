@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="www.orchid-any.cf/"/>
-  <updated>2020-02-21T14:28:56.215Z</updated>
+  <updated>2020-03-05T10:52:12.393Z</updated>
   <id>www.orchid-any.cf/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>「题解」洛谷P1852跳跳棋</title>
+    <link href="www.orchid-any.cf/2020/03/05/SOL-P1852/"/>
+    <id>www.orchid-any.cf/2020/03/05/SOL-P1852/</id>
+    <published>2020-03-05T10:45:54.000Z</published>
+    <updated>2020-03-05T10:52:12.393Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;题意简述&quot;&gt;&lt;a href=&quot;#题意简述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="二分" scheme="www.orchid-any.cf/tags/%E4%BA%8C%E5%88%86/"/>
+    
+      <category term="LCA" scheme="www.orchid-any.cf/tags/LCA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「杂项」聊斋志日常</title>
+    <link href="www.orchid-any.cf/2020/02/27/OTHE-DIARY/"/>
+    <id>www.orchid-any.cf/2020/02/27/OTHE-DIARY/</id>
+    <published>2020-02-27T08:59:38.000Z</published>
+    <updated>2020-03-07T00:46:03.529Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;无聊搞出来的？&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;可能是用来记录自己的成天被虐的心路历程吧&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Others" scheme="www.orchid-any.cf/categories/Others/"/>
+    
+    
+      <category term="日常" scheme="www.orchid-any.cf/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
   
   <entry>
     <title>「题解」洛谷P2044随机数生成器</title>
@@ -243,9 +299,17 @@
     <link href="www.orchid-any.cf/2020/02/08/DS100P-31-40-P/"/>
     <id>www.orchid-any.cf/2020/02/08/DS100P-31-40-P/</id>
     <published>2020-02-08T06:03:33.000Z</published>
-    <updated>2020-02-18T10:11:51.013Z</updated>
+    <updated>2020-02-29T09:41:36.368Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;31-P2163-SHOI2007-园丁的烦恼&quot;&gt;&lt;a href=&quot;#31-P2163-SHOI2007-园丁的烦恼&quot; class=&quot;headerlink&quot; title=&quot;31.P2163 [SHOI2007]园丁的烦恼]&quot;&gt;&lt;/a&gt;31.P2163
+        
+      
     
     </summary>
     
@@ -394,42 +458,6 @@
     <id>www.orchid-any.cf/2020/02/08/DS100P-RING-TREE/</id>
     <published>2020-02-08T05:39:43.000Z</published>
     <updated>2020-02-20T02:48:47.129Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---左偏树</title>
-    <link href="www.orchid-any.cf/2020/02/08/DS100P-LEFT-SIDE-TREE/"/>
-    <id>www.orchid-any.cf/2020/02/08/DS100P-LEFT-SIDE-TREE/</id>
-    <published>2020-02-08T05:39:04.000Z</published>
-    <updated>2020-02-20T02:48:47.126Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
-    
-    
-      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构100题 ---支配树</title>
-    <link href="www.orchid-any.cf/2020/02/08/DS100P-DOMINATION-TREE/"/>
-    <id>www.orchid-any.cf/2020/02/08/DS100P-DOMINATION-TREE/</id>
-    <published>2020-02-08T05:38:18.000Z</published>
-    <updated>2020-02-20T02:48:47.111Z</updated>
     
     <summary type="html">
     
