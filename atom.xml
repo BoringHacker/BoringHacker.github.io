@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="www.orchid-any.cf/"/>
-  <updated>2020-04-09T23:28:20.737Z</updated>
+  <updated>2020-04-12T05:58:44.348Z</updated>
   <id>www.orchid-any.cf/</id>
   
   <author>
@@ -17,33 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="www.orchid-any.cf/2020/04/10/hello-world/"/>
-    <id>www.orchid-any.cf/2020/04/10/hello-world/</id>
-    <published>2020-04-09T23:28:20.737Z</published>
-    <updated>2020-04-09T23:28:20.737Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>「杂项」关于这个网站</title>
     <link href="www.orchid-any.cf/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/"/>
     <id>www.orchid-any.cf/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/</id>
     <published>2020-03-28T06:16:51.000Z</published>
-    <updated>2020-04-02T01:49:51.068Z</updated>
+    <updated>2020-04-12T05:58:44.348Z</updated>
     
     <summary type="html">
     
@@ -51,7 +29,7 @@
       
         
         
-          &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;298&quot; height=&quot;52&quot;
+          &lt;center&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;298&quot; height=&quot;52&quot;
         
       
     
@@ -84,9 +62,9 @@
       <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
     
     
-      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
-    
       <category term="NTT" scheme="www.orchid-any.cf/tags/NTT/"/>
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
@@ -492,6 +470,32 @@
         
         
           &lt;h1 id=&quot;21-P4172-WC2006-水管局长&quot;&gt;&lt;a href=&quot;#21-P4172-WC2006-水管局长&quot; class=&quot;headerlink&quot; title=&quot;21.P4172 [WC2006]水管局长&quot;&gt;&lt;/a&gt;21.P4172
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 11~20题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-11-20-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-11-20-P/</id>
+    <published>2020-02-08T06:03:29.000Z</published>
+    <updated>2020-02-18T10:10:34.914Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;11-P3203-HNOI2010-弹飞绵羊&quot;&gt;&lt;a href=&quot;#11-P3203-HNOI2010-弹飞绵羊&quot; class=&quot;headerlink&quot; title=&quot;11.P3203 [HNOI2010]弹飞绵羊&quot;&gt;&lt;/a&gt;11.P3203
         
       
     

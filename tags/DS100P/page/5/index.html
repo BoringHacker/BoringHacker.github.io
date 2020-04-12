@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构100题 ---分块 | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">Tag: DS100P | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
   
@@ -427,292 +427,69 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
-<div class="pattern-center-blank"></div>
-<script>
-var spoiler=document.getElementsByClassName('spoiler');
-for(var i=0;i<spoiler.length;++i)
-spoiler[i].onclick=function(){this.classList.toggle("revealed");};
-</script>
-
-  <div class="pattern-center-sakura single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-13.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-13.png">
-    </div>
-    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
-
-      <h1 class="entry-title">
-      数据结构100题 ---分块</h1>
-      <p class="entry-census">
-        <span>
-          <a href="/">
-            <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png">
-          </a>
-        </span>
-        <span>
-          <a href="/">BoringHacker</a>
-        </span>
-        <span class="bull">
-        ·</span>
-        2020-2-7<span class="bull">
-        ·</span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
-        
-          <div>
-            <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
-              <li class="spfk-li"><a href="/tags/DS100P/" class="butterfly-tags">DS100P</a></li>
-            </ul>
-          </div>
-          <script>
-              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
-              function paintTags(){
-                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
-                  for(var i = 0 ; i < tags.length ; ++i){
-                      if(!tagColors.length)colorInit(tagColors,colorNumber);
-                      var j=Math.floor(Math.random()*tagColors.length);
-                      tags[i].classList.add("spfk-color"+tagColors[j]);
-                      tagColors.splice(j,1);
-                  }
-              }
-              paintTags()
-          </script>
-        
-    </header>
+<div class="pattern-center-blank"></div>
+<div class="pattern-center-sakura">
+  <div class="pattern-attachment-img">
+    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/tags/tag-1.png" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
   </div>
-
+  <header class="pattern-header ">
+    <h1 class="cat-title">DS100P</h1>
+  </header>
+</div>
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-        <div class="toc"></div>
-        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-        <div class="entry-content">
-          <h1 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h1><p>($n\sqrt n$)</p>
-<p>分块其实也是一种暴力，<del>但它是一种巧妙的暴力</del></p>
-<p>它用来处理区间的问题。</p>
-<p>把这个区间大概分成$\sqrt n$块</p>
-<p>然后再处理：对于一个整块，就整个处理掉；对于一个角块（不完整的块），就暴力处理。</p>
-<p>比如区间求和。(非主流写法勿喷)</p>
-<h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1.初始化"></a>1.初始化</h3><p>对于每个元素，我们要处理出它是哪个块的，以便之后快速地找到它所在的块。</p>
-<p>对于每个块，我们要统计出之后计算答案所需这个块内的结果（这里就是块内区间和），在区间中的左右端点，以及区间修改的懒标记。</p>
-<p>代码：</p>
-<pre><code>struct cude
-{
-    int l,r,sum,lazy;//左右端点，区间和，懒标记
-}cud[400];
-int n,a[100010],bel[100010],each,cnt;//原数组大小及元素，每个元素的块编号，块大小，块数
-void build()
-{
-    each=sqrt(n);
-    for(int i=0;i&lt;n;++i)//注意，我是从0开始存的原数组
-    {
-        bel[i]=i/each;//预处理元素属于块
-        cud[bel[i]].sum+=a[i];//区间和
-    }
-    for(int i=0;i*each&lt;n;++i)
-    {
-            ++cnt;//统计块数
-        cud[i].l=i*each;//块左端点
-        cud[i].r=min((i+1)*each-1,n-1);//块右端点，不可能达到n，所以取min，最多到n-1
-    }
-}
-</code></pre><h3 id="2-修改"><a href="#2-修改" class="headerlink" title="2.修改"></a>2.修改</h3><p>修改是很暴力的，我们对这个区间进行扫描。</p>
-<p>整块就区间修改，懒标记。</p>
-<p>角块就直接暴力扫过去修改。</p>
-<p>最多$\sqrt n$个整块，打懒标记$O(1)$，复杂度为$O(\sqrt n)$</p>
-<p>最多$2$个角块，一个角块最多$\sqrt n$个元素，暴力修改$O(\sqrt n)$</p>
-<p>区间修改总时间复杂度$O(\sqrt n)$</p>
-<p>代码：</p>
-<pre><code>void update(int l,int r,int val)
-{
-    for(int i=bel[l];cud[i].l&lt;=r&amp;&amp;i&lt;cnt;++i)//注意不要超过块数，我的块是从0开始编号的
-    {
-        if(cud[i].l&gt;=l&amp;&amp;cud[i].r&lt;=r)//整块打懒标记
-        {
-            cud[i].lazy+=val;
-            cud[i].sum+=(cud[i].r-cud[i].l+1)*val;
-        }
-        else//角块暴力扫
-        {
-            if(cud[i].l&lt;l)//属于整个区间的最左边的角块，但还可能是最右边的角块，需要判断不要超出修改区间的右端点
-            {
-                for(int j=l;j&lt;=cud[i].r&amp;&amp;j&lt;=r;++j)
-                {
-                    a[j]+=val;
-                    cud[i].sum+=val;
-                }
-            }
-            else//不是最左边的，那肯定是最右边的。
-            {
-                for(int j=cud[i].l;j&lt;=r;++j)
-                {
-                    a[j]+=val;
-                    cud[i].sum+=val;
-                }
-            }
-        }
-    }
-}
-</code></pre><h3 id="3-查询"><a href="#3-查询" class="headerlink" title="3.查询"></a>3.查询</h3><p>查询也是很暴力的。</p>
-<p>同样对这个区间进行扫描。</p>
-<p>如果是整块，就直接加上这个块的区间和。</p>
-<p>如果是角块，就要先下传懒标记，再暴力查询。</p>
-<p>因为我们之前并没有修改元素值，只是加上了懒标记，修改了区间和。</p>
-<p>所以我们现在要先修改这些元素的值再查询，否则查询到的值是修改之前的。</p>
-<p>时间复杂度与修改相同，都是$O(\sqrt n)$；</p>
-<p>代码：</p>
-<pre><code>//细节同2.修改
-int find(int l,int r)
-{
-    int res=0;
-    for(int i=bel[l];cud[i].l&lt;=r&amp;&amp;i&lt;cnt;++i)
-
-        if(cud[i].l&gt;=l&amp;&amp;cud[i].r&lt;=r)    res+=cud[i].sum;
-        else
-        {
-            if(cud[i].lazy)//下传懒标记
-            {
-                for(int j=cud[i].l;j&lt;=cud[i].r;++j)    a[j]+=cud[i].lazy;
-                cud[i].lazy=0;
-            }
-            if(cud[i].l&lt;l)
-            {
-                for(int j=l;j&lt;=cud[i].r&amp;&amp;j&lt;=r;++j)    res+=a[j];
-            }
-            else
-            {
-                for(int j=cud[i].l;j&lt;=r;++j)    res+=a[j];
-            }
-        }
-    }
-    return res;
-}
-</code></pre><h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><p>你看着这个东西好像很暴力，但它就是跑得过题。</p>
-<p>它的总时间复杂度是$O(n\sqrt n)$的，$500000$及以上就别想啦。</p>
-<p>分块的题目很灵活，但一般都很暴力，有时区间修改不能打懒标记，就必须暴力修改，但有时你又可以跳过这个修改，进行“剪枝”。</p>
-<p>就像<a href="http://222.180.160.110:1024/problem/133" target="_blank" rel="noopener">花神游历各国</a>，区间开方必须要在块里去暴力开</p>
-<p>但我们想，$1$和$0$开方后都是本身，其它数开方就会变得越来越小，最后到$1$，所以我们可以维护一个块内是否全是$1$或$0$。</p>
-<p>如果是，就可以跳过在这个区间里进行开方了，因为这个块里的元素开方之后都还是本身，每个元素和区间和都没有变。</p>
-<p>其他的就是普通分块。</p>
-<p>$\ $</p>
-<p><del>在分块，你甚至可以打表</del></p>
-<p>在区间中选取$\sqrt n$个特征点，处理出它们间的信息。</p>
-<p>对每个查询，选取最近的两个特征点的信息再从这两个特征点暴力跳过去。</p>
-<p>这样就可以代替莫队啦。</p>
-<p>而且分块没有任何离线操作，可以应对看起来像要用莫队（离线算法，同样$O(n\sqrt n)$）才能解决，但又强制在线的题目。</p>
-<p>以及，<strong>整除分块不是数据结构，是数论！！！</strong></p>
-
-                      
-        </div>
-        <!-- .entry-content -->
-        <!-- <div class="single-reward">
-          <div class="reward-open">赏
-            <div class="reward-main">
-              <ul class="reward-row">
-                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
-                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-        <footer class="post-footer">
-          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-          <div class="post-tags">
-          </div>
-          <div class="post-share">
-            <div class="social-share sharehidden share-component"></div>
-            <i class="iconfont show-share icon-forward"></i>
-          </div>
-        </footer>. -->
-        <!-- entry-footer -->
-      </article>
-      <!-- #post-## -->
-      <div class="toc" style="background: none;"></div>
-      <section class="post-squares nextprev">
-        
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-15.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-15.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                数据结构100题 ---主席树</h3>
-              </div>
-            </a>
-          </div>
-        
-        
-          
-            <div class="post-nepre half next">
-          
-            <a href="/2020/02/07/DS100P-KMP-STRING/" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-12.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-12.png">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                数据结构100题 ---KMP</h3>
-              </div>
-            </a>
-          </div>
-        
-      </section>
       
-<div id="vcomments"></div>
-<script>
-  window.onload = function(){
-      var valine = new Valine();
-      valine.init({
-        el: '#vcomments',
-        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
-        appKey: "gU70zYoblzxCmc6iL697pp69",
-        path: window.location.pathname,
-        placeholder: "Come And Get Your Love~"
-      })
-  }
-</script>
-
-      <section class="author-profile">
-        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-          <a href="/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
-          <div class="meta">
-            <span class="title">Author</span>
-            <h3 itemprop="name">
-            <a href="/" itemprop="url" rel="author">BoringHacker</a>
-            </h3>
-          </div>
+  <!-- 首页默认取最最新文章集 -->
+  
+    <article class="post post-list" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
         </div>
-        <hr>
-        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
-      </section>
-    </main><!-- #main -->
-  </div><!-- #primary -->
+        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-1.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+    数据结构100题系列目录及前言</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-2-5</div>
+    <p>
+    </p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <br>
+</article>
+  
+
+
+      <div class="clearer">
+      </div>
+    </main>
+    <!-- 
+      <nav class="navigator">
+        
+        <a class="extend prev" rel="prev" href="/tags/DS100P/page/4/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/tags/DS100P/">1</a><span class="space">&hellip;</span><a class="page-number" href="/tags/DS100P/page/3/">3</a><a class="page-number" href="/tags/DS100P/page/4/">4</a><span class="page-number current">5</span>
+      </nav>
+     -->
+    
+  </div>
 </div>
-
-<script>
-  var spoiler=document.getElementsByClassName('spoiler');
-  for(var i=0;i<spoiler.length;++i)
-  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
-  </script>  
-
-
-  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
