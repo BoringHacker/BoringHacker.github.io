@@ -62,9 +62,9 @@
       <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
     
     
-      <category term="NTT" scheme="www.orchid-any.cf/tags/NTT/"/>
-    
       <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="NTT" scheme="www.orchid-any.cf/tags/NTT/"/>
     
   </entry>
   
@@ -90,9 +90,9 @@
       <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
     
     
-      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
-    
       <category term="FFT" scheme="www.orchid-any.cf/tags/FFT/"/>
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   

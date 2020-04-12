@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="fhq-treap($nlogn$) $fhq-treap$是一种二叉搜索树。满足二叉搜索树的性质：中序遍历是一个不降序列。也就是说，一个节点的左儿子小于等于它，右儿子大于等于它。 但它和$treap$一样，都满足堆的性质：任意父节点的键值大于(等于)或小于(等于)子节点的键值。 它可以做普通平衡树（基本操作），文艺平衡树（区间操作），还可以可持久化。 但常数略大。 定义： struct node">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---fhq-treap">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/05/DS100P-FHQ-TREAP/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="fhq-treap($nlogn$) $fhq-treap$是一种二叉搜索树。满足二叉搜索树的性质：中序遍历是一个不降序列。也就是说，一个节点的左儿子小于等于它，右儿子大于等于它。 但它和$treap$一样，都满足堆的性质：任意父节点的键值大于(等于)或小于(等于)子节点的键值。 它可以做普通平衡树（基本操作），文艺平衡树（区间操作），还可以可持久化。 但常数略大。 定义： struct node">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-3.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.113Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---fhq-treap">
+<meta name="twitter:description" content="fhq-treap($nlogn$) $fhq-treap$是一种二叉搜索树。满足二叉搜索树的性质：中序遍历是一个不降序列。也就是说，一个节点的左儿子小于等于它，右儿子大于等于它。 但它和$treap$一样，都满足堆的性质：任意父节点的键值大于(等于)或小于(等于)子节点的键值。 它可以做普通平衡树（基本操作），文艺平衡树（区间操作），还可以可持久化。 但常数略大。 定义： struct node">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-3.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/05/DS100P-FHQ-TREAP/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---fhq-treap | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/05/DS100P-FHQ-TREAP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---fhq-treap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-05T14:51:05+08:00">2020-02-05</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-3.png" rel="gallery_ck8wtuwv7001uxgvrxb85t9u8" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-3.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="fhq-treap"><a href="#fhq-treap" class="headerlink" title="fhq-treap"></a>fhq-treap</h1><p>($nlogn$)</p>
+<p>$fhq-treap$是一种二叉搜索树。满足二叉搜索树的性质：中序遍历是一个不降序列。也就是说，一个节点的左儿子小于等于它，右儿子大于等于它。</p>
+<p>但它和$treap$一样，都满足堆的性质：任意父节点的键值大于(等于)或小于(等于)子节点的键值。</p>
+<p>它可以做普通平衡树（基本操作），文艺平衡树（区间操作），还可以可持久化。</p>
+<p>但常数略大。</p>
+<p>定义：</p>
+<pre><code>struct node
+{
+    int l,r,num,key,cum;
+       //左儿子，右儿子，本节点的值，键值，子树大小
+}nodes[MAXN];
+</code></pre><h3 id="1-权值fhq-treap"><a href="#1-权值fhq-treap" class="headerlink" title="1.权值fhq-treap"></a>1.权值fhq-treap</h3><p>权值$fhq-treap$的意思是，它这时候既满足二叉搜索树的性质，又满足堆的性质。</p>
+<p>先讲讲辅助操作吧：</p>
+<p><strong>update</strong>:用来更新当前节点的子树大小。</p>
+<p>代码实现：</p>
+<pre><code>void update(int x)
+{
+    nodes[x].cum=nodes[nodes[x].l].cum+nodes[nodes[x].r].cum+1;
+}
+</code></pre><p>因为一个节点的子树大小等于它左右儿子的子树大小加上它本身嘛。</p>
+<p><strong>newnode</strong>:新建一个值为指定值的节点并返回它的编号。</p>
+<p>代码实现：</p>
+<pre><code>int newnode(int val)
+{
+    nodes[++tot].cum=1;
+        nodes[tot].num=val;
+        nodes[tot].key=rand();
+        return tot;
+}
+</code></pre><p>主要操作有两个：</p>
+<h4 id="1-gt-分裂split"><a href="#1-gt-分裂split" class="headerlink" title="1&gt;.分裂split"></a>1&gt;.分裂split</h4><p>这里的分裂按照权值分裂，即把原树按照权值$val$分成两棵树，一棵$X$中的权值全部小于等于$val$，另一棵y的权值全部大于$val$。而这两棵树都要满足两个性质。</p>
+<p>要实现这个操作，我们要从根节点开始遍历，把整棵树分成两半。</p>
+<p>我们进行分类讨论：现在遍历到的节点编号为$now$。</p>
+<p>1).当$now=0$时</p>
+<p>这时，now是一个空节点，没有办法分裂。</p>
+<p>2).当$nodes[now].num\leq val$时</p>
+<p>这个节点以及它的左子树的权值都小于等于$val$,那么他们全部都属于$X$。</p>
+<p>那么它的右子树可能是$X$的，也可能是$Y$的。</p>
+<p>所以我们需要继续分裂右子树，但由于右边的数要比$nodes[now].num$大，接下来分裂出的小于等于$val$的子树需要接在当前分出的$X$树的右子树上。</p>
+<p>3).否则</p>
+<p>这个时候这个节点和它的右子树的权值都大于$val$，那么他们全部属于$Y$。</p>
+<p>但它的左子树可能有一部分属于$X$。</p>
+<p>所以我们需要继续分裂左子树。道理同上。</p>
+<p>上面操作已经保证了分出的二叉树满足二叉树性质。而堆性质也得到了满足，因为从原树上往下分，分到节点的键值也是有序的。</p>
+<p>递归返回前还要记得$update$一下，更新分裂后的子树大小。</p>
+<p>是不是还是不懂？还是看代码和代码注释吧：</p>
+<pre><code>//x,y代表从now这个节点分裂出的两棵树的根节点，使用引用返回值。
+void split(int now,int val,int &amp;x,int &amp;y)
+{
+    if(!now)    x=y=0;//情况1).无法继续分裂，所以两棵树都是空。
+    else
+    {
+        if(nodes[now].num&lt;=val)//情况2).
+        {
+            x=now;//左子树和这个节点都属于X树，接到之前分裂到的地方。右子树在下面会受到修改，所以右子树并没有被直接包括。
+            split(nodes[now].r,val,nodes[x].r,y);//继续分裂右子树。接下来分裂出属于X树的根节点位置应该是nodes[x].r，y的位置没有变动。
+        }
+        else//情况3).
+        {
+            y=now;
+            split(nodes[now].l,val,x,nodes[y].l);//同上
+        }
+        update(now);
+        //由于无论进入哪个判断，作了改变的节点都等于now,所以可以直接更新now。
+    }
+}
+//调用：split(root,v,root1,root2)
+</code></pre><p>最后传回的值就相当于给$root1$,$root2$赋值。</p>
+<p>$root1$,$root2$就是分裂出的$X$树和$Y$树的根节点。</p>
+<h4 id="2-gt-合并merge"><a href="#2-gt-合并merge" class="headerlink" title="2&gt;.合并merge"></a>2&gt;.合并merge</h4><p>即把两颗像刚刚上面分裂出来的两颗树合并成一棵满足两个性质的树。</p>
+<p>我们又要分类讨论：现在需要合并的节点是$x$,$y$。（示例小根堆）</p>
+<p>1).$x=0$|$\ $|$y=0$</p>
+<p>只有一棵树，直接返回这棵树。</p>
+<p>2).$nodes[x].key&lt;nodes[y].key$</p>
+<p>$x$节点的键值更小，所以$x$应该在$y$的上面。</p>
+<p>$y$的值一定大于$x$,所以把$y$和$x$的右子树进行合并。</p>
+<p>3).否则</p>
+<p>$y$应该在$x$的上面。</p>
+<p>$x$的值一定小于$y$，所以把$y$的左儿子和$x$进行合并。</p>
+<p>代码：</p>
+<pre><code>int merge(int x,int y)
+{
+    if(!x||!y)    return x+y;
+    if(nodes[x].key&lt;nodes[y].key)
+    {
+        nodes[x].r=merge(nodes[x].r,y);
+        update(x);
+        return x;
+    }
+    else
+    {
+        nodes[y].l=merge(x,nodes[y].l);
+        update(y);
+        return y;
+    }
+}
+</code></pre><p>学会了这两个操作之后，就可以实现普通平衡树的所有操作了。</p>
+<h4 id="3-插入"><a href="#3-插入" class="headerlink" title="3.插入"></a>3.插入</h4><p>插入的代码只有两行，非常简单。</p>
+<p>只需要把原数按要插入的值$val$大小分裂，一边$x$小于等于$val$，另一边$y$大于$val$。</p>
+<p>再把$x$与这个值节点合并（得到$z$），最后与$y$合并。</p>
+<p>因为$x$的节点全部小于等于$val$,$z$的节点全部小于$y$。满足我们之前合并两棵树的条件。</p>
+<p>代码：</p>
+<pre><code>void ins(int val)
+{
+    split(root,val,root1,root2);
+       root=merge(merge(root1,newnode(val)),root2);
+}
+</code></pre><h4 id="4-删除"><a href="#4-删除" class="headerlink" title="4.删除"></a>4.删除</h4><p>先把要删除的值$val$从原树中分裂出来，删掉一个再合并回去。</p>
+<p>怎么在很多的$val$中删掉一个呢。</p>
+<p>我们把$val$子树根节点的左右节点合并起来，就相当于抛弃了这个根节点。</p>
+<p>这样保证了如果有这个值，一定会被删掉，因为如果有，那么根节点肯定有。</p>
+<p>代码：</p>
+<pre><code>void del(int val)
+{
+    split(root,val,root1,root2);
+    split(root1,val-1,root1,root3);
+    root3=merge(nodes[root3].l,nodes[root3].r);
+    root=merge(merge(root1,root3),root2);
+}
+</code></pre><h4 id="5-前驱-后继"><a href="#5-前驱-后继" class="headerlink" title="5.前驱/后继"></a>5.前驱/后继</h4><p>我们把小于/大于查询值$val$的子树分裂出来，由于分裂出的子树依然满足二叉树性质，所以我们可以直接查询这个子树中的最大值/最小值，查询出的值就是答案。最后记得合并回去。</p>
+<p>代码：</p>
+<pre><code>int pre(int val)
+{
+    split(root,val-1,root1,root2);
+    int now=root1,res=-INF;
+    if(now)
+    {
+        while(nodes[now].r)    now=nodes[now].r;
+        res=nodes[now].num;
+    }
+    root=merge(root1,root2);
+    return res;
+}
+int nxt(int val)
+{
+    split(root,val,root1,root2);
+    int now=root2,res=INF;
+    if(now)
+    {
+        while(nodes[now].l)    now=nodes[now].l;
+        res=nodes[now].num;
+    }
+    root=merge(root1,root2);
+    return res;
+}
+</code></pre><h4 id="6-第k小"><a href="#6-第k小" class="headerlink" title="6.第k小"></a>6.第k小</h4><p>对于这个问题，$fhq-treap$没有特殊的解决方法。所以和$treap$一样。</p>
+<p>由于二叉搜索树中序遍历为不降序列，我们分情况讨论：</p>
+<p>1&gt;.左子树大小$+1$等于$k$。</p>
+<p>说明当前节点就是第$k$小。</p>
+<p>2&gt;.左子树大小小于等于$k$</p>
+<p>说明第$k$大在左边，那么向左边继续寻找第k小。</p>
+<p>3&gt;.否则</p>
+<p>第$k$小在右边，但左边和当前结点都比第$k$小。所以第k小是在右边的第$k-nodes[nodes[x].l].sum-1$小。</p>
+<p>代码：</p>
+<pre><code>int top(int val)
+{
+    int x=root;
+    while(x)
+    {
+        if(nodes[nodes[x].l].sum+1==val)    break;
+        if(nodes[nodes[x].l].sum&gt;=val)    x=nodes[x].l;
+        else
+        {
+            val-=(1+nodes[nodes[x].l].sum);
+            x=nodes[x].r;
+        }
+    }
+    return nodes[x].num;
+}
+</code></pre><h4 id="7-排名"><a href="#7-排名" class="headerlink" title="7.排名"></a>7.排名</h4><p>排名的定义是比一个数小的数的个数加$1$。</p>
+<p>通过定义就能得出做法：</p>
+<p>把比查询值小的子树分离出来，这棵子树的大小就是比这个数小的数的个数。再加$1$就能得到答案了。</p>
+<p>代码：</p>
+<pre><code>int rank(int val)
+{
+    split(root,val-1,root1,root2);
+    int res=nodes[root1].sum+1;
+    root=merge(root1,root2);
+    return res;
+}
+</code></pre><h3 id="2-区间fhq-treap"><a href="#2-区间fhq-treap" class="headerlink" title="2.区间fhq-treap"></a>2.区间fhq-treap</h3><p>区间$fhq-treap$维护了一个区间，中序遍历整个$fhq-treap$就可以得到这个序列。当然，这时候它肯定就不能满足二叉搜索树的性质了。但它还可以满足堆的性质。</p>
+<p>为了维护区间，我们的$split$操作需要更改：</p>
+<p>每次分裂一个区间出来：把这个序列的前$siz$项分出来为一个子树$X$,剩余另一个子树$Y$。</p>
+<p>又分类讨论：</p>
+<p>1&gt;.$nodes[nodes[x].l].sum&lt;k$</p>
+<p>这说明当前结点的左子树和自身都属于 $X$，我们再把右子树的前$k-nodes[nodes[x].l].sum-1$项分给$X$就好了。</p>
+<p>2&gt;.否则</p>
+<p>前$k$项在当前结点的左子树中，那么当前节点和它的右子树属于$Y$。</p>
+<p>代码：</p>
+<pre><code>  void split(int now,int siz,int &amp;x,int &amp;y)
+{
+    if(!now)    x=y=0;
+    else
+    {
+        if(nodes[nodes[now].l].sum&lt;k)
+        {
+            x=now;
+            split(nodes[now].r,siz-nodes[nodes[now].l].sum-1,nodes[x].r,y);
+        }
+        else
+        {
+            y=now;
+            split(nodes[now].l,siz,x,nodes[y].l);
+        }
+        update(now);
+    }
+}
+</code></pre><p>但$merge$操作不需要太大变动，只需要加上懒标记下传就行了（如果有的话）</p>
+<p>其实区间操作的分裂除了标记下传之外与权值版没有什么差别，只是这里分裂的权值是第k小。</p>
+<p>标记下传是个大坑，有标记时，每当你要对一个节点的子节点进行操作（无论是修改还是查询）时，要先下传标记，否则之后能会传错位置，因为你可能更改了它的子节点。</p>
+<h4 id="1-区间和"><a href="#1-区间和" class="headerlink" title="1.区间和"></a>1.区间和</h4><p>我们在每个节点中再加上一个变量记录它和它子树的和。</p>
+<p>那么每次子树大小更新时，子树和也要更新。</p>
+<p>就在$update$里加一句话更新子树和就好。</p>
+<p>查询区间和时就把这个区间分裂出来，直接查询这个区间根节点的子树和就行了。</p>
+<h4 id="2-区间翻转"><a href="#2-区间翻转" class="headerlink" title="2.区间翻转"></a>2.区间翻转</h4><p>区间操作基本靠懒标记来完成。这些标记都会继续下传给子节点。</p>
+<p>翻转就用一个$bool$懒标记就好了。</p>
+<p>首先说明区间翻转的原理：</p>
+<p>先把这个区间分裂出来。</p>
+<p>要使区间翻转，就相当于要把这个区间倒着遍历。</p>
+<p>左中右$-&gt;$右中左</p>
+<p>即我们要对于每个节点遍历时先遍历右边，再遍历本节点，最后遍历左边。</p>
+<p>那我们把每个节点的左右儿子交换就行了。</p>
+<p>所以我们直接把这个区间剖出来，把它的根节点打上标记，再合并回去就好了。</p>
+<h4 id="3-区间加法"><a href="#3-区间加法" class="headerlink" title="3.区间加法"></a>3.区间加法</h4><p>区间加法就像线段树一样的懒标记就好了。</p>
+<p>其实与区间翻转的实现方式类似，我就不讲了。</p>
+<h4 id="4-如何剖出区间-l-r"><a href="#4-如何剖出区间-l-r" class="headerlink" title="4.如何剖出区间[l,r]"></a>4.如何剖出区间[l,r]</h4><p>我们把序列$[1,n]$分成3段$[1,l-1]$,$[l,r]$,$[r+1,n]$</p>
+<p>第一段的长度是$l-1$,第二段的长度是$r-l+1$</p>
+<p>我们就挨个把它们$split$出来就好了。</p>
+<p>代码:</p>
+<pre><code>split(root,l-1,root1,root2);
+split(root2,r-l+1,root2,root3);
+</code></pre><p>$root2$即为$[l,r]$区间的根结点。</p>
+<p>$\ $</p>
+<p>由此判断，平衡树比线段树还要万能，但常数巨大。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/05/DS100P-BINARY-INDEXED-TREE/" rel="next" title="数据结构100题 ---树状数组">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---树状数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-TRIE/" rel="prev" title="数据结构100题 ---trie树">
+                数据结构100题 ---trie树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fhq-treap"><span class="nav-number">1.</span> <span class="nav-text">fhq-treap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-权值fhq-treap"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.权值fhq-treap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-gt-分裂split"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1&gt;.分裂split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-gt-合并merge"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2&gt;.合并merge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-插入"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3.插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-删除"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">4.删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-前驱-后继"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">5.前驱/后继</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-第k小"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">6.第k小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-排名"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">7.排名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-区间fhq-treap"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.区间fhq-treap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-区间和"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1.区间和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-区间翻转"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2.区间翻转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-区间加法"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3.区间加法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-如何剖出区间-l-r"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.如何剖出区间[l,r]</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

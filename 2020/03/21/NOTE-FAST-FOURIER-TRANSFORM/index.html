@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="FFT,数学,">
+
+
+<meta name="description" content="0x00 前言这篇主要是针对有基础的同学的，基础知识相信大家都学过。 这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。 然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给myh各位看，顺便复习一下。 说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。 在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂…… 后来，周x健讲了">
+<meta name="keywords" content="FFT,数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「笔记」快速傅里叶变换">
+<meta property="og:url" content="www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="0x00 前言这篇主要是针对有基础的同学的，基础知识相信大家都学过。 这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。 然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给myh各位看，顺便复习一下。 说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。 在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂…… 后来，周x健讲了">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png">
+<meta property="og:updated_time" content="2020-03-25T23:59:08.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「笔记」快速傅里叶变换">
+<meta name="twitter:description" content="0x00 前言这篇主要是针对有基础的同学的，基础知识相信大家都学过。 这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。 然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给myh各位看，顺便复习一下。 说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。 在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂…… 后来，周x健讲了">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>「笔记」快速傅里叶变换 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">「笔记」快速傅里叶变换</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-21T17:37:58+08:00">2020-03-21</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png" rel="gallery_ck8wtuwwo003jxgvrcn147192" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>这篇主要是针对有基础的同学的，基础知识相信大家都学过。</p>
+<p>这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。</p>
+<p>然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给<del>myh</del>各位看，顺便复习一下。</p>
+<p>说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。</p>
+<p>在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂……</p>
+<p>后来，周x健讲了一次函数，我又在物竞那嫖了些三角函数。</p>
+<p>然后整个人心态都变了，几个小时下来感觉FFT也就那样。（甚至不如NTT有用</p>
+<p>所以大家不要畏难，在座各位的数学都果断吊打WGY对吧。</p>
+<p>李琰之前也在OJ发过FFT的note，但是递归转循环基本就是放了个代码，还留下了不少坑。</p>
+<p>我这里也填了不少李琰的坑，但是一些基础的单位根性质的证明之类的东西我这里就懒得给了，自己考李琰的古吧。</p>
+<p>因为时间原因一些可以从几何意义上来理解的东西我没给图，大家可以自己手%一下。</p>
+<p>(好罢主要是给myh看的手动@ybmyh)</p>
+<h1 id="0x01-点值表示法"><a href="#0x01-点值表示法" class="headerlink" title="0x01 点值表示法"></a>0x01 点值表示法</h1><p>众所周知，一个</p>
+<script type="math/tex; mode=display">
+F(x)=\sum_{i=0}^{n}a_{i}\times x^{i}</script><p>形式的 $n$ 次多项式可以在平面直角坐标系中被 $n+1$ 个点唯一的表示出来。</p>
+<p>点值表示的两个多项式可以在线性时间复杂度中解决相乘，就是对应的 $y$ 乘起来。</p>
+<p>但是暴力的把系数表示法转化为点值表示法依然是 $\Theta(n^{2})$ 的。怎么办呢？</p>
+<h1 id="0x02-复数和单位根"><a href="#0x02-复数和单位根" class="headerlink" title="0x02 复数和单位根"></a>0x02 复数和单位根</h1><p>说过不讲，我就放在这里方便我翻。</p>
+<blockquote>
+<p>$(a+bi)+(c+di)=(a+c)+(b+d)i$</p>
+<p>$(a+bi)-(c+di)=(a-c)+(b-d)i$</p>
+<p>$(a+bi)\times(c+di)=ac+adi+bci-bd=(ac-bd)+(ad+bc)i$</p>
+</blockquote>
+<p>除法可以不用，其实也不用讲，自然而然的东西。</p>
+<p>方程 $x^{n}=1$ 的根，称作单位根用 $\omega_{n}^{k}$ 表示。</p>
+<p>$k$ 表示第 $k$ 个 $n$ 次单位根，从0开始标号，$\omega^{0}_{n},\omega^{1}_{n},\cdots,\omega^{n-1}_{n},$。其中 $\omega^{0}_{n}=1$。</p>
+<p>虽然这样说，但是 $k\geq n$ 以及 $k &lt; 0$ 的情况是被允许的。</p>
+<p>原因看到后面就知道了。</p>
+<p>从几何意义上来理解单位根即复数的坐标系单位圆的 $n$ 等分点。</p>
+<p>复数相乘的性质：模长相乘，辐角相加。</p>
+<p>模长指一个复数到原点的距离，$t=a+bi$ 的模长记作 $|t|$</p>
+<p>辐角指原点到点的连线与 $x$ 轴的正方向的夹角，记作 $\arg(a+bi)$</p>
+<p>接下来列举需要用到的公式。</p>
+<script type="math/tex; mode=display">
+\begin{align*}\label{2}
+  & \omega^{k}_{n}=e^{\frac{2k\pi}{n}i}=\cos\frac{2k\pi}{n}i+i\sin\frac{2k\pi}{n} \tag{2.1} \\
+  & \omega^{0}_{n}=1 \tag{2.2} \\
+  & \omega^{k}_{n}=\omega^{k\operatorname{mod} n} \tag{2.3} \\
+  & \omega^{k}_{n}\times\omega^{j}_{n}=\omega^{k+j}_{n} \tag{2.4} \\
+  & (\omega^{1}_{n})^{k}=\omega^{k}_{n} \tag{2.5} \\
+  & \omega^{pk}_{pn}=\omega^{k}_{n} \tag{2.6} \\
+  & \omega^{k+\frac{n}{2}}_{n}=-\omega^{k}_{n} \tag{2.7} \\
+\end{align*}</script><p><del>靠这段在vsc上显示不出来我自毙</del></p>
+<h1 id="0x03-继续研究多项式"><a href="#0x03-继续研究多项式" class="headerlink" title="0x03 继续研究多项式"></a>0x03 继续研究多项式</h1><p>我们设一个多项式</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}</script><p>保证 $n=2^{p}+1$</p>
+<p>我们按 $i$ 的奇偶性把 $F$ 分为两个部分</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}</script><p>继续定义</p>
+<script type="math/tex; mode=display">L(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{i}</script><script type="math/tex; mode=display">R(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{i}</script><p>也就是说</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times (x^{2})^{i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times (x^{2})^{i}\times x=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=L(x^{2})+xR(x^{2})</script><p>我们可以代入一个数进去。一般我们肯定想着代个看起来可爱的数字。</p>
+<p>看看，这就是我等凡人与傅里叶这等神仙的区别。人家代入的是什么？没错，单位根！（不然我TM前面罗列一大堆单位根的性质干嘛）</p>
+<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{n})+\omega^{k}_{n}R(\omega^{2k}_{n})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{2\times \frac{1}{2}n})+\omega^{k}_{n}R(\omega^{2k}_{2\times \frac{1}{2}n})</script><p>由公式 (2.6)</p>
+<script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{k}_{\frac{1}{2}n})+\omega^{k}_{n}R(\omega^{k}_{\frac{1}{2}n}) \tag{3.1}</script><p>回到</p>
+<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><p>此时我们代入 $\omega^{k+\frac{n}{2}}_{n}$</p>
+<p>同理可得</p>
+<script type="math/tex; mode=display">F(\omega^{k+\frac{n}{2}}_{n})=L(\omega^{k}_{\frac{n}{2}})-R(\omega^{k}_{\frac{n}{2}}) \tag{3.2}</script><p>可以发现 (3.1) 和 (3.2) 只差了符号，也就是说只要知道了 $L(\omega^{k}_{\frac{n}{2}})$ 和 $R(\omega^{k}_{\frac{n}{2}})$ 我们就可以同时得到 $F(\omega^{k}_{n})$ 和 $F(\omega^{k+\frac{n}{2}}_{n})$。然后就递归求解。</p>
+<p>这样我们就可以在 $\Theta(n\log_{2}n)$ 求取多项式的点值表示了。</p>
+<p>算法名叫DFT。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n;
+
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} F[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+
+void dft(Complex *f, int __n) {
+    if (__n == 1) return ;
+    Complex *L = f;
+    Complex *R = f + (__n &gt;&gt; 1);
+    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
+    dft(L, (__n &gt;&gt; 1));
+    dft(R, (__n &gt;&gt; 1));
+    Complex omega;
+    Complex now;
+    omega.to_real(cos(2 * PI / __n));
+    omega.to_imag(sin(2 * PI / __n));
+    now.to_real(1);
+    now.to_imag(0);
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
+        t[k] = L[k] + now * R[k];
+        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
+        now = now * omega;
+    }
+    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    int temp = n;
+    double x;
+    for (n = 1; n &lt; temp; n &lt;&lt;= 1) ;
+    for (int i = 0; i &lt; temp; ++i) scanf(&quot;%lf&quot;, &amp;x), F[i].to_real(x), F[i].to_imag(0);
+    dft(F, n);
+    for (int i = 0; i &lt; n; ++i) printf(&quot;(%.2lf %.2lf)\n&quot;, F[i].to_real(), F[i].to_imag());
+    return 0;
+}
+</code></pre>
+<p><del>subarashi</del></p>
+<p>但是我们现在求到的只是一堆没用的点值，还需要求到的点值表示还原成系数表示。</p>
+<p>结论是把代入的 $\omega^{k}_{n}$ 换成 $\omega^{-k}_{n}$ 然后除以 $n$。</p>
+<p>即DFT的逆运算IDFT。</p>
+<p>IDFT的证明比较繁琐，涉及到分类讨论。由于我最近被数学作业的多答案讨论和智障珠的60种情况毒瘤了，故懒得给出证明。<del>反正我相信看我blog的人人均会单位根反演</del></p>
+<p>我们记 $\mathcal{F}(F(x))$ 是 $F(x)$ 的离散傅里叶变换/傅里叶变换，$\mathcal{F’}(F(x))$ 是 $F(x)$ 的逆离散傅里叶变换/傅里叶变换。</p>
+<p>用看起来很高大上很nb的数学语言表示就是</p>
+<p>记</p>
+<script type="math/tex; mode=display">G=\mathcal{F}(F(x))</script><p>则</p>
+<script type="math/tex; mode=display">
+n\times f_{k}=\sum_{i=0}^{n-1}\omega^{-ki}_{n}g_{i}</script><p>其中 $f_{i}$、$g_{i}$ 分别为 $F$、$G$ 的第 $i$ 项系数。</p>
+<p>我们只需要改一下代码就好了。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n, m;
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+
+void dft(Complex *f, int __n, int flag) {
+    if (__n == 1) return ;
+    Complex *L = f;
+    Complex *R = f + (__n &gt;&gt; 1);
+    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
+    dft(L, (__n &gt;&gt; 1), flag);
+    dft(R, (__n &gt;&gt; 1), flag);
+    Complex omega;
+    Complex now;
+    omega.to_real(cos(2 * PI / __n));
+    omega.to_imag(sin(2 * PI / __n) * flag);
+    now.to_real(1);
+    now.to_imag(0);
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
+        t[k] = L[k] + now * R[k];
+        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
+        now = now * omega;
+    }
+    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    double x;
+    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
+    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
+    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
+    dft(A, n, 1);
+    dft(B, n, 1);
+    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
+    dft(A, n, -1);
+    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
+    return 0;
+}
+</code></pre>
+<p>递归版常数过大，我们想想能不能把递归转为循环（迭代）。</p>
+<p>这里给一个结论，给出一个序列。比如 $\texttt{0 1 2 3 4 5 6 7}$。</p>
+<p>对其进行DFT后：$\texttt{0 4 2 6 1 5 3 7}$。多试几组可以发现DFT后每个位置数是原序列对应位置上的数的二进制反转后的结果。</p>
+<script type="math/tex; mode=display">\texttt{0 1 2 3 4 5 6 7}</script><script type="math/tex; mode=display">\texttt{(000) (001) (010) (011) (100) (101) (110) (111)}</script><script type="math/tex; mode=display">\texttt{(000) (100) (010) (110) (001) (101) (011) (111)}</script><script type="math/tex; mode=display">\texttt{0 4 2 6 1 5 3 7}</script><p>证明也好证，留作思考吧。</p>
+<p>然后我们就可以预处理出序列DFT后的位置，然后向上合并。就不用从上至下递归了。</p>
+<p>具体来说，我们设 $rev_{i}$ 为数字 $i$ 的二进制翻转，$lim$ 为最多的二进制位数。</p>
+<p>翻转操作相当于把当前数的二进制最后一位接到之前部分翻转的前面。</p>
+<p>之前部分的翻转即 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$</p>
+<p>其中 $\operatorname{shr}$ 相当于右移操作，$\operatorname{shl}$ 同理。</p>
+<p>然后判一下最后一位，是1的话就让 $2^{lim-1}$ 对 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$ 按位与。因为 $2^{p}$ 的二进制位始终是1后面跟着 $p$ 个0。</p>
+<p>这里建议自己手推一下。</p>
+<pre><code class="lang-cpp">int lim = 0;
+while ((1 &lt;&lt; lim) &lt; n) ++lim;
+for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
+</code></pre>
+<p>完整代码</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n, m;
+
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+int rev[MAXN];
+
+void get_rev() {
+    int lim = 0;
+    while ((1 &lt;&lt; lim) &lt; n) ++lim;
+    for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
+}
+
+void fft(Complex *f, int __n, int flag) {
+    for (int i = 0; i &lt; n; ++i) if (i &lt; rev[i]) swap(f[i], f[rev[i]]);
+        for (int mid = 1; mid &lt; lim; mid &lt;&lt;= 1) {
+            Complex omega;
+            omega.to_real(cos(PI / mid));
+            omega.to_imag(sin(PI / mid) * flag);
+            for (int i = 0; i &lt; n; i += (mid &lt;&lt; 1)) {
+                Complex now;
+                now.to_real(1);
+                now.to_imag(0);
+                for (int j = 0; j &lt; mid; ++j) {
+                    Complex first = f[i + j];
+                    Complex second = now * f[i + j + mid];
+                    f[i + j] = first + second;
+                    f[i + j + mid] = first - second;
+                    now = now * omega;
+                }
+            }
+        }
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    double x;
+    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
+    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
+    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
+    get_rev();
+    fft(A, n, 1);
+    fft(B, n, 1);
+    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
+    fft(A, n, -1);
+    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
+    return 0;
+}
+</code></pre>
+<p>顺带一说这份代码过不了板题，可能是我人丑自带大常数吧，但是理论上是过得了的，看各位人品。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FFT/" rel="tag"># FFT</a>
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" rel="next" title="「杂项」CQBZOJ发帖格式建议">
+                <i class="fa fa-chevron-left"></i> 「杂项」CQBZOJ发帖格式建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" rel="prev" title="「笔记」快速数论变换">
+                「笔记」快速数论变换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-点值表示法"><span class="nav-number">2.</span> <span class="nav-text">0x01 点值表示法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-复数和单位根"><span class="nav-number">3.</span> <span class="nav-text">0x02 复数和单位根</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-继续研究多项式"><span class="nav-number">4.</span> <span class="nav-text">0x03 继续研究多项式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

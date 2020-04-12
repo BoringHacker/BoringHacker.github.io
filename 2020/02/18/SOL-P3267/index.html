@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="动态规划,">
+
+
+<meta name="description" content="题意简述给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价 题解算法标签：$\ \ \ \ \ \ \ \ \ $ 树DPDP状态定义:$\ \ \ \ \ \ \ \ \ $ 说实话这道题定状态不好定。 $\ \ \ \ \ \ \ \ \ $ 那么我们从头来看，当 $d =0$ 的时候，我们就是在求树的最大独立集，定义显而易见。 $\ \ \ \ \">
+<meta name="keywords" content="动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「题解」洛谷P3267侦察守卫">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/18/SOL-P3267/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="题意简述给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价 题解算法标签：$\ \ \ \ \ \ \ \ \ $ 树DPDP状态定义:$\ \ \ \ \ \ \ \ \ $ 说实话这道题定状态不好定。 $\ \ \ \ \ \ \ \ \ $ 那么我们从头来看，当 $d =0$ 的时候，我们就是在求树的最大独立集，定义显而易见。 $\ \ \ \ \">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png">
+<meta property="og:updated_time" content="2020-02-20T03:02:50.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「题解」洛谷P3267侦察守卫">
+<meta name="twitter:description" content="题意简述给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价 题解算法标签：$\ \ \ \ \ \ \ \ \ $ 树DPDP状态定义:$\ \ \ \ \ \ \ \ \ $ 说实话这道题定状态不好定。 $\ \ \ \ \ \ \ \ \ $ 那么我们从头来看，当 $d =0$ 的时候，我们就是在求树的最大独立集，定义显而易见。 $\ \ \ \ \">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/18/SOL-P3267/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>「题解」洛谷P3267侦察守卫 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/18/SOL-P3267/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">「题解」洛谷P3267侦察守卫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-18T20:02:53+08:00">2020-02-18</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png" rel="gallery_ck8wtuwxq004hxgvre8ummf37" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h4 id="算法标签："><a href="#算法标签：" class="headerlink" title="算法标签："></a>算法标签：</h4><h5 id="树DP"><a href="#树DP" class="headerlink" title="$\ \ \ \ \ \ \ \ \ $ 树DP"></a>$\ \ \ \ \ \ \ \ \ $ 树DP</h5><h4 id="DP状态定义"><a href="#DP状态定义" class="headerlink" title="DP状态定义:"></a>DP状态定义:</h4><p>$\ \ \ \ \ \ \ \ \ $ 说实话这道题定状态不好定。</p>
+<p>$\ \ \ \ \ \ \ \ \ $ 那么我们从头来看，当 $d =0$ 的时候，我们就是在求树的最大独立集，定义显而易见。</p>
+<p>$\ \ \ \ \ \ \ \ \ $ $d\neq 0$ 我们可以照搬原来的定义，把它扩展一下。</p>
+<hr>
+<p>$\ \ \ \ \ \ \ \ \ $ $f_{i,j}$ 表示以 $i$ 为根结点的子树已经完全被覆盖让然后还能向上覆盖 $j$ 层的最小代价</p>
+<p>$\ \ \ \ \ \ \ \ \ $ $g_{i,j}=$ 表示以 $i$ 为根结点的子树还有 $j$ 层没有覆盖的最小代价</p>
+<hr>
+<p>$\ \ \ \ \ \ \ \ \ $ 需要注意的是 $j$ 本质上是带有方向性的，可以类比向量的概念。</p>
+<p>$\ \ \ \ \ \ \ \ \ $ 边界条件很显然，$f_{i,0}=val_{i}$ 此时当前结点需要被覆盖。</p>
+<p>$\ \ \ \ \ \ \ \ \ $ 其他情况：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+f_{i,j}=val_{i},j\in [1,d] \\
+\displaystyle
+f_{i,j}=\infty,j=d+1
+\end{cases}</script><p>$\ \ \ \ \ \ \ \ \ $ 状态转移方程倒是比较好想，这里就不再赘述。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+
+char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
+#ifndef ONLINE_JUDGE
+#define gc() getchar()
+#else
+#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
+#endif
+#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
+
+template &lt; typename Type &gt;
+void read(Type&amp; a) {
+    a = 0; bool f = 0; char ch;
+    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
+    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
+    a = (f ? -a : a);
+}
+
+template &lt; typename Type, typename... Args &gt;
+void read(Type&amp; t, Args&amp;... args) {
+    read(t), read(args...);
+}
+
+int val[500005], f[500005][25];
+int g[500005][25], vis[500005];
+int n, m, d, tot, head[500005];
+int nxt[1000005], to[1000005];
+std::vector &lt; std::vector &lt; int &gt; &gt; G(500005);
+
+void add(int x, int y) {
+    to[++tot] = y;
+    nxt[tot] = head[x];
+    head[x] = tot;
+    G[x].push_back(y);
+    G[y].push_back(x);
+}
+
+void DP(int x, int fa) {
+    if (vis[x]) g[x][0] = f[x][0] = val[x];
+    for (int i = 1; i &lt;= d; ++i) f[x][i] = val[x];
+    f[x][d + 1] = 0x3f3f3f3f;
+    for (int i = head[x]; i; i = nxt[i]) {
+        int y = to[i];
+        if (y ^ fa) {
+            DP(y, x);
+            for (int j = d; j &gt;= 0; --j)
+                f[x][j] = std::min(f[y][j + 1] + g[x][j + 1], f[x][j] + g[y][j]);
+            for (int j = d; j &gt;= 0; --j)
+                f[x][j] = std::min(f[x][j + 1], f[x][j]);
+            g[x][0] = f[x][0];
+            for (int j = 1; j &lt;= d + 1; ++j)
+                g[x][j] += g[y][j - 1];
+            for (int j = 1; j &lt;= d + 1; ++j)
+                g[x][j] = std::min(g[x][j - 1], g[x][j]);
+        }
+    }
+}
+
+signed main() {
+    read(n, d);
+    for (int i = 1; i &lt;= n; ++i) read(val[i]);
+    read(m);
+    for (int i = 0, x; i &lt; m; ++i) read(x), vis[x] = 1;
+    for (int i = 1, x, y; i &lt; n; ++i) read(x, y), add(x, y), add(y, x);
+    DP(1, 0);
+    printf(&quot;%d\n&quot;, g[1][0]);
+}
+</code></pre>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/16/SOL-P2000/" rel="next" title="「题解」洛谷P2000拯救世界">
+                <i class="fa fa-chevron-left"></i> 「题解」洛谷P2000拯救世界
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/20/SOL-P2044/" rel="prev" title="「题解」洛谷P2044随机数生成器">
+                「题解」洛谷P2044随机数生成器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意简述"><span class="nav-number">1.</span> <span class="nav-text">题意简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法标签："><span class="nav-number">2.0.1.</span> <span class="nav-text">算法标签：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#树DP"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">$\ \ \ \ \ \ \ \ \ $ 树DP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DP状态定义"><span class="nav-number">2.0.2.</span> <span class="nav-text">DP状态定义:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

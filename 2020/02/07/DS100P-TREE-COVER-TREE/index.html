@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="树套树($nlog^2n$) 树套树也是一种暴力思想，它可以有很多实现：树状数组套平衡树，主席树套树状数组…… 但是最常见的还是线段数套平衡树。 1.思想&amp;amp;&amp;amp;建树标准说法：线段树的每个节点对应平衡树的一个节点。 ??? 其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。 线段树有$logn$层，每层的节点对">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---树套树">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/07/DS100P-TREE-COVER-TREE/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="树套树($nlog^2n$) 树套树也是一种暴力思想，它可以有很多实现：树状数组套平衡树，主席树套树状数组…… 但是最常见的还是线段数套平衡树。 1.思想&amp;amp;&amp;amp;建树标准说法：线段树的每个节点对应平衡树的一个节点。 ??? 其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。 线段树有$logn$层，每层的节点对">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-6.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---树套树">
+<meta name="twitter:description" content="树套树($nlog^2n$) 树套树也是一种暴力思想，它可以有很多实现：树状数组套平衡树，主席树套树状数组…… 但是最常见的还是线段数套平衡树。 1.思想&amp;amp;&amp;amp;建树标准说法：线段树的每个节点对应平衡树的一个节点。 ??? 其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。 线段树有$logn$层，每层的节点对">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-6.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/07/DS100P-TREE-COVER-TREE/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---树套树 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/07/DS100P-TREE-COVER-TREE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---树套树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-07T14:51:04+08:00">2020-02-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-6.png" rel="gallery_ck8wtuwwj003dxgvr7fzsw4xd" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-6.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="树套树"><a href="#树套树" class="headerlink" title="树套树"></a>树套树</h1><p>($nlog^2n$)</p>
+<p>树套树也是一种<del>暴力</del>思想，它可以有很多实现：树状数组套平衡树，主席树套树状数组……</p>
+<p>但是最常见的还是线段数套平衡树。</p>
+<h4 id="1-思想-amp-amp-建树"><a href="#1-思想-amp-amp-建树" class="headerlink" title="1.思想&amp;&amp;建树"></a>1.思想&amp;&amp;建树</h4><p>标准说法：线段树的每个节点对应平衡树的一个节点。</p>
+<p>???</p>
+<p>其实还是线段树每个节点对应一个区间，但是我们把这个区间建成一棵平衡树就行了，线段树节点记录这个区间建成的平衡树的根节点就行了。</p>
+<p>线段树有$logn$层，每层的节点对应的区间能够拼成一个完整的区间，即每层$n$个平衡树节点，平衡树每个节点插入是$logn$的，所以建树的时间复杂度是$nlog^2n$</p>
+<p>fhq-treap示例</p>
+<pre><code>void build(int l,int r,int x)
+{
+    for(int i=l;i&lt;=r;++i)
+    {
+        split(root[x],a[i],root1,root2);
+        root[x]=merge(merge(root1,newnode(a[i])),root2);
+    }
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        build(l,mid,x&lt;&lt;1);
+        build(mid+1,r,x&lt;&lt;1|1);
+    }
+}
+</code></pre><h4 id="2-查询区间排名"><a href="#2-查询区间排名" class="headerlink" title="2.查询区间排名"></a>2.查询区间排名</h4><p>给定一个区间和一个值，查询区间中比他小的元素个数加1。</p>
+<p>我们可以像线段树一样，先把这个区间拆分成一些能用我们之前建树建出的平衡树表示的小区间，再查询小区间中比这个值小的元素个数加起来的和。</p>
+<p>很明显</p>
+<script type="math/tex; mode=display">f[i,j]=f[i,k]+f[k+1,j]（i\leq k<j）</script><p>($f[l,r]$表示区间$[l,r]$中比某个值小的元素个数)</p>
+<p>因为$[i,k]$和$[k+1,j]$的元素合在一起就是$[i,j]$的所有元素。</p>
+<p>那$[i,k]$和$[k+1,j]$中比某个值小的元素合在一起就是$[i,j]$中比某个值小的元素。</p>
+<p>所以上式成立。</p>
+<p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
+<p>得出代码写法：</p>
+<pre><code>int _rank(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int res=nodes[root1].sum;
+    _root=merge(root1,root2);
+    return res;
+}
+int rank(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))    return 0;
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _rank(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return rank(l,mid,x&lt;&lt;1,fr,ba,val)+rank(mid+1,r,x&lt;&lt;1|1,fr,ba,val);
+    }
+}
+</code></pre><h4 id="3-动态区间第k小"><a href="#3-动态区间第k小" class="headerlink" title="3.动态区间第k小"></a>3.动态区间第k小</h4><p>（模版题其实没说这个值要在这个区间内……）</p>
+<p>区间动态第k小并不能直接解决。所以我们通过二分寻找这个第k小值。</p>
+<p>对每一个二分到的值执行查询排名操作。如果它的排名小于等于k，那么让l等于这个值，否则r等于这个值。</p>
+<p>因为第k小值及以下的值的排名都是小于等于k的，从小到大排列的值的排名满足单调性。</p>
+<p>时间复杂度：线段树查询$<em> $平衡树查询$</em> $二分$=log^3n$</p>
+<p>代码：</p>
+<pre><code>int search(int fr,int ba,int k)
+{
+    int l=0,r=1e8+1;
+    while(l+1&lt;r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(rank(1,n,1,fr,ba,mid)&lt;k)    l=mid;
+        else    r=mid;
+    }
+    return l;
+}
+</code></pre><h4 id="4-区间前驱-后继"><a href="#4-区间前驱-后继" class="headerlink" title="4.区间前驱/后继"></a>4.区间前驱/后继</h4><p>与区间排名类似，只需查询各个分出的子区间中需查询值的前驱/后继，再求出它们的最大/最小值就行了。</p>
+<p>时间复杂度：线段树查询$* $平衡树查询$=log^2n$</p>
+<p>代码：</p>
+<pre><code>const int AC=2147483647,WA=-2147483647;
+int _pre(int &amp;_root,int val)
+{
+    split(_root,val-1,root1,root2);
+    int now=root1;
+    int res=WA;
+    if(now)
+    {
+        while(nodes[now].r) now=nodes[now].r;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int pre(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return WA;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _pre(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return max(pre(l,mid,x&lt;&lt;1,fr,ba,val),pre(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+int _nxt(int &amp;_root,int val)
+{
+    split(_root,val,root1,root2);
+    int now=root2;
+    int res=AC;
+    if(now)
+    {
+        while(nodes[now].l) now=nodes[now].l;
+        res=nodes[now].num;
+    }
+    _root=merge(root1,root2);
+    return res;
+}
+int nxt(int l,int r,int x,int fr,int ba,int val)
+{
+    if((l&gt;ba)|(r&lt;fr))  return AC;    
+    if((l&gt;=fr)&amp;(r&lt;=ba))    return _nxt(root[x],val);
+    else
+    {
+        int mid=(l+r)&gt;&gt;1;
+        return min(nxt(l,mid,x&lt;&lt;1,fr,ba,val),nxt(mid+1,r,x&lt;&lt;1|1,fr,ba,val));
+    }
+}
+</code></pre><h4 id="5-修改"><a href="#5-修改" class="headerlink" title="5.修改"></a>5.修改</h4><p>依旧是暴力，只需要把所有代表区间中包含需修改位置的节点都修改掉就好了。</p>
+<p>如替换值，就把代表区间中包含这个位置的节点代表的平衡树中的原值删除，插入新值就好了。</p>
+<p>时间复杂度：线段树寻找$* $平衡树修改$=log^2n$</p>
+<p>代码：</p>
+<pre><code>void modify(int l,int r,int x,int pos,int bef,int the)
+{
+    split(root[x],bef,root1,root2);
+    split(root1,bef-1,root1,root3);
+    root3=merge(nodes[root3].l,nodes[root3].r);
+    root[x]=merge(merge(root1,root3),root2);
+
+    split(root[x],the,root1,root2);
+    root[x]=merge(merge(root1,newnode(the)),root2);
+
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(pos&lt;=mid)    modify(l,mid,x&lt;&lt;1,pos,bef,the);
+        else    modify(mid+1,r,x&lt;&lt;1|1,pos,bef,the);
+    }
+}
+</code></pre><h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h4><p>关于第k小值的操作，据说可以用权值线段树套平衡树(线段树维护值域，平衡树维护在这个值域中的值的位置)在$log^2n$的时间解决。上面教的可能会被卡死。</p>
+<p>总而言之，树套树的思想就是暴力。各种数据结构再套一个数据结构（<del>线段树套pb_ds</del>）。<del>其实我也没写过其他的</del>。</p>
+<p>我这次写得像WGY一样是为什么……</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-TRIE/" rel="next" title="数据结构100题 ---trie树">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---trie树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-TREE-CHAIN-SPLITTING/" rel="prev" title="数据结构100题 ---树链剖分">
+                数据结构100题 ---树链剖分 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树套树"><span class="nav-number">1.</span> <span class="nav-text">树套树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-思想-amp-amp-建树"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.思想&amp;&amp;建树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-查询区间排名"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.查询区间排名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-动态区间第k小"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3.动态区间第k小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-区间前驱-后继"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4.区间前驱/后继</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-修改"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5.修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-总结"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6.总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

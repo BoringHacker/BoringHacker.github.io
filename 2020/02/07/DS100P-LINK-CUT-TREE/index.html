@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="Link-Cut Tree0x00本文的图来自Qiuly的博客浅谈link-cut Tree 本文照搬Qiuly的博客浅谈link-cut Tree lct这东西不好写，我这种蒟蒻写不好所以只能照搬Qiuly，跟Qiuly唯一的区别就是我字是自己打的…… 0x01LCT其实可以看做加强版的重链剖分，可以说重链剖分能做的LCT都能做。不仅如此，LCT代码比重链剖分短，常数有时比重链剖分小。 LCT由">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---Link-Cut Tree">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/07/DS100P-LINK-CUT-TREE/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="Link-Cut Tree0x00本文的图来自Qiuly的博客浅谈link-cut Tree 本文照搬Qiuly的博客浅谈link-cut Tree lct这东西不好写，我这种蒟蒻写不好所以只能照搬Qiuly，跟Qiuly唯一的区别就是我字是自己打的…… 0x01LCT其实可以看做加强版的重链剖分，可以说重链剖分能做的LCT都能做。不仅如此，LCT代码比重链剖分短，常数有时比重链剖分小。 LCT由">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-11.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.127Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---Link-Cut Tree">
+<meta name="twitter:description" content="Link-Cut Tree0x00本文的图来自Qiuly的博客浅谈link-cut Tree 本文照搬Qiuly的博客浅谈link-cut Tree lct这东西不好写，我这种蒟蒻写不好所以只能照搬Qiuly，跟Qiuly唯一的区别就是我字是自己打的…… 0x01LCT其实可以看做加强版的重链剖分，可以说重链剖分能做的LCT都能做。不仅如此，LCT代码比重链剖分短，常数有时比重链剖分小。 LCT由">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-11.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/07/DS100P-LINK-CUT-TREE/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---Link-Cut Tree | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/07/DS100P-LINK-CUT-TREE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---Link-Cut Tree</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-07T14:51:04+08:00">2020-02-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-11.png" rel="gallery_ck8wtuwvn002cxgvreace08yx" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-11.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Link-Cut-Tree"><a href="#Link-Cut-Tree" class="headerlink" title="Link-Cut Tree"></a>Link-Cut Tree</h1><h1 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h1><p>本文的图来自<a href="https://www.luogu.com.cn/blog/Qiu/qian-tan-link-cut-tree" target="_blank" rel="noopener">Qiuly的博客浅谈link-cut Tree</a></p>
+<p>本文照搬<a href="https://www.luogu.com.cn/blog/Qiu/qian-tan-link-cut-tree" target="_blank" rel="noopener">Qiuly的博客浅谈link-cut Tree</a></p>
+<p>lct这东西不好写，我这种蒟蒻写不好所以只能照搬Qiuly，跟Qiuly唯一的区别就是我字是自己打的……</p>
+<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><p>LCT其实可以看做加强版的重链剖分，可以说重链剖分能做的LCT都能做。不仅如此，LCT代码比重链剖分短，常数<del>有时</del>比重链剖分小。</p>
+<p>LCT由很多棵Splay组成，其中将Splay森林中的所有Splay连接起来的叫做 <strong>虚边</strong> 。Splay中边叫做实边。</p>
+<p>原来的森林我们叫做原森林，用实边连起来的一棵树叫原树。Splay的关键字是节点在书中的深度。</p>
+<p>Splay是LCT的辅助树。fhq-treap其实也可以，但均摊时间复杂度会多出一个\log</p>
+<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>以下是一些LCT常用的基础操作</p>
+<ol>
+<li><code>access(x)</code>:将x到root的路径上的边全部变成实边，并断开与自己儿子的联系</li>
+<li><code>findroot(x)</code>:找出x所在原树的root</li>
+<li><code>makeroot(x)</code>:让x变为所在原树的root</li>
+<li><code>connect(x,y)</code>:连接x和y所在的原树</li>
+<li><code>erase(x,y)</code>:拆开x和y所在的原树</li>
+<li><code>split(x,y)</code>:将x,y搞在一棵辅助树</li>
+</ol>
+<p><ul></ul></p>
+<p><li></li></p>
+<p></p><h1>Access(x):</h1><p></p>
+<p></p><p>换句话来说就是将点x到原树中root之间的链丢到一个splay里</p><p></p>
+<p></p><p>举个例子，现在有一个森林长成这样：</p><br>&lt;/li&gt;<br>&lt;/ul&gt;<p></p>
+<p></p><p><img src="https://i.loli.net/2019/02/23/5c70a02e87a40.png" alt="LCT"></p><p></p>
+<p></p><p>现在x为6。我们access(x)。</p><p></p>
+<p></p><p>那么{1-3，3-6}会变为实边，1-2会变成<em>虚边</em>，假设6有一儿子n，之间用<strong>实边</strong>连着，那么这条边也将变成<strong>虚边</strong>。</p><p></p>
+<p></p><p>每次将 x 点 <em>splay</em> 到当前所在辅助树的根节点，将它的右儿子更新为上一个 x ，然后令 x 跳到它的父节点，第一个 x 的右儿子设为0。</p><p></p>
+<pre>为什么是右儿子而不是左儿子呢？
+
+   因为fa[x]的深度小于x，而在Splay里面fa[x]是x的爸爸，所以x在Splay中是fa[x]的右儿子。</pre>
+<p><img src="https://i.loli.net/2019/02/23/5c70a02e89ed1.png" alt="LCT"></p>
+<p>我们将 x 旋转到辅助树的根节点，也就是将当前原树这条链上深度小于 x (在 x 上面的点)丢到了 x 的左子树上，将 x 的右子树设为上一个 x 点相当于将 x 原来的右子树丢到了新的 <em>splay</em> 里面(而它们之间用<strong>虚边</strong>相连)，并且将上一段链连接起来。</p>
+<p>现在就可以了。这棵新 <em>Splay</em> 中只有这条链上的结点，没有其他任何的结点。如果我们指定要这三个结点同时进行操作，可以直接下传lazy_tag到这三个结点组成的 <em>Splay</em> 的根结点哦!到后面Splay的时候就可以直接下传跟新结点信息了。</p>
+<p><strong>总体过程：</strong></p>
+<p><img src="https://i.loli.net/2019/02/23/5c70a02e9f825.png" alt="LCT"></p>
+<blockquote>
+<p><strong>虚边：儿子认父，父不认子</strong></p>
+<p><strong>实边：儿子认父，父也认子</strong></p>
+</blockquote>
+<p>用FlashHu的话来说：</p>
+<blockquote>
+<p>1.转到根。</p>
+<p>2.换儿子。</p>
+<p>3.更新信息。</p>
+<p>4.当前操作点切换为轻边所指的父亲，转1。</p>
+</blockquote>
+<pre><code class="language-cpp">inline void Access(int x){
+    for(register int y=0;x;y=x,x=fa[x]){
+        Splay(x);//转    ch[x][1]=y;//认儿子了
+        pushup(x);//儿子有变化，更新
+    }
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>findroot(x):</h1>
+</li>
+<li>
+<p>首先要明白：</p>
+<ul>
+<li>根节点是的深度最小的</li>
+</ul>
+</li>
+</ul>
+<p>我们可以通过x向上找，用 <em>Access</em> 操作可以将x和x的根结点搞到一个 <em>Splay</em> 里。</p>
+<p>又因为有BST的性质：x的左子树所有结点的权值 &lt; x &lt; x右子树所有结点的权值。</p>
+<p>而我们又知道，在执行完 <em>Access</em> 操作后，这课 <em>Splay</em> 里面的结点权值最大的(深度最大的)就是x。</p>
+<p>于是我们可以将x <em>Splay</em> 到这棵 <em>Splay</em> 的根结点，那么现在最左边的节点便是这课树的根结点了。</p>
+<pre><code class="language-cpp">inline int findroot(int x){
+    Access(x);//Access将x和根结点搞到同一个Splay中
+    Splay(x);//转到Splay的根结点
+    while(ch[x][0])pushdown(x),x=ch[x][0];//不断的找左儿子&amp;更新节点信息
+    return x;//最左边的就是根结点了。
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>makeroot(x):</h1>
+<blockquote>
+<p>将x到根结点的路径上的点全部翻转(即x变成了根节点)</p>
+</blockquote>
+</li>
+</ul>
+<p>具体操作是我们先将x点与原树中的根打通一条链，那么现在它们就在同一棵辅助树里面了，我们发现x一定是在它所在的辅助树的中序遍历的最后一个的(因为它是这条链上最深的点)，我们把x点 <em>splay</em> 到辅助树的根上，那么x显然是没有右子树的，我们要实现将x移到原树的根上，也就是将x到根的这条链的深度全部翻转一遍，在辅助树上的体现就是将整棵树翻转一遍，我们可以写个翻转标记来减少复杂度。</p>
+<pre><code class="language-cpp">inline void filp(int x){//Splay普通区间翻转
+    swap(ch[x][0],ch[x][1]);r[x]^=1;
+} 
+inline void makeroot(int x){
+    Access(x);
+    Splay(x);
+    filp(x);//lazy_tag&amp;翻转区间
+}</code></pre>
+<hr>
+<ul>
+<li>
+<h1>split(x,y)</h1>
+</li>
+</ul>
+<p>这个操作是将x到y之间的那条路径丢到一棵辅助树里，并且这棵辅助树以y节点为根。</p>
+<p><em>Splay</em> 维护的是原树中的一条链，我们不能保证x,y会在同一条链里。</p>
+<p>所以我们可以先把x变成原树的根节点(这下子Access(y)就会将x到y之间的所有节点丢到一个 <em>Splay</em> 中了)。</p>
+<pre><code class="language-cpp">inline void split(int x,int y){
+    makeroot(x);Access(y);Splay(y);
+} </code></pre>
+<hr>
+<ul>
+<li>
+<h1>connect(x,y):</h1>
+<blockquote>
+<p>将x和y所在原树合并起来</p>
+</blockquote>
+</li>
+</ul>
+<p>首先将x点丢到原树的根，然后去找找y的根是不是x，如果不是说明x,y不在一个原树内，我们将x的父节点设为y，也就相当于从y到x连了一条虚边。</p>
+<pre><code class="language-cpp">inline void connect(int x,int y){
+    makeroot(x);//转到根
+    if(findroot(y)!=x)fa[x]=y;//连接一条虚边
+    /</code></pre>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/49569.png" alt></p>
+<hr>
+<ul>
+<li>
+<h1>erase(x,y):</h1>
+<p>首先我们先把x,y之间的那条边用split(x,y)拎出来，因为x,y是相邻的，所以y的左儿子一定是x，将它们的父子关系消灭掉即可。</p>
+<p>消灭父子关系时一定满足以下条件：</p>
+<p>1.x和y在一个原树里(不在一个树里面往哪儿切啊)</p>
+<p>2.split之后x是y的左儿子</p>
+<p>3.x的右儿子是空的(保证了中序遍历中y紧跟在x的后面，即深度相邻)(x的权值(深度)只比y小1，而x又正好是直接连着y的，所以我们无法再找到 &gt;x 而又 &lt;y 的整数了)</p>
+</li>
+</ul>
+<pre><code class="language-cpp">inline void erase(int x,int y){
+    split(x,y);
+    if(findroot(y)==x&amp;&amp;fa[x]==y&amp;&amp;!ch[x][1]  fa[x]=ch[y][0]=0;
+    }return;
+}</code></pre>
+<p>但是如果我们在findroot中添加了Splay的话，erase中x和y的父子关系就变了，需要改为这样，否则会出现一些奇奇怪怪的错误：</p>
+<pre><code class="language-cpp">inline void erase(int x,int y){
+    split(x,y);
+    if(findroot(y)==x&amp;&amp;fa[y]==x&amp;&amp;!  fa[y]=ch[x][1]=0;pushup(x);
+ de></code></pre>
+<hr>
+<ul>
+<li>
+<h1>0X03 Splay的改动：</h1>
+</li>
+<li>
+<h1>旋转的改动：</h1>
+<p>这里需要注意一下，如果x的父亲节点的父亲节点y已经不在当前的这棵辅助树上，只需要连单向边(也就是虚边，认父不认子)，否则正常连就行，这里要和普通的rotate区分开来。</p>
+</li>
+</ul>
+<h2>做个对比：</h2>
+<p>现在的rotate(x):</p>
+<p>这里的x可以不更新，因为会在下一次rotate时更新。
+<pre><code class="language-cpp">inline void rotate(int x){
+    int y=fa[x],z=fa[y],k=chk(x),v=ch[x][!k]; 
+   x;ch[x][!k]=y,ch[y][k]=v;
+    if(v)fa[v]=y;fa[y]=x,fa[x]=z;pushup(y);
+}<rotate(x):< p>
+<pre><code class="language-cpp">inline void rotate(int x){
+    int y=fa[x],z=fa[y],k=chk(x),v=ch[x][!k]; 
+   ]=y,ch[y][k]=v;
+    fa[v]=y;fa[y]=x,fa[x]=z;pushup(y),pushup(xli>
+<h1>Splay的改动</h1>
+<p>同样要注意一下只能Splay到辅助树的根节点，Splay之前需先下传一下这一条链上需操作的所有的点，用栈来完成即可</p>
+
+
+<pre><code class="language-cpp">inline void Splay(int x){
+    int y=x,top=0;hep[++top]=y;
+    while(get(y))hep[++top]=y=fa[y];
+    while(top)pushdown( while(get(x)){//基本普通的Splay
+        y=fa[x],top=fa[y];
+        rotate((ch[y][0]==x)^(ch[top][0]==y)?x:y);
+        rotate(x);
+    }pushup(x);return; 
+}</code></pre>
+
+<p>最后放一下模板题代码</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+const int SIZE = 3e5 + 5;
+struct ReadNode {
+    template &lt; typename T&gt;
+    void operator &gt;&gt; (T &amp;a) {
+        a = 0; T f = 1; char ch;
+        while (!isdigit(ch = getchar())) if (ch == &#39;-&#39;) f = -1;
+        while (isdigit(ch)) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = getchar();
+        a *= f;
+    }
+
+    template &lt; typename T&gt;
+    void write(T x) {
+        if (x &lt; 0) x = -x, putchar(&#39;-&#39;);
+        if (x &gt; 9) write(x / 10);
+        putchar(x % 10 + &#39;0&#39;);
+    }
+
+    template &lt; typename T&gt;
+    void operator &lt;&lt; (T x) {
+        write(x);
+    }
+} win;
+int n, q, dis[SIZE];
+
+/******************LinkCutTree******************/
+
+class LinkCutTree {
+private:
+    struct TreeNode {
+        int ch[2];
+        int val;
+        int sum;
+        int rev;
+        int fa;
+    } T[SIZE + 5];
+    int st[SIZE + 5];
+
+    inline void exch(int &amp;x, int &amp;y) { x ^= y ^= x ^= y; }
+    inline void reverse(int x) { exch(T[x].ch[0], T[x].ch[1]); T[x].rev ^= 1; }
+    inline void link(int x, int y, int w) { T[T[x].fa = y].ch[w] = x; }
+    inline bool push_up(int x) { return (T[x].sum = T[x].val ^ T[T[x].ch[0]].sum ^ T[T[x].ch[1]].sum), 1; }
+    inline void push_down(int x) { T[x].rev &amp;&amp; (reverse(T[x].ch[0]), reverse(T[x].ch[1]), T[x].rev = 0); }
+    inline void makeroot(int x) { access(x); splay(x); reverse(x); }
+    inline void split(int x, int y) { makeroot(x); access(y); splay(y); }
+    inline bool isroot(int x) { return (T[T[x].fa].ch[0] ^ x &amp;&amp; T[T[x].fa].ch[1] ^ x); }
+    inline bool which(int x) { return T[T[x].fa].ch[1] == x; }
+    inline void rotate(int x) { int y = T[x].fa, z = T[y].fa, w = which(x); !isroot(y) &amp;&amp; (T[z].ch[which(y)] = x), T[x].fa = z, link(T[x].ch[w ^ 1], y, w), link(y, x, w ^ 1), push_up(y), push_up(x); }
+    inline void splay(int x) { int y = x, top = 0; while (st[++top] = y, !isroot(y)) y = T[y].fa; while (top) push_down(st[top]), --top; while (!isroot(x)) y = T[x].fa, !isroot(y) &amp;&amp; (rotate(which(x) ^ which(y) ? x : y), 0), rotate(x); }
+    inline void access(int x) { for (int son = 0; x; x = T[son = x].fa) splay(x), T[x].ch[1] = son, push_up(x); }
+    inline int getroot(int x) { access(x), splay(x); while (T[x].ch[0]) push_down(x), x = T[x].ch[0]; return splay(x), x; }
+
+public:
+    inline void init(int length, int *data) { for (int i = 1; i &lt;= length; ++i) T[i].val = data[i]; }
+    inline void connect(int x, int y) { makeroot(x), getroot(y) ^ x &amp;&amp; (T[x].fa = y); }
+    inline void erase(int x, int y) { makeroot(x), !(getroot(y) ^ x) &amp;&amp; !(T[y].fa ^ x) &amp;&amp; !(T[y].ch[0]) &amp;&amp; (T[y].fa = T[x].ch[1] = 0, push_up(x)); }
+    inline void insert(int x, int v) { splay(x), T[x].val = v; }
+    inline int find(int x, int y) { return split(x, y), T[y].sum; }
+} lct_mast;
+
+/*****************EndLinkCutTree*****************/
+
+signed main() {
+    win &gt;&gt; n; win &gt;&gt; q;
+    for (int i = 1; i &lt;= n; ++i) win &gt;&gt; dis[i];
+    lct_mast.init(n, dis);
+    for (int i = 1; i &lt;= q; ++i) {
+        int opt, x, y;
+        win &gt;&gt; opt; win &gt;&gt; x; win &gt;&gt; y;
+        switch(opt) {
+        case 0: win &lt;&lt; lct_mast.find(x, y), puts(&quot;&quot;); break;
+        case 1: lct_mast.connect(x, y); break;
+        case 2: lct_mast.erase(x, y); break;
+        case 3: lct_mast.insert(x, y); break;
+        }
+    }
+    return 0;
+}
+</code></pre>
+</code></pre></rotate(x):<></code></pre></p>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-SPLAY/" rel="next" title="数据结构100题 ---splay">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---splay
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-MO-ALGORITHM/" rel="prev" title="数据结构100题 ---莫队">
+                数据结构100题 ---莫队 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-Cut-Tree"><span class="nav-number">1.</span> <span class="nav-text">Link-Cut Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00"><span class="nav-number">2.</span> <span class="nav-text">0x00</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01"><span class="nav-number">3.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02"><span class="nav-number">4.</span> <span class="nav-text">0x02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">Access(x):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">findroot(x):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">makeroot(x):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">8.</span> <span class="nav-text">split(x,y)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">9.</span> <span class="nav-text">connect(x,y):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">10.</span> <span class="nav-text">erase(x,y):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">11.</span> <span class="nav-text">0X03 Splay的改动：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">12.</span> <span class="nav-text">旋转的改动：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">12.1.</span> <span class="nav-text">做个对比：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">13.</span> <span class="nav-text">Splay的改动</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

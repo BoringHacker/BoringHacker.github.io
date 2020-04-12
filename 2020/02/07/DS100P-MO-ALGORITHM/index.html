@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="莫队($n\sqrt{n}$) 0x01考虑这样一个问题： 对于一个序列$A_1,A_2,\cdots,A_n$，有如下询问 形如$S\ \ l\ \ r$的命令表示对区间$[l,r]$求和，并输出 形如$Q\ \ l\ \ r$表示$\cdots$ 本题不强制在线 对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改但我太弱不会 现在你有区间$[3,5]$的和，可以求$[3,6]$的区">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---莫队">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="莫队($n\sqrt{n}$) 0x01考虑这样一个问题： 对于一个序列$A_1,A_2,\cdots,A_n$，有如下询问 形如$S\ \ l\ \ r$的命令表示对区间$[l,r]$求和，并输出 形如$Q\ \ l\ \ r$表示$\cdots$ 本题不强制在线 对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改但我太弱不会 现在你有区间$[3,5]$的和，可以求$[3,6]$的区">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-10.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---莫队">
+<meta name="twitter:description" content="莫队($n\sqrt{n}$) 0x01考虑这样一个问题： 对于一个序列$A_1,A_2,\cdots,A_n$，有如下询问 形如$S\ \ l\ \ r$的命令表示对区间$[l,r]$求和，并输出 形如$Q\ \ l\ \ r$表示$\cdots$ 本题不强制在线 对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改但我太弱不会 现在你有区间$[3,5]$的和，可以求$[3,6]$的区">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-10.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---莫队 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/07/DS100P-MO-ALGORITHM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---莫队</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-07T14:51:04+08:00">2020-02-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-10.png" rel="gallery_ck8wtuwvk0029xgvrr2k46ey5" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-10.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h1><p>($n\sqrt{n}$)</p>
+<h1 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h1><p>考虑这样一个问题：</p>
+<p>对于一个序列$A_1,A_2,\cdots,A_n$，有如下询问</p>
+<p>形如$S\ \ l\ \ r$的命令表示对区间$[l,r]$求和，并输出</p>
+<p>形如$Q\ \ l\ \ r$表示$\cdots$</p>
+<p>本题不强制在线</p>
+<p>对于这样的静态问题，我们可以考虑用莫队来解决。据说莫队支持修改<del>但我太弱不会</del></p>
+<p>现在你有区间$[3,5]$的和，可以求$[3,6]$的区间和吗？显然，将$[3,5]$的区间和加上$A_6$即可。类似的，求$[2,4]$的区间和，我们只需减去$A_5$即可。</p>
+<p>可以结合下图感知一下</p>
+<p><img src="https://i.loli.net/2020/01/05/b63tfzYDl7VwdXC.png" alt="spfa.png"></p>
+<p><img src="https://i.loli.net/2020/01/05/uAa95JElrb7kCxQ.png" alt="spfa.png"></p>
+<h1 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h1><p>好，接下来我们想一下如何维护这种询问之间的关系。</p>
+<p>很容易想到排序，首先我们对询问的左端点进行排序。再把整个<code>询问</code>序列分为$\sqrt{n}$块，每块以内再按右端点排序。</p>
+<p>所以我们可以得出以下结论：</p>
+<ul>
+<li>莫队就是对于一系列的询问，通过排序减小询问的之间的差距，然后以计算贡献的方法离线的得出答案</li>
+</ul>
+<h1 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h1><p>来一道简单的例题</p>
+<h3 id="小B的询问"><a href="#小B的询问" class="headerlink" title="小B的询问"></a>小B的询问</h3><p>小B 有一个长为 $n$ 的整数序列 $a$，值域为 $[1,k]$。<br>他一共有 $m$ 个询问，每个询问给定一个区间 $[l,r]$，求：  </p>
+<p>其中 $c_i$ 表示数字 $i$ 在 $[l,r]$ 中的出现次数。<br>小B请你帮助他回答询问</p>
+<hr>
+<p>这道题让我们求</p>
+<script type="math/tex; mode=display">\sum\limits_{i=1}^k c_i^2</script><p>开一个桶，计算每个数出现的次数，所以我们可以由此计算答案的贡献，就可以写出以下的代码</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+const int SIZE = 5e4 + 5;
+struct QueryNode {
+    int l, r;
+    int id; // 储存询问的顺序，方便输出
+} Q[SIZE];
+int a[SIZE], n, m, k, pos[SIZE];
+int cnt[SIZE], ans[SIZE], res;
+
+// a:原序列
+// pos:每个位置所处的块
+// cnt:桶
+// ans:询问的答案
+// res:每次调整所得到的贡献
+
+inline void add(int x) { cnt[a[x]]++, res += cnt[a[x]] * cnt[a[x]] - (cnt[a[x]] - 1) * (cnt[a[x]] - 1); }
+
+inline void del(int x) { cnt[a[x]]--, res -= (cnt[a[x]] + 1) * (cnt[a[x]] + 1) - cnt[a[x]] * cnt[a[x]]; }
+
+signed main() {
+    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k);
+    int block = sqrt(n);
+    for (int i = 1; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;a[i]), pos[i] = i / block;
+    for (int i = 1; i &lt;= m; ++i) scanf(&quot;%d %d&quot;, &amp;Q[i].l, &amp;Q[i].r), Q[i].id = i;
+    sort(Q + 1, Q + 1 + m, [](QueryNode x, QueryNode y) { return pos[x.l] ^ pos[y.l] ? pos[x.l] &lt; pos[y.l] : x.r &lt; y.r; });
+    int l = 1, r = 0;
+    for (int i = 1; i &lt;= m; ++i) {
+        while (l &gt; Q[i].l) add(--l); // 这四句都是在对当前的区间对于询问的区间进行调整
+        while (r &lt; Q[i].r) add(++r); // 这三句都是在对当前的区间对于询问的区间进行调整
+        while (l &lt; Q[i].l) del(l++); // 这二句都是在对当前的区间对于询问的区间进行调整
+        while (r &gt; Q[i].r) del(r--); // 这一句都是在对当前的区间对于询问的区间进行调整
+        ans[Q[i].id] = res;
+    }
+    for (int i = 1; i &lt;= m; ++i) printf(&quot;%d\n&quot;, ans[i]);
+    return 0;
+}
+</code></pre>
+<h1 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h1><p>其实莫队是有套路的，基本上莫队的题都是这样的:</p>
+<pre><code class="lang-cpp">    for (int i = 1; i &lt;= m; ++i) {
+        while (l &gt; Q[i].l) add(--l);
+        while (r &lt; Q[i].r) add(++r);
+        while (l &lt; Q[i].l) del(l++);
+        while (r &gt; Q[i].r) del(r--);
+        ans[Q[i].id] = res;
+    }
+</code></pre>
+<p>我们只需考虑$add$函数以及$del$函数即可</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-LINK-CUT-TREE/" rel="next" title="数据结构100题 ---Link-Cut Tree">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---Link-Cut Tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-KMP-STRING/" rel="prev" title="数据结构100题 ---KMP">
+                数据结构100题 ---KMP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#莫队"><span class="nav-number">1.</span> <span class="nav-text">莫队</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01"><span class="nav-number">2.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02"><span class="nav-number">3.</span> <span class="nav-text">0x02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03"><span class="nav-number">4.</span> <span class="nav-text">0x03</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小B的询问"><span class="nav-number">4.0.1.</span> <span class="nav-text">小B的询问</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04"><span class="nav-number">5.</span> <span class="nav-text">0x04</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

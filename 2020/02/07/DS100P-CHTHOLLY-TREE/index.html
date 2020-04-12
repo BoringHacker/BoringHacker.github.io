@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="Chtholly-Tree众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树 珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。 她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---Chtholly-Tree(Old-Driver Tree)">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/07/DS100P-CHTHOLLY-TREE/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="Chtholly-Tree众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树 珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。 她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-14.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---Chtholly-Tree(Old-Driver Tree)">
+<meta name="twitter:description" content="Chtholly-Tree众所周知，数据结构+算法=程序，可见数据结构的重要性数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树 珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。 她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-14.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/07/DS100P-CHTHOLLY-TREE/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---Chtholly-Tree(Old-Driver Tree) | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/07/DS100P-CHTHOLLY-TREE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---Chtholly-Tree(Old-Driver Tree)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-07T14:51:04+08:00">2020-02-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-14.png" rel="gallery_ck8wtuwun0019xgvrw5sutvfw" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-14.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Chtholly-Tree"><a href="#Chtholly-Tree" class="headerlink" title="Chtholly-Tree"></a>Chtholly-Tree</h1><h2 id="众所周知，数据结构-算法-程序，可见数据结构的重要性"><a href="#众所周知，数据结构-算法-程序，可见数据结构的重要性" class="headerlink" title="众所周知，数据结构+算法=程序，可见数据结构的重要性"></a>众所周知，数据结构+算法=程序，可见数据结构的重要性</h2><p>数据结构占了我们编程的一大部分。数据结构的大家族中，有优美的线段树、树状数组等。但我们今天的主角却十分暴力。她的名字叫珂朵莉树</p>
+<p><code>珂朵莉树是基于C++STL库中的set的数据结构。与线段树、平衡树等树形结构类似，珂朵莉树是用来解决区间问题的很暴力的树形结构。</code></p>
+<p>她的特点是能够进行区间推平操作，并且时间复杂度接近O(n log m) 。但前提是数据随机。但一般不会有哪个出题人去卡这样一个并不出名的数据结构。并且要有区间推平操作，否则光是一个split时间复杂度会炸。</p>
+<p>珂朵莉树的构造长成这个亚子:</p>
+<pre><code class="lang-cpp">struct Chtholly
+{
+    LL L;
+    LL R;        //区间
+    mutable LL _val; //值，注意，关键字mutable是必需的，否则会在add函数里CE
+
+
+    node(LL l, LL r = -1, LL V = 0) : L(l), R(r), _val(V) {}
+    bool operator&lt;(const node &amp;rhs) const { return L &lt; rhs.L; }
+}
+</code></pre>
+<p>Split操作:</p>
+<pre><code class="lang-cpp">inline IT split(int k) {
+    IT it = st.lower_bound(node(k));
+    if (it != st.end() &amp;&amp; it-&gt;L == k)
+        return it;
+    --it;
+    LL l = it-&gt;L, r = it-&gt;R;
+    LL v = it-&gt;_val;
+    st.erase(it);
+    st.insert(node(l, k - 1, v));
+    return st.insert(node(k, r, v)).first;
+}
+</code></pre>
+<p>为了操作方便我们这里有一个define:</p>
+<pre><code class="lang-cpp">#define IT set&lt;Chtholly&gt;::iterator
+</code></pre>
+<p>assign区间推平操作，这也是珂朵莉树的时间复杂度保证</p>
+<pre><code class="lang-cpp">inline void assign(LL ll, LL rr, LL val) {
+    IT itr = split(rr + 1), itl = split(ll);
+    st.erase(itl, itr);
+    st.insert(node(ll, rr, val));
+}
+</code></pre>
+<p>举几个例子吧</p>
+<h3 id="区间求和"><a href="#区间求和" class="headerlink" title="区间求和:"></a>区间求和:</h3><pre><code class="lang-cpp">inline LL Qsum(LL ll, LL rr) {
+    LL res = 0;
+    IT itr = split(rr + 1), itl = split(ll);
+    for (; itl != itr; ++itl) res += (itl-&gt;R - itl-&gt;L + 1) * itl-&gt;_val;
+    return res;
+}
+</code></pre>
+<h3 id="区间第K小"><a href="#区间第K小" class="headerlink" title="区间第K小:"></a>区间第K小:</h3><pre><code class="lang-cpp">inline LL kth(LL ll, LL rr, LL k) {
+    vector&lt;pair&lt;LL, LL&gt; &gt; vec;
+    IT itr = split(rr + 1), itl = split(ll);
+
+    for (; itl != itr; ++itl) vec.push_back(pair&lt;LL, LL&gt;(itl-&gt;_val, itl-&gt;R - itl-&gt;L + 1));
+    sort(vec.begin(), vec.end());
+
+    for (auto it = vec.begin(); it != vec.end(); ++it) {
+        k -= it-&gt;second;
+        if (k &lt;= 0)
+            return it-&gt;first;
+    }
+    return -1;
+}
+</code></pre>
+<h3 id="区间加"><a href="#区间加" class="headerlink" title="区间加"></a>区间加</h3><pre><code class="lang-cpp">inline void add(LL ll, LL rr, LL ad) {
+    IT itr = split(rr + 1), itl = split(ll);
+    for (; itr != itl; ++itl) itl-&gt;_val += ad;
+}
+</code></pre>
+<p>平时大家还是尽量少用······</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-CHAIRMAN-TREE/" rel="next" title="数据结构100题 ---主席树">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---主席树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-SUFFIX-TREE/" rel="prev" title="数据结构100题 ---后缀全家桶 之 后缀树">
+                数据结构100题 ---后缀全家桶 之 后缀树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chtholly-Tree"><span class="nav-number">1.</span> <span class="nav-text">Chtholly-Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#众所周知，数据结构-算法-程序，可见数据结构的重要性"><span class="nav-number">1.1.</span> <span class="nav-text">众所周知，数据结构+算法=程序，可见数据结构的重要性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区间求和"><span class="nav-number">1.1.1.</span> <span class="nav-text">区间求和:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间第K小"><span class="nav-number">1.1.2.</span> <span class="nav-text">区间第K小:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间加"><span class="nav-number">1.1.3.</span> <span class="nav-text">区间加</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

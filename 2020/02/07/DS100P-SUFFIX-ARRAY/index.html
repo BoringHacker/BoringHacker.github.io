@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,">
+
+
+<meta name="description" content="后缀数组0x01 什么是后缀数组(Suffix Array)我们知道，对于一个长度为 $n$ 的字符串有 $n$ 个后缀，譬如对于字符串 $DCBAE$ 来说，它的后缀便是:  那么什么是后缀数组( $SA$ )呢？在我们对字符串的 $n$ 个后缀排序过后，我们定义后缀数组：  $SA$ 数组：排在第i位的是第 $SA$ [i]个后缀  即后缀数组。 同时我们定义：  RANK数组：排在第RANK">
+<meta name="keywords" content="DS100P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---后缀全家桶 之 后缀数组">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-ARRAY/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="后缀数组0x01 什么是后缀数组(Suffix Array)我们知道，对于一个长度为 $n$ 的字符串有 $n$ 个后缀，譬如对于字符串 $DCBAE$ 来说，它的后缀便是:  那么什么是后缀数组( $SA$ )呢？在我们对字符串的 $n$ 个后缀排序过后，我们定义后缀数组：  $SA$ 数组：排在第i位的是第 $SA$ [i]个后缀  即后缀数组。 同时我们定义：  RANK数组：排在第RANK">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png">
+<meta property="og:updated_time" content="2020-02-20T02:48:47.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---后缀全家桶 之 后缀数组">
+<meta name="twitter:description" content="后缀数组0x01 什么是后缀数组(Suffix Array)我们知道，对于一个长度为 $n$ 的字符串有 $n$ 个后缀，譬如对于字符串 $DCBAE$ 来说，它的后缀便是:  那么什么是后缀数组( $SA$ )呢？在我们对字符串的 $n$ 个后缀排序过后，我们定义后缀数组：  $SA$ 数组：排在第i位的是第 $SA$ [i]个后缀  即后缀数组。 同时我们定义：  RANK数组：排在第RANK">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-ARRAY/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---后缀全家桶 之 后缀数组 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/07/DS100P-SUFFIX-ARRAY/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---后缀全家桶 之 后缀数组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-07T14:51:04+08:00">2020-02-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png" rel="gallery_ck8wtuww80031xgvr1ti3ocvh" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h1><h1 id="0x01-什么是后缀数组-Suffix-Array"><a href="#0x01-什么是后缀数组-Suffix-Array" class="headerlink" title="0x01 什么是后缀数组(Suffix Array)"></a>0x01 什么是后缀数组(Suffix Array)</h1><p>我们知道，对于一个长度为 $n$ 的字符串有 $n$ 个后缀，譬如对于字符串 $DCBAE$ 来说，它的后缀便是:</p>
+<p><img src="https://i.loli.net/2020/01/30/uiheaoRLWdKEON6.png" alt="img spfaed"></p>
+<p>那么什么是后缀数组( $SA$ )呢？在我们对字符串的 $n$ 个后缀排序过后，我们定义后缀数组：</p>
+<blockquote>
+<p>$SA$ 数组：排在第i位的是第 $SA$ [i]个后缀</p>
+</blockquote>
+<p>即后缀数组。</p>
+<p>同时我们定义：</p>
+<blockquote>
+<p>RANK数组：排在第RANK[i]位的后缀是第i个后缀</p>
+</blockquote>
+<p>不难看出RANK和 $SA$ 互逆</p>
+<p><img src="https://i.loli.net/2020/01/30/4jfIt1iy8V9XRPl.png" alt="img spfaed"></p>
+<h1 id="0x02-如何求出-SA-数组-粗略的"><a href="#0x02-如何求出-SA-数组-粗略的" class="headerlink" title="0x02 如何求出 $SA$ 数组(粗略的)"></a>0x02 如何求出 $SA$ 数组(粗略的)</h1><p>朴素的做法是直接$sort$，$\Theta(n^2\log n)$ 爹妈恨铁不成钢。</p>
+<p>稍微有点脑子都会想到$hash$但是依然爆炸。</p>
+<p>如果深入思考的话很容易想到倍增，时间复杂度 $\Theta(n\log n)$ + 大常数碰上毒瘤题当场去世。</p>
+<p>$DC3$？常数大，板子难背。</p>
+<p>$LUOGU$ 日报曾经有过一片日报给出了一种诱导排序的解决方法，但是我不是很理解。</p>
+<p>我在这里给出一种中文互联网上几乎没有任何资料的 $SA$ 数组线性时间复杂度构造方法(我也不知道叫什么名字)。</p>
+<h1 id="0x03-如何求出-SA-数组-具体的"><a href="#0x03-如何求出-SA-数组-具体的" class="headerlink" title="0x03 如何求出 $SA$ 数组(具体的)"></a>0x03 如何求出 $SA$ 数组(具体的)</h1><p>首先定义文本串 $text$ 为我们的待求 $SA$ 的字符数组</p>
+<p>其次定义 $suffix_i$ 为以 $i$ 起头的 $text$ 的后缀</p>
+<p>然后定义 $type_i = \begin{cases}L, suffix_i &gt; suffix_{i+1} \\<br>\displaystyle S, suffix_i &lt; suffix_{i+1}\end{cases}$</p>
+<p>参考图片(手写字可能有些看不清楚)：</p>
+<p><img src="https://i.loli.net/2020/01/31/KYgnzM6IZJyoWtL.png" alt="img spfaed"></p>
+<p>字符串最后的是什么？你可以认为这是因为作者懒不想到处判边界而加上的<strong>比字符串中任意一个字符的ASCLL码都小的字符</strong></p>
+<p>再来定义 $dist_i$ 为 $text_i$ 距离上一个 $type_i$ 为 $S$ 的距离</p>
+<p>参考图片(手写字可能有些看不清楚)：</p>
+<p><img src="https://i.loli.net/2020/01/31/XE3QM7tsHuIPrhx.png" alt="img spfaed"></p>
+<p>再定义一个桶 $bucket$，以 $text$ 中的字符为区别桶之间的“键值”。依然参考图片</p>
+<p><img src="https://i.loli.net/2020/01/31/e5xzKhQsH39Ad17.png" alt="img spfaed"></p>
+<p>我们其实可以发现此时的 $bucket$ 已经和我们要求的 $SA$ 差的不远了。为什么呢？桶排啊！此时的桶外部其实已经是有序的了，只是我们内部还无法确定顺序。比如 $I$ 这个桶里，我们无法确定 $suffix_{2},suffix_{5},suffix_{8},suffix_{11}$ 的排序顺序，因为他们开头的首字母不同。那该怎么办呢？请继续往下看。</p>
+<p>我们再定义一个桶 $D_lists$ “键值” 为 $list_i$。参考图片(注意此时我们不考虑键值(即 $dist$ )为0的情况)</p>
+<p><img src="https://i.loli.net/2020/01/31/HpJhDyjxR8u6iNC.jpg" alt="img spfaed"></p>
+<p>以键值为1举一个例子。它的意思就是说 $dist$ 为1的情况有 $suffix_{9},suffix_{3,6}$ 这三种情况。与 $bucket$ 这个桶类似但不同的，我们能分清 $suffix_9$ 和 $sufiix_{3,6}$ 的顺序，但我们无法分清 $suffix_3$ 和 $suffix_6$ 的顺序。为什么呢？我们来看，下标为9的后缀是以 $P$ 开头的，然而下标为3和6的后缀却都是以 $S$ 开头的，所以 $suffix_9$ 一定排在 $suffix_{3,6}$ 的前面。$suffix_{3,6}$ 却因为首字母相同所以无法分清楚顺序。</p>
+<p>下一步我们尝试将所有 $type$ 为 $S$ 的 $suffix$ 找出来</p>
+<p>我们把 $bucket$ 扫一遍，即可得出：</p>
+<p><img src="https://i.loli.net/2020/02/01/krfWd9FHhPqgtL2.png" alt="img spfaed"></p>
+<p>图中的 $S-Substring$ 即为我们所求的所有 $type$ 为 $S$ 的 $suffix$。</p>
+<p>同样，我们不知道 $suffix_{2,5,8}$ 哪个在前哪个在后。一种 $naive$ 的做法就是把 $[2,5,8]$ 依次+1，相当于直接暴力比较下一个字母，然后通过 $D_lists$ 来分析它们的先后关系。</p>
+<p><img src="https://i.loli.net/2020/02/01/B6FUGwyXsdW4jkE.png" alt="img spfaed"></p>
+<p>我们发现了一个悲剧的事实：已经加到3了，我们却依然无法分清 $[2,5]$ 的顺序。如果继续加下去或许可以分清它们的顺序，但时间复杂度就难以保持在 $\Theta(n)$，换句话说，它很容易被卡。</p>
+<p><img src="https://i.loli.net/2020/02/01/nzZmpYLWh9gkwC8.jpg" alt="img spfaed"></p>
+<p>怎么办呢？我们分析一下这种情况出现的原因。</p>
+<p>显然此时两个后缀的部分前缀是相同的。即下图的情况：</p>
+<p><img src="https://i.loli.net/2020/02/01/6jyL2qsZ9NMQecE.png" alt="img spfaed"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-TREE-CHAIN-SPLITTING/" rel="next" title="数据结构100题 ---树链剖分">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---树链剖分
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/DS100P-SEGMENT-TREE/" rel="prev" title="数据结构100题 ---线段树">
+                数据结构100题 ---线段树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#后缀数组"><span class="nav-number">1.</span> <span class="nav-text">后缀数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-什么是后缀数组-Suffix-Array"><span class="nav-number">2.</span> <span class="nav-text">0x01 什么是后缀数组(Suffix Array)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-如何求出-SA-数组-粗略的"><span class="nav-number">3.</span> <span class="nav-text">0x02 如何求出 $SA$ 数组(粗略的)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-如何求出-SA-数组-具体的"><span class="nav-number">4.</span> <span class="nav-text">0x03 如何求出 $SA$ 数组(具体的)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

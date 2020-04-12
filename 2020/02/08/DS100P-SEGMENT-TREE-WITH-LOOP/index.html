@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="DS100P,线段树,">
+
+
+<meta name="description" content="0x00 前言线段树的码量对于初学者来说十分不友好，而且就算理解了板子到了实际应用时也很容易在码代码的时候漏掉一些细节。而且线段树的四倍空间也可能被卡（虽然我没见过）（但总归是多了一些开销），导致有时候我们不得不使用其他的数据结构。最重要的是，由于递归等原因，传统形式的线段树的常数很大。 那么在这里我将介绍一种基于循环的、空间只需开两倍的较于传统形式的线段树更加简洁高效的线段树的形式。（甚至可以锤">
+<meta name="keywords" content="DS100P,线段树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构100题 ---基于循环的线段树">
+<meta property="og:url" content="www.orchid-any.cf/2020/02/08/DS100P-SEGMENT-TREE-WITH-LOOP/index.html">
+<meta property="og:site_name" content="BoringHacker&#39;s Blog">
+<meta property="og:description" content="0x00 前言线段树的码量对于初学者来说十分不友好，而且就算理解了板子到了实际应用时也很容易在码代码的时候漏掉一些细节。而且线段树的四倍空间也可能被卡（虽然我没见过）（但总归是多了一些开销），导致有时候我们不得不使用其他的数据结构。最重要的是，由于递归等原因，传统形式的线段树的常数很大。 那么在这里我将介绍一种基于循环的、空间只需开两倍的较于传统形式的线段树更加简洁高效的线段树的形式。（甚至可以锤">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-53.png">
+<meta property="og:updated_time" content="2020-04-12T06:05:02.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构100题 ---基于循环的线段树">
+<meta name="twitter:description" content="0x00 前言线段树的码量对于初学者来说十分不友好，而且就算理解了板子到了实际应用时也很容易在码代码的时候漏掉一些细节。而且线段树的四倍空间也可能被卡（虽然我没见过）（但总归是多了一些开销），导致有时候我们不得不使用其他的数据结构。最重要的是，由于递归等原因，传统形式的线段树的常数很大。 那么在这里我将介绍一种基于循环的、空间只需开两倍的较于传统形式的线段树更加简洁高效的线段树的形式。（甚至可以锤">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-53.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="www.orchid-any.cf/2020/02/08/DS100P-SEGMENT-TREE-WITH-LOOP/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>数据结构100题 ---基于循环的线段树 | BoringHacker's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BoringHacker's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/08/DS100P-SEGMENT-TREE-WITH-LOOP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BoringHacker">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BoringHacker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构100题 ---基于循环的线段树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-08T13:50:19+08:00">2020-02-08</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-53.png" rel="gallery_ck8wtuwvs002ixgvre7z95j8p" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-53.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>线段树的码量对于初学者来说十分不友好，而且就算理解了板子到了实际应用时也很容易在码代码的时候漏掉一些细节。而且线段树的四倍空间也可能被卡（虽然我没见过）（但总归是多了一些开销），导致有时候我们不得不使用其他的数据结构。最重要的是，由于递归等原因，传统形式的线段树的常数很大。</p>
+<p>那么在这里我将介绍一种基于循环的、空间只需开两倍的较于传统形式的线段树更加简洁高效的线段树的形式。（甚至可以锤BIT）</p>
+<p>这个东西是我在AI.Cash神仙那里学的，这里给出他的文章链接：<a href="https://codeforc.es/blog/entry/18051" target="_blank" rel="noopener">https://codeforc.es/blog/entry/18051</a></p>
+<h1 id="0x01-第一部分"><a href="#0x01-第一部分" class="headerlink" title="0x01 第一部分"></a>0x01 第一部分</h1><p>我们首先考虑两种操作：单点更新和区间。这里我们假设 $n=2^{p},p\in\mathbb{N}$。</p>
+<p>举个例子，当 $n=2^{4}$，我们画出线段树的图示。</p>
+<p><img src="https://i.loli.net/2020/04/10/ZBnqSPo9RJLEOxt.png" alt="uTools_1586481130160.png"></p>
+<p>（我画图花了一年……）</p>
+<p>首先我们考虑建树，先给出建树的代码实现：</p>
+<pre><code class="lang-cpp">void build() {
+    for (int i = n - 1; i &gt;= 1; --i) t[i] = t[i &lt;&lt; 1] + t[i &lt;&lt; 1 | 1];
+}
+</code></pre>
+<p>结合图例就很好理解。建树比较显然，就不多赘述了。时间复杂度显然 $\Theta(n)$</p>
+<p>然后是单点修改，先给代码：</p>
+<pre><code class="lang-cpp">void modify(int pos, int val) {
+    for (t[pos += n] = val; pos &gt; 1; pos &gt;&gt;= 1) t[pos &gt;&gt; 1] = t[pos] + t[pos ^ 1];
+}
+</code></pre>
+<p>举个例子，我们现在要修改第1个元素，也就是17号节点。首先我们把<code>pos += n</code>，这样我们就定位到了序列的第1个元素在线段树对应的叶子节点也就是17号节点。此时我们修改叶子节点。然后我们往上找父亲节点，<code>pos &gt;&gt; 1</code>可以帮我们找到一个节点的父亲节点。<code>pos</code>和<code>pos ^ 1</code>稍微了解位运算就能知道，不多赘述。时间复杂度显然 $\Theta(\log_{2}n)$。</p>
+<p>再来考虑区间查询，同样先给代码再讲解。</p>
+<pre><code class="lang-cpp">int queryf(int l, int r) {
+    int res = 0;
+    for (l += n, r += n; l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) res += t[l++];
+        if (r &amp; 1) res += t[--r];
+    }
+    return res;
+}
+</code></pre>
+<p>同样举个例子，比如我们要求 $[3,11)$ 的和，那么我们只需要求出节点编号为19、5、12、26的和即可。看图理解。</p>
+<p><img src="https://i.loli.net/2020/04/10/6JBQi1Wg5sIf7tp.png" alt="uTools_1586481130160.png"></p>
+<p>看向代码，首先我们把 $l$ 和 $r$ 分别加 $n$，获取到3和10在线段树的节点编号。然后根据 $l$ 和 $r$ 的奇偶性判断是其父节点的左儿子还是右儿子，然后加起来即可。注意区间是左闭右开的。时间复杂度依然显然 $\Theta(\log_{2}n)$</p>
+<p>当然，当 $n\neq 2^{p},p\in\mathbb{N}$ 时，以上的结论和代码依然成立。</p>
+<p>让我们来看一道板题，<a href="https://www.luogu.com.cn/problem/P3374" target="_blank" rel="noopener">P3374 「模板」树状数组1</a></p>
+<p>代码和上面差不多，我直接给了：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+
+const int N = 5e5 + 5;
+int n, m, t[N &lt;&lt; 1];
+
+void build() {
+    for (int i = n - 1; i &gt; 0; --i) t[i] = t[i &lt;&lt; 1] + t[i &lt;&lt; 1 | 1];
+}
+
+void modify(int p, int val) {
+    for (t[p += n] += val; p &gt; 1; p &gt;&gt;= 1) t[p &gt;&gt; 1] = t[p] + t[p ^ 1];
+}
+
+int queryf(int l, int r) {
+    int res = 0;
+    for (l += n, r += n; l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) res += t[l++];
+        if (r &amp; 1) res += t[--r];
+    }
+    return res;
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    for (int i = 0; i &lt; n; ++i) scanf(&quot;%d&quot;, &amp;t[i + n]);
+    build();
+    for (int i = 0, opt, x, y; i &lt; m; ++i) {
+        scanf(&quot;%d %d %d&quot;, &amp;opt, &amp;x, &amp;y);
+        if (opt == 1) modify(x - 1, y);
+        else printf(&quot;%d\n&quot;, queryf(x - 1, y));
+    }
+    return 0;
+}
+</code></pre>
+<p>好，让我们来关注一下用时：</p>
+<ul>
+<li>树状数组：829~1.07ms Accepted</li>
+<li>线段树（我的大常数版）：4.98S Time Limit Exceeded</li>
+<li>线段树（LYC的小常数版）：1.53S Accepted</li>
+<li>线段树（今天介绍的版本）：925ms Accepted</li>
+</ul>
+<p>可以看到，我们今天的循环线段树的常数几乎和素来以小常数著称的BIT差不多甚至更优了。</p>
+<p>空间开销：</p>
+<ul>
+<li>树状数组：8.04MB</li>
+<li>线段树（我的大常数版）：16.57MB</li>
+<li>线段树（LYC的小常数版）：23.93MB</li>
+<li>线段树（今天介绍的版本）：4.42MB</li>
+</ul>
+<p>虽然理论空间复杂度是BIT更优，但是实际上是今天介绍循环线段树碾压全场。</p>
+<p>第二道题<a href="https://www.luogu.com.cn/problem/P3368" target="_blank" rel="noopener">P3368 「模板」树状数组2</a>：</p>
+<p>代码大同小异：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+
+const int N = 5e5 + 5;
+int n, m, t[N &lt;&lt; 1];
+
+void modify(int l, int r, int v) {
+    for (l += n, r += n; l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) t[l++] += v;
+        if (r &amp; 1) t[--r] += v;
+    }
+}
+
+int queryf(int p) {
+    int res = 0;
+    for (p += n; p &gt; 0; p &gt;&gt;= 1) res += t[p];
+    return res;
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    for (int i = 0; i &lt; n; ++i) scanf(&quot;%d&quot;, &amp;t[i + n]);
+    for (int i = 0, opt, x, y, v; i &lt; m; ++i) {
+        scanf(&quot;%d %d&quot;, &amp;opt, &amp;x);
+        if (opt == 1) scanf(&quot;%d %d&quot;, &amp;y, &amp;v), modify(x - 1, y, v);
+        else printf(&quot;%d\n&quot;, queryf(x - 1));
+    }
+    return 0;
+}
+</code></pre>
+<p>结果比对：</p>
+<ul>
+<li>树状数组：1.76s, 25.91MB, 1.66KB Accepted</li>
+<li>线段树（今天介绍的版本）：863ms, 3.91MB, 607B Accepted</li>
+</ul>
+<p><del>震惊，线段树竟在码量时间空间上都碾压了树状数组233</del></p>
+<h1 id="0x02-第二部分"><a href="#0x02-第二部分" class="headerlink" title="0x02 第二部分"></a>0x02 第二部分</h1><p>直到目前为止，我们只是用线段树淦了树状数组淦的事情而已。线段树的灵魂LazyTag我们还没有涉及。那么接下来我们就来介绍循环版本的线段树如何使用LazyTag。</p>
+<p>比如让我们维护区间加和区间极值。</p>
+<p>先给代码：</p>
+<pre><code class="lang-cpp">const int N = 5e5 + 5;
+int n, m, h, t[N &lt;&lt; 1], d[N];
+</code></pre>
+<p>变量解释，$n,m$ 不解释。$h$ 表示树的高度，即 $\log_{2}n$。$t$ 数组的意义是我们维护的东西。$d$ 可以理解为我们的LazyTag。之所以只用 $\Theta(n)$ 的空间是因为叶子节点不需要LazyTag，因为他们没有需要维护的子节点。</p>
+<pre><code class="lang-cpp">void apply(int p, int val) {
+    t[p] += val;
+    if (p &lt; n) d[p] += val;
+}
+</code></pre>
+<p>这段是在修改的节点值，意味易得，不赘述。</p>
+<pre><code class="lang-cpp">void update(int p) {
+    while (p &gt; 1) p &gt;&gt;= 1, t[p] = max(t[p &lt;&lt; 1], t[p &lt;&lt; 1 | 1]) + d[p];
+}
+</code></pre>
+<p>这段就是在更新节点的最大值。</p>
+<p><img src="https://i.loli.net/2020/04/10/6JBQi1Wg5sIf7tp.png" alt="uTools_1586481130160.png"></p>
+<p>以上图为例，手玩一下意味易得，下一个。</p>
+<pre><code class="lang-cpp">void push(int p) {
+    for (int bit = h; bit &gt; 0; --bit) {
+        int i = (p &gt;&gt; bit);
+        if (d[i]) {
+            apply(i &lt;&lt; 1, d[i]);
+            apply(i &lt;&lt; 1 | 1, d[i]);
+            d[i] = 0;
+        }
+    }
+}
+</code></pre>
+<p>相当于普通线段树的pushdown。从根节点开始，如果当前的节点的LazyTag还没更新，那么就apply到子节点去，并且清掉LazyTag。</p>
+<pre><code class="lang-cpp">void modify(int l, int r, int val) {
+    int L = (l += n), R = (r += n);
+    for (; l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) apply(l++, val);
+        if (r &amp; 1) apply(--r, val);
+    }
+    return update(L), update(R - 1);
+}
+</code></pre>
+<p>修改操作，存下叶节点的编号，更新完后update。</p>
+<pre><code class="lang-cpp">int queryf(int l, int r) {
+    int res = -1926081701;
+    for (push((l += n)), push((r += n) - 1); l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) res = max(res, t[l++]);
+        if (r &amp; 1) res = max(res, t[--r]);
+    }
+    return res;
+}
+</code></pre>
+<p>查询，意味易得，不赘。</p>
+<p>以下是完整的代码：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+
+using std::max;
+
+const int N = 5e5 + 5;
+int n, m, h, t[N &lt;&lt; 1], d[N];
+
+void apply(int p, int val) {
+    t[p] += val;
+    if (p &lt; n) d[p] += val;
+}
+
+void update(int p) {
+    while (p &gt; 1) p &gt;&gt;= 1, t[p] = max(t[p &lt;&lt; 1], t[p &lt;&lt; 1 | 1]) + d[p];
+}
+
+void push(int p) {
+    for (int bit = h; bit &gt; 0; --bit) {
+        int i = (p &gt;&gt; bit);
+        if (d[i]) {
+            apply(i &lt;&lt; 1, d[i]);
+            apply(i &lt;&lt; 1 | 1, d[i]);
+            d[i] = 0;
+        }
+    }
+}
+
+void modify(int l, int r, int val) {
+    int L = (l += n), R = (r += n);
+    for (; l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) apply(l++, val);
+        if (r &amp; 1) apply(--r, val);
+    }
+    return update(L), update(R - 1);
+}
+
+int queryf(int l, int r) {
+    int res = -1926081701;
+    for (push((l += n)), push((r += n) - 1); l &lt; r; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+        if (l &amp; 1) res = max(res, t[l++]);
+        if (r &amp; 1) res = max(res, t[--r]);
+    }
+    return res;
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    h = sizeof(int) * 8 - __builtin_clz(n);
+    for (int i = 0; i &lt; n; ++i) scanf(&quot;%d&quot;, &amp;t[i + n]);
+    for (int i = 0, opt, x, y, v; i &lt; m; ++i) {
+        scanf(&quot;%d %d %d&quot;, &amp;opt, &amp;x, &amp;y);
+        if (opt == 1) scanf(&quot;%d&quot;, &amp;v), modify(x - 1, y, v);
+        else printf(&quot;%d\n&quot;, queryf(x - 1, y));
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="0x03-结尾"><a href="#0x03-结尾" class="headerlink" title="0x03 结尾"></a>0x03 结尾</h1><p>基于循环的线段树较于基于递归的线段树常数更小，实现更简单，对初学者更友好。而且也支持LazyTag。</p>
+<p>较于树状数组能淦的事情更多而且经常在空间时间码量暴捶BIT……当然也可能是我打的BIT太丑了。</p>
+<p>最主要的就是，不容易打错。像我这种看家本领Splay结果每次打都要错一次splay和rotate的手残来说，简直不要太友好。而且很好理解。</p>
+<p>可以发现我的代码和原作者的代码很像。其实这是因为我很喜欢原作者的码风，所以写着写着就差不多啦~/xyx</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS100P/" rel="tag"># DS100P</a>
+          
+            <a href="/tags/线段树/" rel="tag"># 线段树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/08/DS100P-ROUND-SQUARE-TREE/" rel="next" title="数据结构100题 ---圆方树">
+                <i class="fa fa-chevron-left"></i> 数据结构100题 ---圆方树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/08/DS100P-1-10-P/" rel="prev" title="数据结构100题 1~10题">
+                数据结构100题 1~10题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">BoringHacker</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-第一部分"><span class="nav-number">2.</span> <span class="nav-text">0x01 第一部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-第二部分"><span class="nav-number">3.</span> <span class="nav-text">0x02 第二部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-结尾"><span class="nav-number">4.</span> <span class="nav-text">0x03 结尾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
