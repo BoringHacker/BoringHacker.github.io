@@ -1,4006 +1,1278 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-cn">
+<html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.0.4" color="#222">
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '6.0.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-
-
-
-
+  <title itemprop="name">BoringHacker&#39;s Blog</title>
   
-  <meta name="keywords" content="Hexo, NexT">
-
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="BoringHacker&#39;s Blog">
-<meta property="og:url" content="www.orchid-any.cf/index.html">
-<meta property="og:site_name" content="BoringHacker&#39;s Blog">
-<meta property="og:locale" content="zh-cn">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BoringHacker&#39;s Blog">
-
-
-
-  <link rel="alternate" href="/atom.xml" title="BoringHacker's Blog" type="application/atom+xml">
-
-
-
-
-  <link rel="canonical" href="www.orchid-any.cf/">
-
-
-
-<script type="text/javascript" id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-  <title>BoringHacker's Blog</title>
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
   
-
-
-
-
-
-
-
-
-
-  <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
-
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
-
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+    <style>
+  .emoji-coda {
+      display: inline-block !important;
+      position: relative;
+      width: 45px;
+      top: 2px;
+      margin: -3px 3px !important;
+      padding: 0;
+  }
   </style>
-</noscript>
 
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "BoringHacker'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://www.orchid-any.cf/";
+  mashiro_option.v_appId = "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz";
+  mashiro_option.v_appKey = "gU70zYoblzxCmc6iL697pp69";
+  mashiro_option.mathjax = "1";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index1.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index2.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index3.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index4.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index5.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index6.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index7.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
 </head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+    <style type="text/css">
+    @import url("/code.css");
+  </style>
+   <div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;left:31px;">
+    <div class="theme-controls row-container">
+          <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+        <ul class="menu-list"> <li id="white-bg"> 
+            <i class="fa fa-television" aria-hidden="true">
+            </i>
+            </li> 
+            <li id="sakura-bg"> 
+                <i class="iconfont icon-sakura">
+                </i>
+            </li>
+            <li id="gribs-bg">
+                <i class="fa fa-slack" aria-hidden="true">
+                </i>
+            </li>
+            <li id="KAdots-bg">
+                <i class="iconfont icon-dots">
+                </i>
+            </li>
+            <li id="totem-bg">
+                <i class="fa fa-optin-monster" aria-hidden="true">
+                </i>
+            </li>
+            <li id="pixiv-bg">
+                <i class="iconfont icon-pixiv">
+                </i>
+            </li>
+            <li id="bing-bg">
+                <i class="iconfont icon-bing">
+                </i>
+            </li>
+            <li id="dark-bg">
+                <i class="fa fa-moon-o" aria-hidden="true">
+                </i>
+            </li>
+        </ul>
+    </div>
+      <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+    <canvas id="night-mode-cover">
+    </canvas>
+</div>
+ 
+ <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;"> 
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:none;
+            position:fixed;
+            bottom:13px;
+            left:15px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
 
+
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://www.orchid-any.cf/">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Stay Hungry, Stay Foolish</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/boringhacker" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1842865470" target="_blank" class="social-github" title="NetEase">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/music.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/boringhacker" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <!-- <div id="video-btn" class="loadvideo videolive">
+    </div> -->
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <!-- <span class="sakurasono">BoringHacker&#39;s</span>
+            <span class="shironeko">Blog</span> -->
+            <img src = https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/borhac.png>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    Home
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    Archives
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/Tools/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Tools
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Note/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          Notes
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Solution">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          Solution
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Others">
+                          <i class="fa fa-sellsy" aria-hidden="true"></i>
+                          Others
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    Comments
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    Links
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/game/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad" aria-hidden="true"></i>
+                    Game
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    About
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          Me
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-bath" aria-hidden="true"></i>
+                          Blog
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="blank" style="padding-top: 0px;"></div>
+<div id="content" class="site-content">
   
+    <h1 class="main-title" style="font-family:'Ubuntu',sans-serif;margin-top:60px"> <i class="fa fa-commenting" aria-hidden="true"></i> Notice</h1>
+    <div class="notice">
+      <i class="iconfont icon-notification"></i>
+      <div class="notice-content">博客换主题了喵~！欢迎来踩！</div>
+    </div>
+      
+  <div class="top-feature-row">
+  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
+  <i class="fa fa-anchor" aria-hidden="true">
+  </i>
+  Top</h1>
   
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">BoringHacker's Blog</span>
-        <span class="logo-line-after"><i></i></span>
+  <div class="top-feature-v2">
+    <div class="the-feature square from_left_and_right">
+      <a href="/2020/02/05/DS100P-INDEX-AND-PREWORDS/" target="_blank">
+        <div class="img">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/top1.png">
+        </div>
+        <div class="info">
+          <h3>DS100P</h3>
+          <p>数据结构100题系列</p>
+        </div>
       </a>
     </div>
-      
-        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
-      
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  
+  <div class="top-feature-v2">
+    <div class="the-feature square from_left_and_right">
+      <a href="/2020/02/27/OTHE-DIARY/" target="_blank">
+        <div class="img">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/top2.png">
+        </div>
+        <div class="info">
+          <h3>闲谈</h3>
+          <p>聊斋志日常</p>
+        </div>
+      </a>
+    </div>
   </div>
+  
+  <div class="top-feature-v2">
+    <div class="the-feature square from_left_and_right">
+      <a href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE" target="_blank">
+        <div class="img">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/top3.png">
+        </div>
+        <div class="info">
+          <h3>关于</h3>
+          <p>about this website</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  
 </div>
-
-<nav class="site-nav">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
+      <i class="fa fa-envira" aria-hidden="true"></i>
+      Articles</h1>
+      
+  <!-- 首页默认取最最新文章集 -->
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-  
-
-
-
- </div>
-    </header>
-
     
+<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
 
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/" itemprop="url">「杂项」关于这个网站</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-28T14:16:51+08:00">2020-03-28</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-52.png" rel="gallery_ck8wtuwx1003xxgvrtgtuegu1" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-52.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <center><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=29732992&auto=1&height=32"></iframe></center>
-
-<p>这里是我的小站，我是BoringHacker（现在喜欢上了AtarashiHitomi这个ID）（不，是AtarashiNyaruko）。</p>
-<p>这里是我写写算法学习笔记，放放题解的地方。</p>
-<p>还有一些日常系的随笔。</p>
-<p>既然都来了不如去<a href="https://www.orchid-any.cf/comment/">评论区</a>说几句话，嘲讽，吐槽都可以呀。</p>
-<p>如果你想加友链的话，<a href="https://www.orchid-any.cf/links/">这里</a>请（</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+  <div class="post-thumb">
+    <a href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-52.png">
+    </a>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-28 14:03</div>
+      <a href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/" class="post-title">
+        <h3>「杂项」关于这个网站</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" itemprop="url">「笔记」快速数论变换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T08:48:45+08:00">2020-03-26</time>
-            
-
-            
-            
-
-            
-          </span>
-
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/categories/Others/">Others</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-51.png" rel="gallery_ck8wtuwwr003mxgvr5eyw5y0r" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-51.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>学了FFT就想学NTT（捂脸 <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/2233/han.png"></p>
-<h1 id="0x01-原根"><a href="#0x01-原根" class="headerlink" title="0x01 原根"></a>0x01 原根</h1><h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><p>设两数 $r,n\in \mathbb{Z},r\neq 0,n&gt;0,(r,n)=1$</p>
-<p>使得 $r^{x}\equiv 1(\operatorname{mod} n)$ 成立的最小正整数 $x$ 即为 $r$ 模 $n$ 的阶。</p>
-<p>记作 $\operatorname{ord}_{n}r$</p>
-<p>比如说我们要计算 $\operatorname{ord}_{n}r$</p>
-<p>那么</p>
-<script type="math/tex; mode=display">3^{1}=3(\operatorname{mod}10)</script><script type="math/tex; mode=display">3^{2}=1(\operatorname{mod}10)</script><p>所以 $\operatorname{ord}_{n}r=2$</p>
-<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><p>原根的定义是当 $(r,n)=1$ 时，$\operatorname{ord}_{n}r=\varphi(n)$，则称 $r$ 是模 $n$ 的原根。</p>
-<p>其中 $\varphi$ 是数论的欧拉函数。</p>
-<p>其实原根还有一种定义。</p>
-<p>对于 $g,p\in \mathbb{Z}$，如果 $\forall i,j(1\leq i&lt;j\leq p-1),g^{i}\operatorname{mod}p\neq g^{j}\operatorname{mod}p$ 则称 $g$ 是模 $p$ 的原根。</p>
-<p><del>其实差qiu不多</del></p>
-<p>好了原根没了（（</p>
-<p>NTT的模数通常来说只能是988244353。</p>
-<p><del>为什么不能是某长者生日</del></p>
-<p><del>顺带一提LF的OJ登录邮箱lifan后面的一串数字是个质数</del></p>
-<h1 id="0x02-从FFT到NTT"><a href="#0x02-从FFT到NTT" class="headerlink" title="0x02 从FFT到NTT"></a>0x02 从FFT到NTT</h1><p>其实NTT就是把FFT的单位根换成了原根。</p>
-<p>你想啊，FFT每次计算都要用三角函数，常数++。</p>
-<p>然后复数运算，常数++，精度—然后不能取模。</p>
-<p>所以原根就好多了对吧。</p>
-<p>整数运算，精度不变，常数较小然后可以取模。</p>
-<p>不用三角函数，常数较小。</p>
-<p>但是取模一般只能取998244353，此时的原根为3。别问，问就是暴算。</p>
-<p>具体来说，比如当区间中点为 $mid$，长度为 $len=mid\times 2$ 时，我们的单位根是 $\cos\frac{\pi}{mid}+i\sin\frac{\pi}{mid}$。此时原根就是 $g^{\frac{p-1}{2\times mid}}$。</p>
-<p>那么问题来了，我们为什么能用原根代替单位根呢？</p>
-<p>答案是因为证明DFT和IDFT过程中用到的单位根性质原根同样满足。大家可以自己去证一下，还是比较easy的。</p>
-<p><del>又是人丑自带大常数系列</del></p>
-<p><del>这次甚至开O2都稳如泰山</del></p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-const int MAXN = 5000000 + 5;
-const int MOD = 998244353;
-int n, m, a[MAXN], b[MAXN], rev[MAXN];
-
-int fast_pow(int x, int y) {
-    long long res = 1;
-    long long base = (long long)x;
-    for (; y; y &gt;&gt;= 1, base = (base * base) % MOD)
-        res = ((!(y &amp; 1)) * res) + ((y &amp; 1) * (res * base) % MOD);
-    return (int)res % MOD;
-}
-
-void get_rev() {
-    int lim = 0;
-    while ((1 &lt;&lt; lim) &lt; n) lim++;
-    for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
-}
-
-void ntt(int *f, int inv) {
-    get_rev();
-    for (int i = 0; i &lt; n; ++i) if (i &lt; rev[i]) swap(f[i], f[rev[i]]);
-    for (int mid = 1; mid &lt; n; mid &lt;&lt;= 1) {
-        int baseform, t = fast_pow(3, (MOD - 1) / (mid &lt;&lt; 1));
-        if (~inv) baseform = t;
-        else baseform = fast_pow(t, MOD - 2);
-        for (int i = 0; i &lt; n; i += (mid &lt;&lt; 1)) {
-            int omega = 1;
-            for (int j = 0; j &lt; mid; ++j) {
-                int first = f[i + j];
-                int second = 1ll * omega * f[i + j + mid] % MOD;
-                f[i + j] = ((first + second) % MOD + MOD) % MOD;
-                f[i + j + mid] = ((first - second) % MOD + MOD) % MOD;
-                omega = 1ll * omega * baseform % MOD;
-            }
-        }
-    }
-}
-
-signed main() {
-    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
-    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;a[i]);
-    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%d&quot;, &amp;b[i]);
-    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
-    ntt(a, 1);
-    ntt(b, 1);
-    for (int i = 0; i &lt; n; ++i) a[i] = (1ll * a[i] * b[i]) % MOD;
-    ntt(a, -1);
-    for (int i = 0; i &lt;= m; ++i) printf(&quot;%lld &quot;, 1ll * a[i] * fast_pow(n, MOD - 2) % MOD);
-    return 0;
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/" itemprop="url">「笔记」快速傅里叶变换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-21T17:37:58+08:00">2020-03-21</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png" rel="gallery_ck8wtuwwo003jxgvrcn147192" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>这篇主要是针对有基础的同学的，基础知识相信大家都学过。</p>
-<p>这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。</p>
-<p>然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给<del>myh</del>各位看，顺便复习一下。</p>
-<p>说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。</p>
-<p>在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂……</p>
-<p>后来，周x健讲了一次函数，我又在物竞那嫖了些三角函数。</p>
-<p>然后整个人心态都变了，几个小时下来感觉FFT也就那样。（甚至不如NTT有用</p>
-<p>所以大家不要畏难，在座各位的数学都果断吊打WGY对吧。</p>
-<p>李琰之前也在OJ发过FFT的note，但是递归转循环基本就是放了个代码，还留下了不少坑。</p>
-<p>我这里也填了不少李琰的坑，但是一些基础的单位根性质的证明之类的东西我这里就懒得给了，自己考李琰的古吧。</p>
-<p>因为时间原因一些可以从几何意义上来理解的东西我没给图，大家可以自己手%一下。</p>
-<p>(好罢主要是给myh看的手动@ybmyh)</p>
-<h1 id="0x01-点值表示法"><a href="#0x01-点值表示法" class="headerlink" title="0x01 点值表示法"></a>0x01 点值表示法</h1><p>众所周知，一个</p>
-<script type="math/tex; mode=display">
-F(x)=\sum_{i=0}^{n}a_{i}\times x^{i}</script><p>形式的 $n$ 次多项式可以在平面直角坐标系中被 $n+1$ 个点唯一的表示出来。</p>
-<p>点值表示的两个多项式可以在线性时间复杂度中解决相乘，就是对应的 $y$ 乘起来。</p>
-<p>但是暴力的把系数表示法转化为点值表示法依然是 $\Theta(n^{2})$ 的。怎么办呢？</p>
-<h1 id="0x02-复数和单位根"><a href="#0x02-复数和单位根" class="headerlink" title="0x02 复数和单位根"></a>0x02 复数和单位根</h1><p>说过不讲，我就放在这里方便我翻。</p>
-<blockquote>
-<p>$(a+bi)+(c+di)=(a+c)+(b+d)i$</p>
-<p>$(a+bi)-(c+di)=(a-c)+(b-d)i$</p>
-<p>$(a+bi)\times(c+di)=ac+adi+bci-bd=(ac-bd)+(ad+bc)i$</p>
-</blockquote>
-<p>除法可以不用，其实也不用讲，自然而然的东西。</p>
-<p>方程 $x^{n}=1$ 的根，称作单位根用 $\omega_{n}^{k}$ 表示。</p>
-<p>$k$ 表示第 $k$ 个 $n$ 次单位根，从0开始标号，$\omega^{0}_{n},\omega^{1}_{n},\cdots,\omega^{n-1}_{n},$。其中 $\omega^{0}_{n}=1$。</p>
-<p>虽然这样说，但是 $k\geq n$ 以及 $k &lt; 0$ 的情况是被允许的。</p>
-<p>原因看到后面就知道了。</p>
-<p>从几何意义上来理解单位根即复数的坐标系单位圆的 $n$ 等分点。</p>
-<p>复数相乘的性质：模长相乘，辐角相加。</p>
-<p>模长指一个复数到原点的距离，$t=a+bi$ 的模长记作 $|t|$</p>
-<p>辐角指原点到点的连线与 $x$ 轴的正方向的夹角，记作 $\arg(a+bi)$</p>
-<p>接下来列举需要用到的公式。</p>
-<script type="math/tex; mode=display">
-\begin{align*}\label{2}
-  & \omega^{k}_{n}=e^{\frac{2k\pi}{n}i}=\cos\frac{2k\pi}{n}i+i\sin\frac{2k\pi}{n} \tag{2.1} \\
-  & \omega^{0}_{n}=1 \tag{2.2} \\
-  & \omega^{k}_{n}=\omega^{k\operatorname{mod} n} \tag{2.3} \\
-  & \omega^{k}_{n}\times\omega^{j}_{n}=\omega^{k+j}_{n} \tag{2.4} \\
-  & (\omega^{1}_{n})^{k}=\omega^{k}_{n} \tag{2.5} \\
-  & \omega^{pk}_{pn}=\omega^{k}_{n} \tag{2.6} \\
-  & \omega^{k+\frac{n}{2}}_{n}=-\omega^{k}_{n} \tag{2.7} \\
-\end{align*}</script><p><del>靠这段在vsc上显示不出来我自毙</del></p>
-<h1 id="0x03-继续研究多项式"><a href="#0x03-继续研究多项式" class="headerlink" title="0x03 继续研究多项式"></a>0x03 继续研究多项式</h1><p>我们设一个多项式</p>
-<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}</script><p>保证 $n=2^{p}+1$</p>
-<p>我们按 $i$ 的奇偶性把 $F$ 分为两个部分</p>
-<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}</script><p>继续定义</p>
-<script type="math/tex; mode=display">L(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{i}</script><script type="math/tex; mode=display">R(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{i}</script><p>也就是说</p>
-<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times (x^{2})^{i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times (x^{2})^{i}\times x=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=L(x^{2})+xR(x^{2})</script><p>我们可以代入一个数进去。一般我们肯定想着代个看起来可爱的数字。</p>
-<p>看看，这就是我等凡人与傅里叶这等神仙的区别。人家代入的是什么？没错，单位根！（不然我TM前面罗列一大堆单位根的性质干嘛）</p>
-<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{n})+\omega^{k}_{n}R(\omega^{2k}_{n})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{2\times \frac{1}{2}n})+\omega^{k}_{n}R(\omega^{2k}_{2\times \frac{1}{2}n})</script><p>由公式 (2.6)</p>
-<script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{k}_{\frac{1}{2}n})+\omega^{k}_{n}R(\omega^{k}_{\frac{1}{2}n}) \tag{3.1}</script><p>回到</p>
-<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><p>此时我们代入 $\omega^{k+\frac{n}{2}}_{n}$</p>
-<p>同理可得</p>
-<script type="math/tex; mode=display">F(\omega^{k+\frac{n}{2}}_{n})=L(\omega^{k}_{\frac{n}{2}})-R(\omega^{k}_{\frac{n}{2}}) \tag{3.2}</script><p>可以发现 (3.1) 和 (3.2) 只差了符号，也就是说只要知道了 $L(\omega^{k}_{\frac{n}{2}})$ 和 $R(\omega^{k}_{\frac{n}{2}})$ 我们就可以同时得到 $F(\omega^{k}_{n})$ 和 $F(\omega^{k+\frac{n}{2}}_{n})$。然后就递归求解。</p>
-<p>这样我们就可以在 $\Theta(n\log_{2}n)$ 求取多项式的点值表示了。</p>
-<p>算法名叫DFT。</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-#include &lt;complex&gt;
-
-using namespace std;
-
-const double PI = acos(-1);
-const int MAXN = 1e6 + 3e5 + 5;
-int n;
-
-struct Complex {
-    double real;
-    double imag;
-    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
-    Complex operator + (Complex const&amp; rhs) const {
-        return Complex(real + rhs.real, imag + rhs.imag);
-    }
-    Complex operator - (Complex const&amp; rhs) const {
-        return Complex(real - rhs.real, imag - rhs.imag);
-    }
-    Complex operator * (Complex const&amp; rhs) const {
-        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
-    }
-    void to_real(const double t_real) {
-        real = t_real;
-    }
-    void to_imag(const double t_imag) {
-        imag = t_imag;
-    }
-    double to_real() {
-        return real;
-    }
-    double to_imag() {
-        return imag;
-    }
-} F[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
-
-void dft(Complex *f, int __n) {
-    if (__n == 1) return ;
-    Complex *L = f;
-    Complex *R = f + (__n &gt;&gt; 1);
-    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
-    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
-    dft(L, (__n &gt;&gt; 1));
-    dft(R, (__n &gt;&gt; 1));
-    Complex omega;
-    Complex now;
-    omega.to_real(cos(2 * PI / __n));
-    omega.to_imag(sin(2 * PI / __n));
-    now.to_real(1);
-    now.to_imag(0);
-    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
-        t[k] = L[k] + now * R[k];
-        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
-        now = now * omega;
-    }
-    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
-}
-
-signed main() {
-    scanf(&quot;%d&quot;, &amp;n);
-    int temp = n;
-    double x;
-    for (n = 1; n &lt; temp; n &lt;&lt;= 1) ;
-    for (int i = 0; i &lt; temp; ++i) scanf(&quot;%lf&quot;, &amp;x), F[i].to_real(x), F[i].to_imag(0);
-    dft(F, n);
-    for (int i = 0; i &lt; n; ++i) printf(&quot;(%.2lf %.2lf)\n&quot;, F[i].to_real(), F[i].to_imag());
-    return 0;
-}
-</code></pre>
-<p><del>subarashi</del></p>
-<p>但是我们现在求到的只是一堆没用的点值，还需要求到的点值表示还原成系数表示。</p>
-<p>结论是把代入的 $\omega^{k}_{n}$ 换成 $\omega^{-k}_{n}$ 然后除以 $n$。</p>
-<p>即DFT的逆运算IDFT。</p>
-<p>IDFT的证明比较繁琐，涉及到分类讨论。由于我最近被数学作业的多答案讨论和智障珠的60种情况毒瘤了，故懒得给出证明。<del>反正我相信看我blog的人人均会单位根反演</del></p>
-<p>我们记 $\mathcal{F}(F(x))$ 是 $F(x)$ 的离散傅里叶变换/傅里叶变换，$\mathcal{F’}(F(x))$ 是 $F(x)$ 的逆离散傅里叶变换/傅里叶变换。</p>
-<p>用看起来很高大上很nb的数学语言表示就是</p>
-<p>记</p>
-<script type="math/tex; mode=display">G=\mathcal{F}(F(x))</script><p>则</p>
-<script type="math/tex; mode=display">
-n\times f_{k}=\sum_{i=0}^{n-1}\omega^{-ki}_{n}g_{i}</script><p>其中 $f_{i}$、$g_{i}$ 分别为 $F$、$G$ 的第 $i$ 项系数。</p>
-<p>我们只需要改一下代码就好了。</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-#include &lt;complex&gt;
-
-using namespace std;
-
-const double PI = acos(-1);
-const int MAXN = 1e6 + 3e5 + 5;
-int n, m;
-struct Complex {
-    double real;
-    double imag;
-    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
-    Complex operator + (Complex const&amp; rhs) const {
-        return Complex(real + rhs.real, imag + rhs.imag);
-    }
-    Complex operator - (Complex const&amp; rhs) const {
-        return Complex(real - rhs.real, imag - rhs.imag);
-    }
-    Complex operator * (Complex const&amp; rhs) const {
-        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
-    }
-    void to_real(const double t_real) {
-        real = t_real;
-    }
-    void to_imag(const double t_imag) {
-        imag = t_imag;
-    }
-    double to_real() {
-        return real;
-    }
-    double to_imag() {
-        return imag;
-    }
-} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
-
-void dft(Complex *f, int __n, int flag) {
-    if (__n == 1) return ;
-    Complex *L = f;
-    Complex *R = f + (__n &gt;&gt; 1);
-    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
-    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
-    dft(L, (__n &gt;&gt; 1), flag);
-    dft(R, (__n &gt;&gt; 1), flag);
-    Complex omega;
-    Complex now;
-    omega.to_real(cos(2 * PI / __n));
-    omega.to_imag(sin(2 * PI / __n) * flag);
-    now.to_real(1);
-    now.to_imag(0);
-    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
-        t[k] = L[k] + now * R[k];
-        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
-        now = now * omega;
-    }
-    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
-}
-
-signed main() {
-    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
-    double x;
-    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
-    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
-    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
-    dft(A, n, 1);
-    dft(B, n, 1);
-    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
-    dft(A, n, -1);
-    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
-    return 0;
-}
-</code></pre>
-<p>递归版常数过大，我们想想能不能把递归转为循环（迭代）。</p>
-<p>这里给一个结论，给出一个序列。比如 $\texttt{0 1 2 3 4 5 6 7}$。</p>
-<p>对其进行DFT后：$\texttt{0 4 2 6 1 5 3 7}$。多试几组可以发现DFT后每个位置数是原序列对应位置上的数的二进制反转后的结果。</p>
-<script type="math/tex; mode=display">\texttt{0 1 2 3 4 5 6 7}</script><script type="math/tex; mode=display">\texttt{(000) (001) (010) (011) (100) (101) (110) (111)}</script><script type="math/tex; mode=display">\texttt{(000) (100) (010) (110) (001) (101) (011) (111)}</script><script type="math/tex; mode=display">\texttt{0 4 2 6 1 5 3 7}</script><p>证明也好证，留作思考吧。</p>
-<p>然后我们就可以预处理出序列DFT后的位置，然后向上合并。就不用从上至下递归了。</p>
-<p>具体来说，我们设 $rev_{i}$ 为数字 $i$ 的二进制翻转，$lim$ 为最多的二进制位数。</p>
-<p>翻转操作相当于把当前数的二进制最后一位接到之前部分翻转的前面。</p>
-<p>之前部分的翻转即 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$</p>
-<p>其中 $\operatorname{shr}$ 相当于右移操作，$\operatorname{shl}$ 同理。</p>
-<p>然后判一下最后一位，是1的话就让 $2^{lim-1}$ 对 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$ 按位与。因为 $2^{p}$ 的二进制位始终是1后面跟着 $p$ 个0。</p>
-<p>这里建议自己手推一下。</p>
-<pre><code class="lang-cpp">int lim = 0;
-while ((1 &lt;&lt; lim) &lt; n) ++lim;
-for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
-</code></pre>
-<p>完整代码</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-#include &lt;complex&gt;
-
-using namespace std;
-
-const double PI = acos(-1);
-const int MAXN = 1e6 + 3e5 + 5;
-int n, m;
-
-struct Complex {
-    double real;
-    double imag;
-    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
-    Complex operator + (Complex const&amp; rhs) const {
-        return Complex(real + rhs.real, imag + rhs.imag);
-    }
-    Complex operator - (Complex const&amp; rhs) const {
-        return Complex(real - rhs.real, imag - rhs.imag);
-    }
-    Complex operator * (Complex const&amp; rhs) const {
-        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
-    }
-    void to_real(const double t_real) {
-        real = t_real;
-    }
-    void to_imag(const double t_imag) {
-        imag = t_imag;
-    }
-    double to_real() {
-        return real;
-    }
-    double to_imag() {
-        return imag;
-    }
-} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
-int rev[MAXN];
-
-void get_rev() {
-    int lim = 0;
-    while ((1 &lt;&lt; lim) &lt; n) ++lim;
-    for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
-}
-
-void fft(Complex *f, int __n, int flag) {
-    for (int i = 0; i &lt; n; ++i) if (i &lt; rev[i]) swap(f[i], f[rev[i]]);
-        for (int mid = 1; mid &lt; lim; mid &lt;&lt;= 1) {
-            Complex omega;
-            omega.to_real(cos(PI / mid));
-            omega.to_imag(sin(PI / mid) * flag);
-            for (int i = 0; i &lt; n; i += (mid &lt;&lt; 1)) {
-                Complex now;
-                now.to_real(1);
-                now.to_imag(0);
-                for (int j = 0; j &lt; mid; ++j) {
-                    Complex first = f[i + j];
-                    Complex second = now * f[i + j + mid];
-                    f[i + j] = first + second;
-                    f[i + j + mid] = first - second;
-                    now = now * omega;
-                }
-            }
-        }
-}
-
-signed main() {
-    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
-    double x;
-    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
-    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
-    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
-    get_rev();
-    fft(A, n, 1);
-    fft(B, n, 1);
-    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
-    fft(A, n, -1);
-    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
-    return 0;
-}
-</code></pre>
-<p>顺带一说这份代码过不了板题，可能是我人丑自带大常数吧，但是理论上是过得了的，看各位人品。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" itemprop="url">「杂项」CQBZOJ发帖格式建议</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-21T14:50:55+08:00">2020-03-21</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-49.png" rel="gallery_ck8wtuwwy003txgvrt37ok7fg" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-49.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>这篇帖子只代表我的个人观点，目的是希望OJ的 <strong>原创</strong>、<strong>高质量</strong> 的博客越来越多，方便大家的交流。</p>
-<h2 id="0x01-格式"><a href="#0x01-格式" class="headerlink" title="0x01 格式"></a>0x01 格式</h2><p>关于格式我的看法是：</p>
-<ul>
-<li>除了博客的小标题，不用标题字体，看起来很扎眼。</li>
-<li>不要有无意义的换行，理由还是看起来不爽，并且浪费翻页的时间。</li>
-<li>如果确实需要强调，请使用<code>****</code>来强调而不是标题字体。</li>
-<li>不要用花里胡哨的颜色，很难看好不好。</li>
-<li>请文章的每个小部分都打一个小标题，这样看起来会好看很多。</li>
-<li>代码块请好好加，不然没有高亮很难看。</li>
-<li>再次强调一遍，除了小标题不要用标题字体，难看到爆。</li>
-<li>每句话后面请加上句号。</li>
-<li>不要把没写完的贴子发出来，钓别人胃口很缺德。建议先存储到本地。推荐的本地markdown编辑器有：Typora、vsc+markdown all in one、stack edit chrome本地安装版。</li>
-</ul>
-<h2 id="0x02-LaTeX"><a href="#0x02-LaTeX" class="headerlink" title="0x02 $\LaTeX$"></a>0x02 $\LaTeX$</h2><p>关于 $\LaTeX$ 我的看法是：</p>
-<ul>
-<li>不要在无意义的地方添加 $\LaTeX$，比如人名、算法名、数字之类的。</li>
-<li>请在使用了 $\LaTeX$ 的地方两边添加空格，比如 <code>示例文本 $\int_{a}^{b}f(x)dx$ 示例文本</code>。</li>
-<li>该用 $\LaTeX$ 就用，尤其是求和之类的符号，不要用输入法的特殊符号，难看的我自毙好吧。</li>
-<li>该使用 <code>\mathrm{}</code> 字体的地方好好用，比如 $\mathrm{gcd}$、$\mathrm{lcm}$，$\mathrm{mod}$ 之类的，比 $gcd$、$lcm$、$mod$ 看起来正经多了。</li>
-<li>更多的规范可以参考StudyingFather的博客 <a href="https://studyingfather.blog.luogu.org/blog-written-guide" target="_blank" rel="noopener">click here</a></li>
-</ul>
-<h2 id="0x03-题解"><a href="#0x03-题解" class="headerlink" title="0x03 题解"></a>0x03 题解</h2><p>关于题解我的看法是：</p>
-<ul>
-<li>如果你不想放代码，就不要放。</li>
-<li>如果你放代码，就请不要挖坑。对于一些实现才是难点的题目对代码挖坑是一种很没有必要、很无聊的行为。</li>
-<li>题解要写就写详细，要么就不写。关于这一点其实我之前也做的不好，但现在好多了不是吗？（<del>快夸夸我</del>）</li>
-<li>如果你自己都是抄的题解那也不要发了，发了也是辣别人眼睛。</li>
-<li>当然，如果是在其他题解的启发下完成的题目，也是可以的。但是一定要注明思路的来源。</li>
-<li>最低限度代码要是自己打的，copy-paste很好玩是吗？</li>
-<li>更多的规范可以参考StudyingFather的博客 <a href="https://studyingfather.blog.luogu.org/blog-written-guide" target="_blank" rel="noopener">click here</a></li>
-</ul>
-<h2 id="0x04-学习笔记"><a href="#0x04-学习笔记" class="headerlink" title="0x04 学习笔记"></a>0x04 学习笔记</h2><p>关于学习笔记我的看法是：</p>
-<ul>
-<li>学习笔记首先要保证自己能看懂，并且如果自己都还没完全理解一个知识点，那就不要写，写了也是丢人现眼，反面例子就是我的LCT笔记。</li>
-<li>不要有太多无意义的内容，我要的是你的讲解，不是你自认为的幽默。</li>
-<li>当然，有趣的讲解往往能吸引更多人，所以在学习的基调上加一些适当的梗、算法有关小笑话也是很好的。</li>
-<li>如果是数学向的文章 <strong>必须</strong> 给出严格的证明，否则基本没什么意义。</li>
-<li>不要有太多的引用，尤其是引用百度百科、维基百科之类的，没有意义。太多的引用≈抄袭。</li>
-<li>如果有引用请注明来源，参考文章也一样。不经他人同意就转载还不标明原作者，把别人的东西当成是自己的是一种kimochiwarui(恶心)的行为。</li>
-<li>如果你自学了一个有一定含金量的新算法，大可以写一篇学习笔记总结一下。不仅给别人看，也是给自己看。</li>
-<li>如果是大篇copy的，建议就不要发了，发了也是被骂，没理由还嘴的那种。</li>
-</ul>
-<h2 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h2><p>总而言之，同学们喜欢在OJ里面讨论是一件很好的事情，我希望我们OJ的学术氛围越来越浓烈，博客质量越来越高，这也是这篇帖子的目的。</p>
-<p>本贴里举的一些反面例子，我不说出来，大家心里都知道。我也是给你留个面子，但愿以后能改过自新，为OJ提供更多的高质量博客吧。</p>
-<p>以上。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/15/SOL-P5659/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/15/SOL-P5659/" itemprop="url">「题解」洛谷P5659树上的数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-15T19:52:24+08:00">2020-03-15</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/15/SOL-P5659/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/15/SOL-P5659/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-48.png" rel="gallery_ck8wtuwxn004fxgvr6yefvt0a" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-48.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="Part-0"><a href="#Part-0" class="headerlink" title="Part 0"></a>Part 0</h2><blockquote>
-<p>大致思路</p>
-</blockquote>
-<p>主要的思路就是逐个打破，研究特殊的数据得到普通的结论。</p>
-<h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><blockquote>
-<p>暴力的部分分</p>
-</blockquote>
-<p>暴力的部分分很好拿，我们可以直接把全排列，然后 $\Theta(n)$ 判断更新答案。</p>
-<p><del>恭喜您拿到赛场满分</del></p>
-<pre><code class="lang-cpp">namespace SubtaskForce {
-    int cmp[MAXN], ans[MAXN];
-    bool vis[MAXN];
-    void dfs(int now) { // 全排列
-        if (now == n) { // 更新答案
-            for (R int i = 1; i &lt;= n; ++i) cmp[id[i]] = i;
-            for (R int i = 1; i &lt;= n; ++i) {
-                if (cmp[i] &lt; ans[i]) {
-                    for (R int j = 1; j &lt;= n; ++j) ans[j] = cmp[j];
-                    break;
-                }
-                if (cmp[i] &gt; ans[i]) break;
-            }
-            return ;
-        }
-        for (R int i = 1; i &lt; n; ++i) {
-            if (!vis[i]) {
-                vis[i] = 1;
-                swap(id[nodes[i].x], id[nodes[i].y]);
-                dfs(now + 1);
-                swap(id[nodes[i].x], id[nodes[i].y]);
-                vis[i] = 0;
-            }
-        }
-    }
-
-    void main() { // 初始化
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) ans[i] = n - i + 1;
-        dfs(1);
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-</code></pre>
-<h2 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h2><blockquote>
-<p>菊花图的部分分</p>
-</blockquote>
-<p>就这道题而言，菊花图其实是比链的数据好想一些的。</p>
-<p>我们称菊花图中度数为 $n-1$ 的结点为 $rt$ 罢。</p>
-<p>我们可以发现在菊花图上删除边一定是某个结点和 $rt$ 之间。</p>
-<p>也就是说无论我们按怎样的顺序删边，最后都会变成一个环。</p>
-<p>我做了一个动图演示，如果洛谷博客不支持gif的话就直接到这个网址 <a href="https://i.loli.net/2020/03/15/fuU4CgWReOT8X2d.gif" target="_blank" rel="noopener">Click Here</a></p>
-<p><img src="https://i.loli.net/2020/03/15/fuU4CgWReOT8X2d.gif" alt="point.gif"></p>
-<p>有了环这个结论，就有一个很显然的贪心构造环的方法：</p>
-<p>按照 $1,2,\cdots,n$ 的顺序每个数字选择环上自己的下一个点。</p>
-<p>在编写代码的时候还需要注意还没有连到 $Y_{n}$ 就提前<del>自毙</del><del>自闭</del>封闭的情况。</p>
-<pre><code class="lang-cpp">namespace SubtaskAss { // 菊花的单词太长了，就取了个差不多的/xyx
-    bool vis[MAXN];
-    int ans[MAXN];
-    struct UninoFindSet {
-        int fa[MAXN];
-
-        void init(int limit) {
-            for (R int i = 1; i &lt;= limit; ++i)
-                fa[i] = i;
-        }
-
-        int find(int x) {
-            if (x ^ fa[x]) fa[x] = find(fa[x]);
-            return fa[x];
-        }
-
-        void merge(int x, int y) {
-            x = find(x);
-            y = find(y);
-            if (x ^ y) fa[x] = y;
-        }
-    } ufs;
-
-    void main() {
-        ufs.init(n);
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) {
-            for (R int j = 1; j &lt;= n; ++j) {
-                if (!vis[j] &amp;&amp; (i == n || ufs.find(j) != ufs.find(id[i]))) {
-                    vis[j] = 1;
-                    ans[i] = j;
-                    ufs.merge(j, id[i]);
-                    break;
-                }
-            }
-        }
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-</code></pre>
-<h2 id="part-3"><a href="#part-3" class="headerlink" title="part 3"></a>part 3</h2><blockquote>
-<p>链的部分分</p>
-</blockquote>
-<p>说实话链的部分分其实也挺好拿的，但是还是比菊花图难想一些。</p>
-<p>首先，用dfs序把链拍成树是固定操作了。</p>
-<p>链有一个性质，就是每个结点(两端点除外)的度数都有且只有二。</p>
-<p>也就是说除端点外，每个结点都有两条边。而且这两条边的被删除时间一定不一样（废话</p>
-<p>也就是说每个结点的两条边被删除的情况一共有三种。</p>
-<p>我们定义 $order_{i}$ 为结点 $i$ 的左右两边的删除情况：</p>
-<ul>
-<li>0：0表示这个结点的左右边都还没被删除</li>
-<li>1：1表示这个结点的左边先被删除</li>
-<li>2：2表示这个结点的右边先被删除</li>
-</ul>
-<p>现在我们假设左边的结点 $u$ 要跑到右边的结点 $v$ 那里去，那么在 $u$ 和 $v$ 之间的结点一定是左边先被删除，所以 $order_i=1,i\in (u,v)$</p>
-<p>对于 $u$ 和 $v$ 两个结点，一定是右边先被删除，否则就不知道跑哪里去了</p>
-<p>所以 $order_{u}=order_{v}=2$</p>
-<p>至于从右跑到左就完全同理了。</p>
-<p>答案则同样是从小枚举到大(我是从小枚举到大的/xyx)</p>
-<p>比如说我们当前枚举到了结点 $x$，我们希望它能去尽量小的一个点</p>
-<p>假设当前 $x$ 在 $P_{x}$，我们直接暴力枚举一个 $P_{y}$。</p>
-<p>判断一个方案是否可行只需要判断它与前面的删边顺序冲突即可。</p>
-<p>这样做是 $\Theta(N^3)$ 的。我们可以在dfs的时候标记，这样就是 $\Theta(n^2)$ 了。</p>
-<pre><code class="lang-cpp">namespace SubtaskChain {
-    int rnk[MAXN], ans[MAXN], dfn[MAXN];
-    int sbc_tot, order[MAXN], vis[MAXN];
-
-    void dfs(int x, int fa) {
-        rnk[dfn[x] = ++sbc_tot] = x;
-        for (R int i = head[x]; i; i = nxt[i])
-            if (to[i] ^ fa) dfs(to[i], x);
-    }
-
-    void mark_node(int p1, int p2, int tg) {
-        if (p1 != 1 &amp;&amp; p1 != n) order[p1] = tg + 1;
-        if (p2 != 1 &amp;&amp; p2 != n) order[p2] = tg + 1;
-        for (R int i = (tg ? p1 + 1 : p2 + 1); i &lt; (tg ? p2 : p1); ++i) order[i] = ((tg ^ 1) + 1);
-    }
-
-    int iterate(int x, int tg) {
-        int res = n + 1;
-        if (order[dfn[x]] == tg + 1) return res;
-        for (R int i = dfn[x] + (tg ? -1 : 1); tg ? (i &gt;= 1) : (i &lt;= n); i += (tg ? -1 : 1)) {
-            if (order[i] == (tg ^ 1) + 1) {
-                if (!vis[i]) res = min(res, rnk[i]);
-                break;
-            }
-            if (!order[i] &amp;&amp; !vis[i]) res = min(res, rnk[i]);
-        }
-        return res;
-    }
-    int inver_id[MAXN];
-    void main() {
-        for (R int i = 1; i &lt;= n; ++i) rnk[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) dfn[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) order[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) inver_id[id[i]] = i;
-        sbc_tot = 0;
-        for (R int i = 1; i &lt;= n; ++i) {
-            if (in[i] == 1) {
-                dfs(i, 0);
-                break;
-            }
-        }
-        for (R int i = 1; i &lt;= n; ++i) {
-            int left = iterate(inver_id[i], 1);
-            int right = iterate(inver_id[i], 0);
-            if (left &lt; right) mark_node(dfn[inver_id[i]], dfn[left], 0);
-            else left = right, mark_node(dfn[inver_id[i]], dfn[left], 1);
-            ans[i] = left;
-            vis[dfn[left]] = 1;
-        }
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-</code></pre>
-<h2 id="Part-4"><a href="#Part-4" class="headerlink" title="Part 4"></a>Part 4</h2><blockquote>
-<p>正解</p>
-</blockquote>
-<p><del>拼凑出的正解</del></p>
-<p>（我能说这剩下的40pts我看题解都看了半天吗）</p>
-<p>剩下的40pts是我看了这篇题解才会的<a href="https://www.luogu.com.cn/blog/wucstdio/solution-p5659" target="_blank" rel="noopener">Click Here</a></p>
-<p>其实会了链的数据基本就离成功不远了。</p>
-<p>仔细想想，我们在处理链的时候，规定了与一个结点的边的删除顺序的数值。</p>
-<p>如果放到一般的情况来看，我们可以确定一个类似于拓扑序的删除顺序，即某一条边需要在某一条边删除过后才能被删除。</p>
-<p>比如下图：</p>
-<p><img src="https://s1.ax1x.com/2020/03/15/889V74.jpg" alt="889V74.jpg"></p>
-<p>当我们把这一删除顺序写出来，就可以发现这其实构成了一个链。</p>
-<p>对吧！对吧！</p>
-<p>假设我们现在需要把 $x$ 删到 $y$ 结点上。</p>
-<p>那么判断法则如下：</p>
-<h4 id="不合法的情况："><a href="#不合法的情况：" class="headerlink" title="不合法的情况："></a>不合法的情况：</h4><ul>
-<li>有一个数已经从 $x$ 出去过了</li>
-<li>有一个数已经到过 $y$ 这里了</li>
-<li>有一个数从相同方向过了 $x$ 的一条出边</li>
-<li>有一个数从相同方向过了 $y$ 的一条出边</li>
-<li>出/入边任意一条被别的数字从相同方向走了一次</li>
-<li>加上当前数构成的链 $x$ 有任意一边出边不在上面</li>
-<li>加上当前数构成的链 $y$ 有任意一边出边不在上面</li>
-<li>加上当前数后，经过 $x$ 的数字自闭了(形成了一个环)</li>
-<li>加上当前数后，形成了一条链，$x$ 有任意一条出边不在上面</li>
-</ul>
-<h4 id="合法的情况"><a href="#合法的情况" class="headerlink" title="合法的情况"></a>合法的情况</h4><ul>
-<li>排除以上所有情况即合法</li>
-</ul>
-<p>直接贪心会死得很惨烈。</p>
-<p>我们可以通过dfs找出编号最小的作为本轮的答案。</p>
-<pre><code class="lang-cpp">namespace SubtaskRandom {
-    int mark[MAXN][MAXN], inver_id[MAXN];
-    int lave_unwalked[MAXN], fa[MAXN];
-    int lave_in[MAXN], lave_out[MAXN];
-    int node_from[MAXN], node_to[MAXN];
-    int header[MAXN][MAXN], footer[MAXN][MAXN];
-    bool vis[MAXN];
-
-    void dfs(int x, int rt) {
-        for (R int i = head[x]; i; i = nxt[i]) {
-            int y = to[i];
-            if (y ^ fa[x]) {
-                fa[y] = x;
-                vis[y] = 1;
-                if (x ^ rt) {
-                    if (mark[x][y] == x || mark[fa[x]][x] == fa[x]) vis[y] = 0;
-                    if (mark[x][y] == 0 || mark[fa[x]][x] == 0) vis[y] = 0;
-                    if (header[x][fa[x]] == node_to[x] &amp;&amp; footer[x][y] == node_from[x]
-                        &amp;&amp; lave_out[x] + lave_in[x] + (lave_unwalked[x] &lt;&lt; 1) &gt; 2) vis[y] = 0;
-                    if (footer[x][y] == fa[x]) vis[y] = 0;
-                }
-                else {
-                    if (mark[x][y] == x) vis[y] = 0;
-                    if (mark[x][y] == 0) vis[y] = 0;
-                    if (node_from[x]) {
-                        if (footer[x][y] == node_from[x] &amp;&amp; lave_unwalked[x] + lave_in[x] + lave_out[x] != 1)
-                            vis[y] = 0;
-                    }
-                }
-                vis[y] &amp;= vis[x];
-                dfs(y, rt);
-            }
-        }
-        if (rt ^ x) {
-            if (node_from[x]) vis[x] = 0;
-            if (node_to[x]) {
-                if (footer[x][node_to[x]] == fa[x] &amp;&amp; lave_unwalked[x] + lave_in[x] + lave_out[x] != 1)
-                    vis[x] = 0;
-            }
-        }
-        else {
-            vis[x] = 0;
-        }
-    }
-
-    void main() {
-        for (R int i = 1; i &lt;= n; ++i) node_from[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) node_to[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_in[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_out[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_unwalked[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) inver_id[id[i]] = i;
-        for (R int i = 1; i &lt; n; ++i) {
-            lave_unwalked[nodes[i].x]++;
-            lave_unwalked[nodes[i].y]++;
-            mark[nodes[i].x][nodes[i].y] = -1;
-            mark[nodes[i].y][nodes[i].x] = -1;
-            header[nodes[i].x][nodes[i].y] = nodes[i].y;
-            header[nodes[i].y][nodes[i].x] = nodes[i].x;
-            footer[nodes[i].x][nodes[i].y] = nodes[i].y;
-            footer[nodes[i].y][nodes[i].x] = nodes[i].x;
-        }
-        for (R int i = 1; i &lt;= n; ++i) {
-            for (R int j = 1; j &lt;= n; ++j) fa[j] = 0;
-            vis[inver_id[i]] = 1;
-            dfs(inver_id[i], inver_id[i]);
-            int res = 0;
-            for (R int j = 1; j &lt;= n; ++j) {
-                if (vis[j]) {
-                    res = j;
-                    break;
-                }
-            }
-            printf(&quot;%d &quot;, res);
-            node_from[res] = fa[res];
-            while (fa[res] ^ inver_id[i]) {
-                if (~mark[fa[res]][res]) {
-                    mark[fa[res]][res] = mark[res][fa[res]] = 0;
-                    lave_in[res]--;
-                    lave_out[fa[res]]--;
-                }
-                else {
-                    mark[fa[res]][res] = mark[res][fa[res]] = fa[res];
-                    lave_unwalked[res]--;
-                    lave_out[res]++;
-                    lave_unwalked[fa[res]]--;
-                    lave_in[fa[res]]++;
-                }
-                int t = res;
-                res = fa[res];
-                header[res][footer[res][t]] = header[res][fa[res]];
-                footer[res][header[res][fa[res]]] = footer[res][t];
-            }
-            if (~mark[fa[res]][res]) {
-                mark[fa[res]][res] = 0;
-                mark[res][fa[res]] = 0;
-                lave_in[res]--;
-                lave_out[inver_id[i]]--;
-            }
-            else {
-                mark[fa[res]][res] = fa[res];
-                mark[res][fa[res]] = fa[res];
-                lave_unwalked[res]--;
-                lave_out[res]++;
-                lave_unwalked[inver_id[i]]--;
-                lave_in[inver_id[i]]++;
-            }
-            node_to[inver_id[i]] = res;
-        }
-        puts(&quot;&quot;);
-    }
-}
-</code></pre>
-<p>完整代码：</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
-#ifndef ONLINE_JUDGE
-#define gc() getchar()
-#else
-#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
-#endif
-#define is() (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
-#define R register
-
-template &lt; class Type &gt;
-void read(Type&amp; a) {
-    a = 0; bool f = 0; char ch;
-    while (!(ch = gc(), is())) if (ch == &#39;-&#39;) f = 1;
-    while (is()) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
-    a = (f ? -a : a);
-}
-
-template &lt; class Type, class... Args &gt;
-void read(Type&amp; t, Args&amp;... args) {
-    read(t), read(args...);
-}
-
-const int MAXN = 2000 + 5;
-int T, n, max_in, id[MAXN];
-int head[MAXN], nxt[MAXN &lt;&lt; 1];
-int tot, in[MAXN], to[MAXN &lt;&lt; 1];
-struct EdgeNode {
-    int x, y;
-} nodes[MAXN];
-
-EdgeNode make_edge(int x, int y) {
-    EdgeNode res;
-    res.x = x;
-    res.y = y;
-    return res;
-}
-
-void add(int x, int y) {
-    to[++tot] = y;
-    nxt[tot] = head[x];
-    head[x] = tot;
-}
-
-namespace SubtaskForce {
-    int cmp[MAXN], ans[MAXN];
-    bool vis[MAXN];
-    void dfs(int now) {
-        if (now == n) {
-            for (R int i = 1; i &lt;= n; ++i) cmp[id[i]] = i;
-            for (R int i = 1; i &lt;= n; ++i) {
-                if (cmp[i] &lt; ans[i]) {
-                    for (R int j = 1; j &lt;= n; ++j) ans[j] = cmp[j];
-                    break;
-                }
-                if (cmp[i] &gt; ans[i]) break;
-            }
-            return ;
-        }
-        for (R int i = 1; i &lt; n; ++i) {
-            if (!vis[i]) {
-                vis[i] = 1;
-                swap(id[nodes[i].x], id[nodes[i].y]);
-                dfs(now + 1);
-                swap(id[nodes[i].x], id[nodes[i].y]);
-                vis[i] = 0;
-            }
-        }
-    }
-
-    void main() {
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) ans[i] = n - i + 1;
-        dfs(1);
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-
-namespace SubtaskAss {
-    bool vis[MAXN];
-    int ans[MAXN];
-    struct UninoFindSet {
-        int fa[MAXN];
-
-        void init(int limit) {
-            for (R int i = 1; i &lt;= limit; ++i)
-                fa[i] = i;
-        }
-
-        int find(int x) {
-            if (x ^ fa[x]) fa[x] = find(fa[x]);
-            return fa[x];
-        }
-
-        void merge(int x, int y) {
-            x = find(x);
-            y = find(y);
-            if (x ^ y) fa[x] = y;
-        }
-    } ufs;
-
-    void main() {
-        ufs.init(n);
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) {
-            for (R int j = 1; j &lt;= n; ++j) {
-                if (!vis[j] &amp;&amp; (i == n || ufs.find(j) != ufs.find(id[i]))) {
-                    vis[j] = 1;
-                    ans[i] = j;
-                    ufs.merge(j, id[i]);
-                    break;
-                }
-            }
-        }
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-
-namespace SubtaskChain {
-    int rnk[MAXN], ans[MAXN], dfn[MAXN];
-    int sbc_tot, order[MAXN], vis[MAXN];
-
-    void dfs(int x, int fa) {
-        rnk[dfn[x] = ++sbc_tot] = x;
-        for (R int i = head[x]; i; i = nxt[i])
-            if (to[i] ^ fa) dfs(to[i], x);
-    }
-
-    void mark_node(int p1, int p2, int tg) {
-        if (p1 != 1 &amp;&amp; p1 != n) order[p1] = tg + 1;
-        if (p2 != 1 &amp;&amp; p2 != n) order[p2] = tg + 1;
-        for (R int i = (tg ? p1 + 1 : p2 + 1); i &lt; (tg ? p2 : p1); ++i) order[i] = ((tg ^ 1) + 1);
-    }
-
-    int iterate(int x, int tg) {
-        int res = n + 1;
-        if (order[dfn[x]] == tg + 1) return res;
-        for (R int i = dfn[x] + (tg ? -1 : 1); tg ? (i &gt;= 1) : (i &lt;= n); i += (tg ? -1 : 1)) {
-            if (order[i] == (tg ^ 1) + 1) {
-                if (!vis[i]) res = min(res, rnk[i]);
-                break;
-            }
-            if (!order[i] &amp;&amp; !vis[i]) res = min(res, rnk[i]);
-        }
-        return res;
-    }
-    int inver_id[MAXN];
-    void main() {
-        for (R int i = 1; i &lt;= n; ++i) rnk[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) dfn[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) vis[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) order[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) inver_id[id[i]] = i;
-        sbc_tot = 0;
-        for (R int i = 1; i &lt;= n; ++i) {
-            if (in[i] == 1) {
-                dfs(i, 0);
-                break;
-            }
-        }
-        for (R int i = 1; i &lt;= n; ++i) {
-            int left = iterate(inver_id[i], 1);
-            int right = iterate(inver_id[i], 0);
-            if (left &lt; right) mark_node(dfn[inver_id[i]], dfn[left], 0);
-            else left = right, mark_node(dfn[inver_id[i]], dfn[left], 1);
-            ans[i] = left;
-            vis[dfn[left]] = 1;
-        }
-        for (R int i = 1; i &lt;= n; ++i) printf(&quot;%d &quot;, ans[i]);
-        puts(&quot;&quot;);
-    }
-}
-
-namespace SubtaskRandom {
-    int mark[MAXN][MAXN], inver_id[MAXN];
-    int lave_unwalked[MAXN], fa[MAXN];
-    int lave_in[MAXN], lave_out[MAXN];
-    int node_from[MAXN], node_to[MAXN];
-    int header[MAXN][MAXN], footer[MAXN][MAXN];
-    bool vis[MAXN];
-
-    void dfs(int x, int rt) {
-        for (R int i = head[x]; i; i = nxt[i]) {
-            int y = to[i];
-            if (y ^ fa[x]) {
-                fa[y] = x;
-                vis[y] = 1;
-                if (x ^ rt) {
-                    if (mark[x][y] == x || mark[fa[x]][x] == fa[x]) vis[y] = 0;
-                    if (mark[x][y] == 0 || mark[fa[x]][x] == 0) vis[y] = 0;
-                    if (header[x][fa[x]] == node_to[x] &amp;&amp; footer[x][y] == node_from[x]
-                        &amp;&amp; lave_out[x] + lave_in[x] + (lave_unwalked[x] &lt;&lt; 1) &gt; 2) vis[y] = 0;
-                    if (footer[x][y] == fa[x]) vis[y] = 0;
-                }
-                else {
-                    if (mark[x][y] == x) vis[y] = 0;
-                    if (mark[x][y] == 0) vis[y] = 0;
-                    if (node_from[x]) {
-                        if (footer[x][y] == node_from[x] &amp;&amp; lave_unwalked[x] + lave_in[x] + lave_out[x] != 1)
-                            vis[y] = 0;
-                    }
-                }
-                vis[y] &amp;= vis[x];
-                dfs(y, rt);
-            }
-        }
-        if (rt ^ x) {
-            if (node_from[x]) vis[x] = 0;
-            if (node_to[x]) {
-                if (footer[x][node_to[x]] == fa[x] &amp;&amp; lave_unwalked[x] + lave_in[x] + lave_out[x] != 1)
-                    vis[x] = 0;
-            }
-        }
-        else {
-            vis[x] = 0;
-        }
-    }
-
-    void main() {
-        for (R int i = 1; i &lt;= n; ++i) node_from[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) node_to[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_in[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_out[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) lave_unwalked[i] = 0;
-        for (R int i = 1; i &lt;= n; ++i) inver_id[id[i]] = i;
-        for (R int i = 1; i &lt; n; ++i) {
-            lave_unwalked[nodes[i].x]++;
-            lave_unwalked[nodes[i].y]++;
-            mark[nodes[i].x][nodes[i].y] = -1;
-            mark[nodes[i].y][nodes[i].x] = -1;
-            header[nodes[i].x][nodes[i].y] = nodes[i].y;
-            header[nodes[i].y][nodes[i].x] = nodes[i].x;
-            footer[nodes[i].x][nodes[i].y] = nodes[i].y;
-            footer[nodes[i].y][nodes[i].x] = nodes[i].x;
-        }
-        for (R int i = 1; i &lt;= n; ++i) {
-            for (R int j = 1; j &lt;= n; ++j) fa[j] = 0;
-            vis[inver_id[i]] = 1;
-            dfs(inver_id[i], inver_id[i]);
-            int res = 0;
-            for (R int j = 1; j &lt;= n; ++j) {
-                if (vis[j]) {
-                    res = j;
-                    break;
-                }
-            }
-            printf(&quot;%d &quot;, res);
-            node_from[res] = fa[res];
-            while (fa[res] ^ inver_id[i]) {
-                if (~mark[fa[res]][res]) {
-                    mark[fa[res]][res] = mark[res][fa[res]] = 0;
-                    lave_in[res]--;
-                    lave_out[fa[res]]--;
-                }
-                else {
-                    mark[fa[res]][res] = mark[res][fa[res]] = fa[res];
-                    lave_unwalked[res]--;
-                    lave_out[res]++;
-                    lave_unwalked[fa[res]]--;
-                    lave_in[fa[res]]++;
-                }
-                int t = res;
-                res = fa[res];
-                header[res][footer[res][t]] = header[res][fa[res]];
-                footer[res][header[res][fa[res]]] = footer[res][t];
-            }
-            if (~mark[fa[res]][res]) {
-                mark[fa[res]][res] = 0;
-                mark[res][fa[res]] = 0;
-                lave_in[res]--;
-                lave_out[inver_id[i]]--;
-            }
-            else {
-                mark[fa[res]][res] = fa[res];
-                mark[res][fa[res]] = fa[res];
-                lave_unwalked[res]--;
-                lave_out[res]++;
-                lave_unwalked[inver_id[i]]--;
-                lave_in[inver_id[i]]++;
-            }
-            node_to[inver_id[i]] = res;
-        }
-        puts(&quot;&quot;);
-    }
-}
-
-signed main() {
-    for (read(T); T; --T) {
-        read(n);
-        for (R int i = 1, x; i &lt;= n; ++i) read(x), id[x] = i;
-        for (R int i = 1; i &lt;= n; ++i) head[i] = in[i] = 0;
-        tot = 0, max_in = 0;
-        for (R int i = 1; i &lt; n; ++i) {
-            int x, y;
-            read(x, y);
-            add(x, y);
-            add(y, x);
-            ++in[x], ++in[y];
-            nodes[i] = make_edge(x, y);
-            max_in = max(max_in, max(in[x], in[y]));
-        }
-        if (n &lt;= 10) SubtaskForce::main();
-        else if (max_in == n - 1) SubtaskAss::main();
-        else if (max_in == 2) SubtaskChain::main();
-        else SubtaskRandom::main();
-    }
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/11/SOL-NOI-ONLINE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/11/SOL-NOI-ONLINE/" itemprop="url">「题解」官方NOI Online</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-11T11:26:45+08:00">2020-03-11</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/11/SOL-NOI-ONLINE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/11/SOL-NOI-ONLINE/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/posts/post-47.png" rel="gallery_ck8wtuwx80043xgvrd9v2hqqf" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/posts/post-47.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="NOI-Online-T1-序列"><a href="#NOI-Online-T1-序列" class="headerlink" title="NOI-Online-T1-序列"></a>NOI-Online-T1-序列</h2><p><img src="https://i.loli.net/2020/03/11/udq3oU6giOxYtD1.png" alt="img spfaed"></p>
-<p>其实这道题是全场最难的……</p>
-<p>我这里给出一种并查集的做法。</p>
-<p>首先我们把操作2中的 $u$ 和 $v$ 合并</p>
-<p>对于操作1我们可以把他转化为操作2来做。</p>
-<p>比如我们针对操作1给出 $(u,v)$ 和 $(v,t)$ 两条边，对 $(u,v)$ 进行同增，对 $(v,t)$ 进行同减。</p>
-<p>这样就变成了 $u++,t—$ 了。</p>
-<p>然后我们把操作2缩点，然后把操作1的边连到操作2缩的点上。</p>
-<p>然后对操作1合并。</p>
-<p>此时，图中的每个点的度数最多为一。</p>
-<p>那么对于一条边 $(x,y)$ 如果 $a_{x}-b_{x}=a_{y}-b_{y}$ 那么就是YES；</p>
-<p>对于一个自环 $(x,x)$ 如果 $(a_{x}-b_{x})$ 为偶数，那么就是YES；</p>
-<p>对于一个度数为零的点 $x$ 如果 $a_{x}=b_{x}$ 那么就是YES；</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
-#ifndef ONLINE_JUDGE
-#define gc() getchar()
-#else
-#define gc() (p2 == p1 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
-#endif
-#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
-
-template &lt; typename Type &gt;
-void read(Type&amp; a) {
-    a = 0; bool f = 0; char ch;
-    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
-    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
-    a = (f ? -a : a);
-}
-
-template &lt; typename Type, typename... Args &gt;
-void read(Type&amp; t, Args&amp;... args) {
-    read(t), read(args...);
-}
-
-const int MAXN = 2e5 + 5;
-int T, n, m, vis[MAXN];
-int u[MAXN], v[MAXN];
-int a[MAXN], b[MAXN];
-int nxt[MAXN], to[MAXN];
-int head[MAXN], tot;
-struct UnionFindSet {
-    int fa[MAXN];
-
-    void init(int n) {
-        for (int i = 1; i &lt;= n; ++i)
-            fa[i] = i;
-    }
-
-    int find(int x) {
-        if (x ^ fa[x]) fa[x] = find(fa[x]);
-        return fa[x];
-    }
-
-    void merge(int x, int y) {
-        int u = find(x);
-        int v = find(y);
-        if (u ^ v) {
-            fa[v] = u;
-            a[u] += a[v];
-            b[u] += b[v];
-        }
-    }
-} ufs;
-
-void add(int x, int y) {
-    to[++tot] = y;
-    nxt[tot] = head[x];
-    head[x] = tot;
-}
-
-signed main() {
-    for (read(T); T; --T) {
-        read(n, m);
-        tot = 0;
-        memset(head, 0, sizeof head);
-        ufs.init(n);
-        for (int i = 1; i &lt;= n; ++i) read(a[i]);
-        for (int i = 1; i &lt;= n; ++i) read(b[i]);
-        for (int i = 1, opt; i &lt;= m; ++i) {
-            read(opt, u[i], v[i]);
-            if (opt ^ 1) vis[i] = 1, ufs.merge(u[i], v[i]), --i, --m;
-        }
-        for (int i = 1; i &lt;= m; ++i) {
-            add(ufs.find(u[i]), ufs.find(v[i]));
-            add(ufs.find(v[i]), ufs.find(u[i]));
-        }
-        for (int i = 1; i &lt;= n; ++i) {
-            int t = ufs.find(to[head[i]]);
-            for (int x = nxt[head[i]]; x; x = nxt[x])
-                ufs.merge(t, ufs.find(to[x]));
-        }
-        for (int i = 1; i &lt;= n; ++i) {
-            if (head[i]) {
-                int x = ufs.find(i);
-                int y = ufs.find(to[head[i]]);
-                if (x ^ y) {
-                    if ((a[x] - b[x]) ^ (a[y] - b[y])) {
-                        puts(&quot;NO&quot;);
-                        goto there;
-                    }
-                }
-                else {
-                    if ((a[x] - b[y]) &amp; 1) {
-                        puts(&quot;NO&quot;);
-                        goto there;
-                    }
-                }
-            }
-            else if (ufs.fa[i] == i) {
-                if (a[i] ^ b[i]) {
-                    puts(&quot;NO&quot;);
-                    goto there;
-                }
-            }
-        }
-        puts(&quot;YES&quot;);
-        there: ;
-    }
-}
-</code></pre>
-<h2 id="NOI-Online-T2-冒泡排序"><a href="#NOI-Online-T2-冒泡排序" class="headerlink" title="NOI-Online-T2-冒泡排序"></a>NOI-Online-T2-冒泡排序</h2><p>这道题我在考场上的做法很玄，本来是奔着40pts的部分分去的，结果爆零了(至今没找到原因)</p>
-<p>我们设</p>
-<script type="math/tex; mode=display">bigger_{i}=\sum_{j=1}^{i-1}[a_{j}>a_{i}]</script><p>显然逆序对数量为 $\sum bigger$</p>
-<p>于是问题就转化为了动态维护 $bigger$。</p>
-<p>手玩几组数据后我们可以发现，每轮冒泡 $bigger$ 都会有一下的变化：</p>
-<script type="math/tex; mode=display">bigger_{i}=\max\{bigger_{i}-1,0\}</script><p>于是树状数组维护即可</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
-#ifndef ONLINE_JUDGE
-#define gc() getchar()
-#else
-#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
-#endif
-#define is() (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
-template &lt; typename Type &gt;
-void read(Type&amp; a) {
-    a = 0; bool f = 0; char ch;
-    while (!(ch = gc(), is())) if (ch == &#39;-&#39;) f = 1;
-    while (is()) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
-    a = (f ? -a : a);
-}
-
-template &lt; typename Type, typename... Args &gt;
-void read(Type&amp; t, Args&amp;... args) {
-    read(t), read(args...);
-}
-
-using namespace std;
-
-const int MAXN = 2e5 + 5;
-int n, m, bigger[MAXN], bucket[MAXN], a[MAXN];
-long long bit[MAXN], init_inver_tot;
-
-void Update(int x, long long y) {
-    for (; x &lt;= n; x += x &amp; -x) bit[x] += y;
-}
-
-long long GetAnswers(int x) {
-    long long res = 0;
-    for (; x; x -= x &amp; -x) res += bit[x];
-    return res;
-}
-
-signed main() {
-    read(n, m);
-    for (int i = 1; i &lt;= n; ++i) read(a[i]), init_inver_tot += (bigger[i] = i - 1 - GetAnswers(a[i])), bucket[bigger[i]]++, Update(a[i], 1);
-    memset(bit, 0, sizeof bit), Update(1,  init_inver_tot), init_inver_tot = 0;
-    for (int i = 0; i &lt; n; ++i) init_inver_tot += 1LL * bucket[i], Update(i + 1 + 1, init_inver_tot - n);
-    for (int i = 0, op, x; i &lt; m; ++i) {
-        read(op, x);
-        if (n - 1 &lt; x) x = n - 1;
-        if (op ^ 2) {
-            if (a[x + 1] &gt; a[x]) {
-                swap(a[x], a[x + 1]);
-                swap(bigger[x], bigger[x + 1]);
-                Update(1, 1);
-                Update(bigger[x + 1]++ + 2, -1);
-            }
-            else {
-                swap(a[x], a[x + 1]);
-                swap(bigger[x], bigger[x + 1]);
-                Update(1, -1);
-                Update(--bigger[x] + 2, 1);
-            }
-        }
-        else printf(&quot;%lld\n&quot;, GetAnswers(x + 1));
-    }
-    return 0;
-}
-</code></pre>
-<h2 id="NOI-Online-T3-最小环"><a href="#NOI-Online-T3-最小环" class="headerlink" title="NOI-Online-T3-最小环"></a>NOI-Online-T3-最小环</h2><p>全场最水的一道题，但是可怕的心理作用还是让我放弃了这道题。</p>
-<p>首先有一个显然的结论，我们需要把这 $n$ 个数分为 $\gcd(n,k)$ 个环。</p>
-<p><del>虽说是显然但是不画画图还真的玩不动</del></p>
-<p>给一下图示意一下：</p>
-<p><img src="https://i.loli.net/2020/03/11/QtvJrcZ2FGb1doe.png" alt="Annotation 2020-03-11 094939.png"></p>
-<p>图中那个看起来像个五角星的东西其实就是个环</p>
-<p><img src="https://i.loli.net/2020/03/11/NOaqFVdiP2jeM61.png" alt="Annotation 2020-03-11 095158.png"></p>
-<p>这个图中有 $\gcd(n,k)$ 个环，这就是我们的结论。</p>
-<p>具体到实现，我们采用的是预处理出所有答案。</p>
-<p>还有 $k=0$ 的情况需要特殊处理一下</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-const int MAXN = 5e5 + 5;
-vector &lt; int &gt; integer(MAXN);
-vector &lt; long long &gt; ans(MAXN);
-
-int gcd(int x, int y) {
-    return !y ? x : gcd(y, x % y);
-}
-
-signed main() {
-    int n, k;
-    scanf(&quot;%d %d&quot;, &amp;n, &amp;k);
-    for (int i = 1; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;integer.at(i)), ans.at(0) += (long long)integer.at(i) * (long long)integer.at(i);
-    sort(integer.begin() + 1, integer.begin() + 1 + n);
-    for (int i = 1; i &lt;= (n &gt;&gt; 1); ++i) {
-        if (!(n % i)) {
-            int t = n / i;
-            vector &lt; int &gt; process(MAXN);
-            int tot = 0;
-            for (int j = 2; j &lt; t; j += 2) process.at(++tot) = j;
-            process.at(++tot) = t;
-            for (int j = t - 1 - (t &amp; 1); j &gt; 0; j -= 2) process.at(++tot) = j;
-            for (int j = t + 1; j &lt;= n; ++j) process.at(j) = process.at(j - t) + t;
-            for (int j = 1; j &lt;= n; ++j)
-                if (!(j % t)) ans.at(i) += (long long)integer.at(process.at(j)) * (long long)integer.at(process.at(j + 1 - t));
-                else ans.at(i) += (long long)integer.at(process.at(j)) * (long long)(integer.at(process.at(j + 1)));
-        }
-    }
-    for (int i = 0, x; i &lt; k; ++i) scanf(&quot;%d&quot;, &amp;x), printf(&quot;%lld\n&quot;, ans.at(x ? gcd(n, x) : 0));
-    return 0;
-}
-</code></pre>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>（其实我不是很会写这玩意儿）</p>
-<p>果然心理素质还是不行……错过了T3这样的水题。</p>
-<p>总体来说，把握住机会，把题目都当作大白菜（雾）。</p>
-<p>然后就是多去做题吧，题量多少都不嫌多。</p>
-<p>就这样（</p>
-<h2 id="普及组口胡"><a href="#普及组口胡" class="headerlink" title="普及组口胡"></a>普及组口胡</h2><p>说了是口胡所以没代码不保证正确/xyx  </p>
-<p>至于题目难度这是NOIOL不是NOIpOL给了<del>搬</del>出题人放飞自我的空间。</p>
-<p>T1：普通NOIp普及难度，各位巨佬随便切</p>
-<p>T2: 基础多项式，会的人就很套路。不会的话就n方dp骗骗分</p>
-<p>T3: 这道题我不太确定，应该是Floyd+矩阵。</p>
-<p>完结撒六花</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/03/05/SOL-P1852/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/05/SOL-P1852/" itemprop="url">「题解」洛谷P1852跳跳棋</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T18:45:54+08:00">2020-03-05</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/03/05/SOL-P1852/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/05/SOL-P1852/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-46.png" rel="gallery_ck8wtuwxh0047xgvrupr51amk" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-46.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>在一个数轴上给你三个点，移动方法是彼此为中点进行跳跃，不能同时越过两颗棋子。</p>
-<p>给出初始状态和目标状态，问能否从初始状态跳到目标状态。若能，输出最少步数。</p>
-<p>棋子之间互相没有差别。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>这道题是我们去年学倍增的时候LF给我们放的一道题（实际上和倍增没有半毛钱的关系。</p>
-<p>啊对我就是一道题从去年做到今年（我不管做出来了就是我的题量XD/xyx</p>
-<p>不扯了说正事儿。</p>
-<p>其实拿到这道题我是很懵的，完全不知道该怎么入手。</p>
-<p>然后我们拿出传统手艺手玩数据。我们可以发现对于一个三元组 $(x,y,z)$ 只有三种移动的方案：</p>
-<p>（啊对了，说一下这里的三元组表示的是一种位置关系，即 $x$ 在左 $y$ 在中间 $z$ 在右）</p>
-<p>中间往两边跳</p>
-<blockquote>
-<ol>
-<li><p>$y$ 以 $x$ 为中点进行跳跃，三元组变为：$(x-(y-x),x,z)\implies(2x-y,x,z)$</p>
-</li>
-<li><p>$y$ 以 $z$ 为中点进行跳跃，三元组变为：$(x,z,z+(z-y))\implies(x,z,2z-y)$</p>
-</li>
-</ol>
-</blockquote>
-<p>两边往中间跳</p>
-<p>这里方便讨论我们不妨设 $dis_{1}$ 为 $x$ 和 $y$ 之间的距离，$dis_{2}$ 为 $y$ 和 $z$ 之间的距离。</p>
-<p>当 $dis_{1} &gt; dis_{2}$</p>
-<blockquote>
-<ol>
-<li>$x$ 以 $y$ 为中点进行跳跃，三元组变为：$(y,y+dis_{1},z)\implies(y,2y-x,z)$</li>
-</ol>
-</blockquote>
-<p>当 $dis_{1} &lt; dis_{2}$</p>
-<blockquote>
-<ol>
-<li>$z$ 以 $y$ 为中点进行跳跃，三元组变为：$(x,y-dis_{2},y)\implies(x,2y-z,y)$</li>
-</ol>
-</blockquote>
-<p>当 $dis_{1}=dis_{2}$</p>
-<p>无法继续跳，也就是我们的边界。</p>
-<p>好，现在把所有我们已知的条件串起来看：这不就是一棵二叉树吗？</p>
-<p>对呀，这就是一棵二叉树（我在说什么</p>
-<p>为什么这一定是一棵树呢？想一想就明白了，就像数学中的收敛一样，最后一定会出现 $dis_{1}=dis_{2}$ 的情况。</p>
-<p>而且这棵树是唯一确定的。</p>
-<p>那么这道题的答案是什么就很明确了。</p>
-<p>首先判断YES或NO的情况我们只需要判断初始状态和目标状态是否在统一棵状态树上即可。</p>
-<p>最小的步数就是他们两个在树上的距离。</p>
-<p>暴力肯定是不可取的。</p>
-<p>但是我们可以通过模拟暴力的情景来得到优化的策略。</p>
-<p>比如我们思考一个数据：$x,y,z$。</p>
-<p>其中 $y$ 是一个 <strong>远大于</strong> $x$ 的数。</p>
-<p>方便起见我们令 $z=y+1$</p>
-<p>暴力此时会不停的让 $z$ 以 $y$ 为中点跳。</p>
-<p>此时我们回顾一下题面：</p>
-<p>棋子之间互相没有差别。</p>
-<p>没错，每颗棋子之间其实是没有任何差别的。</p>
-<p>打个比方说，现在 $z$ 以 $y$ 为中点进行了跳跃，其本质就是 $z$ 和 $y$ 一起往左平移了 $z-y$ 步。</p>
-<p>这就意味着，我们不需要老老实实的每次都跳，我们可以直接获得 $z$ 跳跃的次数即 $(y-x)\div(z-y)$ 次。</p>
-<p>再推一下就是欧几里得最大公约数的形式了，也就是说我们在 $log_{2}$ 的复杂度解决了这个问题。</p>
-<p>最后二分一下到LCA的距离，这道题就被你暴切啦</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;cstring&gt;
-#include &lt;queue&gt;
-
-using namespace std;
-
-int a, b, c;
-int x, y, z;
-
-void sort(int&amp; x, int&amp; y, int&amp; z) {
-    vector &lt; int &gt; vec;
-    vec.push_back(x);
-    vec.push_back(y);
-    vec.push_back(z);
-    sort(vec.begin(), vec.end());
-    x = vec[0], y = vec[1], z = vec[2];
-}
-
-void Initialization() {
-    scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);
-    scanf(&quot;%d %d %d&quot;, &amp;x, &amp;y, &amp;z);
-    sort(a, b, c);
-    sort(x, y, z);
-}
-
-int GetRoot(int&amp; x, int&amp; y, int&amp; z) {
-    int dis1 = y - x;
-    int dis2 = z - y;
-    if (dis1 ^ dis2) {
-        int temp;
-        if (dis1 &lt; dis2) {
-            temp = dis2 / dis1;
-            if (!(dis2 % dis1)) --temp;
-            x += temp * dis1;
-            y += temp * dis1;
-        }
-        else {
-            temp = dis1 / dis2;
-            if (!(dis1 % dis2)) --temp;
-            z -= temp * dis2;
-            y -= temp * dis2;
-        }
-        return temp + GetRoot(x, y, z);
-    }
-    else return 0;
-}
-
-void ArriveK(int&amp; x, int&amp; y, int&amp; z, int key) {
-    int dis1 = y - x;
-    int dis2 = z - y;
-    if (dis1 &lt; dis2) {
-        int temp = dis2 / dis1;
-        if (!(dis2 % dis1)) --temp;
-        if (temp &gt;= key) {
-            x += key * dis1;
-            y += key * dis1;
-        }
-        else {
-            x += temp * dis1;
-            y += temp * dis1;
-            ArriveK(x, y, z, key - temp);
-        }
-    }
-    else {
-        int temp = dis1 / dis2;
-        if (!(dis1 % dis2)) --temp;
-        if (temp &gt;= key) {
-            z -= key * dis2;
-            y -= key * dis2;
-        }
-        else {
-            z -= temp * dis2;
-            y -= temp * dis2;
-            ArriveK(x, y, z, key - temp);
-        }
-    }
-}
-
-signed main() {
-    Initialization();
-    int a0 = a, b0 = b;
-    int c0 = c, x0 = x;
-    int y0 = y, z0 = z;
-    int rt1 = GetRoot(x0, y0, z0);
-    int rt2 = GetRoot(a0, b0, c0);
-    if (a0 ^ x0 || b0 ^ y0 || c0 ^ z0) return puts(&quot;NO&quot;) &amp; 0;
-    if (rt1 &lt; rt2) ArriveK(a, b, c, rt2 - rt1);
-    else ArriveK(x, y, z, rt1 - rt2);
-    int l = 0, r = min(rt1, rt2);
-    while (l &lt; r) {
-        int mid = (l + r) &gt;&gt; 1;
-        a0 = a, b0 = b, c0 = c;
-        x0 = x, y0 = y, z0 = z;
-        ArriveK(x0, y0, z0, mid);
-        ArriveK(a0, b0, c0, mid);
-        if (x0 == a0 &amp;&amp; y0 == b0 &amp;&amp; z0 == c0)
-            r = mid;
-        else
-            l = mid + 1;
-    }
-    printf(&quot;YES\n%d\n&quot;, max(rt1, rt2) - min(rt1, rt2) + (l &lt;&lt; 1));
-    return 0;
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/27/OTHE-DIARY/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/27/OTHE-DIARY/" itemprop="url">「杂项」聊斋志日常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-27T16:59:38+08:00">2020-02-27</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/02/27/OTHE-DIARY/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/27/OTHE-DIARY/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-45.png" rel="gallery_ck8wtuwwv003qxgvro5hwsy3a" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-45.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <p>无聊搞出来的？</p>
-<p><del>可能是用来记录自己的成天被虐的心路历程吧</del></p>
-<p><span class="spoiler">反正没心没肺就对了</span></p>
-<p>也可以简单理解为日记？</p>
-<p>总之很无聊就对了……蒟蒻的日常没什么可看的</p>
-<h3 id="2020-2-4"><a href="#2020-2-4" class="headerlink" title="2020.2.4"></a>2020.2.4</h3><p>啊啊啊博客访问慢死了，已经被同机房吐槽的体无完肤了……</p>
-<p>用了一下jsDeliver加速好像用处不大……</p>
-<p>但是本地管理图片还是很方便的（从图床把图片搬下来就花了不少力气</p>
-<p>对了，安利一下一个网页图片批量下载chrome扩展：Fatkun</p>
-<p><span class="spoiler">胖坤？</span></p>
-<h3 id="2020-2-29"><a href="#2020-2-29" class="headerlink" title="2020.2.29"></a>2020.2.29</h3><p>成功用动态开点水过主席树……</p>
-<p>（我好像就没有打过什么正经题</p>
-<p>算了算了准备一下下午%你赛吧 <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/2233/yumen.png"></p>
-<p>……</p>
-<p>220pts被虐到rnk3，我果然还是太菜了…… <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/quyin/hematemesis.png"></p>
-<h3 id="2020-3-1"><a href="#2020-3-1" class="headerlink" title="2020.3.1"></a>2020.3.1</h3><p>跑到初一的模拟赛去玩了一下（我不也是初一的吗）然后AK后感受到了快乐（我内心扭曲？）</p>
-<p>晚上洛谷Rated赛开题T1秒切，然后就开始读不懂题面了……（我向量白学了嘤嘤嘤</p>
-<p><img src="https://i.loli.net/2020/03/01/Q8CW41NAV7kBysb.png" alt="vase.png"></p>
-<p>自闭了自闭了</p>
-<h3 id="2020-3-2"><a href="#2020-3-2" class="headerlink" title="2020.3.2"></a>2020.3.2</h3><p>我决定了！</p>
-<p>我要把洛谷历年NOIpTG的dp能做的尽量做了！</p>
-<p>（谁让我dp菜死了呢</p>
-<p><span class="spoiler">能做多少看运气</span></p>
-<p>ds100p可能从此更新比较慢了……（绝对不咕！</p>
-<h3 id="2020-3-3"><a href="#2020-3-3" class="headerlink" title="2020.3.3"></a>2020.3.3</h3><p>去初三学长的模拟赛混了一下，除了T1傻逼矩阵随便切以外T2T3题目看着很高级于是我决定放弃……</p>
-<p><span class="spoiler">什么心态……</span></p>
-<p>勉强过了两道题还剩一道不知道是个什么。（我还是太弱了</p>
-<p>做作业发现窗外偷拍的老爹一名然后父子上演了一场摔♂跤大戏</p>
-<h3 id="2020-3-4"><a href="#2020-3-4" class="headerlink" title="2020.3.4"></a>2020.3.4</h3><p>补完俺妹过后感觉救不回来了：）：（入坑了就救不回来了：（但是我总算出了轻百合的坑</p>
-<p>补完青春猪头感觉也救不回来了：）<span class="spoiler">：（同时入两个坑感觉很棒？</span></p>
-<h3 id="2020-3-5"><a href="#2020-3-5" class="headerlink" title="2020.3.5"></a>2020.3.5</h3><p>今天被黄金拼图救回来了？<span class="spoiler">神TM立场坚定</span></p>
-<p>强推黄金拼图啊啊啊，<span class="spoiler">个人觉得甚至比点兔更接近我的口味（</span></p>
-<p><span class="spoiler">LJS那个轻百合控居然在一下看完一季过后告诉我无感……</span></p>
-<p><span class="spoiler">没错，看完整整一季才告诉我无感……（**</span></p>
-<p>啊哈哈，去年做到今年的题终于解决了，我好高兴啊啊哈哈……<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/2233/daxiao.png"></p>
-<h3 id="2020-3-7"><a href="#2020-3-7" class="headerlink" title="2020.3.7"></a>2020.3.7</h3><p>靠，今天NOI Online结果打个卡直接大凶……</p>
-<p>wdnmd垃圾CCF就舍不得买个好点的服务器</p>
-<h3 id="2020-3-8"><a href="#2020-3-8" class="headerlink" title="2020.3.8"></a>2020.3.8</h3><p>我现在只想把我的身份证摔到LJS脸上让她好好看看性别男三个大字……</p>
-<p><img src="https://i.loli.net/2020/03/08/O3wPFZtkm41iSK2.png" alt="ljs"></p>
-<h3 id="2020-3-9"><a href="#2020-3-9" class="headerlink" title="2020.3.9"></a>2020.3.9</h3><p>人生第一次删Q好友</p>
-<p>怎么说呢。大概就是一种很失望的感觉吧。</p>
-<p>毕业之前明明都还好好的，毕业后就暴露本性了？</p>
-<p>唉。</p>
-<h3 id="2020-3-14"><a href="#2020-3-14" class="headerlink" title="2020.3.14"></a>2020.3.14</h3><p>咕了好久啊（（</p>
-<p>H段子学生会令人快乐（（</p>
-<p>看完第一季发现有第二季；</p>
-<p>看完第二季发现有OVA；</p>
-<p>看完OVA发现还有OAD；</p>
-<p>看完OAD发现还TM有剧场版。</p>
-<p>这种快乐！！！</p>
-<p>强推uTools太方便了啊！</p>
-<h3 id="2020-3-17"><a href="#2020-3-17" class="headerlink" title="2020.3.17"></a>2020.3.17</h3><p>当数学竞赛和常规提高分开后，我每天都面对着两份作业自毙……</p>
-<h3 id="2020-3-19"><a href="#2020-3-19" class="headerlink" title="2020.3.19"></a>2020.3.19</h3><p>Westlife、One Republic、The Score。</p>
-<h3 id="2020-3-21"><a href="#2020-3-21" class="headerlink" title="2020.3.21"></a>2020.3.21</h3><p>我体会到了暴算的快乐。</p>
-<p>我TM整个人都傻逼了好吗。</p>
-<h3 id="2020-3-26"><a href="#2020-3-26" class="headerlink" title="2020.3.26"></a>2020.3.26</h3><p>经过我无数次试验我发现我能接受的最差画风就是我朋友很少……</p>
-<h3 id="2020-3-27"><a href="#2020-3-27" class="headerlink" title="2020.3.27"></a>2020.3.27</h3><p>你们都要02吗？那我把莓要走啦（（</p>
-<p>艹为什么结局莓跟了五郎啊啊啊制作组你粗来！！！</p>
-<p>（无能狂怒.webp</p>
-<p>我不管我要看广和莓发糖！！！</p>
-<h3 id="2020-3-28"><a href="#2020-3-28" class="headerlink" title="2020.3.28"></a>2020.3.28</h3><p>我祈祷龙王工有第二季。。。。。。</p>
-<p>封面镇楼！</p>
-<p><img src="https://s1.ax1x.com/2020/03/28/GkUPwd.jpg" alt="GkUPwd.jpg"></p>
-<h3 id="2020-4-6"><a href="#2020-4-6" class="headerlink" title="2020.4.6"></a>2020.4.6</h3><p>咕了好久啊。</p>
-<p>双系统感觉很舒服，Ubuntu很好康（（（</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/20/SOL-P2044/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/20/SOL-P2044/" itemprop="url">「题解」洛谷P2044随机数生成器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-20T15:51:05+08:00">2020-02-20</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/02/20/SOL-P2044/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/20/SOL-P2044/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-44.png" rel="gallery_ck8wtuwxj004axgvre0pmfrqo" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-44.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一个递推式，让你求某一项的值模上 $g$。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>这道题正解是矩阵。我这里给出一种分治的做法。</p>
-<p>题目中说</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $X_{i}=(a\times X_{i-1}+c)\ \mathrm{mod}\ m$</p>
-<p>我们先往下推一步</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $X_{i-1}=(a\times X_{i-2}+c)\ \mathrm{mod}\ m$</p>
-<p>我们把这个式子代入到原式，得到</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $X_{i}$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a\times X_{i-1}+c)\ \mathrm{mod}\ m$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a\times(a\times X_{i-2}+c)+c)\ \mathrm{mod}\ m$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=a^{2}\times X_{i-2}+c\times(a+1)\ \mathrm{mod}\ m$</p>
-<p>按照这个套路推下去，最后得到：</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $X_{i}=a^{i}\times X_{0}+c\times(a^{i-1}+a^{i-2}+\cdots+a+1)$</p>
-<p>$a^{i}\times X_{0}$ 很好得到，直接大力快速幂，再乘上 $X_{0}$ 即可。</p>
-<p>我们接着来看后面的</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $c\times(a^{i-1}+a^{i-2}+\cdots+a+1)$</p>
-<p>先不要看 $c$，即。</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $a^{i-1}+a^{i-2}+\cdots+a+1$</p>
-<p>相信大家都学过因式分解，对于这样的式子进行因式分解简直再容易不过了。如果最高次为奇数次，那么我们可以直接两两分组，就可以提出来，即：</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $a^{i-1}+a^{i-2}+\cdots+a+1$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a^{i-1}+a^{i-2})+(a^{i-3}+a^{i-4})+\cdots+(a+1)$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=a^{i-2}\times(a+1)+a^{i-4}\times(a+1)+\cdots+(a+1)$</p>
-<p>$\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $\ \ \ \ \ \ \ $ $=(a+1)\times(a^{i-2}+a^{i-4}+\cdots+a^{2}+1)$</p>
-<p>这样我们就可以一直递归分治下去解决问题了，最后再乘上一个 $C$ 即可。</p>
-<p>至于最高次为偶次就直接单独提出来大力快速幂即可。</p>
-<p>还有一个细节，这道题的乘法常数过大，需要用“快速乘”。其实跟快速幂差不多。</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-
-char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
-#ifndef ONLINE_JUDGE
-#define gc() getchar()
-#else
-#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
-#endif
-#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
-
-template &lt; typename Type &gt;
-void read(Type&amp; a) {
-    a = 0; bool f = 0; char ch;
-    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
-    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
-    a = (f ? -a : a);
-}
-
-template &lt; typename Type, typename... Args &gt;
-void read(Type&amp; t, Args&amp;... args) {
-    read(t), read(args...);
-}
-
-typedef long long LL;
-LL MOD, a, c, X0, n, g;
-
-LL fast_mul(LL x, LL y) {
-    LL res = 0;
-    for (; y; y &gt;&gt;= 1, x = (x + x) % MOD)
-        if (y &amp; 1) res = (res + x) % MOD;
-    return res % MOD;
-}
-
-LL fast_pow(LL x, LL y) {
-    LL res = 1;
-    for (; y; y &gt;&gt;= 1, x = fast_mul(x, x))
-        if (y &amp; 1) res = fast_mul(res, x);
-    return res % MOD;
-}
-
-LL get_sum(LL x, LL y) {
-    if (y == 0) return 1;
-    else if (y == 1) return (x + 1) % MOD;
-    else if (y &amp; 1) return fast_mul((fast_pow(x, (y &gt;&gt; 1) + 1) % MOD + 1) % MOD, get_sum(x, y &gt;&gt; 1) % MOD) % MOD;
-    else return fast_mul((fast_pow(x, y &gt;&gt; 1) + 1) % MOD, get_sum(x, (y &gt;&gt; 1) - 1) % MOD) % MOD + fast_pow(x, y) % MOD;
-}
-
-signed main() {
-    read(MOD, a, c, X0, n, g);
-    X0 %= MOD;
-    printf(&quot;%lld\n&quot;, (fast_mul(fast_pow(a, n) % MOD, X0) % MOD + fast_mul(get_sum(a, n - 1) % MOD, c % MOD) % MOD) % MOD % g);
-    return 0;
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.orchid-any.cf/2020/02/18/SOL-P3267/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BoringHacker">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BoringHacker's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/18/SOL-P3267/" itemprop="url">「题解」洛谷P3267侦察守卫</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-18T20:02:53+08:00">2020-02-18</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Solution/" itemprop="url" rel="index"><span itemprop="name">Solution</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/02/18/SOL-P3267/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/18/SOL-P3267/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png" rel="gallery_ck8wtuwxq004hxgvre8ummf37" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h4 id="算法标签："><a href="#算法标签：" class="headerlink" title="算法标签："></a>算法标签：</h4><h5 id="树DP"><a href="#树DP" class="headerlink" title="$\ \ \ \ \ \ \ \ \ $ 树DP"></a>$\ \ \ \ \ \ \ \ \ $ 树DP</h5><h4 id="DP状态定义"><a href="#DP状态定义" class="headerlink" title="DP状态定义:"></a>DP状态定义:</h4><p>$\ \ \ \ \ \ \ \ \ $ 说实话这道题定状态不好定。</p>
-<p>$\ \ \ \ \ \ \ \ \ $ 那么我们从头来看，当 $d =0$ 的时候，我们就是在求树的最大独立集，定义显而易见。</p>
-<p>$\ \ \ \ \ \ \ \ \ $ $d\neq 0$ 我们可以照搬原来的定义，把它扩展一下。</p>
-<hr>
-<p>$\ \ \ \ \ \ \ \ \ $ $f_{i,j}$ 表示以 $i$ 为根结点的子树已经完全被覆盖让然后还能向上覆盖 $j$ 层的最小代价</p>
-<p>$\ \ \ \ \ \ \ \ \ $ $g_{i,j}=$ 表示以 $i$ 为根结点的子树还有 $j$ 层没有覆盖的最小代价</p>
-<hr>
-<p>$\ \ \ \ \ \ \ \ \ $ 需要注意的是 $j$ 本质上是带有方向性的，可以类比向量的概念。</p>
-<p>$\ \ \ \ \ \ \ \ \ $ 边界条件很显然，$f_{i,0}=val_{i}$ 此时当前结点需要被覆盖。</p>
-<p>$\ \ \ \ \ \ \ \ \ $ 其他情况：</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-f_{i,j}=val_{i},j\in [1,d] \\
-\displaystyle
-f_{i,j}=\infty,j=d+1
-\end{cases}</script><p>$\ \ \ \ \ \ \ \ \ $ 状态转移方程倒是比较好想，这里就不再赘述。</p>
-<pre><code class="lang-cpp">#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-
-char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
-#ifndef ONLINE_JUDGE
-#define gc() getchar()
-#else
-#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
-#endif
-#define is_number (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
-
-template &lt; typename Type &gt;
-void read(Type&amp; a) {
-    a = 0; bool f = 0; char ch;
-    while (!(ch = gc(), is_number)) if (ch == &#39;-&#39;) f = 1;
-    while (is_number) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
-    a = (f ? -a : a);
-}
-
-template &lt; typename Type, typename... Args &gt;
-void read(Type&amp; t, Args&amp;... args) {
-    read(t), read(args...);
-}
-
-int val[500005], f[500005][25];
-int g[500005][25], vis[500005];
-int n, m, d, tot, head[500005];
-int nxt[1000005], to[1000005];
-std::vector &lt; std::vector &lt; int &gt; &gt; G(500005);
-
-void add(int x, int y) {
-    to[++tot] = y;
-    nxt[tot] = head[x];
-    head[x] = tot;
-    G[x].push_back(y);
-    G[y].push_back(x);
-}
-
-void DP(int x, int fa) {
-    if (vis[x]) g[x][0] = f[x][0] = val[x];
-    for (int i = 1; i &lt;= d; ++i) f[x][i] = val[x];
-    f[x][d + 1] = 0x3f3f3f3f;
-    for (int i = head[x]; i; i = nxt[i]) {
-        int y = to[i];
-        if (y ^ fa) {
-            DP(y, x);
-            for (int j = d; j &gt;= 0; --j)
-                f[x][j] = std::min(f[y][j + 1] + g[x][j + 1], f[x][j] + g[y][j]);
-            for (int j = d; j &gt;= 0; --j)
-                f[x][j] = std::min(f[x][j + 1], f[x][j]);
-            g[x][0] = f[x][0];
-            for (int j = 1; j &lt;= d + 1; ++j)
-                g[x][j] += g[y][j - 1];
-            for (int j = 1; j &lt;= d + 1; ++j)
-                g[x][j] = std::min(g[x][j - 1], g[x][j]);
-        }
-    }
-}
-
-signed main() {
-    read(n, d);
-    for (int i = 1; i &lt;= n; ++i) read(val[i]);
-    read(m);
-    for (int i = 0, x; i &lt; m; ++i) read(x), vis[x] = 1;
-    for (int i = 1, x, y; i &lt; n; ++i) read(x, y), add(x, y), add(y, x);
-    DP(1, 0);
-    printf(&quot;%d\n&quot;, g[1][0]);
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">BoringHacker</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">52</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">categories</span>
-                  
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">tags</span>
-                  
-                </div>
-              
-            </nav>
-          
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
+        </span>
       </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-51.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-26 08:03</div>
+      <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" class="post-title">
+        <h3>「笔记」快速数论变换</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/数学/">数学<em>·</em></a>
+          
+            <a href="/tags/NTT/">NTT<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Note/">Note</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-21 17:03</div>
+      <a href="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/" class="post-title">
+        <h3>「笔记」快速傅里叶变换</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/FFT/">FFT<em>·</em></a>
+          
+            <a href="/tags/数学/">数学<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Note/">Note</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-49.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-21 14:03</div>
+      <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" class="post-title">
+        <h3>「杂项」CQBZOJ发帖格式建议</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/日常/">日常<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Others/">Others</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/15/SOL-P5659/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-48.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-15 19:03</div>
+      <a href="/2020/03/15/SOL-P5659/" class="post-title">
+        <h3>「题解」洛谷P5659树上的数</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/并查集/">并查集<em>·</em></a>
+          
+            <a href="/tags/贪心/">贪心<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Solution/">Solution</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/15/SOL-P5659/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/11/SOL-NOI-ONLINE/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/posts/post-47.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-11 11:03</div>
+      <a href="/2020/03/11/SOL-NOI-ONLINE/" class="post-title">
+        <h3>「题解」官方NOI Online</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/并查集/">并查集<em>·</em></a>
+          
+            <a href="/tags/树状数组/">树状数组<em>·</em></a>
+          
+            <a href="/tags/贪心/">贪心<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Solution/">Solution</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/11/SOL-NOI-ONLINE/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/03/05/SOL-P1852/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-46.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-3-5 18:03</div>
+      <a href="/2020/03/05/SOL-P1852/" class="post-title">
+        <h3>「题解」洛谷P1852跳跳棋</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/二分/">二分<em>·</em></a>
+          
+            <a href="/tags/LCA/">LCA<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Solution/">Solution</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/03/05/SOL-P1852/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/02/27/OTHE-DIARY/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-45.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-2-27 16:02</div>
+      <a href="/2020/02/27/OTHE-DIARY/" class="post-title">
+        <h3>「杂项」聊斋志日常</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/日常/">日常<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Others/">Others</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/02/27/OTHE-DIARY/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/02/20/SOL-P2044/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-44.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-2-20 15:02</div>
+      <a href="/2020/02/20/SOL-P2044/" class="post-title">
+        <h3>「题解」洛谷P2044随机数生成器</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/分治/">分治<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Solution/">Solution</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/02/20/SOL-P2044/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+    
+<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-thumb">
+    <a href="/2020/02/18/SOL-P3267/">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-43.png">
+    </a>
+  </div>
+  <div class="post-content-wrap">
+    <div class="post-content">
+      <div class="post-date">
+        <i class="iconfont icon-time">
+        </i>2020-2-18 20:02</div>
+      <a href="/2020/02/18/SOL-P3267/" class="post-title">
+        <h3>「题解」洛谷P3267侦察守卫</h3>
+      </a>
+      <div class="post-meta">
+        <span><i class="fa fa-tags"></i>
+        
+            <a href="/tags/动态规划/">动态规划<em>·</em></a>
+          
+        </span>
+        <span>
+          <i class="iconfont icon-file"></i>
+          
+            <a href="/categories/Solution/">Solution</a>
+          
+        </span>
+      </div>
+      <div class="float-content">
+        <p></p>
+        <div class="post-bottom">
+          <a href="/2020/02/18/SOL-P3267/" class="button-normal">
+            <i class="iconfont icon-caidan"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  
+
+
     </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">BoringHacker</span>
-
+      <!-- 首页默认取最最新文章集 -->
+    <!-- 
+      <nav class="navigator">
+        
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
+      </nav>
+     -->
+  </div>
   
-
+    <div id="pagination"><a href="/page/2/" class="">Previous</a></div>
   
 </div>
 
-
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
   
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 BoringHacker<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
 
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
   }
+});
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=6.0.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.4"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  
-  
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(function (item) {
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: true,
-        appId: '8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz',
-        appKey: 'gU70zYoblzxCmc6iL697pp69',
-        placeholder: 'Just go go',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">BoringHacker'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/honjun" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="http://weibo.com/mashirozx?is_all=1" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://wpa.qq.com/msgrd?v=3&uin=954655431&site=qq&menu=yes" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            Home
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            Archives
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/Tools/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Tools
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Note/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  Notes
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Solution">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  Solution
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Others">
+                  <i class="fa fa-sellsy" aria-hidden="true"></i>
+                  Others
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            Comments
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            Links
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/game/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad" aria-hidden="true"></i>
+            Game
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            About
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  Me
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-bath" aria-hidden="true"></i>
+                  Blog
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script> -->
 </body>
 </html>
