@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">「笔记」快速傅里叶变换 | BoringHacker&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+    <style>
+  .emoji-coda {
+      display: inline-block !important;
+      position: relative;
+      width: 45px;
+      top: 2px;
+      margin: -3px 3px !important;
+      padding: 0;
+  }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "BoringHacker'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://www.orchid-any.cf/";
+  mashiro_option.v_appId = "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz";
+  mashiro_option.v_appKey = "gU70zYoblzxCmc6iL697pp69";
+  mashiro_option.mathjax = "1";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index1.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index2.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index3.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index4.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index5.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index6.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index7.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+    <style type="text/css">
+    @import url("/code.css");
+  </style>
+   <div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;left:31px;">
+    <div class="theme-controls row-container">
+          <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+        <ul class="menu-list"> <li id="white-bg"> 
+            <i class="fa fa-television" aria-hidden="true">
+            </i>
+            </li> 
+            <li id="sakura-bg"> 
+                <i class="iconfont icon-sakura">
+                </i>
+            </li>
+            <li id="gribs-bg">
+                <i class="fa fa-slack" aria-hidden="true">
+                </i>
+            </li>
+            <li id="KAdots-bg">
+                <i class="iconfont icon-dots">
+                </i>
+            </li>
+            <li id="totem-bg">
+                <i class="fa fa-optin-monster" aria-hidden="true">
+                </i>
+            </li>
+            <li id="pixiv-bg">
+                <i class="iconfont icon-pixiv">
+                </i>
+            </li>
+            <li id="bing-bg">
+                <i class="iconfont icon-bing">
+                </i>
+            </li>
+            <li id="dark-bg">
+                <i class="fa fa-moon-o" aria-hidden="true">
+                </i>
+            </li>
+        </ul>
+    </div>
+      <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+
+    <canvas id="night-mode-cover">
+    </canvas>
+</div>
+ 
+ <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;"> 
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:none;
+            position:fixed;
+            bottom:13px;
+            left:15px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+
+
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://www.orchid-any.cf/">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Stay Hungry, Stay Foolish</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/boringhacker" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1842865470" target="_blank" class="social-github" title="NetEase">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/music.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/boringhacker" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <!-- <div id="video-btn" class="loadvideo videolive">
+    </div> -->
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <!-- <span class="sakurasono">BoringHacker&#39;s</span>
+            <span class="shironeko">Blog</span> -->
+            <img src = https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/borhac.png>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    Home
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    Archives
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/Tools/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Tools
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Note/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          Notes
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Solution">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          Solution
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Others">
+                          <i class="fa fa-sellsy" aria-hidden="true"></i>
+                          Others
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    Comments
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    Links
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/game/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad" aria-hidden="true"></i>
+                    Game
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    About
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          Me
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-bath" aria-hidden="true"></i>
+                          Blog
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+<script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script>
+
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-50.png">
+    </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      「笔记」快速傅里叶变换</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn@1.2/images/icons/avatar.png">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-3-21<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/数学/" class="butterfly-tags">数学</a></li><li class="spfk-li"><a href="/tags/FFT/" class="butterfly-tags">FFT</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>这篇主要是针对有基础的同学的，基础知识相信大家都学过。</p>
+<p>这篇blog的诞生是因为myh要学FFT，甚至疯狂到了要找别人语音解答的地步。</p>
+<p>然后我就想起远古时候WGY好像学过这么个东西，就写了篇blog出来给<del>myh</del>各位看，顺便复习一下。</p>
+<p>说一下学了这东西的感悟吧。我觉得只要学了一次函数和三角函数就能看懂这篇。</p>
+<p>在那个远古时代，周x健还没讲一次函数，我天天抱着啃没啃懂……</p>
+<p>后来，周x健讲了一次函数，我又在物竞那嫖了些三角函数。</p>
+<p>然后整个人心态都变了，几个小时下来感觉FFT也就那样。（甚至不如NTT有用</p>
+<p>所以大家不要畏难，在座各位的数学都果断吊打WGY对吧。</p>
+<p>李琰之前也在OJ发过FFT的note，但是递归转循环基本就是放了个代码，还留下了不少坑。</p>
+<p>我这里也填了不少李琰的坑，但是一些基础的单位根性质的证明之类的东西我这里就懒得给了，自己考李琰的古吧。</p>
+<p>因为时间原因一些可以从几何意义上来理解的东西我没给图，大家可以自己手%一下。</p>
+<p>(好罢主要是给myh看的手动@ybmyh)</p>
+<h1 id="0x01-点值表示法"><a href="#0x01-点值表示法" class="headerlink" title="0x01 点值表示法"></a>0x01 点值表示法</h1><p>众所周知，一个</p>
+<script type="math/tex; mode=display">
+F(x)=\sum_{i=0}^{n}a_{i}\times x^{i}</script><p>形式的 $n$ 次多项式可以在平面直角坐标系中被 $n+1$ 个点唯一的表示出来。</p>
+<p>点值表示的两个多项式可以在线性时间复杂度中解决相乘，就是对应的 $y$ 乘起来。</p>
+<p>但是暴力的把系数表示法转化为点值表示法依然是 $\Theta(n^{2})$ 的。怎么办呢？</p>
+<h1 id="0x02-复数和单位根"><a href="#0x02-复数和单位根" class="headerlink" title="0x02 复数和单位根"></a>0x02 复数和单位根</h1><p>说过不讲，我就放在这里方便我翻。</p>
+<blockquote>
+<p>$(a+bi)+(c+di)=(a+c)+(b+d)i$</p>
+<p>$(a+bi)-(c+di)=(a-c)+(b-d)i$</p>
+<p>$(a+bi)\times(c+di)=ac+adi+bci-bd=(ac-bd)+(ad+bc)i$</p>
+</blockquote>
+<p>除法可以不用，其实也不用讲，自然而然的东西。</p>
+<p>方程 $x^{n}=1$ 的根，称作单位根用 $\omega_{n}^{k}$ 表示。</p>
+<p>$k$ 表示第 $k$ 个 $n$ 次单位根，从0开始标号，$\omega^{0}_{n},\omega^{1}_{n},\cdots,\omega^{n-1}_{n},$。其中 $\omega^{0}_{n}=1$。</p>
+<p>虽然这样说，但是 $k\geq n$ 以及 $k &lt; 0$ 的情况是被允许的。</p>
+<p>原因看到后面就知道了。</p>
+<p>从几何意义上来理解单位根即复数的坐标系单位圆的 $n$ 等分点。</p>
+<p>复数相乘的性质：模长相乘，辐角相加。</p>
+<p>模长指一个复数到原点的距离，$t=a+bi$ 的模长记作 $|t|$</p>
+<p>辐角指原点到点的连线与 $x$ 轴的正方向的夹角，记作 $\arg(a+bi)$</p>
+<p>接下来列举需要用到的公式。</p>
+<script type="math/tex; mode=display">
+\begin{align*}\label{2}
+  & \omega^{k}_{n}=e^{\frac{2k\pi}{n}i}=\cos\frac{2k\pi}{n}i+i\sin\frac{2k\pi}{n} \tag{2.1} \\
+  & \omega^{0}_{n}=1 \tag{2.2} \\
+  & \omega^{k}_{n}=\omega^{k\operatorname{mod} n} \tag{2.3} \\
+  & \omega^{k}_{n}\times\omega^{j}_{n}=\omega^{k+j}_{n} \tag{2.4} \\
+  & (\omega^{1}_{n})^{k}=\omega^{k}_{n} \tag{2.5} \\
+  & \omega^{pk}_{pn}=\omega^{k}_{n} \tag{2.6} \\
+  & \omega^{k+\frac{n}{2}}_{n}=-\omega^{k}_{n} \tag{2.7} \\
+\end{align*}</script><p><del>靠这段在vsc上显示不出来我自毙</del></p>
+<h1 id="0x03-继续研究多项式"><a href="#0x03-继续研究多项式" class="headerlink" title="0x03 继续研究多项式"></a>0x03 继续研究多项式</h1><p>我们设一个多项式</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}</script><p>保证 $n=2^{p}+1$</p>
+<p>我们按 $i$ 的奇偶性把 $F$ 分为两个部分</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}</script><p>继续定义</p>
+<script type="math/tex; mode=display">L(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{i}</script><script type="math/tex; mode=display">R(x)=\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{i}</script><p>也就是说</p>
+<script type="math/tex; mode=display">F(x)=\sum_{i=0}^{n-1}a_{i}\times x^{i}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times (x^{2})^{i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times (x^{2})^{i}\times x=\sum_{i=0}^{\frac{n}{2}-1}a_{2i}\times x^{2i}+\sum_{i=0}^{\frac{n}{2}-1}a_{2i+1}\times x^{2i+1}=L(x^{2})+xR(x^{2})</script><p>我们可以代入一个数进去。一般我们肯定想着代个看起来可爱的数字。</p>
+<p>看看，这就是我等凡人与傅里叶这等神仙的区别。人家代入的是什么？没错，单位根！（不然我TM前面罗列一大堆单位根的性质干嘛）</p>
+<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{n})+\omega^{k}_{n}R(\omega^{2k}_{n})</script><script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{2k}_{2\times \frac{1}{2}n})+\omega^{k}_{n}R(\omega^{2k}_{2\times \frac{1}{2}n})</script><p>由公式 (2.6)</p>
+<script type="math/tex; mode=display">F(\omega^{k}_{n})=L(\omega^{k}_{\frac{1}{2}n})+\omega^{k}_{n}R(\omega^{k}_{\frac{1}{2}n}) \tag{3.1}</script><p>回到</p>
+<script type="math/tex; mode=display">F(x)=L(x^{2})+xR(x^{2})</script><p>此时我们代入 $\omega^{k+\frac{n}{2}}_{n}$</p>
+<p>同理可得</p>
+<script type="math/tex; mode=display">F(\omega^{k+\frac{n}{2}}_{n})=L(\omega^{k}_{\frac{n}{2}})-R(\omega^{k}_{\frac{n}{2}}) \tag{3.2}</script><p>可以发现 (3.1) 和 (3.2) 只差了符号，也就是说只要知道了 $L(\omega^{k}_{\frac{n}{2}})$ 和 $R(\omega^{k}_{\frac{n}{2}})$ 我们就可以同时得到 $F(\omega^{k}_{n})$ 和 $F(\omega^{k+\frac{n}{2}}_{n})$。然后就递归求解。</p>
+<p>这样我们就可以在 $\Theta(n\log_{2}n)$ 求取多项式的点值表示了。</p>
+<p>算法名叫DFT。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n;
+
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} F[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+
+void dft(Complex *f, int __n) {
+    if (__n == 1) return ;
+    Complex *L = f;
+    Complex *R = f + (__n &gt;&gt; 1);
+    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
+    dft(L, (__n &gt;&gt; 1));
+    dft(R, (__n &gt;&gt; 1));
+    Complex omega;
+    Complex now;
+    omega.to_real(cos(2 * PI / __n));
+    omega.to_imag(sin(2 * PI / __n));
+    now.to_real(1);
+    now.to_imag(0);
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
+        t[k] = L[k] + now * R[k];
+        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
+        now = now * omega;
+    }
+    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    int temp = n;
+    double x;
+    for (n = 1; n &lt; temp; n &lt;&lt;= 1) ;
+    for (int i = 0; i &lt; temp; ++i) scanf(&quot;%lf&quot;, &amp;x), F[i].to_real(x), F[i].to_imag(0);
+    dft(F, n);
+    for (int i = 0; i &lt; n; ++i) printf(&quot;(%.2lf %.2lf)\n&quot;, F[i].to_real(), F[i].to_imag());
+    return 0;
+}
+</code></pre>
+<p><del>subarashi</del></p>
+<p>但是我们现在求到的只是一堆没用的点值，还需要求到的点值表示还原成系数表示。</p>
+<p>结论是把代入的 $\omega^{k}_{n}$ 换成 $\omega^{-k}_{n}$ 然后除以 $n$。</p>
+<p>即DFT的逆运算IDFT。</p>
+<p>IDFT的证明比较繁琐，涉及到分类讨论。由于我最近被数学作业的多答案讨论和智障珠的60种情况毒瘤了，故懒得给出证明。<del>反正我相信看我blog的人人均会单位根反演</del></p>
+<p>我们记 $\mathcal{F}(F(x))$ 是 $F(x)$ 的离散傅里叶变换/傅里叶变换，$\mathcal{F’}(F(x))$ 是 $F(x)$ 的逆离散傅里叶变换/傅里叶变换。</p>
+<p>用看起来很高大上很nb的数学语言表示就是</p>
+<p>记</p>
+<script type="math/tex; mode=display">G=\mathcal{F}(F(x))</script><p>则</p>
+<script type="math/tex; mode=display">
+n\times f_{k}=\sum_{i=0}^{n-1}\omega^{-ki}_{n}g_{i}</script><p>其中 $f_{i}$、$g_{i}$ 分别为 $F$、$G$ 的第 $i$ 项系数。</p>
+<p>我们只需要改一下代码就好了。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n, m;
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+
+void dft(Complex *f, int __n, int flag) {
+    if (__n == 1) return ;
+    Complex *L = f;
+    Complex *R = f + (__n &gt;&gt; 1);
+    for (int k = 0; k &lt; __n; ++k) t[k] = f[k];
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) L[k] = t[k &lt;&lt; 1], R[k] = t[k &lt;&lt; 1 | 1];    
+    dft(L, (__n &gt;&gt; 1), flag);
+    dft(R, (__n &gt;&gt; 1), flag);
+    Complex omega;
+    Complex now;
+    omega.to_real(cos(2 * PI / __n));
+    omega.to_imag(sin(2 * PI / __n) * flag);
+    now.to_real(1);
+    now.to_imag(0);
+    for (int k = 0; k &lt; (__n &gt;&gt; 1); ++k) {
+        t[k] = L[k] + now * R[k];
+        t[k + (__n &gt;&gt; 1)] = L[k] - now * R[k];
+        now = now * omega;
+    }
+    for (int k = 0; k &lt; __n; ++k) f[k] = t[k];
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    double x;
+    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
+    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
+    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
+    dft(A, n, 1);
+    dft(B, n, 1);
+    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
+    dft(A, n, -1);
+    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
+    return 0;
+}
+</code></pre>
+<p>递归版常数过大，我们想想能不能把递归转为循环（迭代）。</p>
+<p>这里给一个结论，给出一个序列。比如 $\texttt{0 1 2 3 4 5 6 7}$。</p>
+<p>对其进行DFT后：$\texttt{0 4 2 6 1 5 3 7}$。多试几组可以发现DFT后每个位置数是原序列对应位置上的数的二进制反转后的结果。</p>
+<script type="math/tex; mode=display">\texttt{0 1 2 3 4 5 6 7}</script><script type="math/tex; mode=display">\texttt{(000) (001) (010) (011) (100) (101) (110) (111)}</script><script type="math/tex; mode=display">\texttt{(000) (100) (010) (110) (001) (101) (011) (111)}</script><script type="math/tex; mode=display">\texttt{0 4 2 6 1 5 3 7}</script><p>证明也好证，留作思考吧。</p>
+<p>然后我们就可以预处理出序列DFT后的位置，然后向上合并。就不用从上至下递归了。</p>
+<p>具体来说，我们设 $rev_{i}$ 为数字 $i$ 的二进制翻转，$lim$ 为最多的二进制位数。</p>
+<p>翻转操作相当于把当前数的二进制最后一位接到之前部分翻转的前面。</p>
+<p>之前部分的翻转即 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$</p>
+<p>其中 $\operatorname{shr}$ 相当于右移操作，$\operatorname{shl}$ 同理。</p>
+<p>然后判一下最后一位，是1的话就让 $2^{lim-1}$ 对 $rev_{i\operatorname{shr} 1}\operatorname{shr} 1$ 按位与。因为 $2^{p}$ 的二进制位始终是1后面跟着 $p$ 个0。</p>
+<p>这里建议自己手推一下。</p>
+<pre><code class="lang-cpp">int lim = 0;
+while ((1 &lt;&lt; lim) &lt; n) ++lim;
+for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
+</code></pre>
+<p>完整代码</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;complex&gt;
+
+using namespace std;
+
+const double PI = acos(-1);
+const int MAXN = 1e6 + 3e5 + 5;
+int n, m;
+
+struct Complex {
+    double real;
+    double imag;
+    Complex(double t_real = 0, double t_imag = 0) { real = t_real, imag = t_imag; }
+    Complex operator + (Complex const&amp; rhs) const {
+        return Complex(real + rhs.real, imag + rhs.imag);
+    }
+    Complex operator - (Complex const&amp; rhs) const {
+        return Complex(real - rhs.real, imag - rhs.imag);
+    }
+    Complex operator * (Complex const&amp; rhs) const {
+        return Complex(real * rhs.real - imag * rhs.imag, real * rhs.imag + imag * rhs.real);
+    }
+    void to_real(const double t_real) {
+        real = t_real;
+    }
+    void to_imag(const double t_imag) {
+        imag = t_imag;
+    }
+    double to_real() {
+        return real;
+    }
+    double to_imag() {
+        return imag;
+    }
+} A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
+int rev[MAXN];
+
+void get_rev() {
+    int lim = 0;
+    while ((1 &lt;&lt; lim) &lt; n) ++lim;
+    for (int i = 0; i &lt; n; ++i) rev[i] = (rev[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; (lim - 1));
+}
+
+void fft(Complex *f, int __n, int flag) {
+    for (int i = 0; i &lt; n; ++i) if (i &lt; rev[i]) swap(f[i], f[rev[i]]);
+        for (int mid = 1; mid &lt; lim; mid &lt;&lt;= 1) {
+            Complex omega;
+            omega.to_real(cos(PI / mid));
+            omega.to_imag(sin(PI / mid) * flag);
+            for (int i = 0; i &lt; n; i += (mid &lt;&lt; 1)) {
+                Complex now;
+                now.to_real(1);
+                now.to_imag(0);
+                for (int j = 0; j &lt; mid; ++j) {
+                    Complex first = f[i + j];
+                    Complex second = now * f[i + j + mid];
+                    f[i + j] = first + second;
+                    f[i + j + mid] = first - second;
+                    now = now * omega;
+                }
+            }
+        }
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    double x;
+    for (int i = 0; i &lt;= n; ++i) scanf(&quot;%lf&quot;, &amp;x), A[i].to_real(x), A[i].to_imag(0);
+    for (int i = 0; i &lt;= m; ++i) scanf(&quot;%lf&quot;, &amp;x), B[i].to_real(x), B[i].to_imag(0);
+    for (m += n, n = 1; n &lt;= m; n &lt;&lt;= 1) ;
+    get_rev();
+    fft(A, n, 1);
+    fft(B, n, 1);
+    for (int i = 0; i &lt; n; ++i) A[i] = A[i] * B[i];
+    fft(A, n, -1);
+    for (int i = 0; i &lt;= m; ++i) printf(&quot;%d &quot;, (int)(A[i].real / n + 0.49));
+    return 0;
+}
+</code></pre>
+<p>顺带一说这份代码过不了板题，可能是我人丑自带大常数吧，但是理论上是过得了的，看各位人品。</p>
+
+                      
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-51.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-51.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                「笔记」快速数论变换</h3>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-49.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-49.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                「杂项」CQBZOJ发帖格式建议</h3>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn@1.2/images/icons/avatar.png" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 BoringHacker<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">BoringHacker'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/honjun" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="http://weibo.com/mashirozx?is_all=1" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://wpa.qq.com/msgrd?v=3&uin=954655431&site=qq&menu=yes" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            Home
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            Archives
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/Tools/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Tools
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Note/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  Notes
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Solution">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  Solution
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Others">
+                  <i class="fa fa-sellsy" aria-hidden="true"></i>
+                  Others
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            Comments
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            Links
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/game/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad" aria-hidden="true"></i>
+            Game
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            About
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  Me
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-bath" aria-hidden="true"></i>
+                  Blog
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script> -->
+</body>
+</html>

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">数据结构100题 ---splay | BoringHacker&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+    <style>
+  .emoji-coda {
+      display: inline-block !important;
+      position: relative;
+      width: 45px;
+      top: 2px;
+      margin: -3px 3px !important;
+      padding: 0;
+  }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "BoringHacker'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://www.orchid-any.cf/";
+  mashiro_option.v_appId = "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz";
+  mashiro_option.v_appKey = "gU70zYoblzxCmc6iL697pp69";
+  mashiro_option.mathjax = "1";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index1.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index2.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index3.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index4.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index5.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index6.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index7.png,https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/index8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+    <style type="text/css">
+    @import url("/code.css");
+  </style>
+   <div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;left:31px;">
+    <div class="theme-controls row-container">
+          <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+        <ul class="menu-list"> <li id="white-bg"> 
+            <i class="fa fa-television" aria-hidden="true">
+            </i>
+            </li> 
+            <li id="sakura-bg"> 
+                <i class="iconfont icon-sakura">
+                </i>
+            </li>
+            <li id="gribs-bg">
+                <i class="fa fa-slack" aria-hidden="true">
+                </i>
+            </li>
+            <li id="KAdots-bg">
+                <i class="iconfont icon-dots">
+                </i>
+            </li>
+            <li id="totem-bg">
+                <i class="fa fa-optin-monster" aria-hidden="true">
+                </i>
+            </li>
+            <li id="pixiv-bg">
+                <i class="iconfont icon-pixiv">
+                </i>
+            </li>
+            <li id="bing-bg">
+                <i class="iconfont icon-bing">
+                </i>
+            </li>
+            <li id="dark-bg">
+                <i class="fa fa-moon-o" aria-hidden="true">
+                </i>
+            </li>
+        </ul>
+    </div>
+      <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+
+    <canvas id="night-mode-cover">
+    </canvas>
+</div>
+ 
+ <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;"> 
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:none;
+            position:fixed;
+            bottom:13px;
+            left:15px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+
+
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://www.orchid-any.cf/">
+          <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Stay Hungry, Stay Foolish</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/boringhacker" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1842865470" target="_blank" class="social-github" title="NetEase">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/music.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/boringhacker" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <!-- <div id="video-btn" class="loadvideo videolive">
+    </div> -->
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <!-- <span class="sakurasono">BoringHacker&#39;s</span>
+            <span class="shironeko">Blog</span> -->
+            <img src = https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/borhac.png>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    Home
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    Archives
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/Tools/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Tools
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Note/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          Notes
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Solution">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          Solution
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/Others">
+                          <i class="fa fa-sellsy" aria-hidden="true"></i>
+                          Others
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags" aria-hidden="true"></i>
+                    Tags
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    Comments
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    Links
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/game/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad" aria-hidden="true"></i>
+                    Game
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    About
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          Me
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-bath" aria-hidden="true"></i>
+                          Blog
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+<script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script>
+
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-8.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-8.png">
+    </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      数据结构100题 ---splay</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-2-7<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/DS100P/" class="butterfly-tags">DS100P</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="update"><a href="#update" class="headerlink" title="update:"></a>update:</h1><p>增加几道好一点的例题吧</p>
+<p><a href="https://www.luogu.com.cn/problem/P1486" target="_blank" rel="noopener">[NOI2004]郁闷的出纳员</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3391" target="_blank" rel="noopener">[模板]文艺平衡树</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3988" target="_blank" rel="noopener">[SHOI2013]发牌</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3871" target="_blank" rel="noopener">[TJOI2010]中位数</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3850" target="_blank" rel="noopener">[TJOI2007]书架</a></p>
+<h1 id="正文：关于SPLAY"><a href="#正文：关于SPLAY" class="headerlink" title="正文：关于SPLAY"></a>正文：关于SPLAY</h1><p>其实我更偏向于把splay叫做<del>cosplay</del></p>
+<p>讲平衡树总逃不过BST(Binary Search Tree)，二叉搜索树，以下是BST的性质：</p>
+<p>一棵合法的BST每个节点上都带有一个数值，我们将其称为节点的“关键码”。那么对于一棵BST上的任意节点，满足：</p>
+<ul>
+<li><p>该节点的关键码不小于它左子树的任意结点的关键码</p>
+</li>
+<li><p>该结点的关键码不大于它右子树的任意结点的关键码</p>
+</li>
+</ul>
+<p><code>显然</code>，BST的中序遍历是一个递增的序列</p>
+<h2 id="建立一棵BST"><a href="#建立一棵BST" class="headerlink" title="建立一棵BST"></a>建立一棵BST</h2><p>因为笔者很懒，不想到处判边界，所以我们一般可以在一棵空的BST中预先插入两个结点，一个正无穷，一个负无穷，如图:</p>
+<p><img src="https://i.loli.net/2019/12/13/V2N6AQUynRGvzYI.png" alt="img spfaed"></p>
+<pre><code class="lang-cpp">const int SIZE = 1e5 + 5;
+const int INF = 0x7fffffff;
+struct BSTNode {
+    int l, r; // 左右儿子的编号
+   int val; // 关键码
+} T[SIZE];
+int tot, root;
+
+int clone(int val) { // 新建节点
+    T[++tot].val = val;
+   return tot;
+}
+
+void build() {
+    clone(-INF), clone(INF);
+   root = 1, T[1].r = 2;
+}
+</code></pre>
+<p>以上是建树的代码</p>
+<p>那么，BST就讲到这里</p>
+<h2 id="平衡树的诞生"><a href="#平衡树的诞生" class="headerlink" title="平衡树的诞生"></a>平衡树的诞生</h2><p>当BST形成一条链的时候，每次查询会变成$O(n^2)$</p>
+<p>这种深度过深的BST是不平衡的。所以我们需要一种能保持树的深度在$\log(n)$的数据结构，于是便诞生了平衡树</p>
+<h2 id="SPLAY"><a href="#SPLAY" class="headerlink" title="SPLAY"></a>SPLAY</h2><p>splay，又称<del>cosplay</del>伸展树，有“序列之王”的美称，<del>常数巨大</del>，跑的没有$fhq-treap$快，但这不在我们的讨论范围以内</p>
+<p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
+<p>想象一下这样一颗BST，我们先把它们的大小关系列出来。</p>
+<script type="math/tex; mode=display">
+Y<Z, C>Y, X<Y,A<X,B>X</script><p>对于这样一颗BST，我们可以通过一些特殊的方式来改变它的形态保持中序序列不变，这也是平衡树的精髓。</p>
+<p>怎么改变呢？</p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>旋转<del>不转不是中国人</del>，这是splay的精髓所在。</p>
+<p>现在我们的目标是让X节点往上爬到它父亲节点Y处，让Y变成X的幺儿，也就是让Y节点下降。</p>
+<p><code>这个过程首先要满足BST性质</code></p>
+<p>通过例图来思考，此时的X节点是Y节点的左儿子，小于Y节点，为了不改变中序序列，我们可以让Y节点成为X的右儿子。那么问题来了：变换后的Y的确大于X，但X还有一颗右子树呢！</p>
+<p>别急，再回想一下BST的性质，任意节点大于其左子树中的任意节点，也就是说我们可以把X的左子树B拿给Y当左子树。</p>
+<p>好了！世界核平了！<del>Tarjan放心了</del></p>
+<p>展示一下旋转的成果吧！</p>
+<p>旋转前：</p>
+<p><img src="https://i.loli.net/2019/12/13/jFfZRvedxLYJg2y.png" alt="graph.png"></p>
+<p>旋转后</p>
+<p><img src="https://i.loli.net/2019/12/13/Dr5IfBWVl7b6PTH.png" alt="graph _1_.png"></p>
+<p>别高兴得太早！</p>
+<p>这只是一种情况，我们需要的是<code>通用</code></p>
+<p>这里有一个小技巧，即：</p>
+<script type="math/tex; mode=display">
+odd\bigoplus1=odd-1</script><script type="math/tex; mode=display">
+even\bigoplus1=even+1</script><p>这个性质的证明很简单：</p>
+<p><code>即得易见平凡，仿照上例显然。</code></p>
+<p><code>留作习题答案略，读者自证不难。</code></p>
+<p><code>反之亦然同理，推论自然成立，略去过程QED，由上可知证毕。</code></p>
+<p>$Just$ $a$ $joke$</p>
+<p>设节点Y为X的父亲，Y的w(0代表左儿子，1代表右儿子)儿子</p>
+<ul>
+<li>$step1$:将Y节点放到X节点的w$\bigoplus$1的位置</li>
+<li>$step2$:如果X的w$\bigoplus$1位置上有一颗子树，放在Y的w位置上</li>
+</ul>
+<pre><code class="lang-cpp">inline void update(int x) { // 更新节点信息
+    T[x].siz = T[T[x].ch[0]].siz + T[T[x].ch[1]].siz + T[x].cnt;
+}
+
+inline void rotate(int x) { // 旋转
+    int y = T[x].fa; // X它爹
+    int z = T[y].fa; // X它爹它爹
+    int w = T[y].ch[1] == x; // X是它爹的左幺儿还是右幺儿
+    T[z].ch[T[z].ch[1] == y] = x;
+    T[x].fa = z;
+    T[y].ch[w] = T[x].ch[w ^ 1];
+    T[T[x].ch[w ^ 1]].fa = y;
+    T[x].ch[w ^ 1] = y;
+    T[y].fa = x;
+    update(y), update(x);
+}
+</code></pre>
+<p>仅仅有rotate操作还不够，splay到目前为止依然很容易被卡。</p>
+<p>想象这样一棵树：</p>
+<p><img src="https://i.loli.net/2019/12/13/6hBzE2UsC8oJXfu.png" alt="img spfaed"></p>
+<p>发现无论怎么旋转X都不能使得这棵树最长的一条链变短。我们称这种X，X它爹，X它爹它爹在一条线上的情况称为三点共线。</p>
+<p>怎么办呢？<del>可怜的splay被人溜了</del></p>
+<p>办法还是有滴</p>
+<ul>
+<li>$step1$:如果三点共线，我们可以先旋转X它爹，这样便可以使其更加“平衡”</li>
+<li>$step2$:如果不共线……不共线……那就旋转X就好了</li>
+</ul>
+<p>这便是splay操作</p>
+<pre><code class="lang-cpp">inline void splay(int x, int goal) { //splay
+    for (; T[x].fa ^ goal; rotate(x)) { // 一直旋转到x成为goal的儿子
+        int y = T[x].fa;
+        int z = T[y].fa;
+        if (z ^ goal)
+            T[y].ch[1] ^ x ^ T[z].ch[1] ^ y ? rotate(x) : rotate(y); //判断三点是否共线，如果是，就旋转Y，否则旋转X
+    }
+    if (!goal) root = x; // 把根节点设为X
+}
+</code></pre>
+<p>至此，splay就差不多讲完了，那么再来一道例题吧</p>
+<p><a href="https://www.luogu.com.cn/problem/P3369" target="_blank" rel="noopener">【模板】普通平衡树</a></p>
+<ul>
+<li>题面：</li>
+</ul>
+<pre><code>您需要写一种数据结构（可参考题目标题），来维护一些数，其中需要提供以下操作：
+1.插入 x 数
+2.删除 x 数(若有多个相同的数，因只删除一个)
+3.查询 x 数的排名(排名定义为比当前数小的数的个数 +1 )
+4.查询排名为 x 的数
+5.求 x 的前驱(前驱定义为小于 x，且最大的数)
+6.求 x 的后继(后继定义为大于 x，且最小的数)
+</code></pre><h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><p>首先我们先查找BST当中有没有和需要插入的节点关键码相同的节点，如果有，就把当前节点的“副本”数+1</p>
+<p>如果没有，就遍历到叶子节点，再新增一个节点就好了</p>
+<pre><code class="lang-cpp">inline void insert(int x) {
+    int u = root, fa = 0; // 从根节点开始找
+    while (u &amp;&amp; x ^ T[u].val) // 找关键码相同的节点
+        fa = u, u = T[u].ch[x &gt; T[u].val];
+    if (u) T[u].cnt++; // 如果有，就增加一个副本
+    else { // 否则新建一个节点
+        u = ++tot;
+        if (fa) T[fa].ch[x &gt; T[fa].val] = u;
+        T[u].fa = fa;
+        T[u].siz = T[u].cnt = 1;
+        T[u].ch[0] = T[u].ch[1] = 0;
+        T[u].val = x;
+    }
+    splay(u, 0);
+}
+</code></pre>
+<h2 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h2><p>设查找节点的关键码为x，如果x大于当前节点的关键码，就往右子树跑，否则往左子树找。找到后把当前节点splay到根，保证BST的平衡</p>
+<pre><code class="lang-cpp">inline void find(int x) {
+    int u = root;
+    if (!u) return ; // BST空
+    while (T[u].ch[x &gt; T[u].val] &amp;&amp; x ^ T[u].val)
+        u = T[u].ch[x &gt; T[u].val];
+    splay(u, 0);
+}
+</code></pre>
+<h2 id="前驱-后继操作"><a href="#前驱-后继操作" class="headerlink" title="前驱/后继操作"></a>前驱/后继操作</h2><p>首先执行find操作。</p>
+<p>以前驱为例，当前的根节点就是x的父节点，所以如果root的关键码大于x，那么root就是x的前驱。否则就跳到左儿子找，再反着跳就好了</p>
+<pre><code class="lang-cpp">inline int next_bound(int x, int f) { // f=0前驱，f=1后继
+    find(x);
+    int u = root; // x的父节点
+    if (T[u].val &gt; x &amp;&amp; f) return u;
+    if (T[u].val &lt; x &amp;&amp; !f) return u;
+    u = T[u].ch[f]; // 跳到对应的子树
+    while (T[u].ch[f ^ 1]) u = T[u].ch[f ^ 1]; // 反着跳转
+    return u;
+}
+</code></pre>
+<h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><p>找到这个数的last，把他splay到根节点</p>
+<p>然后找到这个数next，把他splay到last的底下</p>
+<p>然后……然后就没有了呀……</p>
+<p>比last大是next</p>
+<p>比next小的且比last大的只有当前的节点</p>
+<p>在next的左幺儿上面，</p>
+<p>だから直接把root右幺儿的左幺儿删掉就可以了</p>
+<pre><code class="lang-cpp">inline void erase(int x) {
+    int last = next_bound(x, 0);
+    int next = next_bound(x, 1);
+    splay(last, 0), splay(next, last);
+    int del = T[next].ch[0];
+    if (T[del].cnt &gt; 1) {
+        T[del].cnt--;
+        splay(del, 0);
+    }
+    else T[next].ch[0] = 0;
+}
+</code></pre>
+<h2 id="第K大"><a href="#第K大" class="headerlink" title="第K大"></a>第K大</h2><p>现在再来看已经十分简单了</p>
+<p>首先如果左子树的大小加上本身的个数大于k，直接在左子树里找就行了</p>
+<p>否则就把k减去左子树大小再减去本身的个数，再在右子树里找就行了</p>
+<pre><code class="lang-cpp">inline int kth_element(int x) {
+    int u = root;
+    if (T[u].siz &lt; x) return 0; // 没有那么多，直接死亡
+    while (233) {
+        int y = T[u].ch[0];
+        if (x &gt; T[y].siz + T[u].cnt) {
+            x -= T[y].siz + T[u].cnt;
+            u = T[u].ch[1];
+        }
+        else if (T[y].siz &gt;= x) u = y;
+        else return T[u].val;
+    }
+}
+</code></pre>
+<p>完整代码：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+const int SIZE = 1e5 + 5;
+int n, root, tot;
+struct SPLAY {
+    int fa;
+    int siz;
+    int cnt;
+    int val;
+    int ch[2];
+} T[SIZE];
+
+inline void update(int x) {
+    T[x].siz = T[T[x].ch[0]].siz + T[T[x].ch[1]].siz + T[x].cnt;
+}
+
+inline void rotate(int x) {
+    int y = T[x].fa;
+    int z = T[y].fa;
+    int w = T[y].ch[1] == x;
+    T[z].ch[T[z].ch[1] == y] = x;
+    T[x].fa = z;
+    T[y].ch[w] = T[x].ch[w ^ 1];
+    T[T[x].ch[w ^ 1]].fa = y;
+    T[x].ch[w ^ 1] = y;
+    T[y].fa = x;
+    update(y), update(x);
+}
+
+inline void splay(int x, int goal) {
+    for (; T[x].fa ^ goal; rotate(x)) {
+        int y = T[x].fa;
+        int z = T[y].fa;
+        if (z ^ goal)
+            T[y].ch[1] ^ x ^ T[z].ch[1] ^ y ? rotate(x) : rotate(y);
+    }
+    if (!goal) root = x;
+}
+
+inline void find(int x) {
+    int u = root;
+    if (!u) return ;
+    while (T[u].ch[x &gt; T[u].val] &amp;&amp; x ^ T[u].val)
+        u = T[u].ch[x &gt; T[u].val];
+    splay(u, 0);
+}
+
+inline void insert(int x) {
+    int u = root, fa = 0;
+    while (u &amp;&amp; x ^ T[u].val)
+        fa = u, u = T[u].ch[x &gt; T[u].val];
+    if (u) T[u].cnt++;
+    else {
+        u = ++tot;
+        if (fa) T[fa].ch[x &gt; T[fa].val] = u;
+        T[u].fa = fa;
+        T[u].siz = T[u].cnt = 1;
+        T[u].ch[0] = T[u].ch[1] = 0;
+        T[u].val = x;
+    }
+    splay(u, 0);
+}
+
+inline int next_bound(int x, int f) {
+    find(x);
+    int u = root;
+    if (T[u].val &gt; x &amp;&amp; f) return u;
+    if (T[u].val &lt; x &amp;&amp; !f) return u;
+    u = T[u].ch[f];
+    while (T[u].ch[f ^ 1]) u = T[u].ch[f ^ 1];
+    return u;
+}
+
+inline void erase(int x) {
+    int last = next_bound(x, 0);
+    int next = next_bound(x, 1);
+    splay(last, 0), splay(next, last);
+    int del = T[next].ch[0];
+    if (T[del].cnt &gt; 1) {
+        T[del].cnt--;
+        splay(del, 0);
+    }
+    else T[next].ch[0] = 0;
+}
+
+inline int kth_element(int x) {
+    int u = root;
+    if (T[u].siz &lt; x) return 0;
+    while (233) {
+        int y = T[u].ch[0];
+        if (x &gt; T[y].siz + T[u].cnt) {
+            x -= T[y].siz + T[u].cnt;
+            u = T[u].ch[1];
+        }
+        else if (T[y].siz &gt;= x) u = y;
+        else return T[u].val;
+    }
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    insert(1e9);
+    insert(-1e9);
+    for (int i = 1; i &lt;= n; ++i) {
+        int opt, x;
+        scanf(&quot;%d %d&quot;, &amp;opt, &amp;x);
+        if (opt == 1) insert(x);
+        if (opt == 2) erase(x);
+        if (opt == 3) {
+            find(x);
+            printf(&quot;%d\n&quot;, T[T[root].ch[0]].siz);
+        }
+        if (opt == 4) printf(&quot;%d\n&quot;, kth_element(x + 1));
+        if (opt == 5) printf(&quot;%d\n&quot;, T[next_bound(x, 0)].val);
+        if (opt == 6) printf(&quot;%d\n&quot;, T[next_bound(x, 1)].val);
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="欢迎捉虫子"><a href="#欢迎捉虫子" class="headerlink" title="欢迎捉虫子"></a>欢迎捉虫子</h1><p><img src="https://i.loli.net/2019/12/14/X5FNPW4wCqzgkQ9.png" alt="wd and noip.png"></p>
+
+                      
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/02/07/DS100P-SEGMENT-TREE/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-9.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-9.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---线段树</h3>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/02/07/DS100P-SUFFIX-ARRAY/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-7.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---后缀全家桶 之 后缀数组</h3>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "8Hho6gvnedMT9NMEhnEx3UOg-gzGzoHsz",
+        appKey: "gU70zYoblzxCmc6iL697pp69",
+        path: window.location.pathname,
+        placeholder: "Come And Get Your Love~"
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/icons/avatar.png" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 BoringHacker<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.2/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <!-- <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">BoringHacker'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/honjun" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="http://weibo.com/mashirozx?is_all=1" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://wpa.qq.com/msgrd?v=3&uin=954655431&site=qq&menu=yes" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            Home
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            Archives
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/Tools/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Tools
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Note/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  Notes
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Solution">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  Solution
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/Others">
+                  <i class="fa fa-sellsy" aria-hidden="true"></i>
+                  Others
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags" aria-hidden="true"></i>
+            Tags
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            Comments
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            Links
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/game/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad" aria-hidden="true"></i>
+            Game
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            About
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  Me
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-bath" aria-hidden="true"></i>
+                  Blog
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script> -->
+</body>
+</html>

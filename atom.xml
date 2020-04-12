@@ -38,4 +38,470 @@
     
   </entry>
   
+  <entry>
+    <title>「杂项」关于这个网站</title>
+    <link href="www.orchid-any.cf/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/"/>
+    <id>www.orchid-any.cf/2020/03/28/OTHE-ABOUT-THIS-WEBSITE/</id>
+    <published>2020-03-28T06:16:51.000Z</published>
+    <updated>2020-04-02T01:49:51.068Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;298&quot; height=&quot;52&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Others" scheme="www.orchid-any.cf/categories/Others/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>「笔记」快速数论变换</title>
+    <link href="www.orchid-any.cf/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/"/>
+    <id>www.orchid-any.cf/2020/03/26/NOTE-FAST-NUMBER-THEORY-TRANSFORM/</id>
+    <published>2020-03-26T00:48:45.000Z</published>
+    <updated>2020-03-29T10:39:13.870Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h1&gt;&lt;p&gt;学了FFT就想学NTT（捂脸 &lt;img class=&quot;emoji-coda&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
+    
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="NTT" scheme="www.orchid-any.cf/tags/NTT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「笔记」快速傅里叶变换</title>
+    <link href="www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/"/>
+    <id>www.orchid-any.cf/2020/03/21/NOTE-FAST-FOURIER-TRANSFORM/</id>
+    <published>2020-03-21T09:37:58.000Z</published>
+    <updated>2020-03-25T23:59:08.333Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00
+        
+      
+    
+    </summary>
+    
+      <category term="Note" scheme="www.orchid-any.cf/categories/Note/"/>
+    
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="FFT" scheme="www.orchid-any.cf/tags/FFT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「杂项」CQBZOJ发帖格式建议</title>
+    <link href="www.orchid-any.cf/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/"/>
+    <id>www.orchid-any.cf/2020/03/21/OTHE-BLOG-FORMAT-GUIDE/</id>
+    <published>2020-03-21T06:50:55.000Z</published>
+    <updated>2020-03-21T09:33:01.597Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;这篇帖子只代表我的个人观点，目的是希望OJ的
+        
+      
+    
+    </summary>
+    
+      <category term="Others" scheme="www.orchid-any.cf/categories/Others/"/>
+    
+    
+      <category term="日常" scheme="www.orchid-any.cf/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P5659树上的数</title>
+    <link href="www.orchid-any.cf/2020/03/15/SOL-P5659/"/>
+    <id>www.orchid-any.cf/2020/03/15/SOL-P5659/</id>
+    <published>2020-03-15T11:52:24.000Z</published>
+    <updated>2020-03-15T12:03:24.720Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Part-0&quot;&gt;&lt;a href=&quot;#Part-0&quot; class=&quot;headerlink&quot; title=&quot;Part 0&quot;&gt;&lt;/a&gt;Part
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="并查集" scheme="www.orchid-any.cf/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+      <category term="贪心" scheme="www.orchid-any.cf/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」官方NOI Online</title>
+    <link href="www.orchid-any.cf/2020/03/11/SOL-NOI-ONLINE/"/>
+    <id>www.orchid-any.cf/2020/03/11/SOL-NOI-ONLINE/</id>
+    <published>2020-03-11T03:26:45.000Z</published>
+    <updated>2020-03-11T03:32:48.339Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;NOI-Online-T1-序列&quot;&gt;&lt;a href=&quot;#NOI-Online-T1-序列&quot; class=&quot;headerlink&quot; title=&quot;NOI-Online-T1-序列&quot;&gt;&lt;/a&gt;NOI-Online-T1-序列&lt;/h2&gt;&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="并查集" scheme="www.orchid-any.cf/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+      <category term="树状数组" scheme="www.orchid-any.cf/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="贪心" scheme="www.orchid-any.cf/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P1852跳跳棋</title>
+    <link href="www.orchid-any.cf/2020/03/05/SOL-P1852/"/>
+    <id>www.orchid-any.cf/2020/03/05/SOL-P1852/</id>
+    <published>2020-03-05T10:45:54.000Z</published>
+    <updated>2020-03-05T10:52:12.393Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;题意简述&quot;&gt;&lt;a href=&quot;#题意简述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="二分" scheme="www.orchid-any.cf/tags/%E4%BA%8C%E5%88%86/"/>
+    
+      <category term="LCA" scheme="www.orchid-any.cf/tags/LCA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「杂项」聊斋志日常</title>
+    <link href="www.orchid-any.cf/2020/02/27/OTHE-DIARY/"/>
+    <id>www.orchid-any.cf/2020/02/27/OTHE-DIARY/</id>
+    <published>2020-02-27T08:59:38.000Z</published>
+    <updated>2020-04-06T14:18:38.708Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;无聊搞出来的？&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;可能是用来记录自己的成天被虐的心路历程吧&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Others" scheme="www.orchid-any.cf/categories/Others/"/>
+    
+    
+      <category term="日常" scheme="www.orchid-any.cf/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P2044随机数生成器</title>
+    <link href="www.orchid-any.cf/2020/02/20/SOL-P2044/"/>
+    <id>www.orchid-any.cf/2020/02/20/SOL-P2044/</id>
+    <published>2020-02-20T07:51:05.000Z</published>
+    <updated>2020-02-21T14:28:56.215Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;题意简述&quot;&gt;&lt;a href=&quot;#题意简述&quot; class=&quot;headerlink&quot; title=&quot;题意简述&quot;&gt;&lt;/a&gt;题意简述&lt;/h2&gt;&lt;p&gt;给你一个递推式，让你求某一项的值模上 $g$。&lt;/p&gt;
+&lt;h2 id=&quot;题解&quot;&gt;&lt;a href=&quot;#题解&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="分治" scheme="www.orchid-any.cf/tags/%E5%88%86%E6%B2%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P3267侦察守卫</title>
+    <link href="www.orchid-any.cf/2020/02/18/SOL-P3267/"/>
+    <id>www.orchid-any.cf/2020/02/18/SOL-P3267/</id>
+    <published>2020-02-18T12:02:53.000Z</published>
+    <updated>2020-02-20T03:02:50.267Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;题意简述&quot;&gt;&lt;a href=&quot;#题意简述&quot; class=&quot;headerlink&quot; title=&quot;题意简述&quot;&gt;&lt;/a&gt;题意简述&lt;/h2&gt;&lt;p&gt;给你一棵树，放置守卫在某个点上面需要一定代价和一定的有效范围。让你覆盖若干指定点，求最小代价&lt;/p&gt;
+&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="动态规划" scheme="www.orchid-any.cf/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「题解」洛谷P2000拯救世界</title>
+    <link href="www.orchid-any.cf/2020/02/16/SOL-P2000/"/>
+    <id>www.orchid-any.cf/2020/02/16/SOL-P2000/</id>
+    <published>2020-02-16T01:46:20.000Z</published>
+    <updated>2020-02-20T02:48:47.143Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;生成函数裸题。&lt;/p&gt;
+&lt;p&gt;把所有情况罗列出来: &lt;/p&gt;
+&lt;p&gt;kkk:&lt;/p&gt;
+&lt;p&gt;金: $1+x^6+x^{12}+\dots=\frac{1}{1-x^6}$&lt;/p&gt;
+&lt;p&gt;木:
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="数学" scheme="www.orchid-any.cf/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="生成函数" scheme="www.orchid-any.cf/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 91~100题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-91-100-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-91-100-P/</id>
+    <published>2020-02-08T06:03:45.000Z</published>
+    <updated>2020-02-18T10:15:02.883Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 81~90题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-81-90-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-81-90-P/</id>
+    <published>2020-02-08T06:03:43.000Z</published>
+    <updated>2020-02-18T10:14:39.850Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 71~80题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-71-80-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-71-80-P/</id>
+    <published>2020-02-08T06:03:41.000Z</published>
+    <updated>2020-02-18T10:14:17.538Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 61~70题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-61-70-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-61-70-P/</id>
+    <published>2020-02-08T06:03:39.000Z</published>
+    <updated>2020-02-18T10:13:41.177Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 51~60题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-51-60-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-51-60-P/</id>
+    <published>2020-02-08T06:03:37.000Z</published>
+    <updated>2020-02-18T10:13:09.552Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 41~50题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-41-50-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-41-50-P/</id>
+    <published>2020-02-08T06:03:35.000Z</published>
+    <updated>2020-02-18T10:12:17.446Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 31~40题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-31-40-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-31-40-P/</id>
+    <published>2020-02-08T06:03:33.000Z</published>
+    <updated>2020-03-22T03:17:13.661Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;31-P2163-SHOI2007-园丁的烦恼&quot;&gt;&lt;a href=&quot;#31-P2163-SHOI2007-园丁的烦恼&quot; class=&quot;headerlink&quot; title=&quot;31.P2163 [SHOI2007]园丁的烦恼]&quot;&gt;&lt;/a&gt;31.P2163
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构100题 21~30题</title>
+    <link href="www.orchid-any.cf/2020/02/08/DS100P-21-30-P/"/>
+    <id>www.orchid-any.cf/2020/02/08/DS100P-21-30-P/</id>
+    <published>2020-02-08T06:03:31.000Z</published>
+    <updated>2020-02-21T12:06:06.379Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;21-P4172-WC2006-水管局长&quot;&gt;&lt;a href=&quot;#21-P4172-WC2006-水管局长&quot; class=&quot;headerlink&quot; title=&quot;21.P4172 [WC2006]水管局长&quot;&gt;&lt;/a&gt;21.P4172
+        
+      
+    
+    </summary>
+    
+      <category term="Solution" scheme="www.orchid-any.cf/categories/Solution/"/>
+    
+    
+      <category term="DS100P" scheme="www.orchid-any.cf/tags/DS100P/"/>
+    
+  </entry>
+  
 </feed>
