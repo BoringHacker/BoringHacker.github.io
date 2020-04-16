@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">tags | BoringHacker&#39;s Blog</title>
+  <title itemprop="name">数据结构100题 ---笛卡尔树（娱乐向 | BoringHacker&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/favicon.png">
   
@@ -427,59 +427,200 @@
   </div>
 </header>
 
-        <div class="pattern-center-blank"></div>
-  
-    <div class="pattern-center-sakura">
-      <div class="pattern-attachment-img">
-        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/pages/tags.png" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-      </div>
-      <header class="pattern-header ">
-        <h1 class="entry-title">
-        </h1>
-      </header>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+<script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script>
+
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-54.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-54.png">
     </div>
-  
-  
-    <div class="site-content">
-        <br><br>
-        <div class="tag-cloud-title" style="text-align:center">
-          目前共计 15 个标签
-        </div>
-        <p></p>
-        <div class="tags" style="text-align:center">
-            <a href="/tags/DS100P/" style="font-size: 35px; color: #000">DS100P</a> <a href="/tags/FFT/" style="font-size: 14px; color: #808080">FFT</a> <a href="/tags/LCA/" style="font-size: 14px; color: #808080">LCA</a> <a href="/tags/NTT/" style="font-size: 14px; color: #808080">NTT</a> <a href="/tags/二分/" style="font-size: 14px; color: #808080">二分</a> <a href="/tags/分治/" style="font-size: 14px; color: #808080">分治</a> <a href="/tags/动态规划/" style="font-size: 14px; color: #808080">动态规划</a> <a href="/tags/并查集/" style="font-size: 21px; color: #555">并查集</a> <a href="/tags/数学/" style="font-size: 28px; color: #2b2b2b">数学</a> <a href="/tags/日常/" style="font-size: 21px; color: #555">日常</a> <a href="/tags/树状数组/" style="font-size: 14px; color: #808080">树状数组</a> <a href="/tags/生成函数/" style="font-size: 14px; color: #808080">生成函数</a> <a href="/tags/笛卡尔树/" style="font-size: 14px; color: #808080">笛卡尔树</a> <a href="/tags/线段树/" style="font-size: 14px; color: #808080">线段树</a> <a href="/tags/贪心/" style="font-size: 21px; color: #555">贪心</a>
-        </div>
-        <style>
-            .article-entry ul li:before{
-                display: none;
-            }
-            .article-inner  {
-                text-align: center;
-            }
-            .tags {
-                max-width: 40em;
-                margin: 2em auto;
-                margin-top: 0em;
-            }
-            .tags a {
-                margin-right: 1em;
-                border-bottom: 1px solid gray;
-                line-height: 65px;
-                white-space: nowrap;
-            }
-            .tags a:hover {
-                transition: all 0.15s linear 0s;
-                border-bottom-color: #07f !important;
-                color: #07f !important;
-            }
-        </style>
-        </div>
-    
-    
-  <div id="content" class="site-content">
-    <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+
+      <h1 class="entry-title">
+      数据结构100题 ---笛卡尔树（娱乐向</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn@1.2/images/icons/avatar.png">
+          </a>
+        </span>
+        <span>
+          <a href="/">BoringHacker</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-2-8<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
       
-      <!-- .entry-content -->
+        
+          <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp&nbsp&nbsp&nbsp
+              <li class="spfk-li"><a href="/tags/笛卡尔树/" class="butterfly-tags">笛卡尔树</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+                  }
+              }
+              paintTags()
+          </script>
+        
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>这个东西板子还是比较简单，当娱乐向的DS100P看吧。</p>
+<h1 id="0x01-概念"><a href="#0x01-概念" class="headerlink" title="0x01 概念"></a>0x01 概念</h1><p>笛卡尔树的每个结点都可以理解为一个二元组 $(k,w)$。两个元素分别满足不同的性质：$k$ 满足BST的性质，$w$ 满足堆性质。盗一张维基百科的图：</p>
+<p><img src="https://www.orchid-any.cf/images_upload/cartesian-tree1.png" alt></p>
+<p>如上图，我们把数组的下标当作了 $k$，把序列值当作了 $w$，手推一下发现都满足对应的性质。差不多treap可以说是笛卡尔树的一种：$w$ 全随机。</p>
+<h1 id="0x02-构建"><a href="#0x02-构建" class="headerlink" title="0x02 构建"></a>0x02 构建</h1><p>笛卡尔树的构建比较好理解：每加入一个元素，就先放到笛卡尔树最右边的链的叶子节点上去，然后根据性质调整。用单调队列可以达到 $\Theta(n)$。</p>
+<pre><code class="lang-cpp">void build() {
+    stack[++top] = 0;
+    for (int i = 1; i &lt;= n; ++i) {
+        int now = top;
+        while (now &gt; 0 &amp;&amp; a[stack[now]] &gt; a[i]) --now;
+        if (now) t[stack[now]].r = i;
+        if (now &lt; top) t[i].l = stack[now + 1];
+        stack[top = ++now] = i;
+    }
+}
+</code></pre>
+<h1 id="0x03-结尾（雾"><a href="#0x03-结尾（雾" class="headerlink" title="0x03 结尾（雾"></a>0x03 结尾（雾</h1><p>啊，真就这么点。题什么的做做就好，反正简单你随便切，难的你也做不来。</p>
+<p>还是丢道板题吧：<a href="https://www.luogu.com.cn/problem/P5854" target="_blank" rel="noopener">https://www.luogu.com.cn/problem/P5854</a></p>
+<p>参考代码：</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+
+char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
+#ifndef ONLINE_JUDGE
+#define gc() getchar()
+#else
+#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
+#endif
+#define is() (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
+template &lt; class Type &gt;
+void read(Type&amp; a) {
+    a = 0; bool f = 0; char ch;
+    while (!(ch = gc(), is())) if (ch == &#39;-&#39;) f = 1;
+    while (is()) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
+    a = (f ? -a : a);
+}
+template &lt; class Type, class... Args &gt;
+void read(Type&amp; t, Args&amp;... args) {
+    read(t), read(args...);
+}
+
+const int N = 1e7 + 5;
+int n, top, a[N], stack[N];
+struct {
+    int l, r;
+} t[N];
+
+void build() {
+    stack[++top] = 0;
+    for (int i = 1; i &lt;= n; ++i) {
+        int now = top;
+        while (now &gt; 0 &amp;&amp; a[stack[now]] &gt; a[i]) --now;
+        if (now) t[stack[now]].r = i;
+        if (now &lt; top) t[i].l = stack[now + 1];
+        stack[top = ++now] = i;
+    }
+}
+
+signed main() {
+    read(n);
+    for (int i = 1; i &lt;= n; ++i) read(a[i]);
+    build();
+    long long ans1 = 0, ans2 = 0;
+    for (int i = 1; i &lt;= n; ++i) ans1 ^= (i * (1ll * t[i].l + 1)), ans2 ^= (i * (1ll * t[i].r + 1));
+    return printf(&quot;%lld %lld\n&quot;, ans1, ans2), 0;
+}
+</code></pre>
+
+                      
+        </div>
+        <!-- .entry-content -->
+        <!-- <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer>. -->
+        <!-- entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/02/08/DS100P-CAT-TREE/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-23.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-23.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---猫树</h3>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/02/07/DS100P-K-D-TREE/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-22.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/boringhacker/cdn/images/posts/post-22.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构100题 ---K-D Tree</h3>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
 <div id="vcomments"></div>
 <script>
@@ -495,44 +636,35 @@
   }
 </script>
 
-<!--       <div class="single-reward">
-        <div class="reward-open">赏
-          <div class="reward-main">
-            <ul class="reward-row">
-              <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/AliPayQR.jpg"></li>
-              <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/img/custom/donate/WeChanQR.jpg"></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-      <footer class="post-footer">
-        <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-        <div class="post-tags">
-        </div>
-        <div class="post-share">
-          <div class="social-share sharehidden share-component"></div>
-          <i class="iconfont show-share icon-forward"></i>
-        </div>
-      </footer> -->
-      <!-- .entry-footer -->
-    </article>
-      <!-- #post-## -->
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-          <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/BoringHacker/cdn/images/icons/avatar.png" itemprop="image" alt="Blog" height="70" width="70"></a>
+          <a href="/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/boringhacker/cdn@1.2/images/icons/avatar.png" itemprop="image" alt="BoringHacker" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
-            <a href="https://www.orchid-any.cf/" itemprop="url" rel="author">Blog</a>
+            <a href="/" itemprop="url" rel="author">BoringHacker</a>
             </h3>
           </div>
         </div>
         <hr>
-        <p><i class="iconfont icon-write"></i>Stay Hungry, Stay Foolish</p>
+        <p><i class="iconfont icon-write"></i>不会打DS的OIER不是萌妹子！</p>
       </section>
+    </main><!-- #main -->
   </div><!-- #primary -->
 </div>
+
+<script>
+  var spoiler=document.getElementsByClassName('spoiler');
+  for(var i=0;i<spoiler.length;++i)
+  spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+  </script>  
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

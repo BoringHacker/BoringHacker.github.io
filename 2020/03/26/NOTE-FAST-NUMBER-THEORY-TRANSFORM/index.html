@@ -517,8 +517,6 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>具体来说，比如当区间中点为 $mid$，长度为 $len=mid\times 2$ 时，我们的单位根是 $\cos\frac{\pi}{mid}+i\sin\frac{\pi}{mid}$。此时原根就是 $g^{\frac{p-1}{2\times mid}}$。</p>
 <p>那么问题来了，我们为什么能用原根代替单位根呢？</p>
 <p>答案是因为证明DFT和IDFT过程中用到的单位根性质原根同样满足。大家可以自己去证一下，还是比较easy的。</p>
-<p><del>又是人丑自带大常数系列</del></p>
-<p><del>这次甚至开O2都稳如泰山</del></p>
 <pre><code class="lang-cpp">#include &lt;cstdio&gt;
 #include &lt;iostream&gt;
 #include &lt;algorithm&gt;
@@ -529,7 +527,7 @@ using namespace std;
 
 const int MAXN = 5000000 + 5;
 const int MOD = 998244353;
-int n, m, a[MAXN], b[MAXN], rev[MAXN];
+int n, m, a[MAXN], b[MAXN], rev[MAXN &lt;&lt; 2];
 
 int fast_pow(int x, int y) {
     long long res = 1;

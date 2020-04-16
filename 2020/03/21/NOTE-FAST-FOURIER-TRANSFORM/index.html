@@ -763,7 +763,7 @@ struct Complex {
         return imag;
     }
 } A[MAXN &lt;&lt; 2], B[MAXN &lt;&lt; 2], t[MAXN &lt;&lt; 2];
-int rev[MAXN];
+int rev[MAXN &lt;&lt; 2];
 
 void get_rev() {
     int lim = 0;
@@ -807,7 +807,6 @@ signed main() {
     return 0;
 }
 </code></pre>
-<p>顺带一说这份代码过不了板题，可能是我人丑自带大常数吧，但是理论上是过得了的，看各位人品。</p>
 
                       
         </div>
