@@ -1022,7 +1022,7 @@ signed main() {
     return 0;
 }
 </code></pre>
-<h1 id="P5524-Ynoi2012-NOIP2015洋溢着希望"><a href="#P5524-Ynoi2012-NOIP2015洋溢着希望" class="headerlink" title="P5524 [Ynoi2012]NOIP2015洋溢着希望"></a>P5524 [Ynoi2012]NOIP2015洋溢着希望</h1><p>给出一个长度为 $n$ 的整数序列 $a_1,a_2,\ldots,a_n$，进行 $m$ 次操作，操作分为两类。</p>
+<h1 id="35-P5524-Ynoi2012-NOIP2015洋溢着希望"><a href="#35-P5524-Ynoi2012-NOIP2015洋溢着希望" class="headerlink" title="35.P5524 [Ynoi2012]NOIP2015洋溢着希望"></a>35.P5524 [Ynoi2012]NOIP2015洋溢着希望</h1><p>给出一个长度为 $n$ 的整数序列 $a_1,a_2,\ldots,a_n$，进行 $m$ 次操作，操作分为两类。</p>
 <p>操作 $1$：给出 $l,r,v$，将 $a_l,a_{l+1},\ldots,a_r$ 分别加上 $v$。</p>
 <p>操作 $2$：给出 $l,r$，询问 $\sum\limits_{i=l}^{r}\sin(a_i)$。</p>
 <hr>
@@ -1111,6 +1111,75 @@ signed main() {
         scanf(&quot;%d %d %d&quot;, &amp;opt, &amp;x, &amp;y);
         if (opt == 1) scanf(&quot;%d&quot;, &amp;v), modify(1, 1, n, x, y, v, sin(v), cos(v));
         else printf(&quot;%.1lf\n&quot;, queryf(1, 1, n, x, y));
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="36-P5335-THUSC2016-补退选"><a href="#36-P5335-THUSC2016-补退选" class="headerlink" title="36.P5335 [THUSC2016]补退选"></a>36.P5335 [THUSC2016]补退选</h1><blockquote>
+<p>X 是 T 大的一名老师，每年他都要教授许多学生基础的 C++ 知识。在 T 大，每个学生在每学期的开学前都需要选课，每次选课一共分为三个阶段：预选，正选，补退选；其中「补退选」阶段最忙碌。<br>在补退选阶段，学生即可以选课，也可以退课。对于X老师来说，在补退选阶段可能发生以下两种事件：<br>1.一个姓名为 $S$ 的学生选了他的课（姓名将出现在 X 的已选课学生名单中）<br>2.一个姓名为 $S$ 的学生退了他的课（姓名将从 X 的已选课学生名单中移除）<br>同时，X 老师对于有哪些学生选了他的课非常关心，所以他会不定时的查询已选课学生名单，每次查询的格式如下：        </p>
+<pre><code>最早在哪个事件之后，姓名以 S 为前缀的学生数量超过了 v
+</code></pre><p>X老师看你骨骼惊奇，所以想用这个问题考考你，你当然不会畏惧，所以勇敢的接下了这个任务。<br><strong>注意1：学生的姓名可能相同，如果有$p$个姓名相同的学生都选了X老师的课，则他们的姓名将出现在X老师的名单上$p$次。</strong></p>
+</blockquote>
+<p><strong>注意2：只有已经选了课的学生才会退课，如果姓名为$S$的学生退课，则在他退课之前X老师的名单上一定有姓名。</strong></p>
+<p><strong>注意3：选课，退课和查询都被定义为「事件」，「事件」的编号从 1 开始</strong></p>
+<hr>
+<h2 id="题意简述-1"><a href="#题意简述-1" class="headerlink" title="题意简述"></a>题意简述</h2><p>给定插入、删除字符串的操作，查询在最早哪一时刻以 $S$ 为前缀的字符串数量超过了某一个值。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>字符串+前缀一眼就trie树了嘛。</p>
+<p>插入和删除都是常规的trie，可以维护一个sum来统计。</p>
+<p>如果某一时刻的sum超过了vector统计的size，那么就push进去。</p>
+<p>查询的话就暴力查询。如果在某一个字符的统计少于了 $k$ 那么就不可能了。</p>
+<p>总结来说，这是一道比较水而且典型的trie树练习题。</p>
+<pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+const int N = 1e6 + 5;
+int n, tot, lastans = 0;
+struct TrieNode {
+    int frie, ch[30];
+    vector &lt; int &gt; rec;
+} trie[N];
+
+void Insert(char str[], int ts) {
+    int root = 0;
+    for (int i = 0; str[i]; ++i) {
+        int now = str[i] - &#39;a&#39;;
+        if (!trie[root].ch[now]) trie[root].ch[now] = ++tot;
+        root = trie[root].ch[now];
+        trie[root].frie++;
+        if (trie[root].frie &gt; (int)trie[root].rec.size()) trie[root].rec.push_back(ts);
+    }
+}
+
+void Delete(char str[], int ts) {
+    int root = 0;
+    for (int i = 0; str[i]; ++i) {
+        int now = str[i] - &#39;a&#39;;
+        if (!trie[root].ch[now]) trie[root].ch[now] = ++tot;
+        root = trie[root].ch[now];
+        trie[root].frie--;
+        if (trie[root].frie &gt;= (int)trie[root].rec.size()) trie[root].rec.push_back(ts);
+    }
+}
+
+int Queryf(char str[], long long k) {
+    int root = 0;
+    for (int i = 0; str[i]; ++i) {
+        int now = str[i] - &#39;a&#39;;
+        root = trie[root].ch[now];
+        if ((long long)trie[root].rec.size() &lt;= k) return -1;
+    }
+    return trie[root].rec[k];
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 1, opr, a, b, c; i &lt;= n; ++i) {
+        char str[N];
+        scanf(&quot;%d %s&quot;, &amp;opr, str);
+        if (opr == 1) Insert(str, i);
+        else if (opr == 2) Delete(str, i);
+        else scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c), printf(&quot;%d\n&quot;, lastans = Queryf(str, (1LL * a * abs(lastans) + 1LL * b) % (1LL * c)));
     }
     return 0;
 }
