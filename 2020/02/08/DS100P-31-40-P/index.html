@@ -1184,6 +1184,74 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="37-P4309-【-TJOI2013-最长上升子序列】"><a href="#37-P4309-【-TJOI2013-最长上升子序列】" class="headerlink" title="37.P4309 【[TJOI2013]最长上升子序列】"></a>37.P4309 【[TJOI2013]最长上升子序列】</h1><p>给定一个序列，初始为空。现在我们将1到N的数字插入到序列中，每次将一个数字插入到一个特定的位置。每插入一个数字，我们都想知道此时最长上升子序列长度是多少？</p>
+<hr>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>动态维护LIS</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>这道题正解应该是在平衡树上维护dp。</p>
+<p>设 $dp_{i}$ 表示前 $i$ 个数的LIS长度，转移方程显然为：</p>
+<script type="math/tex; mode=display">
+dp_{i}=max\{dp_{j}+1\}</script><p><del>这东西都不知道可以考虑$\ \ \ \ \ \ \ \ \ \ \ $了</del></p>
+<p>然后我们放到维护的节点上即可。</p>
+<p>开头说过平衡树对吧，但是这道题的数据过水，vector+bit直接能过，而且跑得飞快，管理如果有心情的话就加强一下吧。</p>
+<pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+
+const int N = 100000 + 5;
+int n, p[N], ans[N], bit[N];
+std::vector &lt; int &gt; vec;
+
+void update(int x, int y) {
+    for (; x &lt;= n; x += x &amp; -x) bit[x] = std::max(bit[x], y);
+}
+
+int queryf(int x) {
+    int res = 0;
+    for (; x; x -= x &amp; -x) res = std::max(res, bit[x]);
+    return res;
+}
+
+signed main() {
+    scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 1; i &lt;= n; ++i) scanf(&quot;%d&quot;, &amp;p[i]), vec.insert(p[i] + vec.begin(), i);
+    for (int i = 1; i &lt;= n; ++i) ans[vec[i - 1]] = queryf(vec[i - 1]) + 1, update(vec[i - 1], ans[vec[i - 1]]);
+    for (int i = 1; i &lt;= n; ++i) ans[i] = std::max(ans[i], ans[i - 1]);
+    for (int i = 1; i &lt;= n; ++i) printf(&quot;%d\n&quot;, ans[i]);
+    return 0;
+}
+</code></pre>
+<h1 id="38-CF85D-Sum-of-Medians"><a href="#38-CF85D-Sum-of-Medians" class="headerlink" title="38.CF85D Sum of Medians"></a>38.CF85D Sum of Medians</h1><pre><code>一个集合，初始为空。现有三个操作：
+1.add：向集合里加入数x，保证加入前集合中没有数x；
+2.del：从集合中删除数x，保证删除前集合中有x；
+3.sum：询问将集合里的数从小到大排序后，求下标i模5余3的数的和。
+现有n次操作，对于每个查询操作，输出答案
+</code></pre><hr>
+<h2 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h2><p>让你维护一个类似std::set的东西，实现一个支持插入、删除、查询升序排序后的 $\sum_{i=1}^{n}[i\operatorname{mod}5=3]\times A_{i}$ 的不可重集合。</p>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p>正解线段树没跑。但是我们看到3S的时限 $10^{5}$ 的数据以及一贯的CF数据。我们有理由认为这道题vector模拟能过（滑稽</p>
+<p>然后就真的能过，std::lower_bound查找插入以及删除的位置。查询的话就 $i$ 从2开始（vector下标从0开始，所以要减一），每次 $i=i+5$ 然后累加 $A_{i}$ 即可。</p>
+<pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+
+std::vector &lt; int &gt; vect;
+
+signed main() {
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 0, x; i &lt; n; ++i) {
+        char str[5];
+        scanf(&quot;%s&quot;, str);
+        if (*str == &#39;a&#39;) {
+            scanf(&quot;%d&quot;, &amp;x);
+            vect.insert(std::lower_bound(vect.begin(), vect.end(), x), x);
+        } else if (*str == &#39;d&#39;) {
+            scanf(&quot;%d&quot;, &amp;x);
+            vect.erase(std::lower_bound(vect.begin(), vect.end(), x));
+        } else {
+            long long res = 0;
+            for (unsigned i = 2; i &lt; vect.size(); i += 5) res += vect[i];
+            printf(&quot;%lld\n&quot;, res);
+        }
+    }
+    return 0;
+}
+</code></pre>
 
           
             <hr>
