@@ -1252,6 +1252,136 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="39-P3620-APIO-CTSC-2007-数据备份"><a href="#39-P3620-APIO-CTSC-2007-数据备份" class="headerlink" title="39.P3620 [APIO/CTSC 2007]数据备份"></a>39.P3620 [APIO/CTSC 2007]数据备份</h1><p>你在一家 IT 公司为大型写字楼或办公楼(offices)的计算机数据做备份。然而数据备份的工作是枯燥乏味的，因此你想设计一个系统让不同的办公楼彼此之间互相备份，而你则坐在家中尽享计算机游戏的乐趣。</p>
+<p>已知办公楼都位于同一条街上。你决定给这些办公楼配对(两个一组)。每一对办公楼可以通过在这两个建筑物之间铺设网络电缆使得它们可以互相备份。</p>
+<p>然而，网络电缆的费用很高。当地电信公司仅能为你提供 K 条网络电缆，这意味着你仅能为 K 对办公楼(或总计 2K 个办公楼)安排备份。任一个办公楼都属于唯一的配对组(换句话说，这 2K 个办公楼一定是相异的)。</p>
+<p>此外，电信公司需按网络电缆的长度(公里数)收费。因而，你需要选择这 K对办公楼使得电缆的总长度尽可能短。换句话说，你需要选择这 K 对办公楼，使得每一对办公楼之间的距离之和(总距离)尽可能小。</p>
+<p>下面给出一个示例，假定你有 5 个客户，其办公楼都在一条街上，如下图所示。这 5 个办公楼分别位于距离大街起点 1km, 3km, 4km, 6km 和 12km 处。电信公司仅为你提供 K=2 条电缆。</p>
+<p>  <img src="https://cdn.luogu.com.cn/upload/pic/4386.png" alt> </p>
+<p>上例中最好的配对方案是将第 1 个和第 2 个办公楼相连，第 3 个和第 4 个办公楼相连。这样可按要求使用 K=2 条电缆。第 1 条电缆的长度是 3km―1km = 2km，第 2 条电缆的长度是 6km―4km = 2 km。这种配对方案需要总长 4km 的网络电缆，满足距离之和最小的要求。</p>
+<hr>
+<h2 id="题意简述-2"><a href="#题意简述-2" class="headerlink" title="题意简述"></a>题意简述</h2><p>给定 $n$ 栋建筑，选出 $k$ 对，使其距离之和最小。</p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><p>可以想见，这 $k$ 对建筑每对都是相邻的。我们设 $L_{i}=A_{i}-A_{i-1}$，其中 $A_{i}$ 为题目中输入的序列。即 $L$ 为 $A$ 的差分序列。</p>
+<p>由于已经被选过的位置不能再次被选，所以如果我们选了 $L_{i}$ 那么 $L_{i+1}$ 和 $L_{i-1}$ 都不能选了。如果我们选了 $L_{i+1}$ 和 $L_{i-1}$ 那么我们也不能选 $L_{i}$ 了。</p>
+<p>我们设 $L$ 中的最小值为 $L_{m}$。考虑当前情况的每一个最优解，则只有以下两种情形：</p>
+<ol>
+<li><p>选 $L_{m}$</p>
+</li>
+<li><p>选 $L_{m+1}$ 和 $L_{m-1}$</p>
+</li>
+</ol>
+<p>如此我们得到了一个策略：每次选择 $L$ 中的最小值即 $L_{m}$，然后删除 $L_{m},L_{m-1},L_{m+1}$。如果我们选择了 $L_{m+1}+L_{m-1}-L_{m}$ 的话，即删除 $L_{m}$，选择 $L_{m}$。否则即认为选择 $L_{m}$ 是当前的最优策略。</p>
+<p>思路来自李煜东的蓝书。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 1e5 + 5;
+int n, k, tot, rhs, ans, dis[N], lists[N];
+
+struct ListNode {
+    struct LinkList {
+        int prev, next;
+        int val, id;
+    } p[N];
+
+    void remove(int x) {
+        p[p[x].prev].next = p[x].next;
+        p[p[x].next].prev = p[x].prev;
+    }
+} list;
+
+struct HeapNode {
+    struct Heap {
+        int val, id;
+    } h[N];
+
+    void upward(int x) {
+        while (x &gt; 1) {
+            if (h[x].val &lt; h[x &gt;&gt; 1].val) {
+                swap(h[x], h[x &gt;&gt; 1]);
+                swap(list.p[h[x].id].id, list.p[h[x &gt;&gt; 1].id].id);
+                x &gt;&gt;= 1;
+            }
+            else break;
+        }
+    }
+
+    void downward(int x) {
+        int s = x &lt;&lt; 1;
+        while (s &lt;= tot) {
+            if (s &lt; tot &amp;&amp; h[s].val &gt; h[s + 1].val) ++s;
+            if (h[s].val &lt; h[x].val) {
+                swap(h[s], h[x]);
+                swap(list.p[h[s].id].id, list.p[h[x].id].id);
+                x = s;
+                s = x &lt;&lt; 1;
+            }
+            else break;
+        }
+    }
+
+    void remove(int x) {
+        if (x == --tot + 1) return ;
+        swap(h[x], h[tot + 1]);
+        swap(list.p[h[x].id].id, list.p[h[tot + 1].id].id);
+        upward(x);
+        downward(x);
+    }
+
+    void extract(int x) {
+        h[1] = h[n--];
+        downward(1);
+    }
+
+    int backtop() {
+        return h[1].val;
+    }
+} heap;
+
+signed main() {
+    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;k, &amp;rhs);
+    for (int i = 1; i &lt; n; ++i) {
+        int x; scanf(&quot;%d&quot;, &amp;x);
+        list.p[i].val = x - rhs;
+        list.p[i].prev = i - 1;
+        list.p[i].next = i + 1;
+        list.p[i].id = ++tot;
+        rhs = x;
+        heap.h[tot].val = list.p[i].val;
+        heap.h[tot].id = i;
+        heap.upward(tot);
+    }
+    for (int i = 1; i &lt;= k; ++i) {
+        ans += heap.backtop();
+        if (!list.p[heap.h[1].id].prev || list.p[heap.h[1].id].next == n) {
+            if (!list.p[heap.h[1].id].prev) {
+                heap.remove(list.p[list.p[heap.h[1].id].next].id);
+                list.remove(list.p[heap.h[1].id].next);
+            }
+            else {
+                heap.remove(list.p[list.p[heap.h[1].id].prev].id);
+                list.remove(list.p[heap.h[1].id].prev);
+            }
+            list.remove(heap.h[1].id);
+            heap.remove(1);
+        }
+        else {
+            int temp = heap.h[1].id;
+            heap.h[1].val = list.p[list.p[heap.h[1].id].prev].val + list.p[list.p[heap.h[1].id].next].val - list.p[heap.h[1].id].val;
+            list.p[heap.h[1].id].val = heap.h[1].val;
+            heap.downward(1);
+            heap.remove(list.p[list.p[temp].prev].id);
+            heap.remove(list.p[list.p[temp].next].id);
+            list.remove(list.p[temp].prev);
+            list.remove(list.p[temp].next);
+        }
+    }
+    printf(&quot;%d\n&quot;, ans);
+    return 0;
+}
+</code></pre>
 
           
             <hr>
