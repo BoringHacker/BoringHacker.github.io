@@ -1382,12 +1382,69 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="40-P3793-由乃救爷爷"><a href="#40-P3793-由乃救爷爷" class="headerlink" title="40.P3793 由乃救爷爷"></a>40.P3793 由乃救爷爷</h1><p>读入三个数n,m,s</p>
+<p>你需要srand( s )一下</p>
+<p>然后n个数表示a[i]，这个直接调用read函数</p>
+<p>然后m个询问，表示区间<strong>最大值</strong>，询问的区间是l = read() % n + 1 , r = read() % n + 1，注意有可能 l &gt; r</p>
+<hr>
+<h2 id="题意简述-3"><a href="#题意简述-3" class="headerlink" title="题意简述"></a>题意简述</h2><p>给定序列，求每次询问区间的RMQ。</p>
+<h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><p>不带修的RMQ我们一般使用的是ST表求。但这道题ST表 $\Theta(n\log n)$ 的空间当场去世。</p>
+<p>我们考虑把序列分个块儿。由于查询的区间不一定会完全覆盖完一个块儿，所以我么需要求出每个块儿中的前/后缀最大值，然后用ST表搞出整个块儿的最大值。</p>
+<p>但是如果 $l,r$ 在同一个块儿内的话就会出问题，所以当查询区间的两端点在同一个块儿内的时候我们就直接暴力查询。</p>
+<pre><code class="lang-cpp">const int N = 2e7 + 5;
+const int SQN = 4500 + 5;
+const int LGSQN = 10 + 5;
+int n, m, s, block = 7500;
+__uint64 f[SQN][LGSQN], a[N];
+__uint64 ans, cpy[N], pas[N];
 
-          
-            <hr>
-            <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
-            <p style="font-size:32px;text-align:center;margin-top:-2px">施工中...</p>
-                        
+__uint64 get(__uint64 x) {
+    return (x + block - 1) / block;
+}
+
+__uint64 ret(__uint64 l, __uint64 r) {
+    __uint64 res = a[l];
+    for (__uint64 i = l; i &lt;= r; ++i) res = max(res, a[i]);
+    return res;
+}
+
+signed main() {
+    read(n, m, s);
+    _srand(s);
+    for (int i = 1, j = 1; i &lt;= n; ++i, j = get(i)) {
+        a[i] = _read();
+        f[j][0] = max(a[i], f[j][0]);
+    }
+    int mot = get(n);
+    int fck  = log2(mot);
+    for (int j = 1; j &lt;= fck; ++j)
+        for (int i = 1; i &lt;= mot - (1 &lt;&lt; j) + 1; ++i)
+            f[i][j] = max(f[i][j - 1], f[i + (1 &lt;&lt; (j - 1))][j - 1]);
+    for (int i = 1; i &lt;= n; ++i)
+        if (i % block != 1) pas[i] = max(pas[i - 1], a[i]);
+        else pas[i] = a[i];
+    for (int i = n; i &gt;= 1; --i)
+        if (i % block) cpy[i] = max(cpy[i + 1], a[i]);
+        else cpy[i] = a[i];
+    for (int i = 0; i &lt; m; ++i) {
+        __uint64 x = _read() % n + 1;
+        __uint64 y = _read() % n + 1;
+        if (x &gt; y) swap(x, y);
+        __uint64 l = get(x), r = get(y);
+        __uint64 MAX = max(cpy[x], pas[y]);
+        if (l == r) ans += ret(x, y);
+        else if (r - l == 1) ans += MAX;
+        else {
+            __uint64 k = log2(r - l - 1);
+            __uint64 t = max(f[l + 1][k], f[r - (1 &lt;&lt; k)][k]);
+            ans += max(MAX, t);
+        }
+    }
+    write(io_l, ans);
+}
+</code></pre>
+
+                      
         </div>
         <!-- .entry-content -->
         <!-- <div class="single-reward">
