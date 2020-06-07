@@ -545,6 +545,219 @@ signed main() {
     return puts(&quot;1&quot;), 0;
 }
 </code></pre>
+<h1 id="42-P4688-Ynoi2016-掉进兔子洞"><a href="#42-P4688-Ynoi2016-掉进兔子洞" class="headerlink" title="42.P4688 [Ynoi2016]掉进兔子洞"></a>42.P4688 [Ynoi2016]掉进兔子洞</h1><p>您正在打 galgame，然后突然发现您今天太颓了，于是想写个数据结构题练练手：</p>
+<p>一个长为 $n$ 的序列 $a$。</p>
+<p>有 $m$ 个询问，每次询问三个区间，把三个区间中同时出现的数一个一个删掉，问最后三个区间剩下的数的个数和，询问独立。</p>
+<p>注意这里删掉指的是一个一个删，不是把等于这个值的数直接删完，比如三个区间是  $[1,2,2,3,3,3,3]$，$[1,2,2,3,3,3,3]$ 与 $[1,1,2,3,3]$，就一起扔掉了 $1$ 个 $1$，$1$ 个 $2$，$2$ 个 $3$。</p>
+<hr>
+<h2 id="题意简述-1"><a href="#题意简述-1" class="headerlink" title="题意简述"></a>题意简述</h2><p>Ynoi的题貌似题面都很简洁……（除了惯例的一大堆Gal或Anime的图片+对话以外）</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>读完题，我们可以发现每轮询问的答案是这个东西:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{3}(r_{i}-l_{i}+1)-P\times 3</script><p>其中，$P$ 表示三个区间里面的公共颜色数量。</p>
+<p>前面那个 $\sum$ 里面的东西很好维护，我们主要来讲后面一部分的维护方法。</p>
+<p>首先初始序列的 $a_{i}$ 是一定要离散化一遍的。</p>
+<p>那么我们如何表示出出现的最少次数呢？</p>
+<p>如果这是一个二进制串的话，我们可以发现这就是一个 $\operatorname{bit_and}$ 的操作。</p>
+<p>对于每个询问，我们可以把三个区间分开处理再合并。直接维护复杂度过高，用 bitset 优化。由于这是个二进制序列，所以离散化的时候不能去重，否则答案就会偏大。</p>
+<p>直接操作容易 MLE，这里介绍一个小trick。我们可以把询问分批处理，这样就行了。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;bitset&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+typedef long long LL;
+typedef unsigned long long ULL;
+
+const int N = 1e5 + 5;
+const int F = 23333 + 5;
+int n, m, block, origin[N], appear[N];
+int cnt[N], ans[N], vis[25005];
+int l1[N], l2[N], l3[N];
+int r1[N], r2[N], r3[N];
+bitset &lt; N &gt; S[F];
+vector &lt; int &gt; disc;
+struct AskSet {
+    int l, r;
+    int id, p;
+} Q[N];
+
+int GetID(int x) {
+    return lower_bound(disc.begin(), disc.end(), x) - disc.begin() + 1;
+}
+
+bool SortWith(const AskSet&amp; x, const AskSet&amp; y) {
+    return (x.p &lt; y.p) || (x.p == y.p &amp;&amp; x.r &lt; y.r);
+}
+
+void MakeCont(int pos, int flags, bitset &lt; N &gt;&amp; bit) {
+    pos = origin[pos];
+    if (flags &gt; 0) bit[pos + cnt[pos]] = 1;
+    else bit[pos + cnt[pos] - 1] = 0;
+    cnt[pos] += flags;
+}
+
+void Contribute(int fr, int ba) {
+    memset(cnt, 0, sizeof cnt);
+    memset(vis, 0, sizeof vis);
+    bitset &lt; N &gt; bit; bit.reset();
+    int l = 1, r = 0, subs = 0;
+    for (int i = fr; i &lt;= ba; ++i) {
+        Q[++subs] = {l1[i], r1[i], i, appear[l1[i]]};
+        Q[++subs] = {l2[i], r2[i], i, appear[l2[i]]};
+        Q[++subs] = {l3[i], r3[i], i, appear[l3[i]]};
+        ans[i] += (r3[i] - l3[i]) + (r2[i] - l2[i]) + (r1[i] - l1[i]) + 3;
+    }
+    sort(Q + 1, Q + 1 + subs, SortWith);
+    for (int i = 1; i &lt;= subs; ++i) {
+        while (r &lt; Q[i].r) MakeCont(++r, 1, bit);
+        while (l &gt; Q[i].l) MakeCont(--l, 1, bit);
+        while (r &gt; Q[i].r) MakeCont(r--, -1, bit);
+        while (l &lt; Q[i].l) MakeCont(l++, -1, bit);
+        if (!vis[Q[i].id - fr + 1]) {
+            vis[Q[i].id - fr + 1] = 1;
+            S[Q[i].id - fr + 1] = bit;
+        } else {
+            S[Q[i].id - fr + 1] &amp;= bit;
+        }
+    }
+    for (int i = fr; i &lt;= ba; ++i)
+        ans[i] -= S[i - fr + 1].count() * 3;
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    block = sqrt(n);
+    for (int i = 1; i &lt;= n; ++i) {
+        scanf(&quot;%d&quot;, &amp;origin[i]);
+        appear[i] = (i - 1) / block + 1;
+        disc.push_back(origin[i]);
+    }
+    sort(disc.begin(), disc.end());
+    for (int i = 1; i &lt;= n; ++i)
+        origin[i] = GetID(origin[i]);
+    for (int i = 1; i &lt;= m; ++i) {
+        scanf(&quot;%d %d&quot;, &amp;l1[i], &amp;r1[i]);
+        scanf(&quot;%d %d&quot;, &amp;l2[i], &amp;r2[i]);
+        scanf(&quot;%d %d&quot;, &amp;l3[i], &amp;r3[i]);
+    }
+    for (int i = 1; i &lt;= m; i += 23333) Contribute(i, min(m, i + 23332));
+    for (int i = 1; i &lt;= m; ++i) printf(&quot;%d\n&quot;, ans[i]);
+    return 0;
+}
+</code></pre>
+<h1 id="43-P3224-HNOI2012-永无乡"><a href="#43-P3224-HNOI2012-永无乡" class="headerlink" title="43.P3224 [HNOI2012]永无乡"></a>43.P3224 [HNOI2012]永无乡</h1><p>永无乡包含 $n$ 座岛，编号从 $1$ 到 $n$ ，每座岛都有自己的独一无二的重要度，按照重要度可以将这 $n$ 座岛排名，名次用 $1$  到 $n$ 来表示。某些岛之间由巨大的桥连接，通过桥可以从一个岛到达另一个岛。如果从岛 $a$ 出发经过若干座（含 $0$ 座）桥可以 到达岛 $b$ ，则称岛 $a$ 和岛 $b$ 是连通的。</p>
+<p>现在有两种操作：</p>
+<p>B x y 表示在岛 $x$ 与岛 $y$ 之间修建一座新桥。</p>
+<p>Q x k 表示询问当前与岛 $x$ 连通的所有岛中第 $k$ 重要的是哪座岛，即所有与岛 $x$ 连通的岛中重要度排名第 $k$ 小的岛是哪座，请你输出那个岛的编号。</p>
+<hr>
+<h2 id="题意简述-2"><a href="#题意简述-2" class="headerlink" title="题意简述"></a>题意简述</h2><p>现在有n个点和两种操作：</p>
+<p>B x y 表示连接 x 与 y。</p>
+<p>Q x k 表示询问 x 所在连通块里的第 k 小权值。</p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><p>首先一看到第k小，我们就想到用权值线段树或者平衡树来维护一个连通块里的值。</p>
+<p>但是这道题要求连接两个连通块,单纯的权值线段树肯定不行。而一个节点一个节点暴力合并肯定会超时。</p>
+<p>所以我们就打<strong>线段树合并</strong>罢！</p>
+<p>线段树合并其实也挺暴力的。</p>
+<p>它和真正的暴力合并只是如果要合并的两颗线段树中有一个没有当前要合并的节点，那么就直接把另一个线段树的节点接在这里。</p>
+<p><del>其实就是一个剪枝对吧</del></p>
+<p>这道题的权值个数只有n个，而且每个权值只有一个。</p>
+<p>所以这个剪枝的作用很大。</p>
+<p>那这道题的算法就是这样的：</p>
+<p>用并查集维护连通块，用权值线段树维护值。</p>
+<p>每次要合并两个连通块时，把 x 所在连通块和 y 所在连通块接在一起，然后合并这两个连通块的线段树。</p>
+<p>查询就正常查询就好了。</p>
+<p>代码：</p>
+<pre><code class="lang-cpp">#include&lt;cstdio&gt;
+int n,m,fa[300010],u,v,cnt,mpp[300010],opx,opy,root[300010],q;
+char op;
+struct node
+{
+    int l,r,num;
+}nodes[30000010];
+int finds(int x)//寻找 x 所在连通块编号。 
+{
+    if(fa[x]^x)    fa[x]=finds(fa[x]);
+    return fa[x];
+}
+void ins(int l,int r,int &amp;x,int pos)//初始时每个点都是一个连通块，提前处理它的线段树。 
+{
+    nodes[x=++cnt].num=1;
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(pos&lt;=mid)    ins(l,mid,nodes[x].l,pos);
+        else    ins(mid+1,r,nodes[x].r,pos);
+    }
+}
+int merge(int x,int y)
+{
+    if(!x||!y)    return x+y;//有一个没有或两个都没有， x+y 返回不是 0 的那个或者因为两个都没有而返回0。 
+    else
+    {
+        nodes[x].num+=nodes[y].num;//合并本节点。 
+        nodes[x].l=merge(nodes[x].l,nodes[y].l);//
+        nodes[x].r=merge(nodes[x].r,nodes[y].r);//合并左右儿子。 
+        return x;//前面的信息储存到的是 x 这个节点那就返回 x 。 
+    }
+}
+int find(int l,int r,int x,int k)//权值线段树正常查询。 
+{
+    if(l^r)
+    {
+        int mid=(l+r)&gt;&gt;1;
+        if(nodes[nodes[x].l].num&gt;=k)    return find(l,mid,nodes[x].l,k);
+        else    return find(mid+1,r,nodes[x].r,k-nodes[nodes[x].l].num);
+    }
+    else    return l;
+}
+int main()
+{
+    scanf(&quot;%d %d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i)    fa[i]=i;
+    for(int i=1;i&lt;=n;++i)
+    {
+        scanf(&quot; %d&quot;,&amp;u);
+        mpp[u]=i;//记录每个权值对应的节点编号，便于之后输出。 
+        ins(1,n,root[i],u);
+    }
+    for(int i=1;i&lt;=m;++i)
+    {
+        scanf(&quot; %d %d&quot;,&amp;u,&amp;v);
+        int U=finds(u);//这些初始边也相当于从没有边开始进行加边操作。 
+        int V=finds(v);
+        if(U^V)
+        {
+            fa[U]=V;
+            root[V]=merge(root[U],root[V]);//把 U 接到 V 上面了就要把 U 的线段树合并到 V 的线段树上。 
+        }
+    }
+    scanf(&quot; %d&quot;,&amp;q);
+    for(int i=1;i&lt;=q;++i)
+    {
+        scanf(&quot; %c %d %d&quot;,&amp;op,&amp;opx,&amp;opy);
+        if(op==&#39;Q&#39;)
+        {
+            int OPX=finds(opx);
+            if(nodes[root[OPX]].num&gt;=opy)    printf(&quot;%d\n&quot;,mpp[find(1,n,root[OPX],opy)]);//查询第 k 小的值，输出对应的节点编号。 
+            else    printf(&quot;-1\n&quot;);//这个连通块没有那么多点，输出 -1 。 
+        }
+        else
+        {
+            int OPX=finds(opx);
+            int OPY=finds(opy);
+            if(OPX^OPY)
+            {
+                fa[OPX]=OPY;
+                root[OPY]=merge(root[OPX],root[OPY]);
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
 
           
             <hr>
