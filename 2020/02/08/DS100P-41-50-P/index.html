@@ -758,6 +758,79 @@ int main()
     return 0;
 }
 </code></pre>
+<h1 id="44-P5795-THUSC2015-异或运算"><a href="#44-P5795-THUSC2015-异或运算" class="headerlink" title="44.P5795 [THUSC2015]异或运算"></a>44.P5795 [THUSC2015]异或运算</h1><p>给定长度为 $n$ 的数列 $X={x_1,x_2,…,x_n}$ 和长度为 $m$ 的数列 $Y={y_1,y_2,…,y_m}$，令矩阵 $A$ 中第 $i$ 行第 $j$ 列的值 $A_{i,j}=x_i\ \operatorname{xor}\ y_j$，每次询问给定矩形区域 $i∈[u,d],j∈[l,r]$，找出第 $k$ 大的 $A_{i,j}$。</p>
+<hr>
+<h2 id="题意简述-3"><a href="#题意简述-3" class="headerlink" title="题意简述"></a>题意简述</h2><p>根据两个数列做一个矩阵，给定几组询问，求一个矩形区域里的k大值</p>
+<h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><p>可以发现 $N$ 很小，所以我们可以暴力枚举每个 $X_{i}$，然后对每个 $Y_{i}$ 建一个可持久化Trie树，插入即可。</p>
+<p>对于询问，直接按照持久化Trie的查询套路来即可。首先记录root，然后我们就可以在查询时根据 $K$ 的大小来递归。</p>
+<p>具体来说，就是往当前节点的哪个儿子走能使xor的结果的为1，然后根据从cnt的值判断递归方向。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;utility&gt;
+
+using namespace std;
+
+const int N = 300000 + 5;
+int n, m, q, tot, wrt[N][2], trie[N * 40][2], frie[N * 40], root[N], X[N], Y[N];
+
+int ins(int prt, int val) {
+    int now = ++tot, res = now;
+    for (int i = 31; ~i; --i) {
+        int bit = (val &gt;&gt; i) &amp; 1;
+        trie[now][bit ^ 1] = trie[prt][bit ^ 1];
+        prt = trie[prt][bit];
+        now = trie[now][bit] = ++tot;
+        frie[now] = frie[prt] + 1;
+    }
+    return res;
+}
+
+int ret(int x1, int x2, int y1, int y2, int k) {
+    k = (x2 - x1 + 1) * (y2 - y1 + 1) - k + 1;
+    for (int i = x1; i &lt;= x2; ++i) {
+        wrt[i][0] = root[y1 - 1];
+        wrt[i][1] = root[y2];
+    }
+    int res = 0, cnt = 0;
+    for (int i = 31; ~i; --i) {
+        for (int j = x1; j &lt;= x2; ++j) {
+            int bit = (X[j] &gt;&gt; i) &amp; 1;
+            int now0 = wrt[j][0], now1 = wrt[j][1];
+            cnt += frie[trie[now1][bit]] - frie[trie[now0][bit]];
+        }
+        int flags;
+        if (k &gt; cnt) k -= cnt, flags = 1;
+        else flags = 0;
+        res &lt;&lt;= 1, res |= flags;
+        for (int j = x1; j &lt;= x2; ++j) {
+            int bit = ((X[j] &gt;&gt; i) &amp; 1) ^ flags;
+            int &amp;now0 = wrt[j][0], &amp;now1 = wrt[j][1];
+            now0 = trie[now0][bit];
+            now1 = trie[now1][bit];
+        }
+        cnt = 0;
+    }
+    return res;
+}
+
+signed main() {
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    for (int i = 1; i &lt;= n; ++i)    scanf(&quot;%d&quot;, &amp;X[i]);
+    for (int i = 1; i &lt;= m; ++i) {
+        scanf(&quot;%d&quot;, &amp;Y[i]);
+        root[i] = ins(root[i - 1], Y[i]);
+    }
+    scanf(&quot;%d&quot;, &amp;q);
+    for (int i = 0, x1, x2, y1, y2, k; i &lt; q; ++i) {
+        scanf(&quot;%d %d %d %d %d&quot;, &amp;x1, &amp;x2, &amp;y1, &amp;y2, &amp;k);
+        printf(&quot;%d\n&quot;, ret(x1, x2, y1, y2, k));
+    }
+    return 0;
+}
+</code></pre>
 
           
             <hr>
