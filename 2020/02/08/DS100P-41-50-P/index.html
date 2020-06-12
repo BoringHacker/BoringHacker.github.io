@@ -831,6 +831,113 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="45-P3674-小清新人渣的本愿"><a href="#45-P3674-小清新人渣的本愿" class="headerlink" title="45.P3674 小清新人渣的本愿"></a>45.P3674 小清新人渣的本愿</h1><p>这个题是这样的：</p>
+<p>给你一个序列 $a$，长度为 $n$，有 $m$ 次操作，每次询问一个区间是否可以选出两个数它们的差为 $x$，或者询问一个区间是否可以选出两个数它们的和为 $x$，或者询问一个区间是否可以选出两个数它们的乘积为 $x$ ，这三个操作分别为操作 $1,2,3$。</p>
+<p>选出的这两个数可以是同一个位置的数。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/4629.png" alt></p>
+<hr>
+<h2 id="题意简述-4"><a href="#题意简述-4" class="headerlink" title="题意简述"></a>题意简述</h2><p><del>尽管题意已经够简洁了但是我还是要坚持我的题解风格</del></p>
+<h2 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h2><p>dllxl难的的一个比较水的题。</p>
+<p>我们初一看这道题目。没修改，不强制在线，基本上大思路就往莫队走了。</p>
+<p>考虑一种暴力做法，对三个操作分别开桶算贡献，加法减法的计算方法比较简单，加法就是减法的逆运算，反着开就行了。乘法直接枚举约数，毕竟这道题的值域和数列长度及询问是一样的。</p>
+<p>发现容易炸，又因为我们的桶是根据存在性开的，所以我们可以用bitset来优化。</p>
+<p>记录两个bitset为classic和inverse。</p>
+<p>如果为操作一的话就是：</p>
+<script type="math/tex; mode=display">
+\operatorname{ANS_{Q_{i}->id}}=(\operatorname{classic\ bitand\ (classic\ shl\ Q_{i}->x)}).\operatorname{any()}</script><p>操作二类似：</p>
+<script type="math/tex; mode=display">
+\operatorname{ANS_{Q_{i}->id}}=(\operatorname{classic\ bitand\ (inverse\ shr\ (100000-Q_{i}->x))}).\operatorname{any()}</script><p>操作三则直接枚举。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;cmath&gt;
+#include &lt;bitset&gt;
+
+using namespace std;
+
+char buf[1 &lt;&lt; 21], *p1 = buf, *p2 = buf;
+#ifndef ONLINE_JUDGE
+#define gc() getchar()
+#else
+#define gc() (p1 == p2 &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 21, stdin), p1 == p2) ? EOF : *p1++)
+#endif
+#define is() (ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;)
+
+template &lt; typename Type &gt;
+void read(Type&amp; a) {
+    a = 0; char ch; bool f = 0;
+    while (!(ch = gc(), is())) if (ch == &#39;-&#39;) f = 1;
+    while (is()) a = (a &lt;&lt; 3) + (a &lt;&lt; 1) + (ch ^ &#39;0&#39;), ch = gc();
+    a = (f ? -a : a);
+}
+
+template &lt; typename Type, typename... Args &gt;
+void read(Type&amp; t, Args&amp;... args) {
+    read(t), read(args...);
+}
+
+const int N = 1e5 + 5, R = 100000;
+struct Query_Node {
+    int id, pos;
+    int tp, l, r, x;
+    bool operator &lt; (const Query_Node&amp; rhs) const {
+        if (pos != rhs.pos)        return pos &lt; rhs.pos;
+        else    return r &lt; rhs.r;
+    }
+} e[N];
+int n, m, Size, a[N], cnt[N], ans[N];
+bitset &lt; N &gt; classic, inverse;
+
+void Add(int x) {
+    ++cnt[a[x]];
+    if (cnt[a[x]] == 1) {
+        classic[a[x]] = 1;
+        inverse[R - a[x]] = 1;
+    }
+}
+
+void Del(int x) {
+    --cnt[a[x]];
+    if (cnt[a[x]] == 0) {
+        classic[a[x]] = 0;
+        inverse[R - a[x]] = 0;
+    }
+}
+
+void Contribute() {
+    int l = 1, r = 0;
+    for (int i = 1; i &lt;= m; ++i) {
+        while (l &lt; e[i].l) Del(l++);
+        while (l &gt; e[i].l) Add(--l);
+        while (r &gt; e[i].r) Del(r--);
+        while (r &lt; e[i].r) Add(++r);
+        if (e[i].tp == 1) {
+            ans[e[i].id] = (classic &amp; (classic &lt;&lt; e[i].x)).any();
+        } else if (e[i].tp == 2) {
+            ans[e[i].id] = (classic &amp; (inverse &gt;&gt; (R - e[i].x))).any();
+        } else {
+            for (int j = 1; j * j &lt;= e[i].x; ++j) {
+                if (e[i].x % j == 0 &amp;&amp; classic[j] &amp;&amp; classic[e[i].x / j])
+                    ans[e[i].id] = 1;
+            }
+        }
+    }
+}
+
+signed main() {
+    read(n, m), Size = sqrt(n);
+    for (int i = 1; i &lt;= n; ++i)     read(a[i]);
+    for (int i = 1; i &lt;= m; ++i) {
+        read(e[i].tp, e[i].l, e[i].r, e[i].x);
+        e[i].id = i, e[i].pos = (e[i].l - 1) / Size + 1;
+    }
+    sort(e + 1, e + 1 + m);
+    Contribute();
+    for (int i = 1; i &lt;= m; ++i)     puts(ans[i] ? &quot;hana&quot; : &quot;bi&quot;);
+    return 0;
+}
+</code></pre>
 
           
             <hr>
