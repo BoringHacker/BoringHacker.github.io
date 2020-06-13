@@ -938,6 +938,89 @@ signed main() {
     return 0;
 }
 </code></pre>
+<h1 id="46-P3709-大爷的字符串题"><a href="#46-P3709-大爷的字符串题" class="headerlink" title="46.P3709 大爷的字符串题"></a>46.P3709 大爷的字符串题</h1><p>给你一个字符串 $a$，每次询问一段区间的贡献。</p>
+<p>贡献定义：</p>
+<p>每次从这个区间中拿出一个字符 $x$ ，然后把 $x$ 从这个区间中删除，直到区间为空。你要维护一个集合 $S$。</p>
+<ul>
+<li>如果 $S$ 为空，你 rp 减 $1$。 </li>
+<li>如果 $S$ 中有一个元素不小于 $x$，则你 rp 减 $1$，清空 $S$。</li>
+<li>之后将 $x$ 插入 $S$。</li>
+</ul>
+<p>由于你是大爷，平时做过的题考试都会考到，所以每次询问你搞完这段区间的字符之后最多还有多少 rp？rp 初始为 $0$。</p>
+<p>询问之间不互相影响~</p>
+<hr>
+<h2 id="题意简述-5"><a href="#题意简述-5" class="headerlink" title="题意简述"></a>题意简述</h2><p><del>出题人语文……唉……</del></p>
+<p>大意：给定几个询问，问一个区间最少被几个严格上升的序列覆盖。</p>
+<p>可以转化为区间众数的出现次数。</p>
+<h2 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h2><p>题面就不吐槽了。</p>
+<p>不带修，可离线，考虑莫队。</p>
+<p>我们可以维护两个东西。</p>
+<p>一个是 $CNT_{x}$ 表示 $x$ 出现的次数。</p>
+<p>还有一个就是 $APPEAR_{x}$ 表示出现次数为 $x$ 的数的数量。</p>
+<p>$APPEAR_{x}$ 的定义有点绕，好好读一下。</p>
+<p>莫队加贡献的时候就 <code>appear[cnt[a[x]]]--,appear[++cnt[a[x]]]++</code> 即可。</p>
+<p>意思就是出现次数为 <code>cnt[a[x]]</code> 的没了，减一个，后面的同理。</p>
+<p>减贡献大体没什么区别，用一个全局变量 <code>flags</code> 记录答案的相反数。需要注意的是如果满足 <code>cnt[a[x]]==flags &amp;&amp; appear[cnt[a[x]]]==1</code> 那么我们需要将 <code>flags-1</code>。后面的就和加贡献反着来即可。</p>
+<p>局部代码：</p>
+<pre><code class="lang-cpp">const int N = 2e5 + 5;
+int n, m, flags, Size, a[N], cnt[N], appear[N], ans[N];
+vector &lt; int &gt; disc;
+struct Query_Node {
+    int l, r, id, pos;
+    bool operator &lt; (const Query_Node&amp; rhs) const {
+        if (pos == rhs.pos)
+            return r &lt; rhs.r;
+        else return pos &lt; rhs.pos;
+    }
+} e[N];
+
+int Get_ID(int x) {
+    return lower_bound(disc.begin(), disc.end(), x) - disc.begin() + 1;
+}
+
+void Add(int x) {
+    appear[cnt[x]]--;
+    appear[++cnt[x]]++;
+    flags = max(flags, cnt[x]);
+}
+
+void Del(int x) {
+    if (cnt[x] == flags &amp;&amp; appear[cnt[x]] == 1) --flags;
+    appear[cnt[x]]--;
+    appear[--cnt[x]]++;
+}
+
+void Contribute() {
+    int l = 1, r = 0;
+    for (int i = 1; i &lt;= m; ++i) {
+        while (l &lt; e[i].l) Del(a[l++]);
+        while (l &gt; e[i].l) Add(a[--l]);
+        while (r &gt; e[i].r) Del(a[r--]);
+        while (r &lt; e[i].r) Add(a[++r]);
+        ans[e[i].id] = -flags;
+    }
+}
+
+signed main() {
+    read(n, m), Size = sqrt(m);
+    for (int i = 1; i &lt;= n; ++i) {
+        read(a[i]);
+        disc.push_back(a[i]);
+    }
+    sort(disc.begin(), disc.end());
+    disc.erase(unique(disc.begin(), disc.end()), disc.end());
+    for (int i = 1; i &lt;= n; ++i)    a[i] = Get_ID(a[i]);
+    for (int i = 1; i &lt;= m; ++i) {
+        read(e[i].l, e[i].r);
+        e[i].id = i;
+        e[i].pos = (e[i].l - 1) / Size;
+    }
+    sort(e + 1, e + 1 + m);
+    Contribute();
+    for (int i = 1; i &lt;= m; ++i)    printf(&quot;%d\n&quot;, ans[i]);
+    return 0;
+}
+</code></pre>
 
           
             <hr>
