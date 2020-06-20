@@ -33,3 +33,16 @@ hr {
 	text-decoration: underline solid rgba(180, 180, 180, 0.8);
 	margin-top:-1px;
 }
+.gather{
+    width:830px;
+    margin:0  auto;
+    margin-bottom: 25px;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6);
+    background:rgba(255,255,255,0.8) !important;
+    border-radius:15px;
+}
+#vcomments{
+    width:800px;
+    padding:2.3% 1% 2% 1%;
+    margin:0 auto;
+}
