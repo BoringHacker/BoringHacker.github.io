@@ -1193,7 +1193,199 @@ signed main() {
     return 0;
 }
 </code></pre>
-
+<h1 id="48-P5309-Ynoi2011-初始化"><a href="#48-P5309-Ynoi2011-初始化" class="headerlink" title="48. P5309 [Ynoi2011]初始化"></a>48. P5309 [Ynoi2011]初始化</h1><p>Mayuri 有 $n$ 颗星星，每颗星星都有一个明亮度 $A_{i}$ 。Mayuri 时常想知道一个区间 $[l,r]$ 内所有星星的明亮度的总和是多少。但是星星是会眨眼的，所以星星的明亮度是会变化的。有的时候，下标为 $y,y+x,y+2x,y+3x,\ldots,y+kx$ 的星星的明亮度会增加 $z$。保证 $y\leq x$。</p>
+<p>Mayuri 不怎么会数学，请回答她的询问。答案要对 $10^{9}+7$ 取模。</p>
+<hr>
+<p><del>不愧是Ynoi，卡了好久的常数</del></p>
+<p>我做的第一道Ynoi题！</p>
+<p>好了我先概括下题目：</p>
+<p>*操作$1$：将整个序列中下标$\%x$等于$y$的元素加上$z$。</p>
+<p>*操作$2$：查询区间和。</p>
+<p>*$2e5$个数，$2e5$个操作。</p>
+<p>其实这道题的最大难点在于：$x$可能很小，修改的点很多且不是连续区间。</p>
+<p>一个一个改肯定爆炸。</p>
+<p>但是如果$x$很大，那么我们一个一个改没有问题。</p>
+<p>所以我们可以对x进行分类。</p>
+<p>设定一个阈值$lt$。</p>
+<p>对于大于$lt$的$x$值，我们暴力修改。（反正个数少~）</p>
+<p>对于小于$lt$的$x$值，我们可以用另一种方式来统计。</p>
+<p>记录下所有$(x,y)$的操作$1$的$z$的和，用$sum[x][y]$表示。</p>
+<p>我们在查询区间值的时候可以先查询暴力修改出来的值，然后统计这些小的修改的贡献。（先看这个区间有多少下标$%\x$等于$y$，然后乘上去再加就好了）</p>
+<p>$lt$一般设为$\sqrt n$。（看情况吧）</p>
+<p><strong>这就是根号分治了！</strong></p>
+<p>根号分治：把一个问题的参数按$\sqrt n$分为两部分，分别设计算法实现。时间复杂度$O(n\sqrt n)$。</p>
+<p>但是这样不太能解决这个问题。</p>
+<p>因为如果查询一个区间暴力修改的和，我们需要一个数据结构进行查询，否则我们就退回了$O(n^2)$。</p>
+<p>而这个数据结构的单点修改必须是$O(1)$的，否则$O(n\log_n\sqrt n)$也是无法通过此题的。</p>
+<p>对了！分块！<del>优秀数据结构果然名不虚传</del></p>
+<p>我们用分块来维护暴力修改的区间和。</p>
+<p>这个问题解决了，但还有另一个问题。</p>
+<p>就是我们统计$sum[x][y]$的贡献的时候，会枚举$x,y$。</p>
+<p>而$x,y$都是$\sqrt n$的。</p>
+<p>那又回到$O(n^2)$了啊。</p>
+<p>但我们稍加观察会发现：</p>
+<p>对于每个$x$：$sum[x][y]$乘上的数只会有两个值，而且大的那个是小的那个$+1$。</p>
+<p>比如下标序列$3$ $4$ $5$ $6$ $7$ $8$ $9$ $10$ $11$ $12$对于$x=4$</p>
+<p>占位占位占位$3$ $0$ $1$ $2$ $3$ $0$ $1$ $\ \ 2$ $\ 3$ $\ \ 0$</p>
+<p>其中$3$出现了$3$次，$2$出现了$2$次，$1$出现了$2$次，$0$出现了$3$次。</p>
+<p>我们会发现这是有规律的，其中$3$次的和$2$次的都连成了一个区间。（$0$和$3$其实也是一个连续的区间）</p>
+<p>所以我们可以用前缀和优化这个统计过程。</p>
+<p>那么前面加上$(x,y)$操作的值的时候，就要把$y$以上的值也加上同样的值，以保持前缀和。单次操作变为$O(n\sqrt n)$。</p>
+<p>统计时，先算出较小的那个次数是多少。<br>然后我们用整个$sum[x][x-1]$来乘上它。接着计算多的那个次数的区间。</p>
+<p>那肯定是从$begin\%x$到$end\%x$了！</p>
+<p>因为从$end\%x$再到下一个$begin\%x$都没有加上最后一个1。</p>
+<p>但是这是有例外的，如果区间长度刚好被x整除，那么我们会多算一个$sum[x][x-1]$。</p>
+<p>例外？就是拿来特判的嘛~</p>
+<p>那么我们就只用枚举$x$了，时间复杂度最后为$O(n\sqrt n)$。</p>
+<p>快乐卡常~$233.cpp$太长我就不放了</p>
+<p>代码：</p>
+<pre><code>//使用的卡常：少用long long,减法优化模运算，读优输优。 
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int cube=500,mod=1e9+7,cude=200;//这里我数列分块设的500个元素一个块，阈值设的是200。 
+int n,m,belong[200010],op,opa,opb,opc,sum[610],a[200010],sumar[610][610];//sum是数列分块统计和，sumar[x][y]表示下标%x为y的元素加上的值的前缀和 
+void read(int &amp;hhh)
+{
+    int x=0;
+    char c=getchar();
+    while((c&lt;&#39;0&#39;)|(c&gt;&#39;9&#39;)&amp;&amp;c^&#39;-&#39;)    c=getchar();
+    if(c^&#39;-&#39;)    x=c^&#39;0&#39;;
+    char d=getchar();
+    while((d&lt;=&#39;9&#39;)&amp;(d&gt;=&#39;0&#39;))
+    {
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+(d^&#39;0&#39;);
+        d=getchar();
+    }
+    if(c^&#39;-&#39;)    hhh=x;
+    else    hhh=-x;
+}
+void readlong(long long &amp;hhh)
+{
+    long long x=0;
+    char c=getchar();
+    while((c&lt;&#39;0&#39;)|(c&gt;&#39;9&#39;)&amp;&amp;c^&#39;-&#39;)    c=getchar();
+    if(c^&#39;-&#39;)    x=c^&#39;0&#39;;
+    char d=getchar();
+    while((d&lt;=&#39;9&#39;)&amp;(d&gt;=&#39;0&#39;))
+    {
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+(d^&#39;0&#39;);
+        d=getchar();
+    }
+    if(c^&#39;-&#39;)    hhh=x;
+    else    hhh=-x;
+}
+void writinglong(long long x)
+{
+    if(!x)    return;
+    writinglong(x/10);
+    putchar((x%10)+&#39;0&#39;);
+}
+void writelong(long long x)
+{
+    if(x&lt;0)
+    {
+        putchar(&#39;-&#39;);
+        x=-x;
+    }
+    else if(!x)
+    {
+        putchar(&#39;0&#39;);
+        putchar(&#39;\n&#39;);
+        return;
+    }
+    writinglong(x);
+    putchar(&#39;\n&#39;);
+}
+int main()
+{
+    read(n);
+    read(m);
+    for(int i=1;i&lt;=n;++i)
+    {
+        read(a[i]);
+        if(a[i]==mod)    a[i]=0;//因为后面是用减法优化的模运算，所以要先处理到mod范围之内 
+        belong[i]=(i-1)/cube+1;
+        sum[belong[i]]+=a[i];
+        if(sum[belong[i]]&gt;=mod)    sum[belong[i]]-=mod;
+    }
+    for(int i=1;i&lt;=m;++i)
+    {
+        read(op);
+        read(opa);
+        read(opb);
+        if(op==1)
+        {
+            read(opc);
+            if(opc==mod||opc==0)    continue;//加上的值就等于mod或者0，加了跟没加一样，浪费时间 
+            if(opa&lt;=cude)
+            {
+                if(opb==opa)    opb=0;//题目描述中y==x和y==0是同样效果
+                for(int j=opb;j&lt;opa;++j)
+                {
+                    sumar[opa][j]+=opc;//累加前缀和 
+                    if(sumar[opa][j]&gt;=mod)    sumar[opa][j]-=mod;
+                }
+            }
+            else
+            {
+                for(int j=opb;j&lt;=n;j+=opa)//暴力修改
+                {
+                    a[j]+=opc;
+                    if(a[j]&gt;=mod)    a[j]-=mod;
+                    sum[belong[j]]+=opc;
+                    if(sum[belong[j]]&gt;=mod)    sum[belong[j]]-=mod;
+                }
+            }
+        }
+        else
+        {
+            int ans=0;
+            if(opb-opa+1&lt;=2*cube)//
+            {
+                for(int j=opa;j&lt;=opb;++j)
+                {
+                    ans+=a[j];
+                    if(ans&gt;=mod)    ans-=mod;
+                }
+            }
+            else
+            {
+                int begin=(opa+cube-2)/cube+1;
+                int end=opb/cube;
+                for(int j=begin;j&lt;=end;++j)
+                {
+                    ans+=sum[j];
+                    if(ans&gt;=mod)    ans-=mod;
+                }
+                for(int j=(begin-1)*cube;j&gt;=opa;--j)
+                {
+                    ans+=a[j];
+                    if(ans&gt;=mod)    ans-=mod;
+                }
+                for(int j=end*cube+1;j&lt;=opb;++j)
+                {
+                    ans+=a[j];
+                    if(ans&gt;=mod)    ans-=mod;
+                }
+            }//分块统计暴力加出来的和 
+            long long exans=ans;//这边有乘法必须开long long了 
+            for(int j=1;j&lt;=cude;++j)//枚举x 
+            {
+                int modea=opa%j;
+                int modeb=opb%j;
+                long long less=(opb-opa+1)/j;//少的区间那个的次数 
+                if(less*j==opb-opa+1)    exans+=(less*sumar[j][j-1]);//我的特判~
+                else if(modea&lt;=modeb)    exans+=(less*sumar[j][j-1]+sumar[j][modeb]-(modea?sumar[j][modea-1]:0));//该情况中区间连续，直接加 
+                else    exans+=(less*sumar[j][j-1]+sumar[j][j-1]-sumar[j][modea-1]+sumar[j][modeb]);//区间被分为前后两个连续部分 
+                exans%=mod;
+            }
+            writelong((exans+mod)%mod);//前面可能减出负数 
+        }
+    }
+    return 0;
+}
+</code></pre>
           
             <hr>
             <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
