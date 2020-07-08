@@ -1385,12 +1385,221 @@ int main()
     }
     return 0;
 }
+</code></pre><h1 id="49-CF383C-Propagating-tree"><a href="#49-CF383C-Propagating-tree" class="headerlink" title="49.CF383C Propagating tree"></a>49.CF383C Propagating tree</h1><p>Iahub likes trees very much. Recently he discovered an interesting tree named propagating tree. The tree consists of $ n $ nodes numbered from $ 1 $ to $ n $ , each node $ i $ having an initial value $ a_{i} $ . The root of the tree is node $ 1 $ .</p>
+<p>This tree has a special property: when a value $ val $ is added to a value of node $ i $ , the value - $ val $ is added to values of all the children of node $ i $ . Note that when you add value - $ val $ to a child of node $ i $ , you also add -(- $ val $ ) to all children of the child of node $ i $ and so on. Look an example explanation to understand better how it works.</p>
+<p>This tree supports two types of queries:</p>
+<ul>
+<li>&quot; $ 1 $ $ x $ $ val $ &quot; — $ val $ is added to the value of node $ x $ ;</li>
+<li>&quot; $ 2 $ $ x $ &quot; — print the current value of node $ x $ .</li>
+</ul>
+<p>In order to help Iahub understand the tree better, you must answer $ m $ queries of the preceding type.</p>
+<hr>
+<h2 id="题意简述-7"><a href="#题意简述-7" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一颗树，让你支持两种操作，一种子树修改，按深度分正负。一种单点查询节点。</p>
+<h2 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h2><p>首先考虑把整棵树的DFS序整出来。然后我们可以每次递归结束后再记录一个当前的DFS序的值。</p>
+<p>即处理出一棵树的子树中的DFS序的最大值和最小值，由于一颗子树里的DFS序一定是连续的，所以我们把这棵树用DFS序拍平到了序列上。</p>
+<p>考虑修改操作没有限制，就是直接更新子树，那么我们可以用线段树或者树状数组来实现区间更新。</p>
+<p>由于这个修改操作有限制，要根据修改的节点的深度分类为加或者减。所以我们可以维护两颗线段树/树状数组，一颗加，一颗减。</p>
+<p>查询的时候我们就可以直接先查询维护加的线段树/树状数组然后减。</p>
+<p>线段树太长，由于查询是单点操作，我们可以把序列差分，用树状数组两次单点修改，查询就两次前缀和即可。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+const int Maxn = 2e5 + 5;
+int n, m, tot, val [ Maxn ], fwt [ 2 ][ Maxn * 2 + 5 ], dfn [ Maxn ], fywf [ Maxn ], Lp [ Maxn ], Rp [ Maxn ];
+vector &lt; int &gt; Graph [ Maxn ];
+
+void dfs ( int x, int fa, int k )
+{
+    Lp [ x ] = ++ tot;
+    fywf [ x ] = k;
+    for ( unsigned i = 0; i &lt; Graph [ x ].size ( ); ++ i )
+    {
+        int y = Graph [ x ][ i ];
+        if ( y == fa )    continue;
+        dfs ( y, x, k ^ 1 );
+    }
+    Rp [ x ] = tot;
+}
+
+void Modify ( int x, int v, int p )
+{
+    for ( ; x &lt;= n * 2; x += x &amp; -x )
+        fwt [ p ][ x ] += v;
+}
+
+int Query ( int x, int p )
+{
+    int res = 0;
+    for ( ; x; x -= x &amp; -x )
+        res += fwt [ p ][ x ];
+    return res;
+}
+
+signed main()
+{
+    scanf ( &quot;%d %d&quot;, &amp;n, &amp;m );
+    for ( int i = 1; i &lt;= n; ++ i )    scanf ( &quot;%d&quot;, &amp;val [ i ] );
+    for (int i = 1, x, y; i &lt; n; ++ i) {
+        scanf ( &quot;%d %d&quot;, &amp;x, &amp;y );
+        Graph [ x ].push_back ( y );
+        Graph [ y ].push_back ( x );
+    }
+    dfs ( 1, 0, 0 );
+    for ( int i = 0, t, x, v; i &lt; m; ++ i )
+    {
+        scanf ( &quot;%d %d&quot;, &amp;t, &amp;x );
+        if ( t == 1 )
+        {
+            scanf ( &quot;%d&quot;, &amp;v );
+            Modify ( Lp [ x ], v, fywf [ x ] );
+            Modify ( Rp [ x ] + 1, -v, fywf [ x ] );
+        }
+        else
+        {
+            printf ( &quot;%d\n&quot;, val [ x ] + Query ( Lp [ x ], fywf [ x ] ) - Query ( Lp [ x ], fywf [ x ] ^ 1 ) );
+        }
+    }
+    return 0;
+}
 </code></pre>
-          
-            <hr>
-            <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
-            <p style="font-size:32px;text-align:center;margin-top:-2px">施工中...</p>
-                        
+<h1 id="50-P5072-Ynoi2015-盼君勿忘"><a href="#50-P5072-Ynoi2015-盼君勿忘" class="headerlink" title="50.P5072 [Ynoi2015]盼君勿忘"></a>50.P5072 [Ynoi2015]盼君勿忘</h1><p>珂朵莉给了你一个序列，每次查询一个区间 $[l,r]$ 中所有子序列分别去重后的和 $\bmod\ p$。</p>
+<hr>
+<h1 id="题意简述-8"><a href="#题意简述-8" class="headerlink" title="题意简述"></a>题意简述</h1><p>不看前面的废话就是题意简述。</p>
+<h1 id="题解-8"><a href="#题解-8" class="headerlink" title="题解"></a>题解</h1><p>这是<a href="https://www.luogu.com.cn/blog/161849/post-ji-lie-shuo-ju-jie-gou-yi-bai-ti" target="_blank" rel="noopener">数据结构一百题</a>的第50题（一半了哦）的纪念题解。</p>
+<p>无修改操作，基本确定大方向莫队。</p>
+<p>考虑查询的问题，我们可以转化一下。即求区间内每个数出现的次数。</p>
+<p>一个区间 $[l,r]$ 的子序列数量为：</p>
+<script type="math/tex; mode=display">\sum_{i=0}^{r-l+1}C^{i}_{r-l+1}=2^{r-l+1}</script><p>比如一个数在区间 $[l,r]$ 出现了 $k$ 次，那么一共有 $2^{r-l+1-k}$ 个子序列不包含这个数。这个很好理解，从组合数的意义可知。那么就有 $2^{r-l+1}-2^{r-l+1-k}$ 个子序列包含了这个数。</p>
+<p>那么我们就可以用莫队维护<strong>区间中出现了 $k$ 次的所有数的和</strong>，然后乘上一个  $2^{r-l+1}-2^{r-l+1-k}$ 就是它的贡献了。</p>
+<p>问题又来了：每次询问的模数是不确定的，我们需要每次都需要 $\Theta(n)$ 处理一遍2的幂。</p>
+<p>有没有什么方法能把处理这个东西的复杂度降到 $\Theta(\sqrt{n})$ 或以下呢？</p>
+<p><del>对此SyadouHayami表示我们可以打个高精。</del></p>
+<p>方法是有的。</p>
+<p>我们可以每次询问都处理出 $2^{1},2^{2},\cdots,2^{\sqrt{n}}$ ，以及 $2^{2\sqrt{n}},2^{3\sqrt{n}},\cdots,2^{n}$，都只需要 $\Theta(\sqrt{n})$。当然，都是在模 $p$ 的意义下的。我们分别记为<code>pow1</code>和<code>pow2</code>。</p>
+<p>那么 $2^{x}\operatorname{mod}p=(pow1_{x\operatorname{mod}\sqrt{n}}\times pow2_{\lfloor x\div\sqrt{n}\rfloor})\operatorname{mod}p$。</p>
+<p>于是就解决问题了。</p>
+<p>我的代码遇到了一下两个玄学问题，贴出来给同样情况的人看看：</p>
+<ol>
+<li><p>链表部分的<code>prev</code>和<code>next</code>如果放在结构体里会T。</p>
+</li>
+<li><p><code>pow1</code>,<code>pow2</code>,<code>sum</code>,<code>cnt</code>几个数组的定义如果放在最开头和<code>isa</code>以及<code>ans</code>两个数组一起会RE。</p>
+</li>
+</ol>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+const int Maxn = 1e5 + 10;
+const int Size = 320;
+int n, m, isa[ Maxn ], ans[ Maxn ];
+struct Query_Node
+{
+    int l, r, p, id, pos;
+} Q[ Maxn ];
+struct Linked_List
+{
+    int tot, prev[ Maxn ], next[ Maxn ];
+    Linked_List( ) { tot = 0; }
+
+    void insert( int x )
+    {
+        next[ tot ] = x;
+        prev[ x ] = tot;
+        tot = x;
+    }
+
+    void erase( int x )
+    {
+        if( tot == x )    tot = prev[ x ];
+        else
+        {
+            next[ prev[ x ] ] = next[ x ];
+            prev[ next[ x ] ] = prev[ x ];
+        }
+        prev[ x ] = next[ x ] = 0;
+    }
+} llt;
+
+bool cmp( Query_Node rhs, Query_Node shr )
+{
+    if( rhs.pos != shr.pos )    return rhs.l &lt; shr.l;
+    else    return rhs.r &lt; shr.r;
+}
+
+int pow1[ Maxn ], pow2[ Maxn ];
+void Pare_Two( int p )
+{
+    pow1[ 0 ] = pow2[ 0 ] = 1;
+    for( int i = 1; i &lt;= Size; ++ i )     pow1[ i ] = 1ll * 2 * pow1[ i - 1 ] % p;
+    for( int i = 1; i &lt;= Size; ++ i )    pow2[ i ] = 1ll * pow1[ Size ] * pow2[ i - 1 ] % p;
+}
+
+int Get_Two( int x, int p )
+{
+    return 1ll * pow1[ x % Size ] * pow2[ x / Size ] % p;
+}
+
+int sum[ Maxn ], cnt[ Maxn ];
+void Make_Cont( int x, int f )
+{
+    int pos = isa[ x ];
+    sum[ cnt[ pos ] ] -= pos;
+    if ( ! sum[ cnt[ pos ] ] ) llt.erase( cnt[ pos ] );
+    if( f == 1 ) ++cnt[ pos ];
+    else --cnt[ pos ];
+    if ( ! sum[ cnt[ pos ] ] ) llt.insert( cnt[ pos ] );
+    sum[ cnt[ pos ] ] += pos;
+}
+
+void Contribute( )
+{
+    int l = 1, r = 0;
+    for( int i = 1; i &lt;= m; ++ i )
+    {
+        Pare_Two( Q[ i ].p );
+        while( l &gt; Q[ i ].l ) Make_Cont( --l, 1 );
+        while( l &lt; Q[ i ].l ) Make_Cont( l++, 0 );
+        while( r &gt; Q[ i ].r ) Make_Cont( r--, 0 );
+        while( r &lt; Q[ i ].r ) Make_Cont( ++r, 1 );
+        for( int s = llt.next[ 0 ]; s; s = llt.next[ s ] )
+        {
+            int val = 1ll * sum[ s ] * ( Get_Two( r - l + 1, Q[ i ].p ) - Get_Two( r - l + 1 - s, Q[ i ].p ) + Q[ i ].p ) % Q[ i ].p;
+            ans[ Q[ i ].id ] += val;
+            ans[ Q[ i ].id ] %= Q[ i ].p;
+        }
+    }
+}
+
+signed main( )
+{
+    scanf( &quot;%d %d&quot;, &amp;n, &amp;m );
+    for( int i = 1; i &lt;= n; ++ i )    scanf( &quot;%d&quot;, &amp;isa[ i ] );
+    for( int i = 1; i &lt;= m; ++ i )
+    {
+        int l, r, p;
+        scanf( &quot;%d %d %d&quot;, &amp;l, &amp;r, &amp;p );
+        Q[ i ].l = l, Q[ i ].r = r;
+        Q[ i ].p = p, Q[ i ].id = i;
+        Q[ i ].pos = l / Size;
+    }
+    sort( Q + 1, Q + 1 + m, cmp );
+    Contribute( );
+    for( int i = 1; i &lt;= m; ++ i )
+        printf( &quot;%d\n&quot;, ans[ i ] );
+    return 0;
+}
+</code></pre>
+
+                      
         </div>
         <!-- .entry-content -->
         <!-- <div class="single-reward">
