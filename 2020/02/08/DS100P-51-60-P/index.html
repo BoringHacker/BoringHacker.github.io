@@ -505,6 +505,122 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
 <p>LYC和WGY半年的努力让这个几乎玩笑一般的系列到了现在。</p>
 <p>今后也请多多关照啦。</p>
 <p><del>祝愿dp100p早日过半</del></p>
+<h1 id="51-CF1000F-One-Occurrence"><a href="#51-CF1000F-One-Occurrence" class="headerlink" title="51.CF1000F One Occurrence"></a>51.CF1000F One Occurrence</h1><p>给定一个长度为$n$序列，$m$个询问，每次询问给定一个区间$[l,r]$，如果这个区间里存在只出现一次的数，输出这个数（如果有多个就输出任意一个），没有就输出0。$n,m\le 5e5$</p>
+<hr>
+<h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给定一个序列，每次询问输出一个区间 $[l,r]$ 中只出现一次的数。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>这道题其实比较有意思。他让你输出只出现一次的数，讲道理你让我维护个数都还好办，这个就比较好玩了。</p>
+<p>我这里给出一种不用吸氧的卡常莫队做法。</p>
+<p>其实莫队需要维护的东西很简单，就是一个数的出现次数，我们用一个数组 <code>cnt</code> 来记录。</p>
+<p>每次我们算加贡献的时候，<code>cnt</code> 的计算方法很显然。我们同时维护一个栈，算加贡献的时候如果这个数的出现次数为1，我们就把他放到栈顶上去。我们顺手维护一个数组 <code>pos</code> 表示这个数在栈里的位置。</p>
+<p>算减贡献的时候 <code>cnt</code> 的计算方法依旧显然。我们把栈顶元素放到删除的数的位置上即可。</p>
+<p>每次询问的答案就是栈顶元素，由于不合法的情况输出零，所以没必要特判。</p>
+<p>光这样是过不了的，会T飞。</p>
+<p>我们需要一个针对于莫队的优化，叫做奇偶性排序优化（瞎编的一个名字），具体来说就是在对询问排序的时候分块的奇偶性，具体实现看代码。这种排序的方式理论来说有 $\Theta(\frac{1}{2})$ 的常数。</p>
+<p>这样还是会T。容易发现输出答案的循环可以用unroll循环展开，我设的unroll的参是10，已经能过了。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+const int Maxn = 5e5 + 5, Each = 720;
+int n, m, top, isa[ Maxn ], cnt[ Maxn ], pos[ Maxn ], htl[ Maxn ], ans[ Maxn ];
+struct Query_Node
+{
+    int l, r, id, pos;
+    Query_Node( int L = 0, int R = 0, int ID = 0 ) { l = L, r = R, id = ID; }
+} Q[ Maxn ];
+
+inline int read( )
+{
+    int a = 0, minus = 0;
+    char ch = getchar( );
+    while( !isdigit( ch ) )
+    {
+        if( ch == &#39;-&#39; )     minus = 1;
+        ch = getchar( );
+    }
+    while( isdigit( ch ) )
+    {
+        a = a * 10 + ch - &#39;0&#39;;
+        ch = getchar( );
+    }
+    if( minus )     return -a;
+    else    return a;
+}
+
+inline void write( int x )
+{
+    if( x &lt; 0 )
+    {
+        x = -x;
+        putchar( &#39;-&#39; );
+    }
+    if( x &gt; 9 )     write( x / 10 );
+    putchar( x % 10 + &#39;0&#39; );
+}
+
+inline bool cmp( Query_Node rhs, Query_Node shr )
+{
+    if( rhs.pos != shr.pos )    return rhs.l &lt; shr.l;
+    else if( rhs.pos &amp; 1 )    return rhs.r &lt; shr.r;
+    else     return rhs.r &gt; shr.r;
+}
+
+inline void Make_Cont( int x, int t )
+{
+    x = isa[ x ];
+    if( t == 1 ) ++ cnt[ x ];
+    else    --cnt[ x ];
+    if( cnt[ x ] == 1 )
+    {
+        htl[ ++ top ] = x;
+        pos[ x ] = top;
+    }
+    else if( ( t == 1 ) ? ( cnt[ x ] == 2 ) : ( cnt[ x ] == 0 ) )
+    {
+        htl[ pos[ x ] ] = htl[ top ];
+        pos[ htl[ top ] ] = pos[ x ];
+        pos[ x ] = htl[ top -- ] = 0;
+    }
+}
+
+inline void Contribute( )
+{
+    int l = 1, r = 0;
+    for( int i = 0; i &lt; m; ++ i )
+    {
+        while( l &lt; Q[ i ].l )    Make_Cont( l ++, 0 );
+        while( l &gt; Q[ i ].l )    Make_Cont( -- l, 1 );
+        while( r &lt; Q[ i ].r )    Make_Cont( ++ r, 1 );
+        while( r &gt; Q[ i ].r )    Make_Cont( r --, 0 );
+        ans[ Q[ i ].id ] = htl[ top ];
+    }
+}
+
+signed main( )
+{
+    n = read( );
+    for( int i = 1; i &lt;= n; ++ i )         isa[ i ] = read( );
+    m = read( );
+    for( int i = 0; i &lt; m; ++ i )
+    {
+        Q[ i ].l = read( );
+        Q[ i ].r = read( );
+        Q[ i ].id = i;
+        Q[ i ].pos = Q[ i ].l / Each;
+    }
+    sort( Q, Q + m, cmp );
+    Contribute( );
+    if( m &lt;= 10 )
+    {
+        for( int i = 0; i &lt; m; ++ i )        write( ans[ i ] ), putchar( &#39;\n&#39; );
+        return 0;
+    }
+    #pragma unroll 10
+    for( int i = 0; i &lt; m; ++ i )        write( ans[ i ] ), putchar( &#39;\n&#39; );
+    return 0;
+}
+</code></pre>
 
           
             <hr>
