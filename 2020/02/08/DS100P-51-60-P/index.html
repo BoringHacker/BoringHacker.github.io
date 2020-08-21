@@ -1922,12 +1922,395 @@ int main()
     return 0;
 }
 </code></pre>
+<h1 id="59-CF643G-Choosing-Ads"><a href="#59-CF643G-Choosing-Ads" class="headerlink" title="59.CF643G Choosing Ads"></a>59.CF643G Choosing Ads</h1><ul>
+<li>给定一个长度为 $n$ 的序列和一个整数 $p$。</li>
+<li>有 $m$ 个操作，操作要么是区间赋值，要么是询问区间内出现次数至少占 $p\%$ 的数。</li>
+<li>输出询问的答案时，可以包含错的数，也可以重复输出，但对的数一定要在答案中，且输出的数的个数不超过 $\lfloor \frac{100}{p} \rfloor$。</li>
+</ul>
+<hr>
+<h2 id="题意简述-6"><a href="#题意简述-6" class="headerlink" title="题意简述"></a>题意简述</h2><p>够简单了。</p>
+<h2 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h2><p>我觉得很有意思的一道题目。</p>
+<p>第一个操作，嗯，不讲。</p>
+<p>我们着重来看看第二个操作。</p>
+<p>这个查询操作要我们输出所有出现次数的频率 $\ge p\%$ 的数字。</p>
+<p>先考虑一种特殊情况，即当 $p&gt;50$ 的情况，这时候这个问题的本质就成了求区间的绝对众数。</p>
+<p>区间绝对众数有一个经典的 $\Theta(1)$ 空间的做法，摩尔投票。</p>
+<p>这里简单介绍一下摩尔投票法。</p>
+<p>举个例子，序列 $\texttt{7 5 7 6 7 7 4 7}$。</p>
+<p>我们定义两个变量 <code>major,cnt</code>。</p>
+<p>我们遍历一遍序列：</p>
+<p>起初 <code>major=7,cnt=1</code>。</p>
+<p>然后 $5\neq 7$，<code>cnt--</code>。</p>
+<p>此时 <code>cnt==0</code>，我们令 <code>major=5,cnt=1</code>。</p>
+<p>后面以此类推。</p>
+<p>那么拓展到这道题目，我们的 <code>p</code> 最小是 20。</p>
+<p>和普通的摩尔投票法类似，我们把 <code>major,cnt</code> 替换为 <code>major[5],cnt[5]</code>，用数组来求出分别的众数。</p>
+<p>不过这样做有可能会出现出现频率不符合答案规范的数存进来，不过反正良心出题人允许我们输出无意义内容，所以就不用管了。</p>
+<p>然后考虑用一个数据结构来加速这个过程。</p>
+<p>区间推平、查询首选线段树。</p>
+<p>那么要维护的信息就很明显了。</p>
+<p>每个结点维护一个摩尔投票的结构体，然后再维护一个区间推平的 <code>tag</code>。</p>
+<p>最后 <code>pushup</code> 合并左右儿子贡献时，直接把右区间合并到左边来即可。</p>
+<p>下传标记很简单，不过要注意下传时因为时区间推平，所以摩尔投票的结构体里的 <code>cnt</code> 部分要设为 <code>r-l+1</code>。</p>
+<pre><code class="lang-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;assert.h&gt;
 
-          
-            <hr>
-            <center><img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@1.7.9/lazyload.gif" data-src="https://cdn.jsdelivr.net/gh/ctz45562/cdn@2.0.3/emojis/gif/23.gif"></center>
-            <p style="font-size:32px;text-align:center;margin-top:-2px">施工中...</p>
-                        
+using namespace std;
+
+const int Maxn = 15e4 + 5;
+int n, m, p, isa[Maxn];
+struct Major_Voting // 摩尔投票的结构体
+{
+    int major[5], cnt[5];
+    Major_Voting()
+    {
+        memset(major, 0, sizeof(major));
+        memset(cnt, 0, sizeof(cnt));
+    }
+};
+struct Segment_Tree
+{
+    Major_Voting val;
+    int tag;
+} t[Maxn &lt;&lt; 2];
+
+Major_Voting make_vote(int major) // 以 major 为关键字创建一个新的摩尔投票
+{
+    Major_Voting ret;
+    memset(ret.major, 0, sizeof(ret.major));
+    memset(ret.cnt, 0, sizeof(ret.cnt));
+    ret.major[0] = major;
+    ret.cnt[0] = 1;
+    return ret;
+}
+
+Major_Voting merge(Major_Voting one, Major_Voting ano) // 合并区间，这一步的细节较多
+{
+    Major_Voting ret = one;
+    for (int i = 0; i &lt; p; ++i)
+    {
+        if (ano.cnt[i])
+        {
+            bool flag = 0;
+            for (int j = 0; j &lt; p; ++j)
+            {
+                if (ret.major[j] == ano.major[i])
+                {
+                    ret.cnt[j] += ano.cnt[i];
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0)
+            {
+                for (int j = 0; j &lt; p; ++j)
+                {
+                    if (ret.cnt[j] == 0)
+                    {
+                        ret.major[j] = ano.major[i];
+                        ret.cnt[j] = ano.cnt[i];
+                        flag = 1;
+                        break;
+                    }
+                }
+            } // 把右区间的贡献算到左边来
+            if (flag)    continue;
+            int line = 2e9;
+            for (int j = 0; j &lt; p; ++j)    line = min(line, ret.cnt[j]);
+            if (line &gt;= ano.cnt[i])
+            {
+                for (int j = 0; j &lt; p; ++j)     ret.cnt[j] -= ano.cnt[i];
+                continue;
+            }
+            bool book = 0;
+            for (int j = 0; j &lt; p; ++j)
+            {
+                if (ret.cnt[j] == line &amp;&amp; book == 0)
+                {
+                    ret.major[j] = ano.major[i];
+                    ret.cnt[j] = ano.cnt[i] - line;
+                    book = 1;
+                }
+                else    ret.cnt[j] -= line;
+            } // 分类讨论最小值的处理
+        }
+    }
+    return ret;
+}
+
+void maintain(int p)
+{
+    t[p].val = merge(t[p &lt;&lt; 1].val, t[p &lt;&lt; 1 | 1].val);
+}
+
+
+void spread(int p, int l, int r)
+{
+    if (t[p].tag)
+    {
+        int mid = (l + r) &gt;&gt; 1;
+        t[p &lt;&lt; 1].tag = t[p].tag;
+        t[p &lt;&lt; 1 | 1].tag = t[p].tag;
+        t[p &lt;&lt; 1].val = make_vote(t[p].tag);
+        t[p &lt;&lt; 1].val.cnt[0] = mid - l + 1;
+        t[p &lt;&lt; 1 | 1].val = make_vote(t[p].tag);
+        t[p &lt;&lt; 1 | 1].val.cnt[0] = r - mid;
+        t[p].tag = 0;
+    }
+}
+
+void build(int p, int l, int r)
+{
+    if (l == r)
+    {
+        t[p].val = make_vote(isa[l]);
+        return ;
+    }
+    int mid = (l + r) &gt;&gt; 1;
+    build(p &lt;&lt; 1, l, mid);
+    build(p &lt;&lt; 1 | 1, mid + 1, r);
+    maintain(p);
+}
+
+void change(int p, int l, int r, int x, int y, int v)
+{
+    if (l &gt; y || r &lt; x)     return ;
+    if (l &gt;= x &amp;&amp; r &lt;= y)
+    {
+        t[p].tag = v;
+        t[p].val = make_vote(v);
+        t[p].val.cnt[0] = r - l + 1;
+        return ;
+    }
+    int mid = (l + r) &gt;&gt; 1;
+    spread(p, l, r);
+    if (mid &gt;= x)    change(p &lt;&lt; 1, l, mid, x, y, v);
+    if (mid &lt; y)    change(p &lt;&lt; 1 | 1, mid + 1, r, x, y, v);
+    maintain(p);
+}
+
+Major_Voting query(int p, int l, int r, int x, int y)
+{
+    if (l &gt; y || r &lt; x)     return make_vote(0);
+    if (l &gt;= x &amp;&amp; r &lt;= y)    return t[p].val;
+    int mid = (l + r) &gt;&gt; 1;
+    Major_Voting ret;
+    spread(p, l, r);
+    if (mid &gt;= x)    ret = merge(ret, query(p &lt;&lt; 1, l, mid, x, y));
+    if (mid &lt; y)    ret = merge(ret, query(p &lt;&lt; 1 | 1, mid + 1, r, x, y));
+    return ret;
+} // 以上板子
+
+signed main()
+{
+    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;p);
+    assert(p &gt;= 20 &amp;&amp; p &lt;= 100);
+    p = 100 / p;
+    for (int i = 1; i &lt;= n; ++i)    scanf(&quot;%d&quot;, &amp;isa[i]);
+    build(1, 1, n);
+    for (int i = 0, t, l, r, x; i &lt; m; ++i)
+    {
+        scanf(&quot;%d %d %d&quot;, &amp;t, &amp;l, &amp;r);
+        if (t == 1)
+        {
+            scanf(&quot;%d&quot;, &amp;x);
+            change(1, 1, n, l, r, x);
+        }
+        else
+        {
+            Major_Voting ans = query(1, 1, n, l, r);
+            printf(&quot;%d&quot;, p);
+            for (int i = 0; i &lt; p; ++i)     printf(&quot; %d&quot;, ans.major[i]); // 因为题目的特殊性，我们可以随便乱输出
+            putchar(&#39;\n&#39;);
+        }
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="60-P5071-Ynoi2015-此时此刻的光辉"><a href="#60-P5071-Ynoi2015-此时此刻的光辉" class="headerlink" title="60.P5071 [Ynoi2015]此时此刻的光辉"></a>60.P5071 [Ynoi2015]此时此刻的光辉</h1><p>珂朵莉给你了一个长为 $n$ 的序列，有 $m$ 次查询，每次查询一段区间的乘积的约数个数 $\bmod 19260817$ 的值。</p>
+<hr>
+<p>我们知道一个结论：</p>
+<p>若 $n=\Pi_{i=1}^kp_i^{a_i}$。</p>
+<p>则 $n$ 的约数个数为 $\Pi_{i=1}^k(a_i+1)$。</p>
+<p>知道这个结论之后，我们就有一个 自 然 而 然 的想法：</p>
+<p>用莫队维护每个质因数的出现次数和答案。</p>
+<p>每加入或删除一个质因数，就先乘上它之前出现的次数加一的逆元，然后把出现次数加上或减去一之后再乘。</p>
+<p>一算时间复杂度，每个数最多会有 $9$ 个质因数，那么序列中会有 $9\times 10^5$ 个数。莫队跑不过去。</p>
+<p>但我们发现：小的质因数很多。我们可以抓住这一点进行优化。</p>
+<p>由于只用知道每个质因数出现的次数就可以了。</p>
+<p>我们可以把这些小的质因数都筛出来，做个前缀和，每次询问都单独统计乘上去。</p>
+<p>这里我是把 $\sqrt{10^9}$ 以内的质数都筛出来了（用来筛其他的大的质因数），然后把前 $200$ 个的出现次数拿来做前缀和。</p>
+<p><del>之前人傻了写线段树卡了半天常</del></p>
+<p>代码：</p>
+<pre><code class="lang-cpp">#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#define lowbit(x) ((x)&amp;(-(x)))
+vector&lt;int&gt; p;
+int prime[100010],cntot,tag[100010];
+void search(int x)//线性筛质数 
+{
+    tag[1]=1;
+    for(int i=2;i&lt;=x;++i)
+    {
+        if(!tag[i])    prime[++cntot]=i;
+        for(int j=1;j&lt;=cntot&amp;&amp;prime[j]*i&lt;=x;++j)
+        {
+            tag[i*prime[j]]=1;
+            if(i%prime[j]==0)    break;
+        }
+    }
+}
+struct ask
+{
+    int l,r,ID,lyc,wgy;//lyc和wgy表示这个询问在原序列上的左右端点，用来之后查询小的质因数的出现个数 
+}as[100010];
+const int each=700,mod=19260817;
+int n,m,a[100010],cnt[100010][201],nodes[100010][201],ton[201],pri[200010],belong[200010],ans[100010],in[100010],out[100010],inv[200010],tot,opl,opr,nowl,nowr,app[200010],cur=1;
+bool cmp(ask one,ask ano)
+{
+    if(belong[one.l]^belong[ano.l])    return belong[one.l]&lt;belong[ano.l];
+    if(belong[one.l]&amp;1)    return one.r&lt;ano.r;//奇偶排序 
+    else    return one.r&gt;ano.r;
+}
+void read(int &amp;hhh)
+{
+    int x=0;
+    char c=getchar();
+    while((c&lt;&#39;0&#39;)|(c&gt;&#39;9&#39;)&amp;&amp;c^&#39;-&#39;)    c=getchar();
+    if(c^&#39;-&#39;)    x=c^&#39;0&#39;;
+    char d=getchar();
+    while((d&lt;=&#39;9&#39;)&amp;(d&gt;=&#39;0&#39;))
+    {
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+(d^&#39;0&#39;);
+        d=getchar();
+    }
+    if(c^&#39;-&#39;)    hhh=x;
+    else    hhh=-x;
+}
+void writing(int x)
+{
+    if(!x)    return;
+    writing(x/10);
+    putchar((x%10)+&#39;0&#39;);
+}
+void write(int x)
+{
+    if(x&lt;0)
+    {
+        putchar(&#39;-&#39;);
+        x=-x;
+    }
+    else if(!x)
+    {
+        putchar(&#39;0&#39;);
+        putchar(&#39;\n&#39;);
+        return;
+    }
+    writing(x);
+    putchar(&#39;\n&#39;);
+}
+int main()
+{
+    read(n);
+    read(m);
+    search(33000);
+    for(int i=1;i^201;++i)    ton[i]=prime[i];
+    for(int i=1;i&lt;=n;++i)
+    {
+        read(a[i]);
+        in[i]=tot+1;//in[],out[]记录每个原序列的元素质因数在新的序列中的开头结尾 
+        for(int j=1;j^201;++j)
+        {
+            while(a[i]%ton[j]==0)
+            {
+                a[i]/=ton[j];
+                ++cnt[i][j];
+            }
+        }
+        if(a[i]&gt;1)
+        {
+            for(int j=201;prime[j]*prime[j]&lt;=a[i];++j)//把大的质因数拿出来作为一个新的序列 
+            {
+                while(a[i]%prime[j]==0)
+                {
+                    a[i]/=prime[j];
+                    pri[++tot]=prime[j];
+                }
+            }
+            if(a[i]&gt;1)    pri[++tot]=a[i];
+        }
+        out[i]=tot;
+    }
+    inv[1]=1;
+    for(int i=2;i&lt;=tot;++i)    inv[i]=(((-(long long)(mod/i)*inv[mod%i])%mod)+mod)%mod;//线性处理逆元 
+    for(int i=1;i&lt;=tot;++i)
+    {
+        p.push_back(pri[i]);
+        belong[i]=(i-1)/each+1;
+    }
+    sort(p.begin(),p.end());
+    p.erase(unique(p.begin(),p.end()),p.end());
+    for(int i=1;i&lt;=tot;++i)    pri[i]=lower_bound(p.begin(),p.end(),pri[i])-p.begin()+1;
+    for(int i=1;i^201;++i)//对小的质因数做前缀和 
+    {
+        for(int j=1;j&lt;=n;++j)    nodes[j][i]=nodes[j-1][i]+cnt[j][i];
+    }
+    for(int i=1;i&lt;=m;++i)
+    {
+        read(opl);
+        read(opr);
+        as[i].l=in[opl];
+        as[i].r=out[opr];//莫队的询问左右端点，把原序列中查询区间的质因数全部覆盖掉。 
+        as[i].ID=i;
+        as[i].lyc=opl;
+        as[i].wgy=opr;
+    }
+    sort(as+1,as+1+m,cmp);
+    nowl=1;
+    for(int i=1;i&lt;=m;++i)
+    {
+        while(nowl&gt;as[i].l)
+        {
+            --nowl;
+            cur=((long long)cur*inv[app[pri[nowl]]+1])%mod;//先乘上以前的逆元，消除之前的答案贡献 
+            ++app[pri[nowl]];
+            cur=((long long)cur*(app[pri[nowl]]+1))%mod;//乘上现在的答案贡献 
+        }
+        while(nowr&lt;as[i].r)
+        {
+            ++nowr;
+            cur=((long long)cur*inv[app[pri[nowr]]+1])%mod;
+            ++app[pri[nowr]];
+            cur=((long long)cur*(app[pri[nowr]]+1))%mod;
+        }
+        while(nowl&lt;as[i].l)
+        {
+            cur=((long long)cur*inv[app[pri[nowl]]+1])%mod;
+            --app[pri[nowl]];
+            cur=((long long)cur*(app[pri[nowl]]+1))%mod;
+            ++nowl;
+        }
+        while(nowr&gt;as[i].r)
+        {
+            cur=((long long)cur*inv[app[pri[nowr]]+1])%mod;
+            --app[pri[nowr]];
+            cur=((long long)cur*(app[pri[nowr]]+1))%mod;
+            --nowr;
+        }
+        int tmp=cur;
+        for(int j=1;j^201;++j)    tmp=((long long)tmp*(nodes[as[i].wgy][j]-nodes[as[i].lyc-1][j]+1))%mod;//临时乘上小的质因数对答案的贡献 
+        ans[as[i].ID]=tmp;
+    }
+    for(int i=1;i&lt;=m;++i)    write(ans[i]);
+    return 0;
+}
+</code></pre>
+
+                      
         </div>
         <!-- .entry-content -->
         <!-- <div class="single-reward">
